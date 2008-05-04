@@ -1,0 +1,147 @@
+<?xml version = '1.0' encoding = 'UTF-8' ?>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' xmlns:UML2 = 'org.omg.xmi.namespace.UML2'
+  timestamp = 'Mon Dec 25 17:41:16 CET 2006'>
+  <XMI.header>
+    <XMI.documentation>
+      <XMI.exporter>Netbeans XMI Writer</XMI.exporter>
+      <XMI.exporterVersion>1.0</XMI.exporterVersion>
+    </XMI.documentation>
+  </XMI.header>
+  <XMI.content>
+    <UML:Model xmi.id = 'I1f08e98m102598fd46amm7f55' name = 'model 1' isSpecification = 'false'
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+      <UML:Namespace.ownedElement>
+        <UML:Class xmi.id = 'I1f08e98m102598fd46amm7f51' name = 'Class_1' visibility = 'public'
+          isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'
+          isActive = 'false'>
+          <UML2:BehavioredClassifier.ownedBehavior>
+            <UML2:StateMachine xmi.id = 'I1f08e98m102598fd46amm7f50' name = 'StateMachine_1'
+              isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'
+              isActive = 'false'>
+              <UML2:StateMachine.region>
+                <UML2:Region xmi.id = 'I1f08e98m102598fd46amm7f4f' name = 'region_generated_CompositeState'
+                  isSpecification = 'false'>
+                  <UML2:Region.subvertex>
+                    <UML2:Pseudostate xmi.id = 'I1f08e98m102598fd46amm7f4b' name = 'Start' visibility = 'public'
+                      isSpecification = 'false' kind = 'initial'>
+                      <UML2:Vertex.outgoing>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7f36'/>
+                      </UML2:Vertex.outgoing>
+                    </UML2:Pseudostate>
+                    <UML2:State xmi.id = 'I1f08e98m102598fd46amm7f46' name = 'Input1' visibility = 'public'
+                      isSpecification = 'false'>
+                      <UML2:Vertex.outgoing>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7f19'/>
+                        <UML2:Transition xmi.idref = 'I21a6e64fm109d1452c76mm7ea9'/>
+                      </UML2:Vertex.outgoing>
+                      <UML2:Vertex.incoming>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7f36'/>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7f10'/>
+                      </UML2:Vertex.incoming>
+                    </UML2:State>
+                    <UML2:FinalState xmi.id = 'I1f08e98m102598fd46amm7f3b' name = 'End' visibility = 'public'
+                      isSpecification = 'false'>
+                      <UML2:Vertex.incoming>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7f22'/>
+                      </UML2:Vertex.incoming>
+                    </UML2:FinalState>
+                    <UML2:State xmi.id = 'I1f08e98m102598fd46amm7f2d' name = 'Input2' visibility = 'public'
+                      isSpecification = 'false'>
+                      <UML2:Vertex.outgoing>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7f22'/>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7f10'/>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7ef3'/>
+                      </UML2:Vertex.outgoing>
+                      <UML2:Vertex.incoming>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7f19'/>
+                        <UML2:Transition xmi.idref = 'I1f08e98m102598fd46amm7ef3'/>
+                      </UML2:Vertex.incoming>
+                    </UML2:State>
+                    <UML2:State xmi.id = 'I21a6e64fm109d1452c76mm7ebe' name = 'Orthogonal_State_1'
+                      visibility = 'public' isSpecification = 'false'>
+                      <UML2:Vertex.incoming>
+                        <UML2:Transition xmi.idref = 'I21a6e64fm109d1452c76mm7ea9'/>
+                      </UML2:Vertex.incoming>
+                      <UML2:State.region>
+                        <UML2:Region xmi.id = 'I21a6e64fm109d1452c76mm7ebd' name = 'Region_1' visibility = 'public'
+                          isSpecification = 'false'/>
+                        <UML2:Region xmi.id = 'I21a6e64fm109d1452c76mm7ebc' name = 'Region_2' visibility = 'public'
+                          isSpecification = 'false'/>
+                      </UML2:State.region>
+                    </UML2:State>
+                    <UML2:State xmi.id = 'I21a6e64fm109d1452c76mm7e8f' name = 'Submachine_State_1'
+                      visibility = 'public' isSpecification = 'false'>
+                      <UML2:State.submachine>
+                        <UML2:StateMachine xmi.idref = 'I21a6e64fm109d1452c76mm7e94'/>
+                      </UML2:State.submachine>
+                    </UML2:State>
+                  </UML2:Region.subvertex>
+                  <UML2:Region.transition>
+                    <UML2:Transition xmi.id = 'I1f08e98m102598fd46amm7f36' name = 'start' isSpecification = 'false'>
+                      <UML2:Transition.source>
+                        <UML2:Pseudostate xmi.idref = 'I1f08e98m102598fd46amm7f4b'/>
+                      </UML2:Transition.source>
+                      <UML2:Transition.target>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f46'/>
+                      </UML2:Transition.target>
+                    </UML2:Transition>
+                    <UML2:Transition xmi.id = 'I1f08e98m102598fd46amm7f22' name = 'finish' isSpecification = 'false'>
+                      <UML2:Transition.source>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f2d'/>
+                      </UML2:Transition.source>
+                      <UML2:Transition.target>
+                        <UML2:FinalState xmi.idref = 'I1f08e98m102598fd46amm7f3b'/>
+                      </UML2:Transition.target>
+                    </UML2:Transition>
+                    <UML2:Transition xmi.id = 'I1f08e98m102598fd46amm7f19' name = 'forward'
+                      isSpecification = 'false'>
+                      <UML2:Transition.source>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f46'/>
+                      </UML2:Transition.source>
+                      <UML2:Transition.target>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f2d'/>
+                      </UML2:Transition.target>
+                    </UML2:Transition>
+                    <UML2:Transition xmi.id = 'I1f08e98m102598fd46amm7f10' name = 'back' isSpecification = 'false'>
+                      <UML2:Transition.source>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f2d'/>
+                      </UML2:Transition.source>
+                      <UML2:Transition.target>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f46'/>
+                      </UML2:Transition.target>
+                    </UML2:Transition>
+                    <UML2:Transition xmi.id = 'I1f08e98m102598fd46amm7ef3' name = 'check' isSpecification = 'false'>
+                      <UML2:Transition.source>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f2d'/>
+                      </UML2:Transition.source>
+                      <UML2:Transition.target>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f2d'/>
+                      </UML2:Transition.target>
+                    </UML2:Transition>
+                    <UML2:Transition xmi.id = 'I21a6e64fm109d1452c76mm7ea9' visibility = 'public'
+                      isSpecification = 'false' kind = 'external'>
+                      <UML2:Transition.source>
+                        <UML2:State xmi.idref = 'I1f08e98m102598fd46amm7f46'/>
+                      </UML2:Transition.source>
+                      <UML2:Transition.target>
+                        <UML2:State xmi.idref = 'I21a6e64fm109d1452c76mm7ebe'/>
+                      </UML2:Transition.target>
+                    </UML2:Transition>
+                  </UML2:Region.transition>
+                </UML2:Region>
+              </UML2:StateMachine.region>
+            </UML2:StateMachine>
+            <UML2:StateMachine xmi.id = 'I21a6e64fm109d1452c76mm7e94' name = 'State_Machine_1'
+              visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false' isActive = 'false'>
+              <UML2:StateMachine.region>
+                <UML2:Region xmi.id = 'I21a6e64fm109d1452c76mm7e93' name = 'Region_3' visibility = 'public'
+                  isSpecification = 'false'/>
+              </UML2:StateMachine.region>
+            </UML2:StateMachine>
+          </UML2:BehavioredClassifier.ownedBehavior>
+        </UML:Class>
+      </UML:Namespace.ownedElement>
+    </UML:Model>
+  </XMI.content>
+</XMI>
