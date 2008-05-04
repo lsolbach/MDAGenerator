@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="unittest"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="templates"/>
+	<classpathentry kind="lib" path="lib/dev/ant.jar"/>
+	<classpathentry kind="lib" path="lib/dev/fitlibrary.jar"/>
+	<classpathentry kind="lib" path="lib/dev/fitnesse.jar"/>
+	<classpathentry kind="lib" path="lib/dev/junit.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/jakarta-oro.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/castor-xml.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/ModelRepository.jar" sourcepath="/umlgen/src"/>
+	<classpathentry kind="lib" path="lib/runtime/TemplateEngine.jar" sourcepath="/TemplateEngine/src"/>
+	<classpathentry kind="lib" path="lib/runtime/commons-logging.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
