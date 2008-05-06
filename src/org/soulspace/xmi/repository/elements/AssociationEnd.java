@@ -14,7 +14,6 @@ import java.util.List;
 public class AssociationEnd extends Classifier implements IAssociationEnd {
 
   private boolean navigable;
-  private String role;
   private String methodSuffix;
   private IClassifier type;
   private String visibility;
@@ -25,6 +24,7 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
   private List<IAttribute> qualifiers = new ArrayList<IAttribute>();
   private IMultiplicity multiplicity;
   private IAssociation association;
+  private IAssociationEnd sourceEnd;
   private boolean derived = false;
   
   /**
@@ -32,20 +32,6 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
    */
   public AssociationEnd() {
     super();
-  }
-  
-  /* (non-Javadoc)
-   * @see org.soulspace.xmi.uml.IAssociationEnd#getRole()
-   */
-  public String getRole() {
-    return role;
-  }
-
-  /**
-   * @param role The role to set.
-   */
-  public void setRole(String role) {
-    this.role = role;
   }
   
   /* (non-Javadoc)
@@ -179,6 +165,14 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
     this.multiplicity = multiplicity;
   }
 
+	public IAssociationEnd getSourceEnd() {
+		return sourceEnd;
+	}
+
+	public void setSourceEnd(IAssociationEnd sourceEnd) {
+		this.sourceEnd = sourceEnd;
+	}
+	
   /*
    *  (non-Javadoc)
    * @see org.soulspace.xmi.repository.elements.IAssociationEnd#getAssociation()
@@ -237,7 +231,6 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
 				+ ((multiplicity == null) ? 0 : multiplicity.hashCode());
 		result = prime * result + (navigable ? 1231 : 1237);
 		result = prime * result + ((ordering == null) ? 0 : ordering.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result
 				+ ((targetScope == null) ? 0 : targetScope.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
@@ -287,11 +280,6 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
 				return false;
 		} else if (!ordering.equals(other.ordering))
 			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
-			return false;
 		if (targetScope == null) {
 			if (other.targetScope != null)
 				return false;
@@ -309,5 +297,5 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
 			return false;
 		return true;
 	}
-	
+
 }

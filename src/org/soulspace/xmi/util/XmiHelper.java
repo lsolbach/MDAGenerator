@@ -16,23 +16,31 @@ public class XmiHelper {
    * @return
    */
   public static String appendNamespace(String base, String ext) {
-    if(!isSet(base)) {
-      if(!isSet(ext)) {
+  	String name = getName(ext);
+  	if(!isSet(base)) {
+      if(!isSet(name)) {
         return "";
       } else {
-        return ext;        
+        return name;        
       }
     } else {
       StringBuffer sb = new StringBuffer(32);
       sb.append(base);
-      if(isSet(ext)) {
+      if(isSet(name)) {
         sb.append(".");
-        sb.append(ext);
+        sb.append(name);
       }
       return sb.toString(); 
     }
   }
 
+  static String getName(String s) {
+  	if(isSet(s) && s.startsWith("/")) {
+  		return s.substring(1);
+  	}
+  	return s;
+  }
+  
   /**
    * Test if a String is set, that is not null and not empty.
    * @param string 

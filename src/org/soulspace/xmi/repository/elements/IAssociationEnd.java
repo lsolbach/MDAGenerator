@@ -12,7 +12,6 @@ import java.util.List;
  */
 public interface IAssociationEnd extends IClassifier {
 
-  String getRole();
   IClassifier getType();
   boolean isNavigable();
   boolean isDerived();
@@ -24,6 +23,7 @@ public interface IAssociationEnd extends IClassifier {
   String getVisibility();
   
   IMultiplicity getMultiplicity();
+  IAssociationEnd getSourceEnd();
   IAssociation getAssociation();
   List<IAttribute> getQualifiers();
   

@@ -298,12 +298,22 @@ public class ModelFactory implements IModelFactory {
     	return null;
     }
     
-    a.setName(xmiAttribute.getName());
+    String name = xmiAttribute.getName();
+    if(name.startsWith("/")) {
+      a.setName(name.substring(1));
+      a.setMethodSuffix(a.getName().substring(0, 1).toUpperCase()
+          + a.getName().substring(1));
+      a.setDerived(true);
+    } else {
+      a.setName(name);
+      a.setMethodSuffix(a.getName().substring(0, 1).toUpperCase()
+          + a.getName().substring(1));
+      a.setDerived(false);
+    }    	
+
     a.setId(xmiAttribute.getXmi_id());
     a.setNamespace(xmiAttribute.getNamespace());
     a.setQualifiedName(xmiAttribute.getQualifiedName());
-    a.setMethodSuffix(a.getName().substring(0, 1).toUpperCase()
-        + a.getName().substring(1));
 
     a.setVisibility(xmiAttribute.getVisibility().toString());
     a.setChangeability(xmiAttribute.getChangeability().toString());
@@ -466,10 +476,31 @@ public class ModelFactory implements IModelFactory {
     AssociationEnd ae = new AssociationEnd();
     IClassifier c = null;
 
-    ae.setName(xmiAssociationEnd.getName());
+    if(XmiHelper.isSet(xmiAssociationEnd.getName())) {
+    	if(xmiAssociationEnd.getName().startsWith("/")) {
+    		ae.setName(xmiAssociationEnd.getName().substring(1));
+        ae.setMethodSuffix(ae.getName().substring(0, 1).toUpperCase()
+            + ae.getName().substring(1));
+    		ae.setDerived(true);
+    	} else if(xmiAssociationEnd.getName() != null) {
+    		ae.setName(xmiAssociationEnd.getName());
+        ae.setMethodSuffix(ae.getName().substring(0, 1).toUpperCase()
+            + ae.getName().substring(1));
+    		ae.setDerived(false);
+    	}
+    } else {
+    	ae.setName("");
+    	ae.setMethodSuffix("");
+    }
     ae.setId(xmiAssociationEnd.getXmi_id());
     ae.setNamespace(xmiAssociationEnd.getNamespace());
     ae.setQualifiedName(xmiAssociationEnd.getQualifiedName());
+    ae.setNavigable(xmiAssociationEnd.getIsNavigable());
+    ae.setAggregation(xmiAssociationEnd.getAggregation().toString());
+    ae.setChangeability(xmiAssociationEnd.getChangeability().toString());
+    ae.setOrdering(xmiAssociationEnd.getOrdering().toString());
+    ae.setTargetScope(xmiAssociationEnd.getTargetScope().toString());
+    ae.setVisibility(xmiAssociationEnd.getVisibility().toString());    
     
     Enumeration e1 = xmiAssociationEnd.enumerateAssociationEndItem();
     while (e1.hasMoreElements()) {
@@ -512,7 +543,7 @@ public class ModelFactory implements IModelFactory {
       	while (e.hasMoreElements()) {
 					AssociationEnd_qualifierItem qI = (AssociationEnd_qualifierItem) e.nextElement();
 					if(qI.getAttribute() != null) {
-						System.out.println("Qualifier for " + ae.getName() + " found");
+						System.out.println("Qualifier for " + ae.getId() + " found");
 						IAttribute a = createAttribute(qI.getAttribute());
 						System.out.println("Qualifier name " + a.getName());
 						ae.addQualifier(a);
@@ -527,27 +558,6 @@ public class ModelFactory implements IModelFactory {
         addStereotypes(ae, aeI.getModelElement_stereotype());
       }
     }
-
-    if(XmiHelper.isSet(xmiAssociationEnd.getName())) {
-      ae.setRole(xmiAssociationEnd.getName());
-      ae.setMethodSuffix(ae.getRole().substring(0, 1).toUpperCase()
-        + ae.getRole().substring(1));
-    } else {
-    	if(xmiAssociationEnd.getIsNavigable()) {
-    		System.out.println("INFO: No role name for navigable association end with id " + ae.getId()); // + ", defined on type " + c.getQualifiedName()
-    	}
-      ae.setRole("");
-      ae.setMethodSuffix("");      
-//      ae.setRole("ROLE_NOT_SET");
-//      ae.setMethodSuffix("ROLE_NOT_SET");      
-    }
-    ae.setNavigable(xmiAssociationEnd.getIsNavigable());
-    ae.setAggregation(xmiAssociationEnd.getAggregation().toString());
-    ae.setChangeability(xmiAssociationEnd.getChangeability().toString());
-    ae.setOrdering(xmiAssociationEnd.getOrdering().toString());
-    ae.setTargetScope(xmiAssociationEnd.getTargetScope().toString());
-    ae.setVisibility(xmiAssociationEnd.getVisibility().toString());
-    
     return ae;
   }
 
@@ -1202,11 +1212,17 @@ public class ModelFactory implements IModelFactory {
 
     if(fromEnd != null && fromEnd.getType() != null
         && toEnd != null && toEnd.getType() != null) {
-      // FIXME add other types (UseCase, Actor, ...)
+    	// set ends on association
+    	a.setFromEnd(fromEnd);
+      a.setToEnd(toEnd);
+
+      // set references to each other
+    	((AssociationEnd) fromEnd).setSourceEnd(toEnd);
+    	((AssociationEnd) toEnd).setSourceEnd(fromEnd);
+
+    	// FIXME add other types (UseCase, Actor, ...)
       ((Class) fromEnd.getType()).addAssociation(toEnd);
       ((Class) toEnd.getType()).addAssociation(fromEnd);
-      a.setFromEnd(fromEnd);
-      a.setToEnd(toEnd);
     }
     Package p = (Package) repository.lookupPackageByQualifiedName(a.getNamespace());
     if (p != null) {
