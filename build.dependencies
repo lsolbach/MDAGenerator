@@ -12,7 +12,7 @@
 		</package>
 	</dependency>
 	<dependency type="runtime">
-		<package name="TemplateEngine" version="0.9.8" type="project">
+		<package name="TemplateEngine" version="0.9.10" type="project">
 			<module name="TemplateEngine"/>
 		</package>
 		<package name="ModelRepository" version="0.9.8" type="project">

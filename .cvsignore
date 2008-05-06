@@ -3,6 +3,5 @@ build
 generated
 dist
 lib
-
 .checkstyle
 backup
