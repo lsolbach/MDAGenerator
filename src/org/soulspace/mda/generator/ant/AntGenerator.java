@@ -279,6 +279,8 @@ public abstract class AntGenerator {
     			generate = true;    			
     		}
   		}
+  	} else {
+  		generate = true;
   	}
   	return generate;
   }
