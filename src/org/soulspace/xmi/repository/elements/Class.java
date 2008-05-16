@@ -210,7 +210,9 @@ public class Class extends Classifier implements IClass {
     i = getAssociations().iterator();
     while (i.hasNext()) {
       IAssociationEnd ae = (IAssociationEnd) i.next();
-      if(ae.getType() != null &&!ae.getType().getNamespace().startsWith("java.lang")) {
+      if(ae.isNavigable()
+      		&& ae.getType() != null
+      		&& !ae.getType().getNamespace().startsWith("java.lang")) {
     	  referencedTypes.add(ae.getType());    		      	  	
     	  if(Integer.parseInt(ae.getMultiplicity().getHigh()) > 1) {
     	  	// TODO: Add java.util.Collection as type?
