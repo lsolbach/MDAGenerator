@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="lib/runtime/ModelRepository.jar" sourcepath="/umlgen/src"/>
 	<classpathentry kind="lib" path="lib/runtime/TemplateEngine.jar" sourcepath="/TemplateEngine/src"/>
 	<classpathentry kind="lib" path="lib/runtime/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/JavaUtilLibrary.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

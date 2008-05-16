@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,8 +22,8 @@ import org.soulspace.template.datasource.impl.BeanDataSource;
 import org.soulspace.template.impl.TemplateEngineImpl;
 import org.soulspace.template.util.RegExHelper;
 import org.soulspace.template.util.StringHelper;
+import org.soulspace.util.CollectionUtils;
 import org.soulspace.xmi.repository.elements.IClassifier;
-import org.soulspace.xmi.repository.elements.Stereotype;
 
 /**
  * @author soulman
@@ -196,6 +197,22 @@ public abstract class AntGenerator {
     genContext.setPrefix(prefix);
   }
 
+  
+  public void setNamespaceIncludes(String namespaceIncludes) {
+  	String[] nsIncludes = namespaceIncludes.split(",");
+  	genContext.setNamespaceIncludes(CollectionUtils.asArrayList(nsIncludes));
+  }
+  
+  public void setNamespaceExcludes(String namespaceExcludes) {
+  	String[] nsExcludes = namespaceExcludes.split(",");
+  	genContext.setNamespaceExcludes(CollectionUtils.asArrayList(nsExcludes));  	
+  }
+  
+  public void addConfiguredParam(Param param) {
+  	genContext.addParam(param);
+  	System.out.println("Adding symbol " + param.getName() + ", value " + param.getValue());;
+  }
+  
   /**
    * @return Returns the TemplateEngine.
    */
@@ -248,23 +265,46 @@ public abstract class AntGenerator {
     dataSource = ds;
   }
 
-  boolean neededForClassifier(IClassifier classifier) {
-  	// FIXME should the stereotypes be configurable?
-  	if (classifier.getStereotypes().contains("external") || classifier.getNamespace().startsWith("java")) {
-      return false;
+  boolean generateForStereotype(IClassifier classifier) {
+  	boolean generate = false;
+  	
+  	if (classifier.getStereotypes().contains("external")) {
+      generate = false;
     }
+  	
   	if(isSet(genContext.getStereotype())) {
   		String[] incStereotypes = genContext.getStereotype().split(",");
     	for (String incStereotype : incStereotypes) {
     		if(classifier.getStereotypeMap().containsKey(incStereotype)) {
-    			return true;    			
+    			generate = true;    			
     		}
   		}
-    	return false;
-  	} else {
-  		return true;
   	}
-  	
+  	return generate;
+  }
+  
+  boolean generateForNamespace(IClassifier classifier) {
+  	boolean generate = false;
+  	if(genContext.getNamespaceIncludes().size() == 0
+  			&& genContext.getNamespaceExcludes().size() == 0
+  			&& !classifier.getNamespace().startsWith("java")) {
+  		generate = true;
+  	}
+  	if(genContext.getNamespaceIncludes().size() > 0) {
+  		for(String namespace : genContext.getNamespaceIncludes()) {
+  			if(classifier.getNamespace().startsWith(namespace)) {
+  				generate = true;
+  			}
+  		}
+  	}
+  	if(genContext.getNamespaceExcludes().size() > 0) {
+  		for(String namespace : genContext.getNamespaceExcludes()) {
+  			if(classifier.getNamespace().startsWith(namespace)) {
+  				generate = false;
+  			}
+  		}
+  	}
+  	return generate;
   }
   
   /**
@@ -273,28 +313,30 @@ public abstract class AntGenerator {
    * @param classifier
    */
   public void generate(MdaGeneratorTask gt, IClassifier classifier) {
-    if(neededForClassifier(classifier)) {
-      String output;
-      Map<String, String> userSections = null;
-      File templateDir = gt.getTemplateDir();
-      dataSource = gt.getDataSource();
-  
-      engine = getEngine(templateDir);
-  
-      // TODO fix exception handling?
-      try {
-        userSections = readUserSections(getPath(gt, classifier, true));
-        BeanDataSource myDS = new BeanDataSource(classifier);
-        myDS.add("GenContext", genContext);
-        myDS.add("USERSECTIONS", userSections);
+  	if(!generateForNamespace(classifier) || !generateForStereotype(classifier)) {
+  		// no generation needed
+  		return;
+  	}
+    String output;
+    Map<String, String> userSections = null;
+    File templateDir = gt.getTemplateDir();
+    dataSource = gt.getDataSource();
 
-        output = engine.generate(myDS);
-        createPackagePath(gt, classifier);
-        writeFile(getPath(gt, classifier, false), output);
-      } catch (Exception e1) {
-        System.out.println("Exception while processing template " + genContext.getName() + "!");
-        e1.printStackTrace();
-      }
+    engine = getEngine(templateDir);
+
+    // TODO fix exception handling?
+    try {
+      userSections = readUserSections(getPath(gt, classifier, true));
+      BeanDataSource myDS = new BeanDataSource(classifier);
+      myDS.add("GenContext", genContext);
+      myDS.add("USERSECTIONS", userSections);
+
+      output = engine.generate(myDS);
+      createPackagePath(gt, classifier);
+      writeFile(getPath(gt, classifier, false), output);
+    } catch (Exception e1) {
+      System.out.println("Exception while processing template " + genContext.getName() + "!");
+      e1.printStackTrace();
     }
   }
 
@@ -311,6 +353,9 @@ public abstract class AntGenerator {
     StringBuilder sb = new StringBuilder();
     if (gt.getDestDir() != null) {
       sb.append(gt.getDestDir().getAbsolutePath() + File.separator);
+    }
+    if(genContext.getSubdir() != null) {
+    	sb.append(genContext.getSubdir() + File.separatorChar);
     }
     
     if(StringHelper.isSet(genContext.getNamespaceReplacement())) {
@@ -387,7 +432,10 @@ public abstract class AntGenerator {
     		sb.append(gt.getBackupDir().getAbsolutePath() + File.separator);
     	}    	
     }
-    
+    if(genContext.getSubdir() != null) {
+    	sb.append(genContext.getSubdir() + File.separatorChar);
+    }
+
     if(StringHelper.isSet(genContext.getNamespaceReplacement())) {
       sb.append(genContext.getNamespaceReplacement().replace('.', File.separatorChar) + File.separatorChar);    	
     } else {
@@ -451,7 +499,7 @@ public abstract class AntGenerator {
     try {
       StringBuffer sb = null;
       while ((line = in.readLine()) != null) {
-        // TODO match user section
+        // match user section
         if ((result = RegExHelper.match(line, "^.*USER-BEGIN\\((.*)\\)$")) != null) {
           name = result.group(1);
           sb = new StringBuffer(64);
@@ -477,8 +525,4 @@ public abstract class AntGenerator {
     return true;
   }
   
-  protected void execute() throws BuildException {
-    
-  }
-
 }

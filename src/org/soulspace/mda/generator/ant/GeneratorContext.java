@@ -1,6 +1,10 @@
 package org.soulspace.mda.generator.ant;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GeneratorContext {
 
@@ -20,12 +24,20 @@ public class GeneratorContext {
 
   private String stereotype = "";
 
+  private String subdir = "";
+
   private String namespaceReplacement = "";
 
   private String namespacePrefix = "";
 
   private String namespaceSuffix = "";
 
+  private List<String> namespaceIncludes = new ArrayList<String>();
+  
+  private List<String> namespaceExcludes = new ArrayList<String>();
+  
+  private Map<String, String> paramMap = new HashMap<String, String>();
+  
   /**
    * @return Returns the name.
    */
@@ -118,6 +130,20 @@ public class GeneratorContext {
   }
   
   /**
+	 * @return the subdir
+	 */
+	public String getSubdir() {
+		return subdir;
+	}
+
+	/**
+	 * @param subdir the subdir to set
+	 */
+	public void setSubdir(String subdir) {
+		this.subdir = subdir;
+	}
+
+	/**
    * @return Returns the namespaceReplacement.
    */
   public String getNamespaceReplacement() {
@@ -180,5 +206,50 @@ public class GeneratorContext {
 		return timestamp.toString();
 	}
 
+	/**
+	 * @return the symbols
+	 */
+	public Map<String, String> getParamMap() {
+		return paramMap;
+	}
+
+	/**
+	 * @param symbols the symbols to set
+	 */
+	public void setParamMap(Map<String, String> paramMap) {
+		this.paramMap = paramMap;
+	}
+
+	public void addParam(Param param) {
+		paramMap.put(param.getName(), param.getValue());
+	}
+
+	/**
+	 * @return the namespaceIncludes
+	 */
+	public List<String> getNamespaceIncludes() {
+		return namespaceIncludes;
+	}
+
+	/**
+	 * @param namespaceIncludes the namespaceIncludes to set
+	 */
+	public void setNamespaceIncludes(List<String> namespaceIncludes) {
+		this.namespaceIncludes = namespaceIncludes;
+	}
+
+	/**
+	 * @return the namespaceExcludes
+	 */
+	public List<String> getNamespaceExcludes() {
+		return namespaceExcludes;
+	}
+
+	/**
+	 * @param namespaceExcludes the namespaceExcludes to set
+	 */
+	public void setNamespaceExcludes(List<String> namespaceExcludes) {
+		this.namespaceExcludes = namespaceExcludes;
+	}
 
 }
