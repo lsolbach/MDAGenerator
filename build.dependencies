@@ -12,11 +12,17 @@
 		</package>
 	</dependency>
 	<dependency type="runtime">
-		<package name="TemplateEngine" version="0.9.10" type="project">
+		<package name="TemplateEngine" version="0.9.12" type="project">
 			<module name="TemplateEngine"/>
 		</package>
-		<package name="ModelRepository" version="0.9.8" type="project">
+		<package name="XmiRepository" version="0.9.10" type="project">
+			<module name="XmiRepository"/>
+		</package>
+		<package name="ModelRepository" version="0.9.11" type="project">
 			<module name="ModelRepository"/>
+		</package>
+		<package name="DomainMetaModel" version="0.1.0" type="project">
+			<module name="DomainMetaModel"/>
 		</package>
 		<package name="JavaUtilLibrary" version="0.1.0" type="project">
 			<module name="JavaUtilLibrary"/>
