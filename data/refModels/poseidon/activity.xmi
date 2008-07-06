@@ -1,0 +1,731 @@
+<?xml version = '1.0' encoding = 'UTF-8' ?>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' xmlns:UML2 = 'org.omg.xmi.namespace.UML2'
+  timestamp = 'Mon Dec 25 17:38:55 CET 2006'>
+  <XMI.header>
+    <XMI.documentation>
+      <XMI.exporter>Netbeans XMI Writer</XMI.exporter>
+      <XMI.exporterVersion>1.0</XMI.exporterVersion>
+    </XMI.documentation>
+  </XMI.header>
+  <XMI.content>
+    <UML:Model xmi.id = 'I5a8817f1m109d4e02271mm7f52' name = 'model 1' isSpecification = 'false'
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+      <UML:Namespace.ownedElement>
+        <UML:Collaboration xmi.id = 'I5a8817f1m109d4e02271mm7f4a' name = 'Collaboration_1'
+          visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'>
+          <UML2:BehavioredClassifier.ownedBehavior>
+            <UML2:Activity xmi.id = 'I5a8817f1m109d4e02271mm7f49' name = 'Activity_1'
+              visibility = 'public' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false' isActive = 'false' isReadOnly = 'false' isSingleExecution = 'false'>
+              <UML:Namespace.ownedElement>
+                <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7ae8' name = ''
+                  visibility = 'public' isSpecification = 'false' body = '5' language = 'java'/>
+              </UML:Namespace.ownedElement>
+              <UML2:Activity.edge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7f37' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7f3c'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:InitialNode xmi.idref = 'I5a8817f1m109d4e02271mm7f41'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7f1b' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7f22'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7f3c'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7eff' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7f06'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7f22'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7ee5' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.guard>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7e87' name = ''
+                      visibility = 'public' isSpecification = 'false' body = 'Zusagen &lt; 50%'
+                      language = 'java'/>
+                  </UML2:ActivityEdge.guard>
+                  <UML2:ActivityEdge.target>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7f3c'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7eea'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7ed0' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7eea'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7f06'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7eb4' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.guard>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7e90' name = ''
+                      visibility = 'public' isSpecification = 'false' body = 'Zusagen &gt;= 50%'
+                      language = 'java'/>
+                  </UML2:ActivityEdge.guard>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7ebb'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7eea'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7e79' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:ForkNode xmi.idref = 'I5a8817f1m109d4e02271mm7e7e'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7ebb'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7e5d' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7e64'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:ForkNode xmi.idref = 'I5a8817f1m109d4e02271mm7e7e'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7e41' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7e48'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:ForkNode xmi.idref = 'I5a8817f1m109d4e02271mm7e7e'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7e26' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:JoinNode xmi.idref = 'I5a8817f1m109d4e02271mm7e2c'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7e64'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7df7' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7e0f'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7e48'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7de2' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.guard>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7d79' name = ''
+                      visibility = 'public' isSpecification = 'false' body = 'Essen verbrannt'
+                      language = 'java'/>
+                  </UML2:ActivityEdge.guard>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7e0a'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7e0f'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7dcd' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7e03'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7e0a'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7db8' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7dfc'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7e03'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7da3' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.guard>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7d6c' name = ''
+                      visibility = 'public' isSpecification = 'false' body = 'Essen genießbar'
+                      language = 'java'/>
+                  </UML2:ActivityEdge.guard>
+                  <UML2:ActivityEdge.target>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7dfc'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7e0f'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7d8e' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:JoinNode xmi.idref = 'I5a8817f1m109d4e02271mm7e2c'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7dfc'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7d44' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7d57'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7d63'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7d2f' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7d5c'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:JoinNode xmi.idref = 'I5a8817f1m109d4e02271mm7e2c'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7d1a' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7d63'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7d5c'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7d05' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7d50'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7d57'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7cf0' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.guard>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7b40' name = ''
+                      visibility = 'public' isSpecification = 'false' body = '&gt;= 10%' language = 'java'/>
+                  </UML2:ActivityEdge.guard>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7d4b'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7d50'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7cd4' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.guard>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7b49' name = ''
+                      visibility = 'public' isSpecification = 'false' body = '&lt; 10%' language = 'java'/>
+                  </UML2:ActivityEdge.guard>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7cdb'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7d50'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7cba' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7cbf'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7cdb'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7c99' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:ActivityFinalNode xmi.idref = 'I5a8817f1m109d4e02271mm7c9e'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7ca5'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7c7f' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7c84'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7d4b'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7c5e' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.guard>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7b2a' name = ''
+                      visibility = 'public' isSpecification = 'false' body = 'keine Vorräte' language = 'java'/>
+                  </UML2:ActivityEdge.guard>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7c6a'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7c84'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7c49' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.guard>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7b37' name = ''
+                      visibility = 'public' isSpecification = 'false' body = 'Vorräte vorhanden'
+                      language = 'java'/>
+                  </UML2:ActivityEdge.guard>
+                  <UML2:ActivityEdge.target>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7c63'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:DecisionNode xmi.idref = 'I5a8817f1m109d4e02271mm7c84'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7c34' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7c63'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7c6a'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7c18' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7c1f'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7c63'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7bf0' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:FlowFinalNode xmi.idref = 'I5a8817f1m109d4e02271mm7bf5'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7bfc'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7bd6' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:ForkNode xmi.idref = 'I5a8817f1m109d4e02271mm7bdb'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7c1f'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7bc1' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7c03'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:ForkNode xmi.idref = 'I5a8817f1m109d4e02271mm7bdb'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7b96' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7d5c'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:ForkNode xmi.idref = 'I5a8817f1m109d4e02271mm7bdb'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7b7a' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7ca5'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7cbf'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7b5e' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:MergeNode xmi.idref = 'I5a8817f1m109d4e02271mm7cbf'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7b65'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7afd' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.weight>
+                    <UML2:OpaqueExpression xmi.idref = 'I5a8817f1m109d4e02271mm7ae8'/>
+                  </UML2:ActivityEdge.weight>
+                  <UML2:ActivityEdge.target>
+                    <UML2:InputPin xmi.idref = 'I5a8817f1m109d4e02271mm7b09'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:OutputPin xmi.idref = 'I5a8817f1m109d4e02271mm7b15'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+                <UML2:ActivityEdge xmi.id = 'I5a8817f1m109d4e02271mm7add' visibility = 'public'
+                  isSpecification = 'false'>
+                  <UML2:ActivityEdge.target>
+                    <UML2:CallAction xmi.idref = 'I5a8817f1m109d4e02271mm7b65'/>
+                  </UML2:ActivityEdge.target>
+                  <UML2:ActivityEdge.source>
+                    <UML2:AcceptEventAction xmi.idref = 'I5a8817f1m109d4e02271mm7b81'/>
+                  </UML2:ActivityEdge.source>
+                </UML2:ActivityEdge>
+              </UML2:Activity.edge>
+              <UML2:Activity.node>
+                <UML2:InitialNode xmi.id = 'I5a8817f1m109d4e02271mm7f41' name = 'Start'
+                  visibility = 'public' isSpecification = 'true'>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7f37'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:InitialNode>
+                <UML2:DecisionNode xmi.id = 'I5a8817f1m109d4e02271mm7f3c' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7f37'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7ee5'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7f1b'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:DecisionNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7f22' name = 'Zeitpunkt wählen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7f1b'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7eff'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7f06' name = 'Gäste einladen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7eff'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7ed0'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:DecisionNode xmi.id = 'I5a8817f1m109d4e02271mm7eea' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7ed0'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7ee5'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7eb4'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:DecisionNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7ebb' name = 'Einkaufen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7eb4'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7e79'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:ForkNode xmi.id = 'I5a8817f1m109d4e02271mm7e7e' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7e79'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7e5d'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7e41'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:ForkNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7e64' name = 'Getränke kaltstellen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7e5d'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7e26'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7e48' name = 'Essen kochen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7e41'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7df7'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:JoinNode xmi.id = 'I5a8817f1m109d4e02271mm7e2c' name = '' visibility = 'public'
+                  isSpecification = 'true' isCombinedDuplicate = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7e26'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d8e'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d2f'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                  <UML2:JoinNode.joinSpec>
+                    <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7e2b' name = ''
+                      visibility = 'public' isSpecification = 'true' body = 'and' language = 'java'/>
+                  </UML2:JoinNode.joinSpec>
+                </UML2:JoinNode>
+                <UML2:DecisionNode xmi.id = 'I5a8817f1m109d4e02271mm7e0f' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7df7'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7de2'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7da3'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:DecisionNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7e0a' name = 'Essen wegwerfen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7de2'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7dcd'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7e03' name = 'Partyservice bestellen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7dcd'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7db8'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:MergeNode xmi.id = 'I5a8817f1m109d4e02271mm7dfc' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7db8'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7da3'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d8e'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:MergeNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7d63' name = 'Feiern'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d1a'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d44'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:MergeNode xmi.id = 'I5a8817f1m109d4e02271mm7d5c' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d2f'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7b96'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d1a'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:MergeNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7d57' name = 'Gäste zählen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d44'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d05'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:DecisionNode xmi.id = 'I5a8817f1m109d4e02271mm7d50' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7d05'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7cf0'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7cd4'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:DecisionNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7d4b' name = 'Vorräte prüfen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7cf0'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c7f'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7cdb' name = 'Party beenden'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7cd4'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7cba'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:MergeNode xmi.id = 'I5a8817f1m109d4e02271mm7cbf' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7cba'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7b5e'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7b7a'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:MergeNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7ca5' name = 'In Bett gehen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7b7a'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c99'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:ActivityFinalNode xmi.id = 'I5a8817f1m109d4e02271mm7c9e' name = 'Ende'
+                  visibility = 'public' isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c99'/>
+                  </UML2:ActivityNode.incomingEdge>
+                </UML2:ActivityFinalNode>
+                <UML2:DecisionNode xmi.id = 'I5a8817f1m109d4e02271mm7c84' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c7f'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c5e'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c49'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:DecisionNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7c6a' name = 'Bei Tankstelle kaufen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c5e'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c34'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:MergeNode xmi.id = 'I5a8817f1m109d4e02271mm7c63' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c49'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c34'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c18'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:MergeNode>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7c1f' name = 'Nahrung vertilgen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7c18'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7bd6'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7c03' name = 'Reste wegwerfen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7bc1'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:Action.output>
+                    <UML2:OutputPin xmi.id = 'I5a8817f1m109d4e02271mm7b15' name = 'Output_Pin_2'
+                      visibility = 'public' isSpecification = 'false' isControlType = 'false'
+                      ordering = 'FIFO' isOrdered = 'false' isUnique = 'true' upper = '1' lower = '1'
+                      isControl = 'false'>
+                      <UML2:ActivityNode.outgoingEdge>
+                        <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7afd'/>
+                      </UML2:ActivityNode.outgoingEdge>
+                      <UML2:ObjectNode.upperBound>
+                        <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7b10' name = ''
+                          visibility = 'public' isSpecification = 'true' body = '' language = 'java'/>
+                      </UML2:ObjectNode.upperBound>
+                    </UML2:OutputPin>
+                  </UML2:Action.output>
+                </UML2:CallAction>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7bfc' name = 'Müll rausbringen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7bf0'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                  <UML2:Action.input>
+                    <UML2:InputPin xmi.id = 'I5a8817f1m109d4e02271mm7b09' name = 'Input_Pin_2'
+                      visibility = 'public' isSpecification = 'false' isControlType = 'false'
+                      ordering = 'FIFO' isOrdered = 'false' isUnique = 'true' upper = '1' lower = '1'
+                      isControl = 'false'>
+                      <UML2:ActivityNode.incomingEdge>
+                        <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7afd'/>
+                      </UML2:ActivityNode.incomingEdge>
+                      <UML2:ObjectNode.upperBound>
+                        <UML2:OpaqueExpression xmi.id = 'I5a8817f1m109d4e02271mm7b04' name = ''
+                          visibility = 'public' isSpecification = 'true' body = '' language = 'java'/>
+                      </UML2:ObjectNode.upperBound>
+                    </UML2:InputPin>
+                  </UML2:Action.input>
+                </UML2:CallAction>
+                <UML2:FlowFinalNode xmi.id = 'I5a8817f1m109d4e02271mm7bf5' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7bf0'/>
+                  </UML2:ActivityNode.incomingEdge>
+                </UML2:FlowFinalNode>
+                <UML2:ForkNode xmi.id = 'I5a8817f1m109d4e02271mm7bdb' name = '' visibility = 'public'
+                  isSpecification = 'true'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7bd6'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7bc1'/>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7b96'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:ForkNode>
+                <UML2:AcceptEventAction xmi.id = 'I5a8817f1m109d4e02271mm7b81' name = 'Polizei'
+                  visibility = 'public' isSpecification = 'true' isUnmarshall = 'false'>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7add'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:AcceptEventAction>
+                <UML2:CallAction xmi.id = 'I5a8817f1m109d4e02271mm7b65' name = 'Party abbrechen'
+                  visibility = 'public' isSpecification = 'false'>
+                  <UML2:ActivityNode.incomingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7add'/>
+                  </UML2:ActivityNode.incomingEdge>
+                  <UML2:ActivityNode.outgoingEdge>
+                    <UML2:ActivityEdge xmi.idref = 'I5a8817f1m109d4e02271mm7b5e'/>
+                  </UML2:ActivityNode.outgoingEdge>
+                </UML2:CallAction>
+              </UML2:Activity.node>
+            </UML2:Activity>
+          </UML2:BehavioredClassifier.ownedBehavior>
+        </UML:Collaboration>
+      </UML:Namespace.ownedElement>
+    </UML:Model>
+  </XMI.content>
+</XMI>
