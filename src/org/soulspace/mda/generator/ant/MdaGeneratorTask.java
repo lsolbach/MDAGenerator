@@ -9,12 +9,14 @@ import java.util.List;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.util.ClasspathUtils;
+import org.soulspace.mdlrepo.IModelFactory;
+import org.soulspace.mdlrepo.IModelRepository;
+import org.soulspace.mdlrepo.impl.ModelRepository;
+import org.soulspace.mdlrepo.metamodel.IClass;
+import org.soulspace.mdlrepo.metamodel.IPackage;
+import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.template.datasource.impl.BeanDataSource;
-import org.soulspace.xmi.repository.IModelRepository;
-import org.soulspace.xmi.repository.ModelRepository;
-import org.soulspace.xmi.repository.elements.IClass;
-import org.soulspace.xmi.repository.elements.IPackage;
-import org.soulspace.xmi.repository.elements.IStateMachine;
 
 /**
  * @author soulman
@@ -30,6 +32,8 @@ public class MdaGeneratorTask extends Task {
 
   private File modelFile;
 
+  private String modelFactory;
+  
   private List<ModelGenerator> modelGenerators = new ArrayList<ModelGenerator>();
 
   private List<PackageGenerator> packageGenerators = new ArrayList<PackageGenerator>();
@@ -113,8 +117,22 @@ public class MdaGeneratorTask extends Task {
   public File getModelFile() {
     return modelFile;
   }
-
+  
   /**
+	 * @return the modelFactory
+	 */
+	public String getModelFactory() {
+		return modelFactory;
+	}
+
+	/**
+	 * @param modelFactory the modelFactory to set
+	 */
+	public void setModelFactory(String modelFactory) {
+		this.modelFactory = modelFactory;
+	}
+
+	/**
    * 
    * @param cg
    */
@@ -146,8 +164,18 @@ public class MdaGeneratorTask extends Task {
   	stateMachineGenerators.add(sg);
   }
   
-  IModelRepository initRepository() {
-    ModelRepository repository = new ModelRepository();
+  IModelRepository initRepository() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+  	IModelRepository repository;
+  	if(modelFactory != null) {
+  		// FIXME get class loader from ant
+  		IModelFactory mf = (IModelFactory) ClasspathUtils.newInstance(modelFactory, this.getClass().getClassLoader());
+  		
+//  		Class factoryClass = Class.forName(modelFactory);
+//  		IModelFactory mf = (IModelFactory) factoryClass.newInstance();
+  		repository = mf.getModelRepository();
+  	} else {
+      repository = new ModelRepository();  		
+  	}
     repository.initRepository(modelFile.getAbsolutePath());
     return repository;
   }
@@ -166,7 +194,12 @@ public class MdaGeneratorTask extends Task {
       throw new BuildException("no modelFile set");
     }
     
-    IModelRepository repository = initRepository();
+    IModelRepository repository;
+		try {
+			repository = initRepository();
+		} catch (Exception e) {
+      throw new BuildException("error initializing model repository", e);
+		}
     dataSource = new BeanDataSource(repository);
 
     // model
