@@ -6,9 +6,9 @@ package org.soulspace.mda.generator.ant;
 import java.io.File;
 import java.util.Map;
 
+import org.soulspace.mdlrepo.IModelRepository;
+import org.soulspace.mdlrepo.metamodel.IModel;
 import org.soulspace.template.datasource.impl.BeanDataSource;
-import org.soulspace.xmi.repository.IModelRepository;
-import org.soulspace.xmi.repository.elements.IModel;
 
 /**
  * @author soulman
@@ -36,7 +36,10 @@ public class ModelGenerator extends AntGenerator {
     engine = getEngine(templateDir);
 
     try {
-     IModel model = modelRepository.getModels().get(0);
+    	if(modelRepository.getModels().size() < 1) {
+    		throw new RuntimeException("No models loaded");
+    	}
+    	IModel model = modelRepository.getModels().get(0);
 
     	// put model repository in data source
     	BeanDataSource myDS = new BeanDataSource(modelRepository);
