@@ -10,20 +10,19 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.oro.text.regex.MatchResult;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.util.FileUtils;
+import org.soulspace.mdlrepo.metamodel.IClassifier;
 import org.soulspace.template.TemplateEngine;
 import org.soulspace.template.datasource.impl.BeanDataSource;
 import org.soulspace.template.impl.TemplateEngineImpl;
 import org.soulspace.template.util.RegExHelper;
 import org.soulspace.template.util.StringHelper;
 import org.soulspace.util.CollectionUtils;
-import org.soulspace.xmi.repository.elements.IClassifier;
 
 /**
  * @author soulman
@@ -110,6 +109,14 @@ public abstract class AntGenerator {
     genContext.setSuffix(suffix);
   }
 
+  public String getSubdir() {
+  	return genContext.getSubdir();
+  }
+  
+  public void setSubdir(String subdir) {
+  	genContext.setSubdir(subdir);
+  }
+  
   /**
    * @return Returns the extension.
    */
@@ -210,7 +217,6 @@ public abstract class AntGenerator {
   
   public void addConfiguredParam(Param param) {
   	genContext.addParam(param);
-  	System.out.println("Adding symbol " + param.getName() + ", value " + param.getValue());;
   }
   
   /**
@@ -356,7 +362,7 @@ public abstract class AntGenerator {
     if (gt.getDestDir() != null) {
       sb.append(gt.getDestDir().getAbsolutePath() + File.separator);
     }
-    if(genContext.getSubdir() != null) {
+    if(StringHelper.isSet(genContext.getSubdir())) {
     	sb.append(genContext.getSubdir() + File.separatorChar);
     }
     
@@ -434,7 +440,7 @@ public abstract class AntGenerator {
     		sb.append(gt.getBackupDir().getAbsolutePath() + File.separator);
     	}    	
     }
-    if(genContext.getSubdir() != null) {
+    if(StringHelper.isSet(genContext.getSubdir())) {
     	sb.append(genContext.getSubdir() + File.separatorChar);
     }
 
