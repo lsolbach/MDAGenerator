@@ -1,6 +1,6 @@
 ModelRepository
 ===============
 
-Version 0.9.11 (--.08.2008)
+Version 0.9.13 (01.09.2008)
 
 * added package dependencies

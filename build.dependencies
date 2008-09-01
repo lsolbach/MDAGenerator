@@ -9,7 +9,7 @@
 		</package>
 	</dependency>
 	<dependency type="runtime">
-		<package name="XmiRepository" version="0.9.10" type="project">
+		<package name="XmiRepository" version="0.9.11" type="project">
 			<module name="XmiRepository"/>
 		</package>
 		<package name="castor" version="0.9.5.3" type="lib">
