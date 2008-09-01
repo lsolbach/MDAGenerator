@@ -5,17 +5,21 @@ package org.soulspace.mda.generator.ant;
 
 import java.io.File;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.soulspace.mdlrepo.IModelRepository;
 import org.soulspace.mdlrepo.metamodel.IModel;
 import org.soulspace.template.datasource.impl.BeanDataSource;
+import org.soulspace.template.util.StringHelper;
+
+import sun.util.logging.resources.logging;
 
 /**
  * @author soulman
  * 
  */
 public class ModelGenerator extends AntGenerator {
-
   
   /**
    * 
@@ -48,12 +52,11 @@ public class ModelGenerator extends AntGenerator {
       // FIXME read user sections?
 
       output = engine.generate(myDS);
-      // FIXME use a getPath method which extracts the model name, if basename is not set
-//      createPackagePath(getPath(destDir, "", null, null));
-//      writeFile(getPath(destDir, getBasename(), getSuffix(), "." + getExtension()),
-//          at);
-      createPackagePath(gt, model);
-      writeFile(getPath(gt, model, false), output);
+      
+      if(acceptWrite(output)) {
+	      createPackagePath(gt, model);
+	      writeFile(getPath(gt, model, false), output);
+      }
     } catch (Exception e1) {
       System.out.println("Exception while processing template " + getGeneratorContext().getName() + "!");
       e1.printStackTrace();

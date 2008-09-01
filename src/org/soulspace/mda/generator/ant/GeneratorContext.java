@@ -26,6 +26,10 @@ public class GeneratorContext {
 
   private String subdir = "";
 
+  private String generationFilterPattern = "";
+
+  private String userSection = "";
+  
   private String namespaceReplacement = "";
 
   private String namespacePrefix = "";
@@ -37,6 +41,7 @@ public class GeneratorContext {
   private List<String> namespaceExcludes = new ArrayList<String>();
   
   private Map<String, String> paramMap = new HashMap<String, String>();
+
   
   /**
    * @return Returns the name.
@@ -252,4 +257,32 @@ public class GeneratorContext {
 		this.namespaceExcludes = namespaceExcludes;
 	}
 
+	/**
+	 * @return the generationFilterPattern
+	 */
+	public String getGenerationFilterPattern() {
+		return generationFilterPattern;
+	}
+
+	/**
+	 * @param generationFilterPattern the generationFilterPattern to set
+	 */
+	public void setGenerationFilterPattern(String generationFilterPattern) {
+		this.generationFilterPattern = generationFilterPattern;
+	}
+
+	/**
+	 * @return the userSection
+	 */
+	public String getUserSection() {
+		return userSection;
+	}
+
+	/**
+	 * @param userSection the userSection to set
+	 */
+	public void setUserSection(String userSection) {
+		this.userSection = userSection;
+	}
+	
 }

@@ -167,11 +167,7 @@ public class MdaGeneratorTask extends Task {
   IModelRepository initRepository() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
   	IModelRepository repository;
   	if(modelFactory != null) {
-  		// FIXME get class loader from ant
   		IModelFactory mf = (IModelFactory) ClasspathUtils.newInstance(modelFactory, this.getClass().getClassLoader());
-  		
-//  		Class factoryClass = Class.forName(modelFactory);
-//  		IModelFactory mf = (IModelFactory) factoryClass.newInstance();
   		repository = mf.getModelRepository();
   	} else {
       repository = new ModelRepository();  		

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.oro.text.regex.MatchResult;
 import org.apache.tools.ant.BuildException;
@@ -36,6 +38,8 @@ public abstract class AntGenerator {
 	protected TemplateEngine engine;
 
   protected BeanDataSource dataSource;
+  
+  protected Pattern pattern;
   
   /**
    * Constructor
@@ -204,6 +208,24 @@ public abstract class AntGenerator {
     genContext.setPrefix(prefix);
   }
 
+  public String getGenerationFilterPattern() {
+  	return genContext.getGenerationFilterPattern();
+  }
+  
+  public void setGenerationFilterPattern(String generationFilterPattern) {
+  	genContext.setGenerationFilterPattern(generationFilterPattern);
+  	if(StringHelper.isSet(generationFilterPattern)) {
+    	pattern = Pattern.compile(generationFilterPattern, Pattern.DOTALL);  		
+  	}
+  }
+  
+	public String getUserSection() {
+		return genContext.getUserSection();
+	}
+
+	public void setUserSection(String userSection) {
+		genContext.setUserSection(userSection);
+	}
   
   public void setNamespaceIncludes(String namespaceIncludes) {
   	String[] nsIncludes = namespaceIncludes.split(",");
@@ -238,26 +260,35 @@ public abstract class AntGenerator {
 		  if(isSet(genContext.getImports())) {
 		  	importTemplateNames = genContext.getImports().split(",");
 		  	templates = new String[importTemplateNames.length + 1];
+		  	File [] templateFiles = new File[importTemplateNames.length + 1];
 		  	for (int i = 0; i < importTemplateNames.length; i++) {
-		      String template = FileUtils.readFully(new FileReader(templateDir
-		          .getAbsolutePath()
-		          + "/" + importTemplateNames[i] + ".tinc"));
-		      templates[i] = template;
+//		      String template = FileUtils.readFully(new FileReader(templateDir
+//		          .getAbsolutePath()
+//		          + "/" + importTemplateNames[i] + ".tinc"));
+//		      templates[i] = template;
+		      templateFiles[i] = new File(templateDir.getAbsolutePath()
+		          + "/" + importTemplateNames[i] + ".tinc");
 				}
-			  String template = FileUtils.readFully(new FileReader(templateDir
+//			  String template = FileUtils.readFully(new FileReader(templateDir
+//			      .getAbsolutePath()
+//			      + "/" + genContext.getName() + ".tmpl"));
+//			  templates[importTemplateNames.length] = template;
+			  templateFiles[importTemplateNames.length] = new File(templateDir
 			      .getAbsolutePath()
-			      + "/" + genContext.getName() + ".tmpl"));
-			  templates[importTemplateNames.length] = template;
-		    engine.loadTemplates(templates);
+			      + "/" + genContext.getName() + ".tmpl");
+			  engine.loadTemplates(templateFiles);
 		  } else {
-			  String template = FileUtils.readFully(new FileReader(templateDir
+//			  String template = FileUtils.readFully(new FileReader(templateDir
+//			      .getAbsolutePath()
+//			      + "/" + genContext.getName() + ".tmpl"));
+		    engine.loadTemplate(new File(templateDir
 			      .getAbsolutePath()
-			      + "/" + genContext.getName() + ".tmpl"));
-		    engine.loadTemplate(template);		  	
+			      + "/" + genContext.getName() + ".tmpl"));		  	
 		  }
     } catch (Exception e) {
       engine = null;
-      throw new BuildException(e);
+      System.err.println("Error processing " + genContext.getName());
+      throw new BuildException("Error creating a template engine for template " + genContext.getName(), e);
     }
 
     return engine;
@@ -272,22 +303,27 @@ public abstract class AntGenerator {
   }
 
   boolean generateForStereotype(IClassifier classifier) {
-  	boolean generate = false;
-  	
   	if (classifier.getStereotypes().contains("external")) {
-      generate = false;
+      return false;
     }
-  	
-  	if(isSet(genContext.getStereotype())) {
-  		String[] incStereotypes = genContext.getStereotype().split(",");
-    	for (String incStereotype : incStereotypes) {
-    		if(classifier.getStereotypeMap().containsKey(incStereotype)) {
-    			generate = true;    			
-    		}
-  		}
-  	} else {
-  		generate = true;
+  	if(!isSet(genContext.getStereotype())) {
+  		return true;
   	}
+  	String st = genContext.getStereotype();
+		if(st.equals("NONE") && classifier.getStereotypeMap().size() > 0) {
+			return false;
+		}
+		if(st.equals("ALL") && classifier.getStereotypeMap().size() == 0) {
+			return false;
+		}
+
+		boolean generate = false;
+		String[] incStereotypes = genContext.getStereotype().split(",");
+  	for (String incStereotype : incStereotypes) {
+  		if(classifier.getStereotypeMap().containsKey(incStereotype)) {
+  			generate = true;    			
+  		}
+		}
   	return generate;
   }
   
@@ -334,16 +370,33 @@ public abstract class AntGenerator {
 
     // TODO fix exception handling?
     try {
-      userSections = readUserSections(getPath(gt, classifier, true));
       BeanDataSource myDS = new BeanDataSource(classifier);
       myDS.add("GenContext", genContext);
-      myDS.add("USERSECTIONS", userSections);
+      if(isSet(genContext.getUserSection())) {
+        userSections = readUserSections(getPath(gt, classifier, true));
+        myDS.add("USERSECTIONS", userSections);      	
+      }
 
       output = engine.generate(myDS);
-      createPackagePath(gt, classifier);
-      writeFile(getPath(gt, classifier, false), output);
+
+//      if(pattern != null) {
+//        Matcher matcher = pattern.matcher(output);
+//      	if(matcher.matches()) {
+//      		System.err.println("Pattern " + getGeneratorContext().getGenerationFilterPattern() + " matches output");
+//      		for(int i = 0; i < matcher.groupCount(); i++) {
+//      			System.err.println("Match " + i + ": " + matcher.group(i));
+//      		}
+//      	} else {
+//      		System.err.println("Pattern [" + getGeneratorContext().getGenerationFilterPattern() + "] doesn't match output");      		
+//      	}
+//      }
+
+      if(acceptWrite(output)) {
+        createPackagePath(gt, classifier);
+        writeFile(getPath(gt, classifier, false), output);      	
+      }
     } catch (Exception e1) {
-      System.out.println("Exception while processing template " + genContext.getName() + "!");
+      System.err.println("Exception while processing template " + genContext.getName() + " for classifier " + classifier.getName() + "!");
       e1.printStackTrace();
     }
   }
@@ -508,10 +561,10 @@ public abstract class AntGenerator {
       StringBuffer sb = null;
       while ((line = in.readLine()) != null) {
         // match user section
-        if ((result = RegExHelper.match(line, "^.*USER-BEGIN\\((.*)\\)$")) != null) {
+        if ((result = RegExHelper.match(line, "^.*" + genContext.getUserSection() + "-BEGIN\\((.*)\\)$")) != null) {
           name = result.group(1);
           sb = new StringBuffer(64);
-        } else if ((result = RegExHelper.match(line, "^.*USER-END\\(" + name
+        } else if ((result = RegExHelper.match(line, "^.*" + genContext.getUserSection() + "-END\\(" + name
             + "\\)$")) != null) {
           userSections.put(name, sb.toString() + "\n");
           name = "";
@@ -531,6 +584,14 @@ public abstract class AntGenerator {
       return false;
     }
     return true;
+  }
+  
+  protected boolean acceptWrite(String generated) {
+  	if(pattern == null) {
+  		return true;
+  	}
+  	Matcher matcher = pattern.matcher(generated);
+  	return !matcher.matches();
   }
   
 }
