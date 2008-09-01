@@ -65,6 +65,7 @@ public class XMIBuilder {
 	<!-- Rule: Traverse with Qualified Name for all Named Elements? -->
 	<xsl:template match="xs:element[@name]" mode="namespace">
 		<xsl:if test="./@name='Class'
+									or ./@name='Package'
 									or ./@name='Interface'
 									or ./@name='Operation'
 									or ./@name='Method'

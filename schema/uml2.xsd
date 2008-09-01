@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!-- 
   - UML 1.4/2.0 Schema
-  - Supports Poseidon V4, ArgoUML 0.24
+  - Supports Poseidon 4, ArgoUML 0.24
   - Copyright 2004-2008 Ludger Solbach
   -->
 <?xml-stylesheet href="gen.css" type="text/css"?>
@@ -167,6 +167,7 @@
 				<xs:element ref="Namespace.ownedElement"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
