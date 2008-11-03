@@ -1,6 +1,12 @@
 MdaGenerator
 ============
 
+Version 0.9.13 (10.09.2008)
+---------------------------
+
+* updated dependencies
+* new versions of TemplateEngine, XmiRepository and ModelRepository
+
 Version 0.9.12 (01.09.2008)
 ---------------------------
 

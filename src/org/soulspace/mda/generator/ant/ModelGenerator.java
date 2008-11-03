@@ -5,15 +5,10 @@ package org.soulspace.mda.generator.ant;
 
 import java.io.File;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.soulspace.mdlrepo.IModelRepository;
 import org.soulspace.mdlrepo.metamodel.IModel;
 import org.soulspace.template.datasource.impl.BeanDataSource;
-import org.soulspace.template.util.StringHelper;
-
-import sun.util.logging.resources.logging;
 
 /**
  * @author soulman
@@ -50,6 +45,10 @@ public class ModelGenerator extends AntGenerator {
       // add generator context
       myDS.add("GenContext", getGeneratorContext());
       // FIXME read user sections?
+//      if(isSet(getGeneratorContext().getUserSection())) {
+//        userSections = readUserSections(getPath(gt, model, true));
+//        myDS.add("USERSECTIONS", userSections);      	
+//      }
 
       output = engine.generate(myDS);
       

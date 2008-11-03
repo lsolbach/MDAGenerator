@@ -18,7 +18,7 @@
 		<package name="XmiRepository" version="0.9.11" type="project">
 			<module name="XmiRepository"/>
 		</package>
-		<package name="ModelRepository" version="0.9.13" type="project">
+		<package name="ModelRepository" version="0.9.14" type="project">
 			<module name="ModelRepository"/>
 		</package>
 		<package name="DomainMetaModel" version="0.1.0" type="project">

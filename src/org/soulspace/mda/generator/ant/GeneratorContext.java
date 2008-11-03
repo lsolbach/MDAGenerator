@@ -36,6 +36,8 @@ public class GeneratorContext {
 
   private String namespaceSuffix = "";
 
+  private String encoding = "UTF-8";
+  
   private List<String> namespaceIncludes = new ArrayList<String>();
   
   private List<String> namespaceExcludes = new ArrayList<String>();
@@ -43,7 +45,7 @@ public class GeneratorContext {
   private Map<String, String> paramMap = new HashMap<String, String>();
 
   
-  /**
+	/**
    * @return Returns the name.
    */
   public String getName() {
@@ -283,6 +285,20 @@ public class GeneratorContext {
 	 */
 	public void setUserSection(String userSection) {
 		this.userSection = userSection;
+	}
+
+  /**
+	 * @return the encoding
+	 */
+	public String getEncoding() {
+		return encoding;
+	}
+
+	/**
+	 * @param encoding the encoding to set
+	 */
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 	
 }

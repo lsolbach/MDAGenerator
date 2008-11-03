@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -17,7 +19,6 @@ import java.util.regex.Pattern;
 
 import org.apache.oro.text.regex.MatchResult;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.util.FileUtils;
 import org.soulspace.mdlrepo.metamodel.IClassifier;
 import org.soulspace.template.TemplateEngine;
 import org.soulspace.template.datasource.impl.BeanDataSource;
@@ -262,25 +263,14 @@ public abstract class AntGenerator {
 		  	templates = new String[importTemplateNames.length + 1];
 		  	File [] templateFiles = new File[importTemplateNames.length + 1];
 		  	for (int i = 0; i < importTemplateNames.length; i++) {
-//		      String template = FileUtils.readFully(new FileReader(templateDir
-//		          .getAbsolutePath()
-//		          + "/" + importTemplateNames[i] + ".tinc"));
-//		      templates[i] = template;
 		      templateFiles[i] = new File(templateDir.getAbsolutePath()
 		          + "/" + importTemplateNames[i] + ".tinc");
 				}
-//			  String template = FileUtils.readFully(new FileReader(templateDir
-//			      .getAbsolutePath()
-//			      + "/" + genContext.getName() + ".tmpl"));
-//			  templates[importTemplateNames.length] = template;
 			  templateFiles[importTemplateNames.length] = new File(templateDir
 			      .getAbsolutePath()
 			      + "/" + genContext.getName() + ".tmpl");
 			  engine.loadTemplates(templateFiles);
 		  } else {
-//			  String template = FileUtils.readFully(new FileReader(templateDir
-//			      .getAbsolutePath()
-//			      + "/" + genContext.getName() + ".tmpl"));
 		    engine.loadTemplate(new File(templateDir
 			      .getAbsolutePath()
 			      + "/" + genContext.getName() + ".tmpl"));		  	
@@ -378,18 +368,6 @@ public abstract class AntGenerator {
       }
 
       output = engine.generate(myDS);
-
-//      if(pattern != null) {
-//        Matcher matcher = pattern.matcher(output);
-//      	if(matcher.matches()) {
-//      		System.err.println("Pattern " + getGeneratorContext().getGenerationFilterPattern() + " matches output");
-//      		for(int i = 0; i < matcher.groupCount(); i++) {
-//      			System.err.println("Match " + i + ": " + matcher.group(i));
-//      		}
-//      	} else {
-//      		System.err.println("Pattern [" + getGeneratorContext().getGenerationFilterPattern() + "] doesn't match output");      		
-//      	}
-//      }
 
       if(acceptWrite(output)) {
         createPackagePath(gt, classifier);
@@ -533,12 +511,14 @@ public abstract class AntGenerator {
     File file = new File(filename);
     PrintWriter pw;
     try {
-      pw = new PrintWriter(new FileOutputStream(file));
+      pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), genContext.getEncoding()));
       pw.print(content);
       pw.close();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
-    }
+    } catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 
     return true;
   }
