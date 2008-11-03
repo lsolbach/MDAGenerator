@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.soulspace.mdlrepo.IModelRepository;
+import org.soulspace.mdlrepo.metamodel.IClass;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 import org.soulspace.mdlrepo.metamodel.impl.Class;
 import org.soulspace.xmi.marshal.ClassItem;
@@ -13,19 +14,19 @@ import org.soulspace.xmi.marshal.ModelElement_stereotypeItem;
 
 public class ModelFactory extends org.soulspace.mdlrepo.metamodel.impl.ModelFactory {
 
-	public ModelFactory() {
-		super();
-	}
-	
 	public ModelFactory(IModelRepository mr) {
 		super(mr);
 	}
+
+//	public ModelFactory() {
+//		super();
+//	}
 
 	/* (non-Javadoc)
 	 * @see org.soulspace.mdlrepo.metamodel.impl.ModelFactory#createClassInstance(org.soulspace.xmi.marshal.Class)
 	 */
 	@Override
-	protected Class createClassInstance(org.soulspace.xmi.marshal.Class xmiClass) {
+	protected IClass getClassInstance(org.soulspace.xmi.marshal.Class xmiClass) {
 		Map<String, IStereotype> stereotypeMap = new HashMap<String, IStereotype>();
 		Enumeration e1 = xmiClass.enumerateClassItem();
 		while (e1.hasMoreElements()) {
@@ -40,7 +41,7 @@ public class ModelFactory extends org.soulspace.mdlrepo.metamodel.impl.ModelFact
 		} else if(stereotypeMap.get("value") != null) {
 			return new Value();
 		} else {
-			return super.createClassInstance(xmiClass);			
+			return super.getClassInstance(xmiClass);			
 		}
 	}
 
@@ -63,5 +64,4 @@ public class ModelFactory extends org.soulspace.mdlrepo.metamodel.impl.ModelFact
     }
     return null;
   }
-
 }
