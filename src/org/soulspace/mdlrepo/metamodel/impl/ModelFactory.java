@@ -10,34 +10,7 @@ import java.util.List;
 import org.soulspace.mdlrepo.IModelFactory;
 import org.soulspace.mdlrepo.IModelRepository;
 import org.soulspace.mdlrepo.impl.ModelRepository;
-import org.soulspace.mdlrepo.metamodel.IActor;
-import org.soulspace.mdlrepo.metamodel.IAssociation;
-import org.soulspace.mdlrepo.metamodel.IAssociationEnd;
-import org.soulspace.mdlrepo.metamodel.IAttribute;
-import org.soulspace.mdlrepo.metamodel.ICallEvent;
-import org.soulspace.mdlrepo.metamodel.IClass;
-import org.soulspace.mdlrepo.metamodel.IClassifier;
-import org.soulspace.mdlrepo.metamodel.IDataType;
-import org.soulspace.mdlrepo.metamodel.IDependency;
-import org.soulspace.mdlrepo.metamodel.IElement;
-import org.soulspace.mdlrepo.metamodel.IEvent;
-import org.soulspace.mdlrepo.metamodel.IExtensionPoint;
-import org.soulspace.mdlrepo.metamodel.IFinalState;
-import org.soulspace.mdlrepo.metamodel.IInterface;
-import org.soulspace.mdlrepo.metamodel.IModel;
-import org.soulspace.mdlrepo.metamodel.IMultiplicity;
-import org.soulspace.mdlrepo.metamodel.IOperation;
-import org.soulspace.mdlrepo.metamodel.IPackage;
-import org.soulspace.mdlrepo.metamodel.IParameter;
-import org.soulspace.mdlrepo.metamodel.IPseudostate;
-import org.soulspace.mdlrepo.metamodel.IState;
-import org.soulspace.mdlrepo.metamodel.IStateMachine;
-import org.soulspace.mdlrepo.metamodel.IStereotype;
-import org.soulspace.mdlrepo.metamodel.ISubmachineState;
-import org.soulspace.mdlrepo.metamodel.ITagDefinition;
-import org.soulspace.mdlrepo.metamodel.ITaggedValue;
-import org.soulspace.mdlrepo.metamodel.ITransition;
-import org.soulspace.mdlrepo.metamodel.IUseCase;
+import org.soulspace.mdlrepo.metamodel.*;
 import org.soulspace.xmi.base.XmiObject;
 import org.soulspace.xmi.marshal.ActorItem;
 import org.soulspace.xmi.marshal.AssociationEndItem;
@@ -123,10 +96,10 @@ public class ModelFactory implements IModelFactory {
     this.repository = mr;
   }
 
-  public ModelFactory() {
-  	this.repository = new ModelRepository();
-  	repository.setModelFactory(this);
-  }
+//  public ModelFactory() {
+//  	this.repository = new ModelRepository();
+//  	repository.setModelFactory(this);
+//  }
   
   public IModelRepository getModelRepository() {
   	return repository;
@@ -135,33 +108,209 @@ public class ModelFactory implements IModelFactory {
   public void setModelRepository(IModelRepository mr) {
   	this.repository = mr;
   }
+    
   
   public IModel createModel(XmiObject xmiObj) {
   	org.soulspace.xmi.marshal.Model xmiModel = (org.soulspace.xmi.marshal.Model) xmiObj;
-  	IModel model = null;
-  	model = createModelInstance(xmiModel);
+  	IModel model = getModelInstance(xmiModel);
   	model = initModel(model, xmiModel);
+  	repository.register(model);
   	return model;
-  }  
+  }
   
   public IPackage createPackage(XmiObject xmiObj) {
     org.soulspace.xmi.marshal.Package xmiPackage = (org.soulspace.xmi.marshal.Package) xmiObj;
-    IPackage pkg = null;
-    pkg =	createPackageInstance(xmiPackage);
+    IPackage pkg =	getPackageInstance(xmiPackage);
     pkg = initPackage(pkg, xmiPackage);
+  	repository.register(pkg);
     return pkg;
   }
   
   public IClass createClass(XmiObject xmiObj) {
     org.soulspace.xmi.marshal.Class xmiClass = (org.soulspace.xmi.marshal.Class) xmiObj;
-    IClass clazz = null;
-    clazz =	createClassInstance(xmiClass);
+    IClass clazz =	getClassInstance(xmiClass);
     clazz = initClass(clazz, xmiClass);
+    repository.register(clazz);
     return clazz;
   }
   
-  protected Model createModelInstance(org.soulspace.xmi.marshal.Model xmiModel) {
-    return new Model();
+  public IInterface createInterface(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.Interface xmiInterface = (org.soulspace.xmi.marshal.Interface) xmiObj;
+    IInterface i = getInterfaceInstance(xmiInterface);
+    i = initInterface(i, xmiInterface);
+    repository.register(i);
+    return i;
+  }
+  
+  public IDataType createDataType(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.DataType xmiDataType = (org.soulspace.xmi.marshal.DataType) xmiObj;
+    IDataType dt = getDataTypeInstance(xmiDataType);
+    dt = initDataType(dt, xmiDataType);
+    repository.register(dt);
+    return dt;
+  }
+
+  public IAttribute createAttribute(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.Attribute xmiAttribute = (org.soulspace.xmi.marshal.Attribute) xmiObj;
+    IAttribute a = getAttributeInstance(xmiAttribute);
+  	a = initAttribute(a, xmiAttribute);
+    repository.register(a);
+    return a;
+  }
+  
+  public IOperation createOperation(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.Operation xmiOperation = (org.soulspace.xmi.marshal.Operation) xmiObj;
+  	IOperation o = getOperationInstance(xmiOperation);
+  	o = initOperation(o, xmiOperation);
+    repository.register(o);
+    return o;
+  }
+
+  public IAssociation createAssociation(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.Association xmiAssociation = (org.soulspace.xmi.marshal.Association) xmiObj;
+    IAssociation a = getAssociationInstance(xmiAssociation);
+    a = initAssociation(a, xmiAssociation);
+    repository.register(a);
+    return a;
+  }  
+  
+  public IAssociationEnd createAssociationEnd(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.AssociationEnd xmiAssociationEnd = (org.soulspace.xmi.marshal.AssociationEnd) xmiObj;
+    IAssociationEnd ae = getAssociationEndInstance(xmiAssociationEnd);
+    ae = initAssociationEnd(ae, xmiAssociationEnd);
+    repository.register(ae);
+    return ae;
+  }
+  
+  public IStereotype createStereotype(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.Stereotype xmiStereotype = (org.soulspace.xmi.marshal.Stereotype) xmiObj;
+    IStereotype s = getStereotypeInstance(xmiStereotype);
+    s = initStereotype(s, xmiStereotype);
+    repository.register(s);
+    return s;
+  }
+
+  public ITagDefinition createTagDefinition(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.TagDefinition xmiTagDefinition = (org.soulspace.xmi.marshal.TagDefinition) xmiObj;
+    ITagDefinition td = getTagDefinitionInstance(xmiTagDefinition);
+    td = initTagDefinition(td, xmiTagDefinition);
+    repository.register(td);
+    return td;
+  }
+
+  public ITaggedValue createTaggedValue(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.TaggedValue xmiTaggedValue = (org.soulspace.xmi.marshal.TaggedValue) xmiObj;
+    ITaggedValue tv = getTaggedValueInstance(xmiTaggedValue);
+    tv = initTaggedValue(tv, xmiTaggedValue);
+    repository.register(tv);
+    return tv;
+  }
+
+  public IParameter createParameter(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.Parameter xmiParameter = (org.soulspace.xmi.marshal.Parameter) xmiObj;
+    IParameter p = getParameterInstance(xmiParameter);
+    p = initParameter(p, xmiParameter);
+    repository.register(p);
+    return p;
+  }
+
+  public IDependency createDependency(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.Dependency xmiDependency = (org.soulspace.xmi.marshal.Dependency) xmiObj;
+    IDependency d = getDependencyInstance(xmiDependency);
+    d = initDependency(d, xmiDependency);
+    repository.register(d);
+    return d;
+  }
+  
+	public IUseCase createUseCase(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.UseCase xmiUseCase = (org.soulspace.xmi.marshal.UseCase) xmiObj;
+		IUseCase uc = getUseCaseInstance(xmiUseCase);
+		uc = initUseCase(uc, xmiUseCase);
+    repository.register(uc);
+		return uc;
+	}
+	
+	public IExtensionPoint createExtensionPoint(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.ExtensionPoint xmiExtensionPoint = (org.soulspace.xmi.marshal.ExtensionPoint) xmiObj;
+		IExtensionPoint ep = getExtensionPointInstance(xmiExtensionPoint);
+		ep = initExtensionPoint(ep, xmiExtensionPoint);
+		repository.register(ep);
+		return ep;
+	}
+	
+	public IActor createActor(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.Actor xmiActor = (org.soulspace.xmi.marshal.Actor) xmiObj;
+		IActor a = getActorInstance(xmiActor);
+		a = initActor(a, xmiActor);
+		repository.register(a);
+		return a;
+	}
+	
+	public IStateMachine createStateMachine(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.StateMachine xmiStateMachine = (org.soulspace.xmi.marshal.StateMachine) xmiObj;
+		IStateMachine sm = getStateMachineInstance(xmiStateMachine);
+		sm = initStateMachine(sm, xmiStateMachine);
+    repository.register(sm);
+		return sm;
+	}
+	
+	public IState createSimpleState(XmiObject xmiObj) {
+		SimpleState xmiSimpleState = (SimpleState) xmiObj;
+		IState s = getSimpleStateInstance(xmiSimpleState);
+		s = initSimpleState(s, xmiSimpleState);
+    repository.register(s);
+		return s;
+	}
+
+	public IPseudostate createPseudostate(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.Pseudostate xmiPseudostate = (org.soulspace.xmi.marshal.Pseudostate) xmiObj;
+		IPseudostate ps = getPseudostateInstance(xmiPseudostate);
+		ps = initPseudostate(ps, xmiPseudostate);
+    repository.register(ps);
+		return ps;
+	}
+	
+	public IFinalState createFinalState(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.FinalState xmiFinalState = (org.soulspace.xmi.marshal.FinalState) xmiObj;
+		IFinalState fs = getFinalStateInstance(xmiFinalState);
+		fs = initFinalState(fs, xmiFinalState);
+    repository.register(fs);
+		return fs;
+	}
+
+	public ISubmachineState createSubmachineState(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.SubmachineState xmiSubmachineState = (org.soulspace.xmi.marshal.SubmachineState) xmiObj;
+		ISubmachineState ss = getSubmachineStateInstance(xmiSubmachineState);
+		ss = initSubmachineState(ss, xmiSubmachineState);
+		repository.register(ss);
+		return ss;
+	}
+	
+	public ITransition createTransition(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.Transition xmiTransition = (org.soulspace.xmi.marshal.Transition) xmiObj;
+		ITransition t = getTransitionInstance(xmiTransition);
+		t = initTransition(t, xmiTransition);
+		repository.register(t);
+		return t;
+	}
+	
+	public ICallEvent createCallEvent(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.CallEvent xmiCallEvent = (org.soulspace.xmi.marshal.CallEvent) xmiObj;
+		ICallEvent ce = getCallEventInstance(xmiCallEvent);
+		ce = initCallEvent(ce, xmiCallEvent);
+		repository.register(ce);
+		return ce;
+	}
+	
+//	protected void initNamedElement(INamedElement n, org.soulspace.xmi.marshal.NamedElement xmiNamedElement) {
+//		
+//	}
+	
+	
+	protected IModel getModelInstance(org.soulspace.xmi.marshal.Model xmiModel) {
+    Model m = new Model();
+    m.setId(xmiModel.getXmi_id());
+    return m;
   }
   
   protected IModel initModel(IModel m, org.soulspace.xmi.marshal.Model xmiModel) {
@@ -188,12 +337,12 @@ public class ModelFactory implements IModelFactory {
         addTaggedValues(m, mI.getModelElement_taggedValue());
       }
     }
-    repository.register(m);
     return m;
   }
 
-  protected Package createPackageInstance(org.soulspace.xmi.marshal.Package xmiPackage) {
+  protected Package getPackageInstance(org.soulspace.xmi.marshal.Package xmiPackage) {
   	Package p = new Package();
+    p.setId(xmiPackage.getXmi_id());
   	return p;
   }
   
@@ -201,7 +350,6 @@ public class ModelFactory implements IModelFactory {
     p.setNamespace(xmiPackage.getNamespace());
     p.setQualifiedName(xmiPackage.getQualifiedName());
     p.setName(xmiPackage.getName());
-    p.setId(xmiPackage.getXmi_id());
     p.setPackage(findPackage(p.getNamespace()));
     
     Enumeration e1 = xmiPackage.enumeratePackageItem();
@@ -213,12 +361,13 @@ public class ModelFactory implements IModelFactory {
         addTaggedValues(p, pI.getModelElement_taggedValue());
       }
     }
-    repository.register(p);
     return p;
   }
 
-  protected Class createClassInstance(org.soulspace.xmi.marshal.Class xmiClass) {
-  	return new Class();
+  protected IClass getClassInstance(org.soulspace.xmi.marshal.Class xmiClass) {
+    IClass c = new Class();
+    c.setId(xmiClass.getXmi_id());    
+    return c;
   }
   
   protected IClass initClass(IClass c, org.soulspace.xmi.marshal.Class xmiClass) {
@@ -250,15 +399,16 @@ public class ModelFactory implements IModelFactory {
         // cI.getModelElement_clientDependency().getAbstraction();
       }
     }
-
-    repository.register(c);
     return c;
   }
 
-  public IInterface createInterface(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.Interface xmiInterface = (org.soulspace.xmi.marshal.Interface) xmiObj;
-    Interface i = new Interface();
-    i.setId(xmiInterface.getXmi_id());
+  protected IInterface getInterfaceInstance(org.soulspace.xmi.marshal.Interface xmiInterface) {
+    IInterface i = new Interface();
+    i.setId(xmiInterface.getXmi_id());    
+    return i;
+  }
+  
+  protected IInterface initInterface(IInterface i, org.soulspace.xmi.marshal.Interface xmiInterface) {
     i.setName(xmiInterface.getName());
     i.setNamespace(xmiInterface.getNamespace());
     i.setQualifiedName(xmiInterface.getQualifiedName());
@@ -277,15 +427,13 @@ public class ModelFactory implements IModelFactory {
     return i;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.soulspace.xmi.uml.IModelFactory#createDataType()
-   */
-  public IDataType createDataType(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.DataType xmiDataType = (org.soulspace.xmi.marshal.DataType) xmiObj;
-    DataType dt = new DataType();
+  protected IDataType getDataTypeInstance(org.soulspace.xmi.marshal.DataType xmiDataType) {
+  	IDataType dt = new DataType();
     dt.setId(xmiDataType.getXmi_id());
+    return dt;
+  }
+
+  protected IDataType initDataType(IDataType dt, org.soulspace.xmi.marshal.DataType xmiDataType) {
     dt.setName(xmiDataType.getName());
     dt.setNamespace(xmiDataType.getNamespace());
     dt.setQualifiedName(xmiDataType.getQualifiedName());
@@ -297,15 +445,16 @@ public class ModelFactory implements IModelFactory {
         addStereotypes(dt, dtI.getModelElement_stereotype());
       }
     }
-
-    repository.register(dt);
     return dt;
   }
 
-  public IAttribute createAttribute(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.Attribute xmiAttribute = (org.soulspace.xmi.marshal.Attribute) xmiObj;
-    Attribute a = new Attribute();
+  protected IAttribute getAttributeInstance(org.soulspace.xmi.marshal.Attribute xmiAttribute) {
+    IAttribute a = new Attribute();
+    a.setId(xmiAttribute.getXmi_id());
+    return a;
+  }
 
+  protected IAttribute initAttribute(IAttribute a, org.soulspace.xmi.marshal.Attribute xmiAttribute) {
     if(!XmiHelper.isSet(xmiAttribute.getName())) {
     	System.err.println("ERROR: The name of attribute " + xmiAttribute.getXmi_id() + " is not set!");
     	return null;
@@ -324,7 +473,6 @@ public class ModelFactory implements IModelFactory {
       a.setDerived(false);
     }    	
 
-    a.setId(xmiAttribute.getXmi_id());
     a.setNamespace(xmiAttribute.getNamespace());
     a.setQualifiedName(xmiAttribute.getQualifiedName());
 
@@ -382,14 +530,16 @@ public class ModelFactory implements IModelFactory {
     if (c != null) {
       c.addAttribute(a);
     }
-    repository.register(a);
     return a;
   }
-
-  public IOperation createOperation(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.Operation xmiOperation = (org.soulspace.xmi.marshal.Operation) xmiObj;
-    Operation o = new Operation();
-
+  
+  protected IOperation getOperationInstance(org.soulspace.xmi.marshal.Operation xmiOperation) {
+  	IOperation o = new Operation();
+    o.setId(xmiOperation.getXmi_id());
+    return o;
+  }
+  
+  protected IOperation initOperation(IOperation o, org.soulspace.xmi.marshal.Operation xmiOperation) {
     if(!XmiHelper.isSet(xmiOperation.getName())) {
     	System.err.println("ERROR: The name of operation " + xmiOperation.getXmi_id() + " is not set!");
     	return null;
@@ -404,6 +554,9 @@ public class ModelFactory implements IModelFactory {
     o.setVisibility(XmiHelper.toString(xmiOperation.getVisibility()));
     o.setConcurrency(XmiHelper.toString(xmiOperation.getConcurrency()));
 
+    o.setQuery(xmiOperation.getIsQuery());
+    o.setAbstract(xmiOperation.getIsAbstract());
+    
     // TODO refactor the fetchReturnType method in into this and use a find method for the lookup
     // TODO make it look like any other type lookup here
     String xmiId = fetchReturnType((org.soulspace.xmi.marshal.Operation) xmiOperation);
@@ -435,28 +588,25 @@ public class ModelFactory implements IModelFactory {
     }
 
     if(o.getReturnType() == null) {
-    	
+    	// TODO ???
     }
     Class c = (Class) repository.lookupClassByQualifiedName(o.getNamespace());
     if (c != null) {
       c.addOperation(o);
     }
-    repository.register(o);
     return o;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.soulspace.xmi.uml.IModelFactory#createAssociation(org.soulspace.xmi.base.XmiObject)
-   */
-  public IAssociation createAssociation(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.Association xmiAssociation = (org.soulspace.xmi.marshal.Association) xmiObj;
+  protected IAssociation getAssociationInstance(org.soulspace.xmi.marshal.Association xmiAssociation) {
     Association a = new Association();
+    a.setId(xmiAssociation.getXmi_id());
 
+    return a;
+  }
+  
+  protected IAssociation initAssociation(IAssociation a, org.soulspace.xmi.marshal.Association xmiAssociation) {
     a.setNamespace(xmiAssociation.getNamespace());
     a.setQualifiedName(xmiAssociation.getQualifiedName());
-    a.setId(xmiAssociation.getXmi_id());
     a.setName(xmiAssociation.getName());
 
     Enumeration e = xmiAssociation.enumerateAssociationItem();
@@ -479,18 +629,16 @@ public class ModelFactory implements IModelFactory {
     if (c != null) {
       // c.addAssociation(a);
     }
-    repository.register(a);
     return a;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.soulspace.xmi.uml.IModelFactory#createAssociationEnd(org.soulspace.xmi.base.XmiObject)
-   */
-  public IAssociationEnd createAssociationEnd(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.AssociationEnd xmiAssociationEnd = (org.soulspace.xmi.marshal.AssociationEnd) xmiObj;
+  protected IAssociationEnd getAssociationEndInstance(org.soulspace.xmi.marshal.AssociationEnd xmiAssociationEnd) {
     AssociationEnd ae = new AssociationEnd();
+    ae.setId(xmiAssociationEnd.getXmi_id());
+    return ae;
+  }
+  
+  protected IAssociationEnd initAssociationEnd(IAssociationEnd ae, org.soulspace.xmi.marshal.AssociationEnd xmiAssociationEnd) {
     IClassifier c = null;
 
     if(XmiHelper.isSet(xmiAssociationEnd.getName())) {
@@ -576,38 +724,36 @@ public class ModelFactory implements IModelFactory {
     return ae;
   }
 
-	/*
-   * (non-Javadoc)
-   * 
-   * @see org.soulspace.xmi.uml.IModelFactory#createStereotype(org.soulspace.xmi.base.XmiObject)
-   */
-  public IStereotype createStereotype(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.Stereotype xmiStereotype = (org.soulspace.xmi.marshal.Stereotype) xmiObj;
+  protected IStereotype getStereotypeInstance(org.soulspace.xmi.marshal.Stereotype xmiStereotype) {
     Stereotype s = new Stereotype();
-    s.setName(xmiStereotype.getName());
     s.setId(xmiStereotype.getXmi_id());
-
-    repository.register(s);
+    return s;
+  }
+  
+  protected IStereotype initStereotype(IStereotype s, org.soulspace.xmi.marshal.Stereotype xmiStereotype) {
+    s.setName(xmiStereotype.getName());
     return s;
   }
 
-  public ITagDefinition createTagDefinition(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.TagDefinition xmiTagDefinition = (org.soulspace.xmi.marshal.TagDefinition) xmiObj;
+  protected ITagDefinition getTagDefinitionInstance(org.soulspace.xmi.marshal.TagDefinition xmiTagDefinition) {
     TagDefinition td = new TagDefinition();
-    td.setName(xmiTagDefinition.getName());
     td.setId(xmiTagDefinition.getXmi_id());
+    return td;
+  }
+  
+  protected ITagDefinition initTagDefinition(ITagDefinition td, org.soulspace.xmi.marshal.TagDefinition xmiTagDefinition) {
+    td.setName(xmiTagDefinition.getName());
     td.setNamespace(xmiTagDefinition.getNamespace());
-
-    repository.register(td);
     return td;
   }
 
-  public ITaggedValue createTaggedValue(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.TaggedValue xmiTaggedValue = (org.soulspace.xmi.marshal.TaggedValue) xmiObj;
-    org.soulspace.mdlrepo.metamodel.impl.TaggedValue tv = new org.soulspace.mdlrepo.metamodel.impl.TaggedValue();
-
+  protected ITaggedValue getTaggedValueInstance(org.soulspace.xmi.marshal.TaggedValue xmiTaggedValue) {
+    ITaggedValue tv = new TaggedValue();
     tv.setId(xmiTaggedValue.getXmi_id());
-
+  	return tv;
+  }
+  
+  protected ITaggedValue initTaggedValue(ITaggedValue tv, org.soulspace.xmi.marshal.TaggedValue xmiTaggedValue) {
     Enumeration e1 = xmiTaggedValue.enumerateTaggedValueItem();
     while (e1.hasMoreElements()) {
       TaggedValueItem tvI = (TaggedValueItem) e1.nextElement();
@@ -637,51 +783,20 @@ public class ModelFactory implements IModelFactory {
         }
       }
     }
-
-    repository.register(tv);
     return tv;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.soulspace.xmi.uml.IModelFactory#createMultiplicity(org.soulspace.xmi.base.XmiObject)
-   */
-  public IMultiplicity createMultiplicity(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.Multiplicity xmiMultiplicity = (org.soulspace.xmi.marshal.Multiplicity) xmiObj;
-    Multiplicity m = new Multiplicity();
-    Enumeration e1 = xmiMultiplicity.enumerateMultiplicityItem();
-    while (e1.hasMoreElements()) {
-      MultiplicityItem mI = (MultiplicityItem) e1.nextElement();
-      if (mI.getMultiplicity_range() != null) {
-        Enumeration e2 = mI.getMultiplicity_range()
-            .enumerateMultiplicity_rangeItem();
-        while (e2.hasMoreElements()) {
-          Multiplicity_rangeItem rI = (Multiplicity_rangeItem) e2.nextElement();
-          if (rI.getMultiplicityRange() != null) {
-            m.setLow(rI.getMultiplicityRange().getLower());
-            m.setHigh(rI.getMultiplicityRange().getUpper());
-          }
-        }
-      }
-    }
-
-    return m;
+  protected IParameter getParameterInstance(org.soulspace.xmi.marshal.Parameter xmiParameter) {
+    IParameter p = new Parameter();
+    p.setId(xmiParameter.getXmi_id()); 	
+    return p;
   }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.soulspace.xmi.uml.IModelFactory#createParameter(org.soulspace.xmi.base.XmiObject)
-   */
-  public IParameter createParameter(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.Parameter xmiParameter = (org.soulspace.xmi.marshal.Parameter) xmiObj;
-    Parameter p = new Parameter();
-
-    p.setId(xmiParameter.getXmi_id());
+  
+  protected IParameter initParameter(IParameter p, org.soulspace.xmi.marshal.Parameter xmiParameter) {
     p.setName(xmiParameter.getName());
     p.setNamespace(xmiParameter.getNamespace());
     p.setQualifiedName(xmiParameter.getQualifiedName());
+
     if(xmiParameter.getKind() != null) {
       p.setKind(xmiParameter.getKind().toString());    	
     } else {
@@ -729,17 +844,20 @@ public class ModelFactory implements IModelFactory {
     return p;
   }
   
-  public IDependency createDependency(XmiObject xmiObj) {
-    org.soulspace.xmi.marshal.Dependency xmiDependency = (org.soulspace.xmi.marshal.Dependency) xmiObj;
-    Dependency d = new Dependency();
-
+  protected IDependency getDependencyInstance(org.soulspace.xmi.marshal.Dependency xmiDependency) {
+    IDependency d = new Dependency();
     d.setId(xmiDependency.getXmi_id());
-    d.setNamespace(xmiDependency.getNamespace());
+    return d;
+  }
+  
+  protected IDependency initDependency(IDependency d, org.soulspace.xmi.marshal.Dependency xmiDependency) {
+  	d.setNamespace(xmiDependency.getNamespace());
     if(xmiDependency.getName() != null) {
       d.setName(xmiDependency.getName());
       d.setMethodSuffix(d.getName().substring(0, 1).toUpperCase()
         + d.getName().substring(1));
     }
+
     Enumeration e1 = xmiDependency.enumerateDependencyItem();
     while (e1.hasMoreElements()) {
       DependencyItem dI = (DependencyItem) e1.nextElement();
@@ -779,19 +897,16 @@ public class ModelFactory implements IModelFactory {
         }
       }
     }
-    repository.register(d);
     return d;
   }
   
-  /*
-   *  (non-Javadoc)
-   * @see org.soulspace.xmi.repository.IModelFactory#createUseCase(org.soulspace.xmi.base.XmiObject)
-   */
-	public IUseCase createUseCase(XmiObject xmiObj) {
-		org.soulspace.xmi.marshal.UseCase xmiUseCase = (org.soulspace.xmi.marshal.UseCase) xmiObj;
-		UseCase uc = new UseCase();
+	protected IUseCase getUseCaseInstance(org.soulspace.xmi.marshal.UseCase xmiUseCase) {
+		IUseCase uc = new UseCase();
+		uc.setId(xmiUseCase.getXmi_id());		
+		return uc;
+	}
 
-		uc.setId(xmiUseCase.getXmi_id());
+	protected IUseCase initUseCase(IUseCase uc, org.soulspace.xmi.marshal.UseCase xmiUseCase) {
 		uc.setName(xmiUseCase.getName());
 		uc.setNamespace(xmiUseCase.getNamespace());
 		uc.setQualifiedName(xmiUseCase.getQualifiedName());
@@ -828,29 +943,29 @@ public class ModelFactory implements IModelFactory {
 			}
 		}
 		
-    repository.register(uc);
 		return uc;
 	}
-
-	public ExtensionPoint createExtensionPoint(XmiObject xmiObj) {
-		ExtensionPoint ep = new ExtensionPoint();
-		org.soulspace.xmi.marshal.ExtensionPoint xmiExtensionPoint = (org.soulspace.xmi.marshal.ExtensionPoint) xmiObj;
+	
+	protected IExtensionPoint getExtensionPointInstance(org.soulspace.xmi.marshal.ExtensionPoint xmiExtensionPoint) {
+		IExtensionPoint ep = new ExtensionPoint();
 		ep.setId(xmiExtensionPoint.getXmi_id());
+		return ep;		
+	}
+	
+	protected IExtensionPoint initExtensionPoint(IExtensionPoint ep, org.soulspace.xmi.marshal.ExtensionPoint xmiExtensionPoint) {
 		ep.setName(xmiExtensionPoint.getName());
 		ep.setLocation(xmiExtensionPoint.getLocation());
 		
 		return ep;
 	}
 	
-	/*
-	 *  (non-Javadoc)
-	 * @see org.soulspace.xmi.repository.IModelFactory#createActor(org.soulspace.xmi.base.XmiObject)
-	 */
-	public IActor createActor(XmiObject xmiObj) {
-		org.soulspace.xmi.marshal.Actor xmiActor = (org.soulspace.xmi.marshal.Actor) xmiObj;
-		Actor a = new Actor();
-		
-		a.setId(xmiActor.getXmi_id());
+	protected IActor getActorInstance(org.soulspace.xmi.marshal.Actor xmiActor) {
+		IActor a = new Actor();
+		a.setId(xmiActor.getXmi_id());				
+		return a;
+	}
+	
+	protected IActor initActor(IActor a, org.soulspace.xmi.marshal.Actor xmiActor) {
 		a.setName(xmiActor.getName());
 		a.setNamespace(xmiActor.getName());
 		a.setQualifiedName(xmiActor.getQualifiedName());
@@ -866,18 +981,16 @@ public class ModelFactory implements IModelFactory {
 		}
 		// TODO add generalized Actor
 		
-    repository.register(a);
 		return a;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.soulspace.xmi.repository.IModelFactory#createStateMachine(org.soulspace.xmi.base.XmiObject)
-	 */
-	public IStateMachine createStateMachine(XmiObject xmiObj) {
-		org.soulspace.xmi.marshal.StateMachine xmiStateMachine = (org.soulspace.xmi.marshal.StateMachine) xmiObj;
-		StateMachine sm = new StateMachine();
+	protected IStateMachine getStateMachineInstance(org.soulspace.xmi.marshal.StateMachine xmiStateMachine) {
+		IStateMachine sm = new StateMachine();
 		sm.setId(xmiStateMachine.getXmi_id());
+		return sm;
+	}
+	
+	protected IStateMachine initStateMachine(IStateMachine sm, org.soulspace.xmi.marshal.StateMachine xmiStateMachine) {
 		sm.setNamespace(xmiStateMachine.getNamespace());
 		sm.setQualifiedName(xmiStateMachine.getQualifiedName());
 		if(xmiStateMachine.getName() != null) {
@@ -940,15 +1053,16 @@ public class ModelFactory implements IModelFactory {
 				}
 			}
 		}
-		
-    repository.register(sm);
 		return sm;
 	}
-	
-	public IState createSimpleState(XmiObject xmiObj) {
-		State s = new State();
-		SimpleState xmiSimpleState = (SimpleState) xmiObj;
+
+	protected IState getSimpleStateInstance(SimpleState xmiSimpleState) {
+		IState s = new State();
 		s.setId(xmiSimpleState.getXmi_id());
+		return s;
+	}
+	
+	protected IState initSimpleState(IState s, SimpleState xmiSimpleState) {
 		if(xmiSimpleState.getName() != null) {
 			s.setName(xmiSimpleState.getName());
 		} else {
@@ -970,13 +1084,16 @@ public class ModelFactory implements IModelFactory {
 				System.out.println("INFO: unhandled element on SimpleStateItem.");				
 			}
 		}
-    repository.register(s);
 		return s;
 	}
 	
-	public IPseudostate createPseudostate(XmiObject xmiObj) {
-		Pseudostate ps = new Pseudostate();
-		org.soulspace.xmi.marshal.Pseudostate xmiPseudostate = (org.soulspace.xmi.marshal.Pseudostate) xmiObj;
+	protected IPseudostate getPseudostateInstance(org.soulspace.xmi.marshal.Pseudostate xmiPseudostate) {
+		IPseudostate ps = new Pseudostate();
+		ps.setId(xmiPseudostate.getXmi_id());
+		return ps;
+	}
+	
+	protected IPseudostate initPseudostate(IPseudostate ps, org.soulspace.xmi.marshal.Pseudostate xmiPseudostate) {
 		ps.setKind(xmiPseudostate.getKind().toString());
 		// TODO complete
 		Enumeration e1 = xmiPseudostate.enumeratePseudostateItem();
@@ -994,14 +1111,16 @@ public class ModelFactory implements IModelFactory {
 				System.out.println("INFO: unhandled element on PseudostateItem.");								
 			}
 		}
-    repository.register(ps);
 		return ps;
 	}
 	
-	public IFinalState createFinalState(XmiObject xmiObj) {
-		FinalState fs = new FinalState();
-		org.soulspace.xmi.marshal.FinalState xmiFinalState = (org.soulspace.xmi.marshal.FinalState) xmiObj;
-		fs.setId(xmiFinalState.getXmi_id());
+	protected IFinalState getFinalStateInstance(org.soulspace.xmi.marshal.FinalState xmiFinalState) {
+		IFinalState fs = new FinalState();
+		fs.setId(xmiFinalState.getXmi_id());		
+		return fs;
+	}
+	
+	protected IFinalState initFinalState(IFinalState fs, org.soulspace.xmi.marshal.FinalState xmiFinalState) {
 		fs.setName(xmiFinalState.getName());
 		// TODO complete
 		Enumeration e1 = xmiFinalState.enumerateFinalStateItem();
@@ -1019,15 +1138,16 @@ public class ModelFactory implements IModelFactory {
 				System.out.println("INFO: unhandled element on FinalStateItem.");
 			}
 		}
-    repository.register(fs);
 		return fs;
 	}
 	
-	public ISubmachineState createSubmachineState(XmiObject xmiObj) {
-		SubmachineState ss = new SubmachineState();
-		org.soulspace.xmi.marshal.SubmachineState xmiSubmachineState = (org.soulspace.xmi.marshal.SubmachineState) xmiObj;
-		
-		ss.setId(xmiSubmachineState.getXmi_id());
+	protected ISubmachineState getSubmachineStateInstance(org.soulspace.xmi.marshal.SubmachineState xmiSubmachineState) {
+		ISubmachineState ss = new SubmachineState();
+		ss.setId(xmiSubmachineState.getXmi_id());		
+		return ss;
+	}
+	
+	protected ISubmachineState initSubmachineState(ISubmachineState ss, org.soulspace.xmi.marshal.SubmachineState xmiSubmachineState) {
 		ss.setName(xmiSubmachineState.getName());
 		
 		Enumeration e1 = xmiSubmachineState.enumerateSubmachineStateItem();
@@ -1052,17 +1172,19 @@ public class ModelFactory implements IModelFactory {
 				System.out.println("INFO: unhandled element on SubmachineStateItem.");
 			}
 		}		
-    repository.register(ss);
 		return ss;
 	}
 	
-	public ITransition createTransition(XmiObject xmiObj) {
+	protected ITransition getTransitionInstance(org.soulspace.xmi.marshal.Transition xmiTransition) {
+		ITransition t = new Transition();
+		t.setId(xmiTransition.getXmi_id());
+		return t;
+	}
+	
+	protected ITransition initTransition(ITransition t, org.soulspace.xmi.marshal.Transition xmiTransition) {
 		IState source = null;
 		IState target = null;
-		Transition t = new Transition();
-		org.soulspace.xmi.marshal.Transition xmiTransition = (org.soulspace.xmi.marshal.Transition) xmiObj;
 	
-		t.setId(xmiTransition.getXmi_id());
 		if(xmiTransition.getName() != null) {
 			t.setName(xmiTransition.getName());
 		}
@@ -1127,14 +1249,16 @@ public class ModelFactory implements IModelFactory {
 		} else {
 			System.out.println("ERROR: Transition target not set for transition " + t.getId());
 		}
-    repository.register(t);
 		return t;
 	}
 	
-	public ICallEvent createCallEvent(XmiObject xmiObj) {
-		CallEvent ce = new CallEvent();
-		org.soulspace.xmi.marshal.CallEvent xmiCallEvent = (org.soulspace.xmi.marshal.CallEvent) xmiObj;
+	protected ICallEvent getCallEventInstance(org.soulspace.xmi.marshal.CallEvent xmiCallEvent) {
+		ICallEvent ce = new CallEvent();
 		ce.setId(xmiCallEvent.getXmi_id());
+		return ce;
+	}
+	
+	protected ICallEvent initCallEvent(ICallEvent ce, org.soulspace.xmi.marshal.CallEvent xmiCallEvent) {
 		ce.setName(xmiCallEvent.getName());
 		ce.setNamespace(xmiCallEvent.getNamespace());
 		ce.setQualifiedName(ce.getQualifiedName());
@@ -1153,11 +1277,62 @@ public class ModelFactory implements IModelFactory {
 				}
 			}
 		}
-		repository.register(ce);
 		return ce;
 	}
+
+  public IMultiplicity createMultiplicity(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.Multiplicity xmiMultiplicity = (org.soulspace.xmi.marshal.Multiplicity) xmiObj;
+    Multiplicity m = new Multiplicity();
+    Enumeration e1 = xmiMultiplicity.enumerateMultiplicityItem();
+    while (e1.hasMoreElements()) {
+      MultiplicityItem mI = (MultiplicityItem) e1.nextElement();
+      if (mI.getMultiplicity_range() != null) {
+        Enumeration e2 = mI.getMultiplicity_range()
+            .enumerateMultiplicity_rangeItem();
+        while (e2.hasMoreElements()) {
+          Multiplicity_rangeItem rI = (Multiplicity_rangeItem) e2.nextElement();
+          if (rI.getMultiplicityRange() != null) {
+            m.setLow(rI.getMultiplicityRange().getLower());
+            m.setHigh(rI.getMultiplicityRange().getUpper());
+          }
+        }
+      }
+    }
+
+    return m;
+  }
+
 	
-	
+  void addStereotypes(IElement element, ModelElement_stereotype mEST) {
+    Enumeration e1 = mEST.enumerateModelElement_stereotypeItem();
+    while (e1.hasMoreElements()) {
+      ModelElement_stereotypeItem stI = (ModelElement_stereotypeItem) e1
+          .nextElement();
+      if (stI.getStereotype() != null) {
+        String xmiId = stI.getStereotype().getXmi_idref();
+        if (xmiId != null) {
+          IStereotype st = (IStereotype) repository.lookupByXmiId(xmiId);
+          if (st != null) {
+            element.addStereotype(st);
+          }
+        }
+      }
+    }
+  }
+
+  void addTaggedValues(IElement element, ModelElement_taggedValue mETV) {
+    Enumeration e1 = mETV.enumerateModelElement_taggedValueItem();
+    while (e1.hasMoreElements()) {
+      ModelElement_taggedValueItem tvI = (ModelElement_taggedValueItem) e1
+          .nextElement();
+      if (tvI.getTaggedValue() != null) {
+        org.soulspace.xmi.marshal.TaggedValue tv = tvI.getTaggedValue();
+        ITaggedValue mTV = createTaggedValue(tv);
+        element.addTaggedValue(mTV);
+      }
+    }
+  }
+
   /*
    * (non-Javadoc)
    * 
@@ -1214,7 +1389,6 @@ public class ModelFactory implements IModelFactory {
         Enumeration e2 = aI.getAssociation_connection()
             .enumerateAssociation_connectionItem();
         while (e2.hasMoreElements()) {
-        	// TODO add association ends in 'from' and 'to'
           Association_connectionItem cI = (Association_connectionItem) e2
               .nextElement();
           if (cI.getAssociationEnd() != null) {
@@ -1310,49 +1484,27 @@ public class ModelFactory implements IModelFactory {
   }
   
   IClass findClass(org.soulspace.xmi.marshal.Class c) {
-    if (c != null && c.getXmi_idref() != null) {
-      return (Class) repository.lookupByXmiId(c.getXmi_idref());
-    }
-    return null;
+    return (Class) repository.lookupByXmiId(c.getXmi_idref());
   }
 
   private IDataType findDataType(org.soulspace.xmi.marshal.DataType dt) {
-    if (dt != null && dt.getXmi_idref() != null) {
-      return (DataType) repository.lookupByXmiId(dt.getXmi_idref());
-    }
-    return null;
+    return (DataType) repository.lookupByXmiId(dt.getXmi_idref());
   }
 
-  /**
-   * @param interface1
-   * @return
-   */
   private IInterface findInterface(org.soulspace.xmi.marshal.Interface i) {
-    if (i != null && i.getXmi_idref() != null) {
-      return (Interface) repository.lookupByXmiId(i.getXmi_idref());
-    }
-    return null;
+  	return (Interface) repository.lookupByXmiId(i.getXmi_idref());
   }
 
   private IUseCase findUseCase(org.soulspace.xmi.marshal.UseCase uc) {
-  	if(uc != null && uc.getXmi_idref() != null) {
-  		return (IUseCase) repository.lookupByXmiId(uc.getXmi_id());
-  	}
-  	return null;
+  	return (IUseCase) repository.lookupByXmiId(uc.getXmi_id());
   }
   
   private IExtensionPoint findExtensionPoint(org.soulspace.xmi.marshal.ExtensionPoint ep) {
-  	if(ep != null && ep.getXmi_idref() != null) {
-  		return (IExtensionPoint) repository.lookupByXmiId(ep.getXmi_id());
-  	}
-  	return null;
+  	return (IExtensionPoint) repository.lookupByXmiId(ep.getXmi_id());
   }  
 
 	private IActor findActor(org.soulspace.xmi.marshal.Actor a) {
-    if (a != null && a.getXmi_idref() != null) {
-      return (IActor) repository.lookupByXmiId(a.getXmi_idref());
-    }
-    return null;
+		return (IActor) repository.lookupByXmiId(a.getXmi_idref());
 	}
 
 	private IAssociationEnd findAssociationEnd(String id) {
@@ -1368,59 +1520,16 @@ public class ModelFactory implements IModelFactory {
   }
 
   private IAssociation findAssociation(org.soulspace.xmi.marshal.Association a) {
-    if (a != null && a.getXmi_id() != null) {
-      return (IAssociation) repository.lookupByXmiId(a.getXmi_id());
-    }
-    return null;
+  	return (IAssociation) repository.lookupByXmiId(a.getXmi_id());
 	}
 
   private Stereotype findStereotype(ModelElement_stereotypeItem stI) {
-    if (stI.getStereotype() != null &&stI.getStereotype().getXmi_idref() != null) {
-      return (Stereotype) repository.lookupByXmiId(stI.getStereotype().getXmi_idref());
-    }
-    return null;
+  	return (Stereotype) repository.lookupByXmiId(stI.getStereotype().getXmi_idref());
   }
 
   TagDefinition findTagDefinition(TaggedValue_typeItem tI) {
-    if (tI.getTagDefinition() != null) {
-      String xmiId = tI.getTagDefinition().getXmi_idref();
-      if (xmiId != null) {
-        return (TagDefinition) repository.lookupByXmiId(xmiId);
-      }
-    }
-    return null;
+  	return (TagDefinition) repository.lookupByXmiId(tI.getTagDefinition().getXmi_idref());
   }
-  
-  void addStereotypes(IElement element, ModelElement_stereotype mEST) {
-    Enumeration e1 = mEST.enumerateModelElement_stereotypeItem();
-    while (e1.hasMoreElements()) {
-      ModelElement_stereotypeItem stI = (ModelElement_stereotypeItem) e1
-          .nextElement();
-      if (stI.getStereotype() != null) {
-        String xmiId = stI.getStereotype().getXmi_idref();
-        if (xmiId != null) {
-          IStereotype st = (IStereotype) repository.lookupByXmiId(xmiId);
-          if (st != null) {
-            element.addStereotype(st);
-          }
-        }
-      }
-    }
-  }
-
-  void addTaggedValues(IElement element, ModelElement_taggedValue mETV) {
-    Enumeration e1 = mETV.enumerateModelElement_taggedValueItem();
-    while (e1.hasMoreElements()) {
-      ModelElement_taggedValueItem tvI = (ModelElement_taggedValueItem) e1
-          .nextElement();
-      if (tvI.getTaggedValue() != null) {
-        org.soulspace.xmi.marshal.TaggedValue tv = tvI.getTaggedValue();
-        ITaggedValue mTV = createTaggedValue(tv);
-        element.addTaggedValue(mTV);
-      }
-    }
-  }
-
   
   public String fetchReturnType(org.soulspace.xmi.marshal.Operation xmiOperation) {
     String xmiId = "";

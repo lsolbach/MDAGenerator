@@ -10,8 +10,10 @@ package org.soulspace.mdlrepo.metamodel;
  */
 public interface IParameter extends IClassifier {
 
-  public String getName();
-  public IClassifier getType();
-  public String getKind();
+  IClassifier getType();
+  void setType(IClassifier cf);
 
+  String getKind();
+  void setKind(String kind);
+  
 }

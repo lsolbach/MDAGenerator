@@ -30,37 +30,22 @@ public class Element implements IElement {
   protected List<ITaggedValue> taggedValues = new ArrayList<ITaggedValue>();
   protected Map<String, ITaggedValue> taggedValueMap = new HashMap<String, ITaggedValue>();
 
-  /**
-   * Constructor
-   */
   public Element() {
     super();
   }
 
-  /**
-   * @return Returns the namespace.
-   */
-  public String getNamespace() {
-    return namespace;
-  }
-
-  /**
-   * @return
-   */
   public String getId() {
     return id;
   }
 
-  /**
-   * @param id The id to set.
-   */
   public void setId(String id) {
     this.id = id;
   }
 
-  /**
-   * @param namespace The namespace to set.
-   */
+  public String getNamespace() {
+    return namespace;
+  }
+
   public void setNamespace(String namespace) {
     this.namespace = namespace;
   }

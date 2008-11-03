@@ -60,7 +60,7 @@ public class Attribute extends Classifier implements IAttribute {
   public String getMethodSuffix() {
     return methodSuffix;
   }
-  
+ 
   /**
    * @return Returns the visibility.
    */

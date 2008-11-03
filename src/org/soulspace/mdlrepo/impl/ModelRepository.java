@@ -86,6 +86,18 @@ public class ModelRepository implements IModelRepository {
     modelBuilder.buildModelRepository();
   }
 
+  public void initRepository(String[] modelFilenames) {
+  	List<XMIRepository> xmiRepositoryList = new ArrayList<XMIRepository>();
+  	for(String modelFilename : modelFilenames) {
+      XMIRepository xmiRepository = new XMIRepository(modelFilename);
+      xmiRepository.initRepository();
+      xmiRepositoryList.add(xmiRepository);
+  	}
+  	
+    ModelBuilder modelBuilder = new ModelBuilder(xmiRepositoryList, factory);
+    modelBuilder.buildModelRepository();
+  }
+  
   /**
    * Initialize the repository with the model file
    */
@@ -94,6 +106,18 @@ public class ModelRepository implements IModelRepository {
     xmiRepository.initRepository();
     
     ModelBuilder modelBuilder = new ModelBuilder(xmiRepository, factory);
+    modelBuilder.buildModelRepository();
+  }  
+  
+  public void initRepository(File[] modelFiles) {
+  	List<XMIRepository> xmiRepositoryList = new ArrayList<XMIRepository>();
+  	for(File modelFile : modelFiles) {
+      XMIRepository xmiRepository = new XMIRepository(modelFile);
+      xmiRepository.initRepository();
+      xmiRepositoryList.add(xmiRepository);
+  	}
+  	
+    ModelBuilder modelBuilder = new ModelBuilder(xmiRepositoryList, factory);
     modelBuilder.buildModelRepository();
   }  
   

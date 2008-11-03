@@ -11,18 +11,25 @@ package org.soulspace.mdlrepo.metamodel;
 public interface IAttribute extends IClassifier {
   
   IClassifier getType();
-    
+  void setType(IClassifier cf);
+  
   String getOwnerScope();
+  void setOwnerScope(String ownerScope);
   
   String getVisibility();
+  void setVisibility(String visibility);
   
   String getChangeability();
+  void setChangeability(String changeability);
   
   boolean isDerived();
+  void setDerived(boolean derived);
   
   IMultiplicity getMultiplicity();
-
+  void setMultiplicity(IMultiplicity multiplicity);
+  
   String getMethodSuffix();
+  void setMethodSuffix(String methodSuffix);
   
   boolean checkOverloaded(IAttribute a);
 }

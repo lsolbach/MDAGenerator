@@ -3,6 +3,7 @@
  */
 package org.soulspace.mdlrepo.metamodel.impl;
 
+import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.mdlrepo.metamodel.ITagDefinition;
 
 
@@ -10,7 +11,7 @@ import org.soulspace.mdlrepo.metamodel.ITagDefinition;
  * @author soulman
  *
  */
-public class TagDefinition extends NamedElement implements ITagDefinition {
+public class TagDefinition extends Classifier implements ITagDefinition {
 
   private int multiplicityLow = 1;
   private int multiplicityHigh = 1;
@@ -76,7 +77,6 @@ public class TagDefinition extends NamedElement implements ITagDefinition {
 		if (multiplicityLow != other.multiplicityLow)
 			return false;
 		return true;
-	}
-  
+	}  
   
 }

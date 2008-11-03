@@ -7,6 +7,6 @@ public interface INamedElement extends IElement {
 	 * @return name
 	 */
   String getName();
-
   void setName(String name);
+  
 }

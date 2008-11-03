@@ -14,24 +14,21 @@ import java.util.Map;
  */
 public interface IElement {
 
-  String getId();
-  
+  String getId();  
   void setId(String id);
   
+  String getNamespace();
+  void setNamespace(String namespace);
+
   String getElementType();
-  
   IElement getThis();
   
   List<IStereotype> getStereotypes();
-   
   Map<String, IStereotype> getStereotypeMap();
-   
   void addStereotype(IStereotype st);
 
   List<ITaggedValue> getTaggedValues();
-   
   Map<String, ITaggedValue> getTaggedValueMap();
-   
   void addTaggedValue(ITaggedValue tv);
   
 }

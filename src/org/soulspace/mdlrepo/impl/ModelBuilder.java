@@ -3,7 +3,9 @@
  */
 package org.soulspace.mdlrepo.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.soulspace.mdlrepo.IModelFactory;
 import org.soulspace.xmi.marshal.Actor;
@@ -28,55 +30,67 @@ import org.soulspace.xmi.repository.XMIRepository;
 
 public class ModelBuilder {
 
-  XMIRepository xmiRepository;
+	List<XMIRepository> xmiRepositoryList = new ArrayList<XMIRepository>();
+//  XMIRepository xmiRepository;
   IModelFactory modelFactory;
   
   public ModelBuilder(XMIRepository xmiRepository, IModelFactory modelFactory) {
     super();
-    this.xmiRepository = xmiRepository;
+//    this.xmiRepository = xmiRepository;
+    this.xmiRepositoryList.add(xmiRepository);
     this.modelFactory = modelFactory;
   }
 
+  public ModelBuilder(List<XMIRepository> xmiRepositoryList, IModelFactory modelFactory) {
+    super();
+    this.xmiRepositoryList = xmiRepositoryList;
+    this.modelFactory = modelFactory;
+    // FIXME build from list
+  }
+  
   public void buildModelRepository() {
-
-    // Build model repository
-    // Build stereotypes
-    buildStereotypes();
-    // Build TagDefinitions
-    buildTagDefinitions();
-    // Build model
-    buildModels();
-    // Build packages
-    buildPackages();
-    // Build Actors
-    buildActors();
-    // Build UseCases
-    buildUseCases();
-    // Build Events
-    buildEvents();
-    // Build StateMachines
-    buildStateMachines();
-    // Build DataTypes
-    buildDataTypes();
-    // Build Interfaces
-    buildInterfaces();
-    // Build Classes
-    buildClasses();
-    // Build Attributes
-    buildAttributes();
-    // Build Operations
-    buildOperations();
-    // Build Associations
-    buildAssociations();
-    // Build Generalizations
-    buildGeneralizations();
-    // Build Dependencies
-    buildDependencies();
-    
+  	for (XMIRepository xmiRepository : xmiRepositoryList) {
+      // Build model repository
+  		// the order of the build calls is relevant to get the references right
+  		
+      // Build stereotypes
+      buildStereotypes(xmiRepository);
+      // Build TagDefinitions
+      buildTagDefinitions(xmiRepository);
+      // Build model
+      buildModels(xmiRepository);
+      // Build packages
+      buildPackages(xmiRepository);
+      // Build Actors
+      buildActors(xmiRepository);
+      // Build UseCases
+      buildUseCases(xmiRepository);
+      // Build Events
+      buildEvents(xmiRepository);
+      // Build StateMachines
+      buildStateMachines(xmiRepository);
+      // Build DataTypes
+      buildDataTypes(xmiRepository);
+      // Build Interfaces
+      buildInterfaces(xmiRepository);
+      // Build Classes
+      buildClasses(xmiRepository);
+      // Build Attributes
+      buildAttributes(xmiRepository);
+      // Build Operations
+      buildOperations(xmiRepository);
+      // Build Associations
+      buildAssociations(xmiRepository);
+      // Build Generalizations
+      buildGeneralizations(xmiRepository);
+      // Build Dependencies
+      buildDependencies(xmiRepository);
+			
+		}
     System.out.println("Model repository initialized");
   }
 
-	private void buildModels() {
+	private void buildModels(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiModelListIterator();
     while(i.hasNext()) {
       modelFactory.createModel((Model) i.next());      
@@ -86,14 +100,14 @@ public class ModelBuilder {
   /**
    * 
    */
-	private void buildStereotypes() {
+	private void buildStereotypes(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiStereotypeListIterator();
     while(i.hasNext()) {
       modelFactory.createStereotype((Stereotype) i.next());      
     }
   }
   
-	private void buildTagDefinitions() {
+	private void buildTagDefinitions(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiTagDefinitionListIterator();
     while (i.hasNext()) {
       modelFactory.createTagDefinition((TagDefinition) i.next());
@@ -103,105 +117,105 @@ public class ModelBuilder {
   /**
    * 
    */
-	private void buildPackages() {
+	private void buildPackages(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiPackageListIterator();
     while(i.hasNext()) {
       modelFactory.createPackage((Package) i.next());      
     }
   }
 
-	private void buildDataTypes() {
+	private void buildDataTypes(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiDataTypeListIterator();
     while(i.hasNext()) {
       modelFactory.createDataType((DataType) i.next());
     }
   }
 
-	private void buildInterfaces() {
+	private void buildInterfaces(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiInterfaceListIterator();
     while (i.hasNext()) {
       modelFactory.createInterface((Interface) i.next());
     }
   }
   
-	private void buildClasses() {
+	private void buildClasses(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiClassListIterator();
     while (i.hasNext()) {
       modelFactory.createClass((Class) i.next());    
     }
   }
   
-	private void buildGeneralizations() {
+	private void buildGeneralizations(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiGeneralizationListIterator();
     while(i.hasNext()) {
       modelFactory.processGeneralization((Generalization) i.next());
     }
   }
   
-	private void buildAttributes() {
+	private void buildAttributes(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiAttributeListIterator();
     while(i.hasNext()) {
       modelFactory.createAttribute((Attribute) i.next());
     }
   }
   
-	private void buildOperations() {
+	private void buildOperations(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiOperationListIterator();
     while(i.hasNext()) {
       modelFactory.createOperation((Operation) i.next());
     }
   }
 
-	private void buildAssociations() {
+	private void buildAssociations(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiAssociationListIterator();
     while(i.hasNext()) {
       modelFactory.processAssociation((Association) i.next());
     }
   }
   
-	private void buildDependencies() {
+	private void buildDependencies(XMIRepository xmiRepository) {
     Iterator i = xmiRepository.xmiDependencyListIterator();
     while(i.hasNext()) {
       modelFactory.createDependency((Dependency) i.next());
     }
   }
   
-  private void buildUseCases() {
+  private void buildUseCases(XMIRepository xmiRepository) {
 		Iterator i = xmiRepository.xmiUseCaseListIterator();
 		while (i.hasNext()) {
 			modelFactory.createUseCase((UseCase) i.next());
 		}
 	}
 
-	private void buildActors() {
+	private void buildActors(XMIRepository xmiRepository) {
 		Iterator i = xmiRepository.xmiActorListIterator();
 		while(i.hasNext()) {
 			modelFactory.createActor((Actor) i.next());
 		}
 	}
 
-	private void buildIncludes() {
+	private void buildIncludes(XMIRepository xmiRepository) {
 		Iterator i = xmiRepository.xmiIncludeListIterator();
 		while(i.hasNext()) {
 			modelFactory.processInclude((Include) i.next());
 		}
 	}
 
-	private void buildExtends() {
+	private void buildExtends(XMIRepository xmiRepository) {
 		Iterator i = xmiRepository.xmiExtendListIterator();
 		while(i.hasNext()) {
 			modelFactory.processExtend((Extend) i.next());
 		}
 	}
 
-	private void buildStateMachines() {
+	private void buildStateMachines(XMIRepository xmiRepository) {
 		Iterator i = xmiRepository.xmiStateMachineListIterator();
 		while(i.hasNext()) {
 			modelFactory.createStateMachine((StateMachine) i.next());
 		}
 	}
 
-	private void buildEvents() {
+	private void buildEvents(XMIRepository xmiRepository) {
 		for(CallEvent ce : xmiRepository.getCallEventList()) {
 			modelFactory.createCallEvent(ce);
 		}

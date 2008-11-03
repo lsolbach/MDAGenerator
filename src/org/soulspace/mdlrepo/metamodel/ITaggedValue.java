@@ -11,6 +11,7 @@ package org.soulspace.mdlrepo.metamodel;
  */
 public interface ITaggedValue extends INamedElement {
   
-  public String getValue();
+  String getValue();
+  void setValue(String value);
   
 }

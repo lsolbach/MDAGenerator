@@ -5,11 +5,12 @@ import java.util.List;
 public interface ITransition extends INamedElement {
 
 	IState getSource();
+	void setSource(IState state);
 	
 	IState getTarget();
-
-	List<IEvent> getEvents();
+	void setTarget(IState s);
 	
+	List<IEvent> getEvents();
 	void addEvent(IEvent event);
 	
 }

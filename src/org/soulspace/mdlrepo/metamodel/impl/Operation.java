@@ -58,7 +58,7 @@ public class Operation extends Classifier implements IOperation {
   /**
    * @return Returns the isAbstract.
    */
-  public boolean isAbstract() {
+  public boolean getAbstract() {
     return isAbstract;
   }
   
@@ -72,7 +72,7 @@ public class Operation extends Classifier implements IOperation {
   /**
    * @return Returns the isQuery.
    */
-  public boolean isQuery() {
+  public boolean getQuery() {
     return isQuery;
   }
   

@@ -6,5 +6,6 @@ package org.soulspace.mdlrepo.metamodel;
 public interface IPseudostate extends IState {
 
 	String getKind();
+	void setKind(String kind);
 	
 }
