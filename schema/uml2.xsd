@@ -105,7 +105,11 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Package" />
 				<xs:element ref="Class" />
+				<xs:element ref="AssociationClass" />
 				<xs:element ref="Interface" />
+				<xs:element ref="Association" />
+				<xs:element ref="UseCase" />
+				<xs:element ref="Actor" />
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -117,6 +121,7 @@
 				<xs:element ref="Class"/>
 				<xs:element ref="Interface"/>
 				<xs:element ref="Association"/>
+				<xs:element ref="AssociationClass"/>
 				<xs:element ref="Abstraction"/>
 				<xs:element ref="DataType"/>
 				<xs:element ref="Stereotype"/>
@@ -414,7 +419,7 @@
 	</xs:element>
 
 	<xs:element name="A_context_raisedSignal">
-		<!-- Poseidon specific -->
+		<!-- FIXME Poseidon specific -->
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Operation"/>
@@ -451,8 +456,10 @@
 				<xs:element ref="Association.connection" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="isRoot" />
@@ -494,6 +501,7 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Association"/>
+				<xs:element ref="AssociationClass"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -543,6 +551,7 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Class" />
+				<xs:element ref="AssociationClass" />
 				<xs:element ref="Interface" />
 				<xs:element ref="UseCase" />
 				<xs:element ref="Actor" />
@@ -557,6 +566,8 @@
 				<xs:element ref="ModelElement.stereotype"/>
 				<xs:element ref="ModelElement.taggedValue"/>
 				<xs:element ref="Association.connection"/>
+				<xs:element ref="GeneralizableElement.generalization" />
+				<xs:element ref="Classifier.feature"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id"/>
 			<xs:attribute ref="xmi.idref"/>
