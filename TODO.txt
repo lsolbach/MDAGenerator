@@ -1,0 +1,4 @@
+Todos:
+
+Implement IAssociationClass with factory/builder support
+ 
