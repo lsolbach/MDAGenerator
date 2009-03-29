@@ -83,4 +83,32 @@
 		</java>
 	</target>
 	
+	<target name="generate-schema">
+		<!--delete>
+			<fileset dir="${backup.dir}"/>
+		</delete>
+		<copy todir="${backup.dir}" overwrite="true">
+			<fileset dir="${generate.dir}"/>
+		</copy>
+		<delete>
+			<fileset dir="${generate.dir}"/>
+		</delete-->
+		
+		<!--
+		  - UML Schema
+		  -->
+		<soulmda destdir="${generate.dir}"
+                    backupdir="${backup.dir}"
+                    templateDir="templates/"
+                    modelFile="model/uml1.4.xmi"
+			>
+			<modelGenerator 	name="xmischema"
+                                imports=""
+								subdir="uml"
+								basename="uml1.4"
+								extension="xsd"
+			/>
+		</soulmda>
+	</target>
+	
 </project>
