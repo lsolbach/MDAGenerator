@@ -79,8 +79,8 @@
 
 string renderElements() {
   foreach package <- Packages {
-    foreach class | (!class:StereotypeMap['enumeration'] && class:Abstract) <- package:Classes {
-      renderAbstractElement(class)
+    foreach class | (!class:StereotypeMap['enumeration']) <- package:Classes {
+      renderAssociationElement(class)
     }
     foreach class | (!class:StereotypeMap['enumeration'] && !class:Abstract) <- package:Classes {
       renderConcreteElement(class)
@@ -96,12 +96,14 @@ string renderTypes() {
   }
 }
 
-string renderAbstractElement(map element) {
-	foreach asso | (asso:Name ne '') <- element:Associations {?>
+string renderAssociationElement(map element) {
+	foreach asso | (asso:Name ne '') <- element:Associations {
+	map renderedMap
+	?>
 	<xs:element name="<?element:Name?>.<?asso:Name?>">
 		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-			<!-- render referred types -->
+			<xs:choice minOccurs="0" maxOccurs="unbounded"><?
+			renderChildElementRefs(asso:Type, renderedMap)?>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -109,40 +111,59 @@ string renderAbstractElement(map element) {
 	}
 }
 
-string renderConcreteElement(map element) {?>
+string renderConcreteElement(map element) {
+	map elementMap?>
 	<xs:element name="<?element:Name?>">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded"><?
-
-	if(element:SuperClasses.size() > 0) {
-		foreach superClass <- element:SuperClasses {
-		superClass:Name
-?><?!--	renderParentElementRefs(superClass) --?><?
-		}
-	}
-
-	foreach ref | (ref:Name ne '') <- element:Associations {?>
-				<xs:element ref="<?element:Name?>.<?ref:Name?>"/><?
-	}?>
+			renderParentElementRefs(element, elementMap)?>
 			</xs:choice><?
-	foreach attr <- element:AllAttributes {?>
-			<xs:attribute name="<?attr:Name?>" type="<?renderAttributeType(attr)?>"/><?
-	}
+			map attributeMap
+			renderAttributes(element, attributeMap)
 ?>
 		</xs:complexType>
 	</xs:element>
 <?
 }
 
-string renderParentElementRefs(map element) {
+string renderAttributes(map element, map renderedMap) {
+	map dummy = renderedMap.put(element:Name, element:Name)
 	if(element:SuperClasses.size() > 0) {
 		foreach superClass <- element:SuperClasses {
-?><?!--	renderParentElementRefs(superClass) --?><?
+			if(!renderedMap[superClass:Name]) {
+				renderAttributes(superClass, renderedMap)
+			}
 		}
 	}
-	if(element:Abstract) {
-		foreach ref <- element:Association {?>
-				<xs:element ref="<?element:Name?>.<?ref:Name?>"/><?
+	foreach attr <- element:Attributes {?>
+			<xs:attribute name="<?attr:Name?>" type="<?renderAttributeType(attr)?>"/><?
+	}
+}
+
+string renderParentElementRefs(map element, map renderedMap) {
+	map dummy = renderedMap.put(element:Name, element:Name)
+	if(element:SuperClasses.size() > 0) {
+		foreach superClass <- element:SuperClasses {
+			if(!renderedMap[superClass:Name]) {
+				renderParentElementRefs(superClass, renderedMap)
+			}
+		}
+	}
+	foreach ref | (ref:Name ne '') <- element:Associations {?>
+			<xs:element ref="<?element:Name?>.<?ref:Name?>"/><?
+	}
+}
+
+string renderChildElementRefs(map element, map renderedMap) {
+	map dummy = renderedMap.put(element:Name, element:Name)
+	if(!element:Abstract) {?>
+				<xs:element ref="<?element:Name?>"/><?
+	}
+	if(element:SubClasses.size() > 0) {
+		foreach subClass <- element:SubClasses {
+			if(!renderedMap[subClass:Name]) {
+				renderChildElementRefs(subClass, renderedMap)
+			}
 		}
 	}
 }
