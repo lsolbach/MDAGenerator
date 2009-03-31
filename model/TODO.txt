@@ -1,7 +1,12 @@
 TODOs:
 
-Fix Model Management
+Model:
+Model associationEnd role names missing for reading xmi (e.g. ModelElement.comment)
+Add OCL constraints
 
+Generation:
+Generate cardinalities for associations and attributes
+Generate correct type for Attributes, *KindType for enums, ElementRefs for other DataTypes (Multiplicity, Expression, ...)
 
 Raise Bugs on ArgoUML
 * Dragging Elements with an AssociationClass to a ClassDiagram
