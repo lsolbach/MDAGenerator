@@ -16,7 +16,7 @@
 	<classpathentry kind="lib" path="lib/runtime/TemplateEngine.jar" sourcepath="/TemplateEngine/src"/>
 	<classpathentry kind="lib" path="lib/runtime/commons-logging.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/JavaUtilLibrary.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/XmiRepository.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/XmiRepository.jar" sourcepath="/XmiRepository"/>
 	<classpathentry kind="lib" path="lib/runtime/DomainMetaModel.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

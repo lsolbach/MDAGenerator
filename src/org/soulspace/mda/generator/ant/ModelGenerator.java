@@ -57,7 +57,7 @@ public class ModelGenerator extends AntGenerator {
 	      writeFile(getPath(gt, model, false), output);
       }
     } catch (Exception e1) {
-      System.out.println("Exception while processing template " + getGeneratorContext().getName() + "!");
+      System.err.println("Exception while processing template " + getGeneratorContext().getName() + "!");
       e1.printStackTrace();
     } 
   }
