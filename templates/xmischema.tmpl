@@ -107,6 +107,18 @@ string renderAssociationElement(map element) {
 	</xs:element>
 <?	
 	}
+	foreach attr | (!asAttribute(attr)) {
+	map renderedMap
+	?>
+	<xs:element name="<?element:Name?>.<?asso:Name?>">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded"><?
+			renderChildElementRefs(attr:Type, renderedMap)?>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+<?	
+	}
 }
 
 string renderConcreteElement(map element) {
@@ -117,25 +129,23 @@ string renderConcreteElement(map element) {
 			renderParentElementRefs(element, elementMap)?>
 			</xs:choice><?
 			map attributeMap
-			renderAttributes(element, attributeMap)
+			renderAttributesRefs(element, attributeMap)
 ?>
 		</xs:complexType>
 	</xs:element>
 <?
 }
 
-string renderAttributes(map element, map renderedMap) {
+string renderAttributesRefs(map element, map renderedMap) {
 	map dummy = renderedMap.put(element:Name, element:Name)
 	if(element:SuperClasses.size() > 0) {
 		foreach superClass <- element:SuperClasses {
 			if(!renderedMap[superClass:Name]) {
-				renderAttributes(superClass, renderedMap)
+				renderAttributesRefs(superClass, renderedMap)
 			}
 		}
 	}
-	foreach attr <- element:Attributes {?>
-			<xs:attribute name="<?attr:Name?>" type="<?renderAttributeType(attr)?>"/><?
-	}
+	renderAttributes(element)
 }
 
 string renderParentElementRefs(map element, map renderedMap) {
@@ -148,6 +158,9 @@ string renderParentElementRefs(map element, map renderedMap) {
 		}
 	}
 	foreach ref | (ref:Name ne '') <- element:Associations {?>
+			<xs:element ref="<?element:Name?>.<?ref:Name?>"/><?
+	}
+	foreach ref | (!asAttribute(ref)) <- element:Attributes {?>
 			<xs:element ref="<?element:Name?>.<?ref:Name?>"/><?
 	}
 }
@@ -166,16 +179,34 @@ string renderChildElementRefs(map element, map renderedMap) {
 	}
 }
 
-string renderAttributeType(map attr) {
-	if(attr:Type:Name eq 'String') {?>xs:string<?
-	} else if(attr:Type:Name eq 'boolean') {?>xs:boolean<?
+string renderAttributes(map element) {
+	foreach attr <- element:Attributes {
+		if(attr:Type:Name eq 'String' || attr:Type:Name eq 'Name') {?>
+			<xs:attribute name="<?attr:Name?>" type="xs:string"/><?
+		} else if(attr:Type:Name eq 'boolean' || attr:Type:Name eq 'Boolean') {?>
+			<xs:attribute name="<?attr:Name?>" type="xs:boolean"/><?
+		} else if(attr:Type:StereotypeMap['enumeration']) {?>
+			<xs:attribute name="<?attr:Name?>" type="<?attr:Type:Name.firstLower()?>"/><?
+		} else {?>
+			<!-- <?attr:Name?> <?attr:Type:Name?> --><?
+		}
+	}
+}
+
+numeric asAttribute(map attr) {
+	if(attr:Type:StereotypeMap['enumeration']
+		|| attr:Type:Name eq 'Name'
+		|| attr:Type:Name eq 'Boolean'
+		|| attr:Type:Name eq 'Integer'
+		|| attr:Type:Name eq 'UnsignedInteger') {
+		1
 	} else {
-		attr:Type:Name.firstLower()?>Type<?
+		0
 	}
 }
 
 string renderEnumType(map enum) {?>
-	<xs:simpleType name="<?enum:Name.firstLower()?>Type">
+	<xs:simpleType name="<?enum:Name.firstLower()?>">
 		<xs:restriction base="xs:NMTOKEN"><?
 	foreach value <- enum:AllAttributes {?>
 			<xs:enumeration value="<?value:Name?>" /><?
