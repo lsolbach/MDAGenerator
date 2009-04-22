@@ -13,6 +13,7 @@ import org.soulspace.mdlrepo.impl.ModelRepository;
 import org.soulspace.mdlrepo.metamodel.*;
 import org.soulspace.xmi.base.XmiObject;
 import org.soulspace.xmi.marshal.ActorItem;
+import org.soulspace.xmi.marshal.AssociationClassItem;
 import org.soulspace.xmi.marshal.AssociationEndItem;
 import org.soulspace.xmi.marshal.AssociationEnd_multiplicityItem;
 import org.soulspace.xmi.marshal.AssociationEnd_participantItem;
@@ -132,6 +133,14 @@ public class ModelFactory implements IModelFactory {
     clazz = initClass(clazz, xmiClass);
     repository.register(clazz);
     return clazz;
+  }
+  
+  public IAssociationClass createAssociationClass(XmiObject xmiObj) {
+    org.soulspace.xmi.marshal.AssociationClass xmiAssociationClass = (org.soulspace.xmi.marshal.AssociationClass) xmiObj;
+    IAssociationClass ac =	getAssociationClassInstance(xmiAssociationClass);
+    ac = initAssociationClass(ac, xmiAssociationClass);
+    repository.register(ac);
+    return ac;
   }
   
   public IInterface createInterface(XmiObject xmiObj) {
@@ -391,15 +400,81 @@ public class ModelFactory implements IModelFactory {
         addStereotypes(c, cI.getModelElement_stereotype());
       } else if (cI.getModelElement_taggedValue() != null) {
         addTaggedValues(c, cI.getModelElement_taggedValue());
-        // } else if(cI.getGeneralizableElement_generalization() != null) {
-        // Enumeration e2 =
-        // cI.getGeneralizableElement_generalization().enumerateGeneralizableElement_generalizationItem();
-        // } else if(cI.getModelElement_clientDependency() != null) {
-        // org.soulspace.xmi.marshal.Abstraction a =
-        // cI.getModelElement_clientDependency().getAbstraction();
       }
     }
     return c;
+  }
+
+  protected IAssociationClass getAssociationClassInstance(org.soulspace.xmi.marshal.AssociationClass xmiAssociationClass) {
+    IAssociationClass ac = new AssociationClass();
+    ac.setId(xmiAssociationClass.getXmi_id());    
+    return ac;
+  }
+  
+  protected IAssociationClass initAssociationClass(IAssociationClass ac, org.soulspace.xmi.marshal.AssociationClass xmiAssociationClass) {
+    IAssociationEnd fromEnd = null;
+    IAssociationEnd toEnd = null;
+
+  	ac.setId(xmiAssociationClass.getXmi_id());
+    ac.setNamespace(xmiAssociationClass.getNamespace());
+    ac.setQualifiedName(xmiAssociationClass.getQualifiedName());
+    ac.setName(xmiAssociationClass.getName());
+    ac.setAbstract(xmiAssociationClass.getIsAbstract());
+    ac.setVisibility(XmiHelper.toString(xmiAssociationClass.getVisibility()));
+
+    // FIXME handle association attributes
+    
+    Package p = (Package) findPackage(ac.getNamespace());
+    if (p != null) {
+      ac.setPackage(p);
+      // FIXME handle seperatly?!? (p.addAssociationClass(ac);)
+      p.addClass(ac);
+    }
+    
+    List aeList = new ArrayList();
+
+    Enumeration e1 = xmiAssociationClass.enumerateAssociationClassItem();
+    while (e1.hasMoreElements()) {
+      AssociationClassItem cI = (AssociationClassItem) e1.nextElement();
+      if (cI.getModelElement_stereotype() != null) {
+        addStereotypes(ac, cI.getModelElement_stereotype());
+      } else if (cI.getModelElement_taggedValue() != null) {
+        addTaggedValues(ac, cI.getModelElement_taggedValue());
+      } else if (cI.getAssociation_connection() != null) {
+        Enumeration e2 = cI.getAssociation_connection()
+            .enumerateAssociation_connectionItem();
+        while (e2.hasMoreElements()) {
+          Association_connectionItem cnI = (Association_connectionItem) e2
+              .nextElement();
+          if (cnI.getAssociationEnd() != null) {
+            IAssociationEnd ae = createAssociationEnd(cnI.getAssociationEnd());
+            ((AssociationEnd) ae).setAssociation(ac);
+            if (fromEnd == null) {
+              fromEnd = ae;
+            } else if (toEnd == null) {
+              toEnd = ae;
+            }
+          }
+        }
+      }
+    }
+
+    if(fromEnd != null && fromEnd.getType() != null
+        && toEnd != null && toEnd.getType() != null) {
+    	// set ends on association
+    	ac.setFromEnd(fromEnd);
+      ac.setToEnd(toEnd);
+
+      // set references to each other
+    	((AssociationEnd) fromEnd).setSourceEnd(toEnd);
+    	((AssociationEnd) toEnd).setSourceEnd(fromEnd);
+
+    	// FIXME AssociationClass  add other types (UseCase, Actor, ...)
+      ((Class) fromEnd.getType()).addAssociation(toEnd);
+      ((Class) toEnd.getType()).addAssociation(fromEnd);
+    }
+
+    return ac;
   }
 
   protected IInterface getInterfaceInstance(org.soulspace.xmi.marshal.Interface xmiInterface) {
@@ -526,7 +601,8 @@ public class ModelFactory implements IModelFactory {
       }
     }
 
-    Class c = (Class) repository.lookupClassByQualifiedName(a.getNamespace());
+    // FIXME not only classes
+    IClass c = (IClass) repository.lookupClassByQualifiedName(a.getNamespace());
     if (c != null) {
       c.addAttribute(a);
     }

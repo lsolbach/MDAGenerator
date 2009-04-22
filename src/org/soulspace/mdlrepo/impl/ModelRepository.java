@@ -128,60 +128,74 @@ public class ModelRepository implements IModelRepository {
   	idMap.put(e.getId(), e);
     if(e instanceof IModel) {
       modelList.add((IModel) e);
-    } else if(e instanceof IPackage) {
+    }
+    if(e instanceof IPackage) {
       IPackage p = (IPackage) e;
       packageList.add(p);
       packageMap.put(p.getQualifiedName(), p);
       nameMap.put(p.getQualifiedName(), p);
-    } else if(e instanceof IClass) {
+    } 
+    if(e instanceof IClass) {
       IClass c = (IClass) e;
       classList.add(c);
       classMap.put(c.getQualifiedName(), c);
       nameMap.put(c.getQualifiedName(), c);
-    } else if(e instanceof IInterface) {
+    }
+    if(e instanceof IInterface) {
       IInterface i = (IInterface) e;
       nameMap.put(i.getQualifiedName(), i);
-    } else if(e instanceof IAttribute) {
+    } 
+    if(e instanceof IAttribute) {
       IAttribute a = (IAttribute) e;
       attributeMap.put(a.getQualifiedName(), a);
-    } else if(e instanceof IOperation) {
+    } 
+    if(e instanceof IOperation) {
       IOperation o = (IOperation) e;
       operationMap.put(o.getQualifiedName(), o);
-    } else if(e instanceof IDataType) {
+    }
+    if(e instanceof IDataType) {
       IDataType dt = (IDataType) e;
       dataTypeList.add(dt);
-    } else if(e instanceof IStereotype) {
+    }
+    if(e instanceof IStereotype) {
       IStereotype st = (IStereotype) e;
       stereotypeList.add(st);
-    } else if(e instanceof ITagDefinition) {
+    }
+    if(e instanceof ITagDefinition) {
       ITagDefinition td = (ITagDefinition) e;
       tagDefinitionList.add(td);
-    } else if(e instanceof IDependency) {
+    }
+    if(e instanceof IDependency) {
       IDependency d = (IDependency) e;
       dependencyList.add(d);
-    } else if(e instanceof IUseCase) {
+    }
+    if(e instanceof IUseCase) {
     	IUseCase uc = (IUseCase) e;
     	useCaseList.add(uc);
-    } else if(e instanceof IActor) {
+    }
+    if(e instanceof IActor) {
     	IActor a = (IActor) e;
     	actorList.add(a);
-    } else if(e instanceof IStateMachine) {
+    }
+    if(e instanceof IStateMachine) {
     	IStateMachine sm = (IStateMachine) e;
     	stateMachineList.add(sm);
-    } else if(e instanceof IAssociation) {
+    }
+    if(e instanceof IAssociation) {
     	IAssociation a = (IAssociation) e;
     	associationList.add(a);
-    } else if(e instanceof IState) {
+    }
+    if(e instanceof IState) {
     	IState s = (IState) e;
     	stateList.add(s);
-    } else if(e instanceof ITransition) {
+    }
+    if(e instanceof ITransition) {
     	ITransition t = (ITransition) e;
     	transitionList.add(t);
-    } else if(e instanceof IEvent) {
+    }
+    if(e instanceof IEvent) {
     	IEvent ev = (IEvent) e;
     	eventList.add(ev);
-    } else {
-    	//System.out.println("Unknown element:" + e.getClass().getName());
     }
   }
 

@@ -21,6 +21,7 @@
 			classpathref="unittest.classpath">
 			<arg value="refModels/argouml/state.xmi"/>
 			<arg value="refModels/argouml/usecase.xmi"/>
+			<arg value="refModels/argouml/associationclass.xmi"/>
 			<arg value="refModels/poseidon/state.xmi"/>
 			<arg value="refModels/poseidon/activity.xmi"/>
 			<arg value="refModels/poseidon/usecase.xmi"/>

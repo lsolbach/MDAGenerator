@@ -10,6 +10,7 @@ import java.util.List;
 import org.soulspace.mdlrepo.IModelFactory;
 import org.soulspace.xmi.marshal.Actor;
 import org.soulspace.xmi.marshal.Association;
+import org.soulspace.xmi.marshal.AssociationClass;
 import org.soulspace.xmi.marshal.Attribute;
 import org.soulspace.xmi.marshal.CallEvent;
 import org.soulspace.xmi.marshal.Class;
@@ -75,6 +76,8 @@ public class ModelBuilder {
       buildInterfaces(xmiRepository);
       // Build Classes
       buildClasses(xmiRepository);
+      // Build AssociationClasses
+      buildAssociationClasses(xmiRepository);
       // Build Attributes
       buildAttributes(xmiRepository);
       // Build Operations
@@ -142,6 +145,13 @@ public class ModelBuilder {
     Iterator i = xmiRepository.xmiClassListIterator();
     while (i.hasNext()) {
       modelFactory.createClass((Class) i.next());    
+    }
+  }
+  
+	private void buildAssociationClasses(XMIRepository xmiRepository) {
+    Iterator i = xmiRepository.xmiAssociationClassListIterator();
+    while (i.hasNext()) {
+      modelFactory.createAssociationClass((AssociationClass) i.next());    
     }
   }
   

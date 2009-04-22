@@ -5,6 +5,7 @@ package org.soulspace.mdlrepo;
 
 import org.soulspace.mdlrepo.metamodel.IActor;
 import org.soulspace.mdlrepo.metamodel.IAssociation;
+import org.soulspace.mdlrepo.metamodel.IAssociationClass;
 import org.soulspace.mdlrepo.metamodel.IAssociationEnd;
 import org.soulspace.mdlrepo.metamodel.IAttribute;
 import org.soulspace.mdlrepo.metamodel.ICallEvent;
@@ -39,6 +40,8 @@ public interface IModelFactory {
   IPackage createPackage(XmiObject xmi);
 
   IClass createClass(XmiObject xmi);
+
+  IAssociationClass createAssociationClass(XmiObject xmi);
 
   IDataType createDataType(XmiObject xmi);
   

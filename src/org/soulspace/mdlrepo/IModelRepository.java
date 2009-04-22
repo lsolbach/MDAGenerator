@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.List;
 
 import org.soulspace.mdlrepo.metamodel.IActor;
+import org.soulspace.mdlrepo.metamodel.IAssociation;
 import org.soulspace.mdlrepo.metamodel.IClass;
 import org.soulspace.mdlrepo.metamodel.IElement;
 import org.soulspace.mdlrepo.metamodel.IInterface;
@@ -111,4 +112,10 @@ public interface IModelRepository {
    * @return
    */
   List<IStateMachine> getStateMachines();
+
+  /**
+   * 
+   */
+  List<IAssociation> getAssociations();
+  
 }
