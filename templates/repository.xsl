@@ -27,7 +27,7 @@ import org.soulspace.xmi.base.XmiObject;
 import org.soulspace.xmi.marshal.XMI;
 import org.soulspace.xmi.marshal.XMI_content;
 import org.soulspace.xmi.marshal.XMI_contentItem;
-<xsl:apply-templates mode="imports"/>
+<!-- xsl:apply-templates mode="imports"/ -->
 
 /**
  * XMIRepository
@@ -36,28 +36,54 @@ import org.soulspace.xmi.marshal.XMI_contentItem;
 public class XMIRepository {
 		
 	private File file;
+	private File[] files;
 	private Map&lt;String, XmiObject&gt; xmiIdMap = new HashMap&lt;String, XmiObject&gt;();
 	private Map&lt;String, XmiObject&gt; nameMap = new HashMap&lt;String, XmiObject&gt;();
 	<xsl:apply-templates mode="collections"/>
 	/**
 	 * Constructor
 	 */
+	public XMIRepository() {
+		super();
+	}
+
 	public XMIRepository(String filename) {
 		super();
-		this.file = new File(filename);
+		// this.file = new File(filename);
+		files = new File[] {new File(filename)};
 	}
 
 	public XMIRepository(File file) {
 		super();
-		this.file = file;
+		files = new File[] {file};
+	}
+
+	public XMIRepository(String[] filenames) {
+		super();
+		files = new File[filenames.length];
+		for(int i = 0; i &lt; filenames.length; i++) {
+			files[i] = new File(filenames[i]);
+		}
+	}
+
+	public XMIRepository(File[] files) {
+		super();
+		this.files = files;
 	}
 
 	public void initRepository() {
-		XMI xmi = readXmi();
+		for(File file : files) {
+			XMI xmi = readXmi(file);
+			buildXmiRepository(xmi);		
+		}
+	}
+
+	public void initRepository(File file) {
+		XMI xmi = readXmi(file);
 		buildXmiRepository(xmi);
 	}
 
-	public XMI readXmi() {
+	public XMI readXmi(File file) {
 		XMI xmi = null;
 		FileReader reader;
 		
@@ -86,9 +112,8 @@ public class XMIRepository {
 				XMI_contentItem cI = (XMI_contentItem) e.nextElement();
 				if(cI.getModel() != null) {
 					builder.traverseModel("", cI.getModel());          
-				} else if(cI.getA_context_raisedSignal() != null) {
-					// poseidon specific exception mechanism
-					System.out.println("context raised signal");
+				} else {
+					System.err.println("unknown xmi content!");
 				}
 			}
 		}
@@ -122,20 +147,22 @@ import org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.
 	<xsl:template
 		match="xs:element[@name and not(starts-with(@name, 'XMI'))]/xs:complexType/xs:attribute[@ref='xmi.id']"
 		mode="collections">
-	private List&lt;<xsl:value-of select="translate(../../@name, '.', '_')"/>&gt; xmi<xsl:value-of select="translate(../../@name, '.', '_')"/>List = new ArrayList&lt;<xsl:value-of select="translate(../../@name, '.', '_')"/>&gt;();
+	private List&lt;org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.', '_')"/>&gt; xmi<xsl:value-of select="translate(../../@name, '.', '_')"/>List = new ArrayList&lt;org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.', '_')"/>&gt;();
 	</xsl:template>
 
 	<xsl:template
 		match="xs:element[@name and not(starts-with(@name, 'XMI'))]/xs:complexType/xs:attribute[@ref='xmi.id']"
 		mode="registry">
 	void register<xsl:value-of select="translate(../../@name, '.', '_')"/>(
-	               String xmiId, <xsl:value-of select="translate(../../@name, '.', '_')"/> element) {
+	               String xmiId, org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.', '_')"/> element) {
 		xmi<xsl:value-of select="translate(../../@name, '.', '_')"/>List.add(element);
 		xmiIdMap.put(element.getXmi_id(), element);
 		<xsl:if test="../../@name='Package'
 						or ../../@name='Class'
 						or ../../@name='Interface'
 						or ../../@name='DataType'
+						or ../../@name='Actor'
+						or ../../@name='UseCase'
 			">
 		nameMap.put(element.getQualifiedName(), element);
 		</xsl:if>
@@ -148,11 +175,11 @@ import org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.
 	<xsl:template
 		match="xs:element[@name and not(starts-with(@name, 'XMI'))]/xs:complexType/xs:attribute[@ref='xmi.id']"
 		mode="access">
-	public List&lt;<xsl:value-of select="translate(../../@name, '.', '_')"/>&gt; get<xsl:value-of select="translate(../../@name, '.', '_')"/>List() {
+	public List&lt;org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.', '_')"/>&gt; get<xsl:value-of select="translate(../../@name, '.', '_')"/>List() {
 		return xmi<xsl:value-of select="translate(../../@name, '.', '_')"/>List;
 	}
 	
-	public Iterator&lt;<xsl:value-of select="translate(../../@name, '.', '_')"/>&gt; xmi<xsl:value-of select="translate(../../@name, '.', '_')"/>ListIterator() {
+	public Iterator&lt;org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.', '_')"/>&gt; xmi<xsl:value-of select="translate(../../@name, '.', '_')"/>ListIterator() {
 		return xmi<xsl:value-of select="translate(../../@name, '.', '_')"/>List.iterator();
 	}
 <!--		

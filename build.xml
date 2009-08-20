@@ -70,7 +70,20 @@
 	
 	<target name="test-xmiloader">
 		<java
-			classname="org.soulspace.xmi.util.XMILoader"
+			classname="org.soulspace.xmi.util.XmiLoader"
+			classpathref="unittest.classpath">
+			<arg value="data/refModels/argouml/state.xmi"/>
+			<arg value="data/refModels/argouml/usecase.xmi"/>
+			<arg value="data/refModels/argouml/associationclass.xmi"/>
+			<arg value="data/refModels/poseidon/state.xmi"/>
+			<arg value="data/refModels/poseidon/activity.xmi"/>
+			<arg value="data/refModels/poseidon/usecase.xmi"/>
+			<arg value="data/refModels/poseidon/interface.xmi"/>
+			<arg value="data/refModels/poseidon/generalization.xmi"/>
+			<arg value="data/refModels/poseidon/generalization2.xmi"/>
+		</java>
+		<java
+			classname="org.soulspace.xmi.util.XmiMultiLoader"
 			classpathref="unittest.classpath">
 			<arg value="data/refModels/argouml/state.xmi"/>
 			<arg value="data/refModels/argouml/usecase.xmi"/>

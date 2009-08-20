@@ -38,8 +38,6 @@
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="Model"/>
-		<xs:element ref="A_context_raisedSignal"/>
-        <xs:element ref="Diagram"/>
       </xs:choice>
     </xs:complexType>
   </xs:element>
@@ -137,6 +135,7 @@
 				<xs:element ref="Subsystem"/>
 				<xs:element ref="Collaboration"/>
 				<xs:element ref="Comment"/>
+				<xs:element ref="Enumeration"/>
 				<!-- ArgoUML 1.4 -->
 				<xs:element ref="CallEvent"/>
 				<!-- UML2 -->
@@ -152,6 +151,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -173,6 +173,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -198,6 +199,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -251,6 +253,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="isSpecification" />
 		</xs:complexType>
 	</xs:element>
@@ -275,6 +278,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name"/>
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="isQuery" />
@@ -354,6 +358,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="isRoot" />
@@ -409,23 +414,13 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="isRoot" />
 			<xs:attribute ref="isLeaf" />
 			<xs:attribute ref="isAbstract" />
-		</xs:complexType>
-	</xs:element>
-
-	<xs:element name="A_context_raisedSignal">
-		<!-- FIXME Poseidon specific -->
-		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="Operation"/>
-				<xs:element ref="Method"/>
-				<xs:element ref="Exception"/>
-			</xs:choice>
 		</xs:complexType>
 	</xs:element>
 
@@ -441,6 +436,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -460,6 +456,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="isRoot" />
@@ -571,6 +568,52 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id"/>
 			<xs:attribute ref="xmi.idref"/>
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="visibility" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Enumeration">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.stereotype"/>
+				<xs:element ref="ModelElement.taggedValue"/>
+				<xs:element ref="Enumeration.literal"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="visibility" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Enumeration.literal">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="EnumerationLiteral"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="EnumerationLiteral">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.stereotype"/>
+				<xs:element ref="ModelElement.taggedValue"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -590,6 +633,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -656,14 +700,15 @@
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 			</xs:choice>
-			<xs:attribute ref="xmi.id" />
-			<xs:attribute ref="xmi.idref" />
-			<xs:attribute ref="name" />
-			<xs:attribute ref="visibility" />
-			<xs:attribute ref="isSpecification" />
-			<xs:attribute ref="isRoot" />
-			<xs:attribute ref="isLeaf" />
-			<xs:attribute ref="isAbstract" />
+			<xs:attribute ref="xmi.id"/>
+			<xs:attribute ref="xmi.idref"/>
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name"/>
+			<xs:attribute ref="visibility"/>
+			<xs:attribute ref="isSpecification"/>
+			<xs:attribute ref="isRoot"/>
+			<xs:attribute ref="isLeaf"/>
+			<xs:attribute ref="isAbstract"/>
 		</xs:complexType>
 	</xs:element>
 
@@ -676,6 +721,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="tagType" />
@@ -706,6 +752,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="isSpecification" />
 		</xs:complexType>
 	</xs:element>
@@ -764,6 +811,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -785,6 +833,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -805,6 +854,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -830,6 +880,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="isSpecification"/>
 		</xs:complexType>
 	</xs:element>
@@ -862,6 +913,7 @@
 		<xs:complexType>
 			<xs:attribute ref="xmi.id"/>
 			<xs:attribute ref="xmi.idref"/>
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name"/>
 			<xs:attribute ref="isSpecification"/>
 			<xs:attribute ref="location"/>
@@ -885,6 +937,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="isSpecification"/>
 		</xs:complexType>
 	</xs:element>
@@ -927,6 +980,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="isRoot" />
@@ -967,6 +1021,7 @@
 			</xs:choice>	
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="isConcurrent" />
@@ -995,6 +1050,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />	
 			<xs:attribute ref="isSpecification" />
 		</xs:complexType>
@@ -1014,6 +1070,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="visibility" />
@@ -1033,6 +1090,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 		</xs:complexType>
 	</xs:element>
@@ -1057,6 +1115,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="visibility" />
@@ -1090,6 +1149,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="visibility" />
@@ -1141,6 +1201,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 		</xs:complexType>
@@ -1195,6 +1256,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 		</xs:complexType>
@@ -1230,6 +1292,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
 			<xs:attribute ref="visibility" />
@@ -1337,6 +1400,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 		</xs:complexType>		
@@ -1369,6 +1433,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 		</xs:complexType>		
@@ -1403,6 +1468,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="messageSort" />
@@ -1450,6 +1516,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 		</xs:complexType>		
@@ -1479,6 +1546,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="body" />
@@ -1496,6 +1564,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 		</xs:complexType>		
@@ -1530,6 +1599,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1578,6 +1648,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1639,6 +1710,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1655,6 +1727,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1671,6 +1744,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1687,6 +1761,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1704,6 +1779,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1720,6 +1796,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1735,6 +1812,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1753,6 +1831,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1769,6 +1848,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1825,6 +1905,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1848,6 +1929,7 @@
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
@@ -1877,6 +1959,7 @@
 	<xs:attribute name="xmi.idref" type="xs:string" />
 	<xs:attribute name="xmi.name" type="xs:string" />
 	<xs:attribute name="xmi.version" type="xs:string" />
+	<xs:attribute name="href" type="xs:anyURI"/>
 	<xs:attribute name="name" type="xs:string" />
 	<xs:attribute name="location" type="xs:string" />
 	<xs:attribute name="visibility" type="visibilityType" />
@@ -1985,36 +2068,5 @@
 			<xs:enumeration value="asynchCall" />
 		</xs:restriction>
 	</xs:simpleType>
-
-	<!--
-		XMI Diagram (not supported yet)
-	-->
-	<xs:element name="Diagram">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:any namespace='http://www.w3.org/namespace/'/>
-			</xs:sequence>
-			<xs:attribute name='property' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='reference' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='container' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='semanticModel' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='link' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='contained' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='anchorage' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='diagramLink' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='owner' type='xs:IDREFS' use='optional'/>
-			<xs:attribute name='isVisible' type='xs:string' use='optional'/>
-			<xs:attribute name='position' type='xs:string' use='optional'/>
-			<xs:attribute name='size' type='xs:string' use='optional'/>
-			<xs:attribute name='name' type='xs:string' use='optional'/>
-			<xs:attribute name='zoom' type='xs:string' use='optional'/>
-			<xs:attribute name='viewport' type='xs:string' use='optional'/>
-			<xs:attribute name='xmi.id' type='xs:ID' use='optional'/>
-			<xs:attribute name='xmi.label' type='xs:string' use='optional'/>
-			<xs:attribute name='xmi.uuid' type='xs:string' use='optional'/>
-			<xs:attribute name='href' type='xs:string' use='optional'/>
-			<xs:attribute name='xmi.idref' type='xs:IDREF' use='optional'/>
-		</xs:complexType>
-	</xs:element>
 
 </xs:schema>

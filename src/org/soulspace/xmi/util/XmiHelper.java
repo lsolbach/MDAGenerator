@@ -67,6 +67,13 @@ public class XmiHelper {
     }
   }
   
-
+  public String extractXmiIdRefFromHRef(String href) {
+	  String[] parts = href.split("#");
+	  if(parts.length != 2) {
+		  System.out.println("Unexpected href format");
+		  return href;
+	  }
+	  return parts[1];
+  }
 
 }

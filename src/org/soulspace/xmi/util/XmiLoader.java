@@ -5,9 +5,9 @@ package org.soulspace.xmi.util;
 
 import org.soulspace.xmi.repository.XMIRepository;
 
-public class XMILoader {
+public class XmiLoader {
 
-  public XMILoader() {
+  public XmiLoader() {
     super();
   }
 
