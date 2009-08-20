@@ -87,6 +87,8 @@ import org.soulspace.xmi.util.XmiHelper;
  */
 public class ModelFactory implements IModelFactory {
 
+  // FIXME use xmiObject.getRefId() to dereference in a multimodel scenario
+	
   private IModelRepository repository;
   
   /**
@@ -109,7 +111,6 @@ public class ModelFactory implements IModelFactory {
   public void setModelRepository(IModelRepository mr) {
   	this.repository = mr;
   }
-    
   
   public IModel createModel(XmiObject xmiObj) {
   	org.soulspace.xmi.marshal.Model xmiModel = (org.soulspace.xmi.marshal.Model) xmiObj;
@@ -1278,36 +1279,36 @@ public class ModelFactory implements IModelFactory {
 				while (e2.hasMoreElements()) {
 					Transition_triggerItem ttI = (Transition_triggerItem) e2.nextElement();
 					if(ttI.getCallEvent() != null) {
-						t.addEvent(findEvent(ttI.getCallEvent().getXmi_idref()));
+						t.addEvent(findEvent(ttI.getCallEvent().getRefId()));
 					}
 				}
 			} else if(tI.getTransition_source() != null) {
 				if(tI.getTransition_source().getSimpleState() != null) {
-					source = findState(tI.getTransition_source().getSimpleState().getXmi_idref());
+					source = findState(tI.getTransition_source().getSimpleState().getRefId());
 				} else if(tI.getTransition_source().getPseudostate() != null) {
-					source = findState(tI.getTransition_source().getPseudostate().getXmi_idref());
+					source = findState(tI.getTransition_source().getPseudostate().getRefId());
 				} else if(tI.getTransition_source().getSubmachineState() != null) {
-					source = findState(tI.getTransition_source().getSubmachineState().getXmi_idref());					
+					source = findState(tI.getTransition_source().getSubmachineState().getRefId());					
 				} else if(tI.getTransition_source().getState() != null) {
-					source = findState(tI.getTransition_source().getState().getXmi_idref());					
+					source = findState(tI.getTransition_source().getState().getRefId());					
 				} else if(tI.getTransition_source().getCompositeState() != null) {
-					source = findState(tI.getTransition_source().getCompositeState().getXmi_idref());					
+					source = findState(tI.getTransition_source().getCompositeState().getRefId());					
 				} else {
 					System.out.println("INFO: unkown transition source type on transition " + t.getId());
 				}
 			} else if(tI.getTransition_target() != null) {
 				if(tI.getTransition_target().getSimpleState() != null) {
-					target = findState(tI.getTransition_target().getSimpleState().getXmi_idref());
+					target = findState(tI.getTransition_target().getSimpleState().getRefId());
 				} else if(tI.getTransition_target().getPseudostate() != null) {
-					target = findState(tI.getTransition_target().getPseudostate().getXmi_idref());
+					target = findState(tI.getTransition_target().getPseudostate().getRefId());
 				} else if(tI.getTransition_target().getSubmachineState() != null) {
-					target = findState(tI.getTransition_target().getSubmachineState().getXmi_idref());					
+					target = findState(tI.getTransition_target().getSubmachineState().getRefId());					
 				} else if(tI.getTransition_target().getState() != null) {
-					target = findState(tI.getTransition_target().getState().getXmi_idref());					
+					target = findState(tI.getTransition_target().getState().getRefId());					
 				} else if(tI.getTransition_target().getCompositeState() != null) {
-					target = findState(tI.getTransition_target().getCompositeState().getXmi_idref());					
+					target = findState(tI.getTransition_target().getCompositeState().getRefId());					
 				} else if(tI.getTransition_target().getFinalState() != null) {
-					target = findState(tI.getTransition_target().getFinalState().getXmi_idref());					
+					target = findState(tI.getTransition_target().getFinalState().getRefId());					
 				} else {
 					System.out.println("INFO: unkown transition target type on transition " + t.getId());
 				}				
@@ -1385,7 +1386,7 @@ public class ModelFactory implements IModelFactory {
       ModelElement_stereotypeItem stI = (ModelElement_stereotypeItem) e1
           .nextElement();
       if (stI.getStereotype() != null) {
-        String xmiId = stI.getStereotype().getXmi_idref();
+        String xmiId = stI.getStereotype().getRefId();
         if (xmiId != null) {
           IStereotype st = (IStereotype) repository.lookupByXmiId(xmiId);
           if (st != null) {
@@ -1551,24 +1552,28 @@ public class ModelFactory implements IModelFactory {
 		}
   }
   
+  IElement findElement(String xmiId) {
+	  return repository.lookupByXmiId(xmiId);
+  }
+  
   IPackage findPackage(String namespace) {
   	return repository.lookupPackageByQualifiedName(namespace);
   }
   
   IPackage findPackage(org.soulspace.xmi.marshal.Package p) {
-  	return (Package) repository.lookupByXmiId(p.getXmi_idref()); 
+  	return (Package) repository.lookupByXmiId(p.getRefId()); 
   }
   
   IClass findClass(org.soulspace.xmi.marshal.Class c) {
-    return (Class) repository.lookupByXmiId(c.getXmi_idref());
+    return (Class) repository.lookupByXmiId(c.getRefId());
   }
 
   private IDataType findDataType(org.soulspace.xmi.marshal.DataType dt) {
-    return (DataType) repository.lookupByXmiId(dt.getXmi_idref());
+    return (DataType) repository.lookupByXmiId(dt.getRefId());
   }
 
   private IInterface findInterface(org.soulspace.xmi.marshal.Interface i) {
-  	return (Interface) repository.lookupByXmiId(i.getXmi_idref());
+  	return (Interface) repository.lookupByXmiId(i.getRefId());
   }
 
   private IUseCase findUseCase(org.soulspace.xmi.marshal.UseCase uc) {
@@ -1580,7 +1585,7 @@ public class ModelFactory implements IModelFactory {
   }  
 
 	private IActor findActor(org.soulspace.xmi.marshal.Actor a) {
-		return (IActor) repository.lookupByXmiId(a.getXmi_idref());
+		return (IActor) repository.lookupByXmiId(a.getRefId());
 	}
 
 	private IAssociationEnd findAssociationEnd(String id) {
@@ -1600,11 +1605,11 @@ public class ModelFactory implements IModelFactory {
 	}
 
   private Stereotype findStereotype(ModelElement_stereotypeItem stI) {
-  	return (Stereotype) repository.lookupByXmiId(stI.getStereotype().getXmi_idref());
+  	return (Stereotype) repository.lookupByXmiId(stI.getStereotype().getRefId());
   }
 
   TagDefinition findTagDefinition(TaggedValue_typeItem tI) {
-  	return (TagDefinition) repository.lookupByXmiId(tI.getTagDefinition().getXmi_idref());
+  	return (TagDefinition) repository.lookupByXmiId(tI.getTagDefinition().getRefId());
   }
   
   public String fetchReturnType(org.soulspace.xmi.marshal.Operation xmiOperation) {
@@ -1624,11 +1629,11 @@ public class ModelFactory implements IModelFactory {
                 // UML2 TypedElement.type
                 TypedElement_type tet = pI.getTypedElement_type();
                 if(tet.getClazz() != null) {
-                  xmiId = tet.getClazz().getXmi_idref();
+                  xmiId = tet.getClazz().getRefId();
                 } else if(tet.getDataType() != null) {
-                  xmiId = tet.getDataType().getXmi_idref(); 
+                  xmiId = tet.getDataType().getRefId(); 
                 } else if(tet.getInterface() != null) {
-                  xmiId = tet.getInterface().getXmi_idref();
+                  xmiId = tet.getInterface().getRefId();
                 }                
               } else if(pI.getParameter_type() != null) {
                 // UML ParameterType
@@ -1636,11 +1641,11 @@ public class ModelFactory implements IModelFactory {
                 while (e5.hasMoreElements()) {
                   Parameter_typeItem ptI = (Parameter_typeItem) e5.nextElement();
                   if(ptI.getClazz() != null) {
-                    xmiId = ptI.getClazz().getXmi_idref();
+                    xmiId = ptI.getClazz().getRefId();
                   } else if(ptI.getDataType() != null) {
-                    xmiId = ptI.getDataType().getXmi_idref(); 
+                    xmiId = ptI.getDataType().getRefId(); 
                   } else if(ptI.getInterface() != null) {
-                    xmiId = ptI.getInterface().getXmi_idref();
+                    xmiId = ptI.getInterface().getRefId();
                   }
                 }
               } else if(pI.getModelElement_stereotype() != null) {

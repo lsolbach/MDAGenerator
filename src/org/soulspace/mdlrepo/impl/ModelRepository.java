@@ -63,7 +63,7 @@ public class ModelRepository implements IModelRepository {
   private Map<String, IAttribute> attributeMap = new HashMap<String, IAttribute>();
   private Map<String, IOperation> operationMap = new HashMap<String, IOperation>();
   
-  private IModelFactory factory;
+  private transient IModelFactory factory;
   
   public ModelRepository() {
   	// FIXME inject
@@ -76,6 +76,11 @@ public class ModelRepository implements IModelRepository {
   
   public void setModelFactory(IModelFactory mf) {
   	this.factory = mf;
+  }
+  
+  public void initRepository(XMIRepository xmiRepository) {
+	  ModelBuilder modelBuilder = new ModelBuilder(xmiRepository, factory);
+	  modelBuilder.buildModelRepository();
   }
   
   public void initRepository(String modelFilename) {

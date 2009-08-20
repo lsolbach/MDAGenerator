@@ -98,7 +98,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllAssociations()
 	 */
-	public List<IAssociationEnd> getAllAssociations() {
+	public Collection<IAssociationEnd> getAllAssociations() {
 		return clazz.getAllAssociations();
 	}
 
@@ -106,7 +106,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllAttributes()
 	 */
-	public List<IAttribute> getAllAttributes() {
+	public Collection<IAttribute> getAllAttributes() {
 		return clazz.getAllAttributes();
 	}
 
@@ -114,7 +114,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllDependencies()
 	 */
-	public List<IDependency> getAllDependencies() {
+	public Collection<IDependency> getAllDependencies() {
 		return clazz.getAllDependencies();
 	}
 
@@ -122,7 +122,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllOperations()
 	 */
-	public List<IOperation> getAllOperations() {
+	public Collection<IOperation> getAllOperations() {
 		return clazz.getAllOperations();
 	}
 

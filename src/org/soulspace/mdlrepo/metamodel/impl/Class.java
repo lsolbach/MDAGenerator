@@ -158,9 +158,9 @@ public class Class extends Classifier implements IClass {
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IClass#getAllAssociation()
    */
-  public List<IAssociationEnd> getAllAssociations() {
+  public Collection<IAssociationEnd> getAllAssociations() {
     // TODO remove overloaded Associations
-    List allAssociations = new ArrayList();
+    Set allAssociations = new HashSet<IAssociationEnd>();
     for(IClass c : getSuperClasses()) {
       allAssociations.addAll(c.getAllAssociations());
     }
@@ -171,9 +171,9 @@ public class Class extends Classifier implements IClass {
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IClass#getAllAttributes()
    */
-  public List<IAttribute> getAllAttributes() {
+  public Collection<IAttribute> getAllAttributes() {
     // TODO remove overloaded Attributes
-    List allAttributes = new ArrayList();
+    Set allAttributes = new HashSet<IAttribute>();
     for(IClass c : getSuperClasses()) {
       allAttributes.addAll(c.getAllAttributes());
     }
@@ -184,9 +184,9 @@ public class Class extends Classifier implements IClass {
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IClass#getAllOperations()
    */
-  public List<IOperation> getAllOperations() {
+  public Collection<IOperation> getAllOperations() {
     // TODO remove overloaded Operations
-    List<IOperation> allOperations = new ArrayList<IOperation>();
+    Set<IOperation> allOperations = new HashSet<IOperation>();
     for(IClass c : getSuperClasses()) {
       allOperations.addAll(c.getAllOperations());
     }

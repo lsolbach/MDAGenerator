@@ -24,98 +24,135 @@ import org.soulspace.mdlrepo.metamodel.IUseCase;
 public interface IModelRepository {
 
 	void setModelFactory(IModelFactory modelFactory);
-	
-  /**
-   * Initialize the repository with the model.
-   * @param modelFilename Model
-   */
-  void initRepository(String modelFilename);
 
-  /**
-   * Initialize the repository with the model.
-   * @param modelFile Model
-   */
-  void initRepository(File modelFile);
+	/**
+	 * Initialize the repository with the model.
+	 * 
+	 * @param modelFilename
+	 *            Model
+	 */
+	void initRepository(String modelFilename);
 
-  /**
-   * Register the model element.
-   * @param modelElement model element
-   */
-  void register(IElement modelElement);
+	/**
+	 * Initialize the repository with the model.
+	 * 
+	 * @param modelFilenames
+	 *            Model
+	 */
+	void initRepository(String[] modelFilenames);
 
-  /**
-   * Lookup a model element by the qualified name.
-   * @param qualifiedName qualified name
-   * @return model element
-   */
-  IElement lookupByQualifiedName(String qualifiedName);
+	/**
+	 * Initialize the repository with the model.
+	 * 
+	 * @param modelFile
+	 *            Model
+	 */
+	void initRepository(File modelFile);
 
-  /**
-   * Lookup a model package by the qualified name.
-   * @param qualifiedName qualified name
-   * @return model package
-   */
-  IPackage lookupPackageByQualifiedName(String qualifiedName);
+	/**
+	 * Initialize the repository with the model.
+	 * 
+	 * @param modelFiles
+	 *            Model
+	 */
+	void initRepository(File[] modelFiles);
 
-  /**
-   * Lookup a model class by qualified name.
-   * @param qualifiedName qualified name
-   * @return model class
-   */
-  IClass lookupClassByQualifiedName(String qualifiedName);
+	/**
+	 * Register the model element.
+	 * 
+	 * @param modelElement
+	 *            model element
+	 */
+	void register(IElement modelElement);
 
-  /**
-   * Lookup a model element by XMI id.
-   * @param xmiId XMI id
-   * @return model element
-   */
-  IElement lookupByXmiId(String xmiId);
+	/**
+	 * Lookup a model element by the qualified name.
+	 * 
+	 * @param qualifiedName
+	 *            qualified name
+	 * @return model element
+	 */
+	IElement lookupByQualifiedName(String qualifiedName);
 
-  /**
-   * Returns a list of the registered model packages.
-   * @return list of model packages
-   */
-  List<IPackage> getPackages();
+	/**
+	 * Lookup a model package by the qualified name.
+	 * 
+	 * @param qualifiedName
+	 *            qualified name
+	 * @return model package
+	 */
+	IPackage lookupPackageByQualifiedName(String qualifiedName);
 
-  /**
-   * Returns a list of the registered model classes.
-   * @return list of model classes
-   */
-  List<IClass> getClasses();
+	/**
+	 * Lookup a model class by qualified name.
+	 * 
+	 * @param qualifiedName
+	 *            qualified name
+	 * @return model class
+	 */
+	IClass lookupClassByQualifiedName(String qualifiedName);
 
-  /**
-   * Returns a list of the registered model interfaces.
-   * @return list of model interfaces
-   */
-  List<IInterface> getInterfaces();
+	/**
+	 * Lookup a model element by XMI id.
+	 * 
+	 * @param xmiId
+	 *            XMI id
+	 * @return model element
+	 */
+	IElement lookupByXmiId(String xmiId);
 
-  /**
-   * Returns a list of the registered models.
-   * @return list of models
-   */
-  List<IModel> getModels();
-  
-  /**
-   * Returns a list of the registered use cases.
-   * @return
-   */
-  List<IUseCase> getUseCases();
+	/**
+	 * Returns a list of the registered model packages.
+	 * 
+	 * @return list of model packages
+	 */
+	List<IPackage> getPackages();
 
-  /**
-   * Returns a list of the registered actors.
-   * @return
-   */
-  List<IActor> getActors();
+	/**
+	 * Returns a list of the registered model classes.
+	 * 
+	 * @return list of model classes
+	 */
+	List<IClass> getClasses();
 
-  /**
-   * Returns a list of the registered state machines.
-   * @return
-   */
-  List<IStateMachine> getStateMachines();
+	/**
+	 * Returns a list of the registered model interfaces.
+	 * 
+	 * @return list of model interfaces
+	 */
+	List<IInterface> getInterfaces();
 
-  /**
+	/**
+	 * Returns a list of the registered models.
+	 * 
+	 * @return list of models
+	 */
+	List<IModel> getModels();
+
+	/**
+	 * Returns a list of the registered use cases.
+	 * 
+	 * @return
+	 */
+	List<IUseCase> getUseCases();
+
+	/**
+	 * Returns a list of the registered actors.
+	 * 
+	 * @return
+	 */
+	List<IActor> getActors();
+
+	/**
+	 * Returns a list of the registered state machines.
+	 * 
+	 * @return
+	 */
+	List<IStateMachine> getStateMachines();
+
+	/**
    * 
    */
-  List<IAssociation> getAssociations();
-  
+	List<IAssociation> getAssociations();
+
 }

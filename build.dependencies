@@ -1,15 +1,6 @@
 <dependencies>
-	<dependency type="dev">
-		<package name="fitnesse" version="20070619" type="lib">
-			<module name="fitnesse"/>
-			<module name="fitlibrary"/>
-		</package>
-		<package name="junit" version="3.8.1" type="lib">
-			<module name="junit"/>
-		</package>
-	</dependency>
 	<dependency type="runtime">
-		<package name="XmiRepository" version="0.9.12" type="project">
+		<package name="XmiRepository" version="0.9.13" type="project">
 			<module name="XmiRepository"/>
 		</package>
 		<package name="castor" version="0.9.5.3" type="lib">
@@ -20,6 +11,15 @@
 		</package>
 		<package name="commons-logging" version="1.1" type="lib">
 			<module name="commons-logging"/>
+		</package>
+	</dependency>
+	<dependency type="dev">
+		<package name="fitnesse" version="20070619" type="lib">
+			<module name="fitnesse"/>
+			<module name="fitlibrary"/>
+		</package>
+		<package name="junit" version="3.8.1" type="lib">
+			<module name="junit"/>
 		</package>
 	</dependency>
 </dependencies>

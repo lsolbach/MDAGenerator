@@ -5,6 +5,7 @@ package org.soulspace.mdlrepo.metamodel;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -32,7 +33,7 @@ public interface IClass extends IClassifier {
    * Returns a list of the attributes declared by this class and it's superclasses.
    * @return attributeList
    */
-  List<IAttribute> getAllAttributes();
+  Collection<IAttribute> getAllAttributes();
 
   /**
    * Adds an attribute to this class.
@@ -50,7 +51,7 @@ public interface IClass extends IClassifier {
    * Returns a list of the attributes declared by this class and it's superclasses.
    * @return operationList
    */
-  List<IOperation> getAllOperations();
+  Collection<IOperation> getAllOperations();
 
   /**
    * Adds an operation to this class 
@@ -68,7 +69,7 @@ public interface IClass extends IClassifier {
    * Returns a list of the associations of this class and it's superclasses.
    * @return associationList
    */
-  List<IAssociationEnd> getAllAssociations();
+  Collection<IAssociationEnd> getAllAssociations();
 
   /**
    * Adds an association to this class.
@@ -116,13 +117,13 @@ public interface IClass extends IClassifier {
    * Returns a list of the dependencies of this class.
    * @return dependencyList
    */
-  List<IDependency> getDependencies();
+  Collection<IDependency> getDependencies();
 
   /**
    * Returns a list of the dependencies of this class and it's superclasses.
    * @return dependencyList
    */
-  List<IDependency> getAllDependencies();
+  Collection<IDependency> getAllDependencies();
   
   /**
    * Adds a dependency to this class.
