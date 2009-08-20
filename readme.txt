@@ -1,14 +1,18 @@
 MdaGenerator
 ============
 
+Version 0.9.14 (--.--.2008)
+
+* updated dependencies
+* new versions of TemplateEngine, XmiRepository and ModelRepository
+* added excludeStereotypes and includeStereotypes properties
+
 Version 0.9.13 (10.09.2008)
----------------------------
 
 * updated dependencies
 * new versions of TemplateEngine, XmiRepository and ModelRepository
 
 Version 0.9.12 (01.09.2008)
----------------------------
 
 * updated dependencies
 * added generation filter patterns

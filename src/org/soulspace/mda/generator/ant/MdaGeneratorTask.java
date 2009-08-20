@@ -165,7 +165,9 @@ public class MdaGeneratorTask extends Task {
   }
   
   IModelRepository initRepository() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-  	IModelRepository repository;
+	// TODO changes for multi model loading and uml version/tool dependend xmi repositories
+    // TODO instanciate (specific) XmiRepository, load model(s), set to ModelFactory, build ModelRepository
+    IModelRepository repository;
   	if(modelFactory != null) {
   		IModelFactory mf = (IModelFactory) ClasspathUtils.newInstance(modelFactory, this.getClass().getClassLoader());
   		repository = mf.getModelRepository();

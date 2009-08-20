@@ -44,6 +44,9 @@ public class GeneratorContext {
   
   private Map<String, String> paramMap = new HashMap<String, String>();
 
+  private List<String> excludeStereotypes = new ArrayList<String>();
+  
+  private List<String> includeStereotypes = new ArrayList<String>();
   
 	/**
    * @return Returns the name.
@@ -136,6 +139,22 @@ public class GeneratorContext {
     this.stereotype = stereotype;
   }
   
+  public List<String> getExcludeStereotypes() {
+	return excludeStereotypes;
+  }
+
+  public void setExcludeStereotypes(List<String> excludeStereotypes) {
+	this.excludeStereotypes = excludeStereotypes;
+  }
+
+  public List<String> getIncludeStereotypes() {
+	return includeStereotypes;
+  }
+
+  public void setIncludeStereotypes(List<String> includeStereotypes) {
+	this.includeStereotypes = includeStereotypes;
+  }
+
   /**
 	 * @return the subdir
 	 */
