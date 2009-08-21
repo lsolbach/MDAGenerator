@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.util.ClasspathUtils;
 import org.soulspace.mdlrepo.IModelFactory;
 import org.soulspace.mdlrepo.IModelRepository;
@@ -32,6 +33,8 @@ public class MdaGeneratorTask extends Task {
 
   private File modelFile;
 
+  private String profiles;
+  
   private String modelFactory;
   
   private List<ModelGenerator> modelGenerators = new ArrayList<ModelGenerator>();
@@ -131,6 +134,20 @@ public class MdaGeneratorTask extends Task {
 	public void setModelFactory(String modelFactory) {
 		this.modelFactory = modelFactory;
 	}
+	
+	/**
+	 * @return the profiles
+	 */
+	public String getProfiles() {
+		return profiles;
+	}
+
+	/**
+	 * @param profiles the profiles to set
+	 */
+	public void setProfiles(String profiles) {
+		this.profiles = profiles;
+	}
 
 	/**
    * 
@@ -165,8 +182,8 @@ public class MdaGeneratorTask extends Task {
   }
   
   IModelRepository initRepository() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-	// TODO changes for multi model loading and uml version/tool dependend xmi repositories
-    // TODO instanciate (specific) XmiRepository, load model(s), set to ModelFactory, build ModelRepository
+	// TODO changes for uml version/tool dependend xmi repositories
+    // TODO instanciate (specific) XmiRepository
     IModelRepository repository;
   	if(modelFactory != null) {
   		IModelFactory mf = (IModelFactory) ClasspathUtils.newInstance(modelFactory, this.getClass().getClassLoader());
@@ -174,10 +191,26 @@ public class MdaGeneratorTask extends Task {
   	} else {
       repository = new ModelRepository();  		
   	}
-    repository.initRepository(modelFile.getAbsolutePath());
+    repository.initRepository(getModelFiles());
     return repository;
   }
 
+  File[] getModelFiles() {
+  	File[] modelFiles;
+  	if(getProfiles() != null) {
+  	  	String[] profileNames = getProfiles().split(",");  	
+  	  	modelFiles = new File[profileNames.length + 1];
+  	  	for (int i = 0; i < profileNames.length; i++) {
+  	  		File profileFile = new File(profileNames[i]);
+  	  		modelFiles[i] = profileFile;
+  	  	}
+  	  	modelFiles[profileNames.length] = modelFile;  		
+  	} else {
+  		modelFiles = new File[] {modelFile};
+  	}
+  	return modelFiles;
+  }
+  
   /*
    * (non-Javadoc)
    * 

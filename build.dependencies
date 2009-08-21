@@ -21,7 +21,7 @@
 		<package name="ModelRepository" version="0.9.15" type="project">
 			<module name="ModelRepository"/>
 		</package>
-		<package name="DomainMetaModel" version="0.1.0" type="project">
+		<package name="DomainMetaModel" version="0.2.0" type="project">
 			<module name="DomainMetaModel"/>
 		</package>
 		<package name="JavaUtilLibrary" version="0.1.0" type="project">
