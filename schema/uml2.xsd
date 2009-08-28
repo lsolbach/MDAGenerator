@@ -337,6 +337,7 @@
 				<xs:element ref="Class" />
 				<xs:element ref="DataType" />
 				<xs:element ref="Interface" />
+				<xs:element ref="Enumeration" />
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
