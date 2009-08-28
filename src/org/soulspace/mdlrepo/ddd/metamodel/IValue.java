@@ -1,5 +1,6 @@
 package org.soulspace.mdlrepo.ddd.metamodel;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.soulspace.mdlrepo.metamodel.IAssociationEnd;
@@ -7,10 +8,10 @@ import org.soulspace.mdlrepo.metamodel.IClass;
 
 public interface IValue extends IClass {
 	
-	List<IAssociationEnd> getEntityAssociations();
-	List<IAssociationEnd> getAllEntityAssociations();
+	Collection<IAssociationEnd> getEntityAssociations();
+	Collection<IAssociationEnd> getAllEntityAssociations();
 
-	List<IAssociationEnd> getValueAssociations();
-	List<IAssociationEnd> getAllValueAssociations();
+	Collection<IAssociationEnd> getValueAssociations();
+	Collection<IAssociationEnd> getAllValueAssociations();
 
 }

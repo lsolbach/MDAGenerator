@@ -18,9 +18,9 @@ public class ModelFactory extends org.soulspace.mdlrepo.metamodel.impl.ModelFact
 		super(mr);
 	}
 
-//	public ModelFactory() {
-//		super();
-//	}
+	public ModelFactory() {
+		super();
+	}
 
 	/* (non-Javadoc)
 	 * @see org.soulspace.mdlrepo.metamodel.impl.ModelFactory#createClassInstance(org.soulspace.xmi.marshal.Class)
@@ -33,7 +33,9 @@ public class ModelFactory extends org.soulspace.mdlrepo.metamodel.impl.ModelFact
 			ClassItem cI = (ClassItem) e1.nextElement();
 			if(cI.getModelElement_stereotype() != null) {
 				IStereotype st = getStereotype(cI.getModelElement_stereotype());
-				stereotypeMap.put(st.getName(), st);
+				if(st != null && st.getName() != null) {
+					stereotypeMap.put(st.getName(), st);					
+				}
 			}
 		}
 		if(stereotypeMap.get("entity") != null) {

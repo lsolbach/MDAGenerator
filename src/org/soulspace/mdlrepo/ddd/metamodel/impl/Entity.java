@@ -1,6 +1,7 @@
 package org.soulspace.mdlrepo.ddd.metamodel.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.soulspace.mdlrepo.ddd.metamodel.IEntity;
@@ -10,7 +11,7 @@ import org.soulspace.mdlrepo.metamodel.impl.Class;
 
 public class Entity extends Class implements IEntity {
 
-	public List<IAssociationEnd> getEntityAssociations() {
+	public Collection<IAssociationEnd> getEntityAssociations() {
 		List<IAssociationEnd> entityAssociations = new ArrayList<IAssociationEnd>();
 		List<IAssociationEnd> associations = getAssociations();
 		for(IAssociationEnd asso : associations) {
@@ -21,9 +22,9 @@ public class Entity extends Class implements IEntity {
 		return entityAssociations;
 	}
 
-	public List<IAssociationEnd> getAllEntityAssociations() {
+	public Collection<IAssociationEnd> getAllEntityAssociations() {
 		List<IAssociationEnd> entityAssociations = new ArrayList<IAssociationEnd>();
-		List<IAssociationEnd> associations = getAllAssociations();
+		Collection<IAssociationEnd> associations = getAllAssociations();
 		for(IAssociationEnd asso : associations) {
 			if(asso.getType() instanceof IEntity) {
 				entityAssociations.add(asso);
@@ -32,9 +33,9 @@ public class Entity extends Class implements IEntity {
 		return entityAssociations;
 	}
 
-	public List<IAssociationEnd> getValueAssociations() {
+	public Collection<IAssociationEnd> getValueAssociations() {
 		List<IAssociationEnd> valueAssociations = new ArrayList<IAssociationEnd>();
-		List<IAssociationEnd> associations = getAssociations();
+		Collection<IAssociationEnd> associations = getAssociations();
 		for(IAssociationEnd asso : associations) {
 			if(asso.getType() instanceof IValue) {
 				valueAssociations.add(asso);
@@ -43,9 +44,9 @@ public class Entity extends Class implements IEntity {
 		return valueAssociations;
 	}
 
-	public List<IAssociationEnd> getAllValueAssociations() {
+	public Collection<IAssociationEnd> getAllValueAssociations() {
 		List<IAssociationEnd> valueAssociations = new ArrayList<IAssociationEnd>();
-		List<IAssociationEnd> associations = getAllAssociations();
+		Collection<IAssociationEnd> associations = getAllAssociations();
 		for(IAssociationEnd asso : associations) {
 			if(asso.getType() instanceof IValue) {
 				valueAssociations.add(asso);
