@@ -99,10 +99,10 @@ public class ModelFactory implements IModelFactory {
     this.repository = mr;
   }
 
-//  public ModelFactory() {
-//  	this.repository = new ModelRepository();
-//  	repository.setModelFactory(this);
-//  }
+  public ModelFactory() {
+  	this.repository = new ModelRepository();
+  	repository.setModelFactory(this);
+  }
   
   public IModelRepository getModelRepository() {
   	return repository;
@@ -539,13 +539,9 @@ public class ModelFactory implements IModelFactory {
     String name = xmiAttribute.getName();
     if(name.startsWith("/")) {
       a.setName(name.substring(1));
-      a.setMethodSuffix(a.getName().substring(0, 1).toUpperCase()
-          + a.getName().substring(1));
       a.setDerived(true);
     } else {
       a.setName(name);
-      a.setMethodSuffix(a.getName().substring(0, 1).toUpperCase()
-          + a.getName().substring(1));
       a.setDerived(false);
     }    	
 
@@ -721,18 +717,13 @@ public class ModelFactory implements IModelFactory {
     if(XmiHelper.isSet(xmiAssociationEnd.getName())) {
     	if(xmiAssociationEnd.getName().startsWith("/")) {
     		ae.setName(xmiAssociationEnd.getName().substring(1));
-        ae.setMethodSuffix(ae.getName().substring(0, 1).toUpperCase()
-            + ae.getName().substring(1));
     		ae.setDerived(true);
     	} else if(xmiAssociationEnd.getName() != null) {
     		ae.setName(xmiAssociationEnd.getName());
-        ae.setMethodSuffix(ae.getName().substring(0, 1).toUpperCase()
-            + ae.getName().substring(1));
     		ae.setDerived(false);
     	}
     } else {
     	ae.setName("");
-    	ae.setMethodSuffix("");
     }
     ae.setId(xmiAssociationEnd.getXmi_id());
     ae.setNamespace(xmiAssociationEnd.getNamespace());

@@ -21,9 +21,6 @@ public interface IAssociationEnd extends IClassifier {
   boolean isDerived();
   void setDerived(boolean derived);
   
-  String getMethodSuffix();
-  void setMethodSuffix(String methodSuffix);
-  
   String getAggregation();
   void setAggregation(String aggregation);
   

@@ -18,7 +18,6 @@ import org.soulspace.mdlrepo.metamodel.IStereotype;
 public class Attribute extends Classifier implements IAttribute {
 
   private IClassifier type;
-  private String methodSuffix;
   private String visibility;
   private String changeability;
   private String ownerScope;
@@ -57,10 +56,6 @@ public class Attribute extends Classifier implements IAttribute {
     return type;
   }
   
-  public String getMethodSuffix() {
-    return methodSuffix;
-  }
- 
   /**
    * @return Returns the visibility.
    */
@@ -78,18 +73,14 @@ public class Attribute extends Classifier implements IAttribute {
   public void setChangeability(String changeability) {
     this.changeability = changeability;
   }
-  /**
-   * @param methodSuffix The methodSuffix to set.
-   */
-  public void setMethodSuffix(String methodSuffix) {
-    this.methodSuffix = methodSuffix;
-  }
+
   /**
    * @param ownerScope The ownerScope to set.
    */
   public void setOwnerScope(String ownerScope) {
     this.ownerScope = ownerScope;
   }
+
   /**
    * @param visibility The visibility to set.
    */
@@ -147,8 +138,6 @@ public class Attribute extends Classifier implements IAttribute {
 				+ ((changeability == null) ? 0 : changeability.hashCode());
 		result = prime * result + (derived ? 1231 : 1237);
 		result = prime * result
-				+ ((methodSuffix == null) ? 0 : methodSuffix.hashCode());
-		result = prime * result
 				+ ((multiplicity == null) ? 0 : multiplicity.hashCode());
 		result = prime * result
 				+ ((ownerScope == null) ? 0 : ownerScope.hashCode());
@@ -176,11 +165,6 @@ public class Attribute extends Classifier implements IAttribute {
 		} else if (!changeability.equals(other.changeability))
 			return false;
 		if (derived != other.derived)
-			return false;
-		if (methodSuffix == null) {
-			if (other.methodSuffix != null)
-				return false;
-		} else if (!methodSuffix.equals(other.methodSuffix))
 			return false;
 		if (multiplicity == null) {
 			if (other.multiplicity != null)

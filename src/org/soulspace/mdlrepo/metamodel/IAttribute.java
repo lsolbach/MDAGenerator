@@ -28,8 +28,5 @@ public interface IAttribute extends IClassifier {
   IMultiplicity getMultiplicity();
   void setMultiplicity(IMultiplicity multiplicity);
   
-  String getMethodSuffix();
-  void setMethodSuffix(String methodSuffix);
-  
   boolean checkOverloaded(IAttribute a);
 }

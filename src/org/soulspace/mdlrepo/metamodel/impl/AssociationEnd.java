@@ -20,7 +20,6 @@ import org.soulspace.mdlrepo.metamodel.IMultiplicity;
 public class AssociationEnd extends Classifier implements IAssociationEnd {
 
   private boolean navigable;
-  private String methodSuffix;
   private IClassifier type;
   private String visibility;
   private String changeability;
@@ -74,17 +73,6 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
   
   public void setDerived(boolean derived) {
   	this.derived = derived;
-  }
-
-  /* (non-Javadoc)
-   * @see org.soulspace.xmi.uml.IAssociationEnd#getMethodSuffix()
-   */
-  public String getMethodSuffix() {
-    return methodSuffix;
-  }
-  
-  public void setMethodSuffix(String methodSuffix) {
-    this.methodSuffix = methodSuffix;
   }
 
   /* (non-Javadoc)
@@ -232,8 +220,6 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
 				+ ((changeability == null) ? 0 : changeability.hashCode());
 		result = prime * result + (derived ? 1231 : 1237);
 		result = prime * result
-				+ ((methodSuffix == null) ? 0 : methodSuffix.hashCode());
-		result = prime * result
 				+ ((multiplicity == null) ? 0 : multiplicity.hashCode());
 		result = prime * result + (navigable ? 1231 : 1237);
 		result = prime * result + ((ordering == null) ? 0 : ordering.hashCode());
@@ -268,11 +254,6 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
 		} else if (!changeability.equals(other.changeability))
 			return false;
 		if (derived != other.derived)
-			return false;
-		if (methodSuffix == null) {
-			if (other.methodSuffix != null)
-				return false;
-		} else if (!methodSuffix.equals(other.methodSuffix))
 			return false;
 		if (multiplicity == null) {
 			if (other.multiplicity != null)
