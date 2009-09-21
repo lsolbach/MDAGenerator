@@ -8,6 +8,7 @@ Version 0.9.15 (21.09.2009)
 * repository initialization with a given xmi repository
 * further decoupling from a specific xmi repository
 * enhanced support for association classes
+* added SoulMDSDProfile for ArgoUML
 
 Version 0.9.14 (09.09.2008)
 ---------------------------
