@@ -186,25 +186,29 @@ public class MdaGeneratorTask extends Task {
     // TODO instanciate (specific) XmiRepository
     IModelRepository repository;
   	if(modelFactory != null) {
+  		// instanciate model factory
   		IModelFactory mf = (IModelFactory) ClasspathUtils.newInstance(modelFactory, this.getClass().getClassLoader());
   		repository = mf.getModelRepository();
   	} else {
       repository = new ModelRepository();  		
   	}
+  	// initialize repository with the provided xmi files
     repository.initRepository(getModelFiles());
     return repository;
   }
 
+  
   File[] getModelFiles() {
+	// the model file is the first one, then the profile files in order of appearence
   	File[] modelFiles;
   	if(getProfiles() != null) {
   	  	String[] profileNames = getProfiles().split(",");  	
   	  	modelFiles = new File[profileNames.length + 1];
-  	  	for (int i = 0; i < profileNames.length; i++) {
+  	  	modelFiles[0] = modelFile;
+  	  	for (int i = 1; i <= profileNames.length; i++) {
   	  		File profileFile = new File(profileNames[i]);
   	  		modelFiles[i] = profileFile;
   	  	}
-  	  	modelFiles[profileNames.length] = modelFile;  		
   	} else {
   		modelFiles = new File[] {modelFile};
   	}
