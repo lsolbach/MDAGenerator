@@ -15,7 +15,7 @@ Xerces
 commons-logging
 
 
-Version 0.9.13 (--.--.2009)
+Version 0.9.13 (21.09.2009)
 ---------------------------
 
 * support for loading multiple models into one xmi repository
