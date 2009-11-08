@@ -312,6 +312,14 @@ public abstract class AntGenerator {
 		dataSource = ds;
 	}
 
+	boolean mustGenerate(IClassifier classifier) {
+		return generateForNamespace(classifier) && generateForStereotype(classifier) && !checkForProfile(classifier);
+	}
+	
+	boolean checkForProfile(IClassifier classifier) {
+		return classifier.getProfileElement();
+	}
+	
 	boolean generateForStereotype(IClassifier classifier) {
 		if(!genContext.getExcludeStereotypes().isEmpty()) {
 			for (String excStereotype : genContext.getExcludeStereotypes()) {
@@ -351,8 +359,7 @@ public abstract class AntGenerator {
 				&& genContext.getNamespaceExcludes().size() == 0
 				&& !classifier.getNamespace().startsWith("java")) {
 			generate = true;
-		}
-		if (genContext.getNamespaceIncludes().size() > 0) {
+		} else if(genContext.getNamespaceIncludes().size() > 0) {
 			for (String namespace : genContext.getNamespaceIncludes()) {
 				if (classifier.getNamespace().startsWith(namespace)) {
 					generate = true;
@@ -375,8 +382,7 @@ public abstract class AntGenerator {
 	 * @param classifier
 	 */
 	public void generate(MdaGeneratorTask gt, IClassifier classifier) {
-		if (!generateForNamespace(classifier)
-				|| !generateForStereotype(classifier)) {
+		if (!mustGenerate(classifier)) {
 			// no generation needed
 			return;
 		}
