@@ -12,7 +12,6 @@ import org.soulspace.mdlrepo.metamodel.IElement;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 import org.soulspace.mdlrepo.metamodel.ITaggedValue;
 
-
 /**
  * Base class for model elements
  * 
@@ -21,60 +20,76 @@ import org.soulspace.mdlrepo.metamodel.ITaggedValue;
  */
 public class Element implements IElement {
 
-  private String id;
-  private String namespace = "";
+	private String id;
+	private String namespace = "";
+	private boolean profileElement = false;
 
-  protected List<IStereotype> stereotypes = new ArrayList<IStereotype>();
-  protected Map<String, IStereotype>  stereotypeMap = new HashMap<String, IStereotype>();
-  
-  protected List<ITaggedValue> taggedValues = new ArrayList<ITaggedValue>();
-  protected Map<String, ITaggedValue> taggedValueMap = new HashMap<String, ITaggedValue>();
+	protected List<IStereotype> stereotypes = new ArrayList<IStereotype>();
+	protected Map<String, IStereotype> stereotypeMap = new HashMap<String, IStereotype>();
 
-  public Element() {
-    super();
-  }
+	protected List<ITaggedValue> taggedValues = new ArrayList<ITaggedValue>();
+	protected Map<String, ITaggedValue> taggedValueMap = new HashMap<String, ITaggedValue>();
 
-  public String getId() {
-    return id;
-  }
+	public Element() {
+		super();
+	}
 
-  public void setId(String id) {
-    this.id = id;
-  }
+	public String getId() {
+		return id;
+	}
 
-  public String getNamespace() {
-    return namespace;
-  }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-  public void setNamespace(String namespace) {
-    this.namespace = namespace;
-  }
+	public String getNamespace() {
+		return namespace;
+	}
 
-  public List<IStereotype> getStereotypes() {
-    return stereotypes;
-  }
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
+	}
 
-  public Map<String, IStereotype> getStereotypeMap() {
-    return stereotypeMap;
-  }
-  
-  public void addStereotype(IStereotype st) {
-    stereotypes.add(st);
-    stereotypeMap.put(st.getName(), st);
-  }
-  
-  public Map<String, ITaggedValue> getTaggedValueMap() {
-    return taggedValueMap;
-  }
+	/**
+	 * @return the profileElement
+	 */
+	public boolean getProfileElement() {
+		return profileElement;
+	}
 
-  public List<ITaggedValue> getTaggedValues() {
-    return taggedValues;
-  }
+	/**
+	 * @param profileElement
+	 *            the profileElement to set
+	 */
+	public void setProfileElement(boolean profileElement) {
+		this.profileElement = profileElement;
+	}
 
-  public void addTaggedValue(ITaggedValue tv) {
-    taggedValues.add(tv);
-    taggedValueMap.put(tv.getName(), tv);
-  }
+	public List<IStereotype> getStereotypes() {
+		return stereotypes;
+	}
+
+	public Map<String, IStereotype> getStereotypeMap() {
+		return stereotypeMap;
+	}
+
+	public void addStereotype(IStereotype st) {
+		stereotypes.add(st);
+		stereotypeMap.put(st.getName(), st);
+	}
+
+	public Map<String, ITaggedValue> getTaggedValueMap() {
+		return taggedValueMap;
+	}
+
+	public List<ITaggedValue> getTaggedValues() {
+		return taggedValues;
+	}
+
+	public void addTaggedValue(ITaggedValue tv) {
+		taggedValues.add(tv);
+		taggedValueMap.put(tv.getName(), tv);
+	}
 
 	public String getElementType() {
 		return getClass().getSimpleName();
@@ -83,8 +98,10 @@ public class Element implements IElement {
 	public IElement getThis() {
 		return this;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -92,11 +109,14 @@ public class Element implements IElement {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((namespace == null) ? 0 : namespace.hashCode());
+		result = prime * result
+				+ ((namespace == null) ? 0 : namespace.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

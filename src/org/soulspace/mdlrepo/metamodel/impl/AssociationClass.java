@@ -22,6 +22,23 @@ public class AssociationClass implements IAssociationClass {
 	private Class clazz = new Class();
 	private Association association = new Association();
 	
+
+	/**
+	 * @return
+	 * @see org.soulspace.mdlrepo.metamodel.impl.Element#getProfileElement()
+	 */
+	public boolean getProfileElement() {
+		return clazz.getProfileElement();
+	}
+
+	/**
+	 * @param profileElement
+	 * @see org.soulspace.mdlrepo.metamodel.impl.Element#setProfileElement(boolean)
+	 */
+	public void setProfileElement(boolean profileElement) {
+		clazz.setProfileElement(profileElement);
+	}
+
 	/**
 	 * @param ae
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#addAssociation(org.soulspace.mdlrepo.metamodel.IAssociationEnd)
@@ -98,7 +115,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllAssociations()
 	 */
-	public Collection<IAssociationEnd> getAllAssociations() {
+	public List<IAssociationEnd> getAllAssociations() {
 		return clazz.getAllAssociations();
 	}
 
@@ -106,7 +123,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllAttributes()
 	 */
-	public Collection<IAttribute> getAllAttributes() {
+	public List<IAttribute> getAllAttributes() {
 		return clazz.getAllAttributes();
 	}
 
@@ -114,7 +131,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllDependencies()
 	 */
-	public Collection<IDependency> getAllDependencies() {
+	public List<IDependency> getAllDependencies() {
 		return clazz.getAllDependencies();
 	}
 
@@ -122,7 +139,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllOperations()
 	 */
-	public Collection<IOperation> getAllOperations() {
+	public List<IOperation> getAllOperations() {
 		return clazz.getAllOperations();
 	}
 
@@ -130,7 +147,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllReferencedTypes()
 	 */
-	public Collection<IClassifier> getAllReferencedTypes() {
+	public List<IClassifier> getAllReferencedTypes() {
 		return clazz.getAllReferencedTypes();
 	}
 
@@ -234,7 +251,7 @@ public class AssociationClass implements IAssociationClass {
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getReferencedTypes()
 	 */
-	public Collection<IClassifier> getReferencedTypes() {
+	public List<IClassifier> getReferencedTypes() {
 		return clazz.getReferencedTypes();
 	}
 

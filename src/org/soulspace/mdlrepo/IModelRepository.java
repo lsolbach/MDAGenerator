@@ -23,40 +23,6 @@ import org.soulspace.mdlrepo.metamodel.IUseCase;
  */
 public interface IModelRepository {
 
-	void setModelFactory(IModelFactory modelFactory);
-
-	/**
-	 * Initialize the repository with the model.
-	 * 
-	 * @param modelFilename
-	 *            Model
-	 */
-	void initRepository(String modelFilename);
-
-	/**
-	 * Initialize the repository with the model.
-	 * 
-	 * @param modelFilenames
-	 *            Model
-	 */
-	void initRepository(String[] modelFilenames);
-
-	/**
-	 * Initialize the repository with the model.
-	 * 
-	 * @param modelFile
-	 *            Model
-	 */
-	void initRepository(File modelFile);
-
-	/**
-	 * Initialize the repository with the model.
-	 * 
-	 * @param modelFiles
-	 *            Model
-	 */
-	void initRepository(File[] modelFiles);
-
 	/**
 	 * Register the model element.
 	 * 

@@ -158,50 +158,49 @@ public class Class extends Classifier implements IClass {
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IClass#getAllAssociation()
    */
-  public Collection<IAssociationEnd> getAllAssociations() {
-    // TODO remove overloaded Associations
-    Set allAssociations = new HashSet<IAssociationEnd>();
+  public List<IAssociationEnd> getAllAssociations() {
+	List<IAssociationEnd> allAssociations = new ArrayList<IAssociationEnd>();
     for(IClass c : getSuperClasses()) {
-      allAssociations.addAll(c.getAllAssociations());
+    	allAssociations = addUnique(allAssociations, c.getAllAssociations());
     }
-    allAssociations.addAll(getAssociations());
+	allAssociations = addUnique(allAssociations, getAssociations());
     return allAssociations;
   }
 
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IClass#getAllAttributes()
    */
-  public Collection<IAttribute> getAllAttributes() {
-    // TODO remove overloaded Attributes
-    Set allAttributes = new HashSet<IAttribute>();
+  public List<IAttribute> getAllAttributes() {
+    List<IAttribute> allAttributes = new ArrayList<IAttribute>();
     for(IClass c : getSuperClasses()) {
-      allAttributes.addAll(c.getAllAttributes());
+      allAttributes = addUnique(allAttributes, c.getAllAttributes());
     }
-    allAttributes.addAll(getAttributes());
+    allAttributes = addUnique(allAttributes, getAttributes());
     return allAttributes;
   }
 
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IClass#getAllOperations()
    */
-  public Collection<IOperation> getAllOperations() {
-    // TODO remove overloaded Operations
-    Set<IOperation> allOperations = new HashSet<IOperation>();
+  public List<IOperation> getAllOperations() {
+    List<IOperation> allOperations = new ArrayList<IOperation>();
     for(IClass c : getSuperClasses()) {
-      allOperations.addAll(c.getAllOperations());
+      allOperations = addUnique(allOperations, c.getAllOperations());
     }
-    allOperations.addAll(getOperations());
+    allOperations = addUnique(allOperations, getOperations());
     return allOperations;
   }
 
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IClass#getReferencedTypes()
    */
-  public Collection<IClassifier> getReferencedTypes() {
-    Set<IClassifier> referencedTypes = new HashSet<IClassifier>();
+  public List<IClassifier> getReferencedTypes() {
+    List<IClassifier> referencedTypes = new ArrayList<IClassifier>();
 
     for(IAttribute a : getAttributes()) {
-      if(a.getType() != null && !a.getType().getNamespace().startsWith("java.lang")) {
+      if(a.getType() != null
+    		  && !a.getType().getNamespace().startsWith("java.lang") 
+    		  && !referencedTypes.contains(a.getType())) {
         referencedTypes.add(a.getType());
       }
     }
@@ -209,7 +208,8 @@ public class Class extends Classifier implements IClass {
     for(IAssociationEnd ae : getAssociations()) {
       if(ae.isNavigable()
       		&& ae.getType() != null
-      		&& !ae.getType().getNamespace().startsWith("java.lang")) {
+      		&& !ae.getType().getNamespace().startsWith("java.lang")
+      		&& !referencedTypes.contains(ae.getType())) {
     	  referencedTypes.add(ae.getType());    		      	  	
     	  if(Integer.parseInt(ae.getMultiplicity().getHigh()) > 1) {
     	  	// TODO: Add java.util.Collection as type?
@@ -219,18 +219,24 @@ public class Class extends Classifier implements IClass {
     
     for(IOperation o : getOperations()) {
     	for(IParameter p : o.getParameters()) {
-        if(p.getType() != null && !p.getType().getNamespace().startsWith("java.lang")) {
+        if(p.getType() != null
+        		&& !p.getType().getNamespace().startsWith("java.lang")
+        		&& !referencedTypes.contains(p.getType())) {
           referencedTypes.add(p.getType());
         }
     	}
     }
     
     for(IClass c : getSuperClasses()) {
-			referencedTypes.add(c);
+    	if(!referencedTypes.contains(c)) {
+    		referencedTypes.add(c);
+    	}
     }
     
     for(IDependency d : getDependencies()) {
-    	referencedTypes.add(d.getSupplier());
+    	if(!referencedTypes.contains(d.getSupplier())) {
+        	referencedTypes.add(d.getSupplier());    		
+    	}
     }
     
     return referencedTypes;    
@@ -239,13 +245,15 @@ public class Class extends Classifier implements IClass {
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IClass#getAllReferencedTypes()
    */
-  public Collection<IClassifier> getAllReferencedTypes() {
-    Set<IClassifier> allReferencedTypes = new HashSet<IClassifier>();
-
+  public List<IClassifier> getAllReferencedTypes() {
+	List<IClassifier> allReferencedTypes = new ArrayList<IClassifier>();
+    //Set<IClassifier> allReferencedTypes = new HashSet<IClassifier>();
     for(IClass c : getSuperClasses()) {
-    	allReferencedTypes.addAll(c.getAllReferencedTypes());
+      allReferencedTypes = addUnique(allReferencedTypes, c.getAllReferencedTypes());
+      //allReferencedTypes.addAll(c.getAllReferencedTypes());
     }
-    allReferencedTypes.addAll(getReferencedTypes());
+    allReferencedTypes = addUnique(allReferencedTypes, getReferencedTypes());
+    //allReferencedTypes.addAll(getReferencedTypes());
     return allReferencedTypes;
   }
 
@@ -255,11 +263,10 @@ public class Class extends Classifier implements IClass {
 
   public List<IDependency> getAllDependencies() {
     List<IDependency> allDependencies = new ArrayList<IDependency>();
-
     for(IClass c : getSuperClasses()) {
-    	allDependencies.addAll(c.getDependencies());
+    	allDependencies = addUnique(allDependencies, c.getDependencies());
     }
-    allDependencies.addAll(getDependencies());
+    allDependencies = addUnique(allDependencies, getDependencies());
 
     return allDependencies;
   }
@@ -303,4 +310,13 @@ public class Class extends Classifier implements IClass {
 		return true;
 	}
 
+	private <T> List<T> addUnique(List<T> l1, List<T> l2) {
+		for(T element : l2) {
+			if(!l1.contains(element)) {
+				l1.add(element);
+			}			
+		}
+		return l1;
+	}
+	
 }

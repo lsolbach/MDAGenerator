@@ -34,53 +34,55 @@ import org.soulspace.xmi.base.XmiObject;
 public interface IModelFactory {
 
 	IModelRepository getModelRepository();
-	
-  IModel createModel(XmiObject xmi);
-  
-  IPackage createPackage(XmiObject xmi);
 
-  IClass createClass(XmiObject xmi);
+	void setModelRepository(IModelRepository modelRepository);
 
-  IAssociationClass createAssociationClass(XmiObject xmi);
+	IModel createModel(XmiObject xmi);
 
-  IDataType createDataType(XmiObject xmi);
-  
-  IAttribute createAttribute(XmiObject xmi);
+	IPackage createPackage(XmiObject xmi);
 
-  IOperation createOperation(XmiObject xmi);
-  
-  IParameter createParameter(XmiObject xmi);
+	IClass createClass(XmiObject xmi);
 
-  IInterface createInterface(XmiObject xmi);
+	IAssociationClass createAssociationClass(XmiObject xmi);
 
-  IAssociation createAssociation(XmiObject xmi);
+	IDataType createDataType(XmiObject xmi);
 
-  IAssociationEnd createAssociationEnd(XmiObject xmi);
+	IAttribute createAttribute(XmiObject xmi);
 
-  IStereotype createStereotype(XmiObject xmi);
-  
-  ITagDefinition createTagDefinition(XmiObject xmi);
-  
-  ITaggedValue createTaggedValue(XmiObject xmi);
-  
-  IMultiplicity createMultiplicity(XmiObject xmi);
+	IOperation createOperation(XmiObject xmi);
 
-  IDependency createDependency(XmiObject xmi);
-  
-  IUseCase createUseCase(XmiObject xmi);
-  
-  IActor createActor(XmiObject xmi);
+	IParameter createParameter(XmiObject xmi);
 
-  IStateMachine createStateMachine(XmiObject xmi);
-  
-  ICallEvent createCallEvent(XmiObject xmi);
-  
-  void processInclude(XmiObject xmi);
+	IInterface createInterface(XmiObject xmi);
 
-  void processExtend(XmiObject xmi);
-  
-  void processGeneralization(XmiObject xmi);
+	IAssociation createAssociation(XmiObject xmi);
 
-  void processAssociation(XmiObject xmi);
+	IAssociationEnd createAssociationEnd(XmiObject xmi);
+
+	IStereotype createStereotype(XmiObject xmi);
+
+	ITagDefinition createTagDefinition(XmiObject xmi);
+
+	ITaggedValue createTaggedValue(XmiObject xmi);
+
+	IMultiplicity createMultiplicity(XmiObject xmi);
+
+	IDependency createDependency(XmiObject xmi);
+
+	IUseCase createUseCase(XmiObject xmi);
+
+	IActor createActor(XmiObject xmi);
+
+	IStateMachine createStateMachine(XmiObject xmi);
+
+	ICallEvent createCallEvent(XmiObject xmi);
+
+	void processInclude(XmiObject xmi);
+
+	void processExtend(XmiObject xmi);
+
+	void processGeneralization(XmiObject xmi);
+
+	void processAssociation(XmiObject xmi);
 
 }

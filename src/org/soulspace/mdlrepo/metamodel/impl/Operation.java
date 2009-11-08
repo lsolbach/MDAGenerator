@@ -100,7 +100,7 @@ public class Operation extends Classifier implements IOperation {
   /**
    * @return Returns the parameters.
    */
-  public List getParameters() {
+  public List<IParameter> getParameters() {
     return parameters;
   }
   
@@ -174,6 +174,7 @@ public class Operation extends Classifier implements IOperation {
 	 */
 	@Override
 	public int hashCode() {
+		// FIXME use a kind of 'signature' for equals and hashCode?!?
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
@@ -197,6 +198,7 @@ public class Operation extends Classifier implements IOperation {
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		// FIXME use a kind of 'signature' for equals and hashCode?!?
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
@@ -237,5 +239,24 @@ public class Operation extends Classifier implements IOperation {
 		return true;
 	}
   
-  
+	private String getSignature() {
+		StringBuilder sb = new StringBuilder();
+		if(returnType != null) {
+			sb.append(returnType.getQualifiedName() + " ");
+		}
+		sb.append(getQualifiedName() + "(");
+		boolean firstParam = true;
+		for(IParameter param : getParameters()) {
+			if(!param.getKind().equals("return")) {
+				if(firstParam) {
+					firstParam = false;
+				} else {
+					sb.append(", ");
+				}
+				sb.append(param.getType().getQualifiedName());
+			}
+		}
+		sb.append(")");
+		return sb.toString();
+	}
 }

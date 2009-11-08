@@ -8,27 +8,35 @@ import java.util.Map;
 
 /**
  * Base interface for model elements
- * 
- * @author Solbach (Last update: $Author$, $Date$)
- * @version $Revision$
  */
 public interface IElement {
 
-  String getId();  
-  void setId(String id);
-  
-  String getNamespace();
-  void setNamespace(String namespace);
+	String getElementType();
 
-  String getElementType();
-  IElement getThis();
-  
-  List<IStereotype> getStereotypes();
-  Map<String, IStereotype> getStereotypeMap();
-  void addStereotype(IStereotype st);
+	IElement getThis();
 
-  List<ITaggedValue> getTaggedValues();
-  Map<String, ITaggedValue> getTaggedValueMap();
-  void addTaggedValue(ITaggedValue tv);
-  
+	String getId();
+
+	void setId(String id);
+
+	String getNamespace();
+
+	void setNamespace(String namespace);
+
+	boolean getProfileElement();
+
+	void setProfileElement(boolean profileElement);
+
+	List<IStereotype> getStereotypes();
+
+	Map<String, IStereotype> getStereotypeMap();
+
+	void addStereotype(IStereotype st);
+
+	List<ITaggedValue> getTaggedValues();
+
+	Map<String, ITaggedValue> getTaggedValueMap();
+
+	void addTaggedValue(ITaggedValue tv);
+
 }

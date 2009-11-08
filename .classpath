@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="lib/runtime/castor-xml.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/commons-logging.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/XmiRepository.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/XmiRepository.jar" sourcepath="/XmiRepository"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

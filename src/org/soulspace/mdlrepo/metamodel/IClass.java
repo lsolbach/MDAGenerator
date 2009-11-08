@@ -33,7 +33,7 @@ public interface IClass extends IClassifier {
    * Returns a list of the attributes declared by this class and it's superclasses.
    * @return attributeList
    */
-  Collection<IAttribute> getAllAttributes();
+  List<IAttribute> getAllAttributes();
 
   /**
    * Adds an attribute to this class.
@@ -51,7 +51,7 @@ public interface IClass extends IClassifier {
    * Returns a list of the attributes declared by this class and it's superclasses.
    * @return operationList
    */
-  Collection<IOperation> getAllOperations();
+  List<IOperation> getAllOperations();
 
   /**
    * Adds an operation to this class 
@@ -69,7 +69,7 @@ public interface IClass extends IClassifier {
    * Returns a list of the associations of this class and it's superclasses.
    * @return associationList
    */
-  Collection<IAssociationEnd> getAllAssociations();
+  List<IAssociationEnd> getAllAssociations();
 
   /**
    * Adds an association to this class.
@@ -105,25 +105,25 @@ public interface IClass extends IClassifier {
    * Returns the types referenced by this class.
    * @return referencedTypeList
    */
-  Collection<IClassifier> getReferencedTypes();
+  List<IClassifier> getReferencedTypes();
 
   /**
    * Returns the types referenced by this class and it's superclasses.
    * @return referencedTypeList
    */
-  Collection<IClassifier> getAllReferencedTypes();
+  List<IClassifier> getAllReferencedTypes();
   
   /**
    * Returns a list of the dependencies of this class.
    * @return dependencyList
    */
-  Collection<IDependency> getDependencies();
+  List<IDependency> getDependencies();
 
   /**
    * Returns a list of the dependencies of this class and it's superclasses.
    * @return dependencyList
    */
-  Collection<IDependency> getAllDependencies();
+  List<IDependency> getAllDependencies();
   
   /**
    * Adds a dependency to this class.

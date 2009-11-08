@@ -31,7 +31,6 @@ import org.soulspace.mdlrepo.metamodel.ITaggedValue;
 import org.soulspace.mdlrepo.metamodel.ITransition;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 import org.soulspace.mdlrepo.metamodel.impl.ModelFactory;
-import org.soulspace.xmi.repository.XMIRepository;
 
 /**
  * ModelRepository
@@ -62,70 +61,7 @@ public class ModelRepository implements IModelRepository {
   private Map<String, IClass> classMap = new HashMap<String, IClass>();
   private Map<String, IAttribute> attributeMap = new HashMap<String, IAttribute>();
   private Map<String, IOperation> operationMap = new HashMap<String, IOperation>();
-  
-  private transient IModelFactory factory;
-  
-  public ModelRepository() {
-  	// FIXME inject
-    factory = new ModelFactory(this);
-  }
-  
-  public ModelRepository(IModelFactory mf) {
-  	this.factory = mf;
-  }
-  
-  public void setModelFactory(IModelFactory mf) {
-  	this.factory = mf;
-  }
-  
-  public void initRepository(XMIRepository xmiRepository) {
-	  ModelBuilder modelBuilder = new ModelBuilder(xmiRepository, factory);
-	  modelBuilder.buildModelRepository();
-  }
-  
-  public void initRepository(String modelFilename) {
-    XMIRepository xmiRepository = new XMIRepository(modelFilename);
-    xmiRepository.initRepository();
     
-    ModelBuilder modelBuilder = new ModelBuilder(xmiRepository, factory);
-    modelBuilder.buildModelRepository();
-  }
-
-  public void initRepository(String[] modelFilenames) {
-  	List<XMIRepository> xmiRepositoryList = new ArrayList<XMIRepository>();
-  	for(String modelFilename : modelFilenames) {
-      XMIRepository xmiRepository = new XMIRepository(modelFilename);
-      xmiRepository.initRepository();
-      xmiRepositoryList.add(xmiRepository);
-  	}
-  	
-    ModelBuilder modelBuilder = new ModelBuilder(xmiRepositoryList, factory);
-    modelBuilder.buildModelRepository();
-  }
-  
-  /**
-   * Initialize the repository with the model file
-   */
-  public void initRepository(File modelFile) {
-    XMIRepository xmiRepository = new XMIRepository(modelFile);
-    xmiRepository.initRepository();
-    
-    ModelBuilder modelBuilder = new ModelBuilder(xmiRepository, factory);
-    modelBuilder.buildModelRepository();
-  }  
-  
-  public void initRepository(File[] modelFiles) {
-  	List<XMIRepository> xmiRepositoryList = new ArrayList<XMIRepository>();
-  	for(File modelFile : modelFiles) {
-      XMIRepository xmiRepository = new XMIRepository(modelFile);
-      xmiRepository.initRepository();
-      xmiRepositoryList.add(xmiRepository);
-  	}
-  	
-    ModelBuilder modelBuilder = new ModelBuilder(xmiRepositoryList, factory);
-    modelBuilder.buildModelRepository();
-  }  
-  
   /* (non-Javadoc)
    * @see org.soulspace.xmi.uml.IModelRepository#register(org.soulspace.xmi.uml.IElement)
    */

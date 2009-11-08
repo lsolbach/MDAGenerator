@@ -1,6 +1,6 @@
 <dependencies>
 	<dependency type="runtime">
-		<package name="XmiRepository" version="0.9.13" type="project">
+		<package name="XmiRepository" version="1.0.0" type="project">
 			<module name="XmiRepository"/>
 		</package>
 		<package name="castor" version="0.9.5.3" type="lib">

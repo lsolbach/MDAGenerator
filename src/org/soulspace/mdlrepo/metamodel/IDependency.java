@@ -29,7 +29,4 @@ public interface IDependency extends INamedElement {
    */
   void setClient(IClassifier cf);
   
-  String getMethodSuffix();
-  
-  void setMethodSuffix(String methodSuffix);
 }
