@@ -135,6 +135,11 @@
 				<xs:element ref="Subsystem"/>
 				<xs:element ref="Collaboration"/>
 				<xs:element ref="Comment"/>
+				<xs:element ref="Component"/>
+				<xs:element ref="ComponentInstance"/>
+				<xs:element ref="Node"/>
+				<xs:element ref="NodeInstance"/>
+				<xs:element ref="Link"/>
 				<xs:element ref="Enumeration"/>
 				<!-- ArgoUML 1.4 -->
 				<xs:element ref="CallEvent"/>
@@ -144,9 +149,169 @@
 		</xs:complexType>
 	</xs:element>
 
+	<xs:element name="Component">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
+				<xs:element ref="Namespace.ownedElement"/>
+				<xs:element ref="Component.deploymentLocation"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ComponentInstance">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
+				<xs:element ref="Namespace.ownedElement"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Node">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
+				<xs:element ref="Namespace.ownedElement"/>
+				<xs:element ref="Node.deployedComponent"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="NodeInstance">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
+				<xs:element ref="Namespace.ownedElement"/>
+				<xs:element ref="Instance.linkEnd"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Component.deploymentLocation">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Node"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Node.deployedComponent">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Component"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Instance.linkEnd">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="LinkEnd"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Link">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Link.connection"/>
+				<xs:element ref="LinkEnd.instance"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Link.connection">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="LinkEnd"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="LinkEnd">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="LinkEnd.instance"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="LinkEnd.instance">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="NodeInstance"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
 	<xs:element name="Subsystem">
 		<xs:complexType>
-			<xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Namespace.ownedElement"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -553,6 +718,7 @@
 				<xs:element ref="Interface" />
 				<xs:element ref="UseCase" />
 				<xs:element ref="Actor" />
+				<xs:element ref="Node" />
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -666,6 +832,8 @@
 				<xs:element ref="Class"/>
 				<xs:element ref="DataType"/>
 				<xs:element ref="Package"/>
+				<xs:element ref="UseCase"/>
+				<xs:element ref="Component"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -677,6 +845,8 @@
 				<xs:element ref="Class"/>
 				<xs:element ref="DataType"/>
 				<xs:element ref="Package"/>
+				<xs:element ref="UseCase"/>
+				<xs:element ref="Component"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>

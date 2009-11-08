@@ -40,6 +40,8 @@ public class XMIRepository {
 	private Map&lt;String, XmiObject&gt; xmiIdMap = new HashMap&lt;String, XmiObject&gt;();
 	private Map&lt;String, XmiObject&gt; nameMap = new HashMap&lt;String, XmiObject&gt;();
 	<xsl:apply-templates mode="collections"/>
+	private boolean profile = false;
+	
 	/**
 	 * Constructor
 	 */
@@ -50,18 +52,18 @@ public class XMIRepository {
 	public XMIRepository(String filename) {
 		super();
 		// this.file = new File(filename);
-		files = new File[] {new File(filename)};
+		files = new File[] { new File(filename) };
 	}
 
 	public XMIRepository(File file) {
 		super();
-		files = new File[] {file};
+		files = new File[] { file };
 	}
 
 	public XMIRepository(String[] filenames) {
 		super();
 		files = new File[filenames.length];
-		for(int i = 0; i &lt; filenames.length; i++) {
+		for (int i = 0; i &lt; filenames.length; i++) {
 			files[i] = new File(filenames[i]);
 		}
 	}
@@ -72,9 +74,9 @@ public class XMIRepository {
 	}
 
 	public void initRepository() {
-		for(File file : files) {
+		for (File file : files) {
 			XMI xmi = readXmi(file);
-			buildXmiRepository(xmi);		
+			buildXmiRepository(xmi);
 		}
 	}
 
@@ -83,10 +85,22 @@ public class XMIRepository {
 		buildXmiRepository(xmi);
 	}
 
+	public void loadModel(File modelFile) {
+		profile = false;
+		XMI xmi = readXmi(modelFile);
+		buildXmiRepository(xmi);
+	}
+
+	public void loadProfile(File profileFile) {
+		profile = true;
+		XMI xmi = readXmi(profileFile);
+		buildXmiRepository(xmi);
+	}
+
 	public XMI readXmi(File file) {
 		XMI xmi = null;
 		FileReader reader;
-		
+
 		try {
 			reader = new FileReader(file);
 			xmi = (XMI) XMI.unmarshal(reader);
@@ -103,15 +117,18 @@ public class XMIRepository {
 
 	public void buildXmiRepository(XMI xmi) {
 		if (xmi != null) {
-			System.out.println(xmi.getXmi_version());
-			XMIBuilder builder = new XMIBuilder(this);
-
+			XMIBuilder builder;
+			if(profile) {
+				builder = new XMIBuilder(this, true);
+			} else {
+				builder = new XMIBuilder(this);
+			}
 			XMI_content content = xmi.getXMI_content();
 			Enumeration e = content.enumerateXMI_contentItem();
 			while (e.hasMoreElements()) {
 				XMI_contentItem cI = (XMI_contentItem) e.nextElement();
-				if(cI.getModel() != null) {
-					builder.traverseModel("", cI.getModel());          
+				if (cI.getModel() != null) {
+					builder.traverseModel("", cI.getModel());
 				} else {
 					System.err.println("unknown xmi content!");
 				}

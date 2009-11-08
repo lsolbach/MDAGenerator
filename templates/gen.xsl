@@ -22,6 +22,7 @@ import org.soulspace.xmi.util.XmiHelper;
 public class XMIBuilder {
 	
 	XMIRepository xmi;
+	private boolean isProfile = false;
 	
 	/**
 	 * Constructor
@@ -30,6 +31,15 @@ public class XMIBuilder {
 		super();
 		this.xmi = xmi;
 	}
+	
+	/**
+	 * Constructor
+	 */
+	public XMIBuilder(XMIRepository xmi, boolean isProfile) {
+		super();
+		this.xmi = xmi;
+		this.isProfile = isProfile;
+	}	
 		<xsl:apply-templates/>
 }
   </xsl:template>
@@ -42,6 +52,7 @@ public class XMIBuilder {
 	               String namespace,
 								 org.soulspace.xmi.marshal.<xsl:value-of select="translate(./@name, '.', '_')"/> element) {
 		String childNamespace = namespace;
+		element.setProfileElement(isProfile);
 		<xsl:apply-templates select="." mode="namespace"/>
 		<xsl:apply-templates mode="register"/><xsl:apply-templates mode="descend"/>
   }

@@ -1,0 +1,6 @@
+TODO's:
+=======
+
+use one XmiRepository for multiple models,
+add loadModel() and loadProfile() methods,
+flag profile elements as comming from a profile

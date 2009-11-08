@@ -14,6 +14,11 @@ Castor-XML
 Xerces
 commons-logging
 
+Version 1.0.0 (--.--.2009)
+---------------------------
+
+* support for deployment models
+
 
 Version 0.9.13 (21.09.2009)
 ---------------------------
