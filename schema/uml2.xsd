@@ -635,6 +635,7 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="AssociationEnd" />
+				<xs:element ref="AssociationEndRole" />
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -719,6 +720,7 @@
 				<xs:element ref="UseCase" />
 				<xs:element ref="Actor" />
 				<xs:element ref="Node" />
+				<xs:element ref="ClassifierRole" />
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -977,6 +979,11 @@
 	<xs:element name="Collaboration">
 		<xs:complexType>
 			<xs:choice>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ClassifierRole"/>
+				<xs:element ref="Collaboration.interaction"/>
+				<xs:element ref="Collaboration.representedClassifier"/>
 				<!-- UML2 -->
 				<xs:element ref="BehavioredClassifier.ownedBehavior"/>
 			</xs:choice>
@@ -989,6 +996,91 @@
 			<xs:attribute ref="isRoot" />
 			<xs:attribute ref="isLeaf" />
 			<xs:attribute ref="isAbstract" />			
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Collaboration.representedClassifier">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Class" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Collaboration.interaction">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Interaction" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ClassifierRole">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ClassifierRole.multiplicity"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />			
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ClassifierRole.multiplicity">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="Multiplicity" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="AssociationRole">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="Association.connection"/>
+				<xs:element ref="AssociationRole.message"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isRoot" />
+			<xs:attribute ref="isLeaf" />
+			<xs:attribute ref="isAbstract" />			
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="AssociationEndRole">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="AssociationEnd.participant"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isNavigable" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="AssociationRole.message">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="Message" />
+			</xs:choice>
 		</xs:complexType>
 	</xs:element>
 
@@ -1630,7 +1722,13 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="InteractionFragment.covered"/>
+				<xs:element ref="Message.action"/>
+				<xs:element ref="Message.activator"/>
+				<xs:element ref="Message.predecessor"/>
+				<xs:element ref="Message.communicationConnection"/>
+				<xs:element ref="Message.receiver"/>
 				<xs:element ref="Message.receiveEvent"/>
+				<xs:element ref="Message.sender"/>
 				<xs:element ref="Message.sendEvent"/>
 				<xs:element ref="Message.signature"/>
 				<xs:element ref="Message.argument"/>
@@ -1646,6 +1744,57 @@
 		</xs:complexType>		
 	</xs:element>
 	
+	<xs:element name="Message.action">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="CallAction" />
+				<xs:element ref="CreateAction" />
+				<xs:element ref="DestroyAction" />
+				<xs:element ref="ReturnAction" />
+				<xs:element ref="SendAction" />
+			</xs:choice>
+		</xs:complexType>		
+	</xs:element>
+	
+	<xs:element name="Message.activator">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Message" />
+			</xs:choice>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="Message.communicationConnection">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="AssociationRole" />
+			</xs:choice>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="Message.predecessor">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Message" />
+			</xs:choice>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="Message.sender">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ClassifierRole" />
+			</xs:choice>
+		</xs:complexType>		
+	</xs:element>
+
+	<xs:element name="Message.receiver">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ClassifierRole" />
+			</xs:choice>
+		</xs:complexType>		
+	</xs:element>
 	<xs:element name="Message.sendEvent">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -2006,9 +2155,70 @@
 			<xs:attribute ref="name" />
 			<xs:attribute ref="visibility" />
 			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isAsynchronous" />
 		</xs:complexType>
 	</xs:element>
 	
+	<xs:element name="CreateAction">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isAsynchronous" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="DestroyAction">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isAsynchronous" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ReturnAction">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isAsynchronous" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="SendAction">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isAsynchronous" />
+		</xs:complexType>
+	</xs:element>
+
 	<xs:element name="AcceptEventAction">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -2141,6 +2351,7 @@
 	<xs:attribute name="changeability" type="changeabilityType" />
 	<xs:attribute name="isRoot" type="xs:boolean" />
 	<xs:attribute name="isSpecification" type="xs:boolean" />
+	<xs:attribute name="isAsynchronous" type="xs:boolean" />
 	<xs:attribute name="isConcurrent" type="xs:boolean" />
 	<xs:attribute name="isLeaf" type="xs:boolean" />
 	<xs:attribute name="isAbstract" type="xs:boolean" />

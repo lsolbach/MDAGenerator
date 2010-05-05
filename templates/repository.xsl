@@ -178,6 +178,7 @@ import org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.
 						or ../../@name='Class'
 						or ../../@name='Interface'
 						or ../../@name='DataType'
+						or ../../@name='Enumeration'
 						or ../../@name='Actor'
 						or ../../@name='UseCase'
 			">

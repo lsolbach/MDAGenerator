@@ -25,7 +25,7 @@ public class XmiHelperTest extends TestCase {
 		assertEquals("Just package name", "package", result);
 
 		result = XmiHelper.appendNamespace("package", "Class");
-		assertEquals("Fully qualified class neam", "package.Class", result);
+		assertEquals("Fully qualified class name", "package.Class", result);
 	}
 	
 }

@@ -92,7 +92,8 @@ public class XMIBuilder {
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
 									or ./@name='FinalState'
-									or ./@name='DataType'">
+									or ./@name='DataType'
+									or ./@name='Enumeration'">
 		if(element.getXmi_idref() != null || element.getHref() != null) {
 			// just a reference, set fields in XmiObject and return
 			if(element.getXmi_idref() != null) {
@@ -121,7 +122,8 @@ public class XMIBuilder {
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
 									or ./@name='FinalState'
-									or ./@name='DataType'">
+									or ./@name='DataType'
+									or ./@name='Enumeration'">
 		<!-- TODO make reporting more elegant than console output -->
 		if(element.getName() == null) {
 			System.out.println("INFO: Name of <xsl:value-of select="translate(./@name, '.', '_')"/> with XmiId " + element.getXmi_id() + " is not set");
@@ -137,6 +139,7 @@ public class XMIBuilder {
 									or ./@name='Interface'
 									or ./@name='DataType'
 									or ./@name='AssociationClass'
+									or ./@name='Enumeration'
 		">
 		childNamespace = qualifiedName;
 		</xsl:if>

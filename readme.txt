@@ -14,11 +14,13 @@ Castor-XML
 Xerces
 commons-logging
 
-Version 1.0.0 (--.--.2009)
+Version 1.0.0 (--.--.2010)
 ---------------------------
 
+* support for collaborations (sequence diagrams)
 * support for deployment models
-
+* enhanced enumeration support
+* mark elements loaded from a profile
 
 Version 0.9.13 (21.09.2009)
 ---------------------------
