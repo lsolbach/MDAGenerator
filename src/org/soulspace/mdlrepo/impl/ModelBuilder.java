@@ -19,6 +19,7 @@ import org.soulspace.mdlrepo.metamodel.ICallEvent;
 import org.soulspace.mdlrepo.metamodel.IClass;
 import org.soulspace.mdlrepo.metamodel.IDataType;
 import org.soulspace.mdlrepo.metamodel.IDependency;
+import org.soulspace.mdlrepo.metamodel.IEnumerationType;
 import org.soulspace.mdlrepo.metamodel.IExtend;
 import org.soulspace.mdlrepo.metamodel.IInclude;
 import org.soulspace.mdlrepo.metamodel.IInterface;
@@ -37,6 +38,7 @@ import org.soulspace.xmi.marshal.CallEvent;
 import org.soulspace.xmi.marshal.Class;
 import org.soulspace.xmi.marshal.DataType;
 import org.soulspace.xmi.marshal.Dependency;
+import org.soulspace.xmi.marshal.Enumeration;
 import org.soulspace.xmi.marshal.Extend;
 import org.soulspace.xmi.marshal.Generalization;
 import org.soulspace.xmi.marshal.Include;
@@ -76,6 +78,7 @@ public class ModelBuilder implements IModelBuilder {
 		buildUseCases(xmiRepository);
 		buildEvents(xmiRepository);
 		buildStateMachines(xmiRepository);
+		buildEnumerations(xmiRepository);
 		buildDataTypes(xmiRepository);
 		buildInterfaces(xmiRepository);
 		buildClasses(xmiRepository);
@@ -86,6 +89,9 @@ public class ModelBuilder implements IModelBuilder {
 		buildGeneralizations(xmiRepository);
 		buildDependencies(xmiRepository);
 
+		// FIXME workaround because there are no reference from package to containing model in Xmi
+		// FIXME Better implement this in Xmi loading (XmiRepository or XmiParser)
+		addPackagesToModel();
 	}
 	
 	private void buildModels(XMIRepository xmiRepository) {
@@ -118,6 +124,15 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiPackageListIterator();
 		while (i.hasNext()) {
 			IPackage element = modelFactory.createPackage((Package) i.next());
+//			modelRepository.register(element);
+		}
+	}
+
+	private void buildEnumerations(XMIRepository xmiRepository) {
+		Iterator i = xmiRepository.xmiEnumerationListIterator();
+		while (i.hasNext()) {
+			IEnumerationType element = modelFactory
+					.createEnumerationType((Enumeration) i.next());
 //			modelRepository.register(element);
 		}
 	}
@@ -249,4 +264,16 @@ public class ModelBuilder implements IModelBuilder {
 		}
 	}
 
+	private void addPackagesToModel() {
+		// only handle non profile elements here
+		for(IModel model : modelRepository.getModels()) {
+			if(!model.getProfileElement()) {
+				for(IPackage pkg : modelRepository.getPackages()) {
+					if(!pkg.getProfileElement()) {
+						model.addPackage(pkg);
+					}
+				}
+			}
+		}
+	}
 }

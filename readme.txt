@@ -1,8 +1,20 @@
 ModelRepository
 ===============
 
-Version 0.9.16 (--.--.2009)
+Version 0.9.16 (--.--.2010)
 ---------------------------
+
+* added dependencies on IInterface
+* added reverse dependencies on IClass
+* added INode and IComponent
+* added packages to model
+* added checkOverride() to IAttribute, IAssociationEnd and IOperation
+* use checkOverride() in getAll*() methods
+* enumeration support via IEnumerationType
+* mark elements loaded from a profile
+* added toString() methods
+* add return parameter to parameter list again so it's possible to
+    access the parameter metadata of the return parameter
 
 Version 0.9.15 (21.09.2009)
 ---------------------------

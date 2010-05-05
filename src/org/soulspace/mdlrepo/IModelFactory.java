@@ -12,6 +12,7 @@ import org.soulspace.mdlrepo.metamodel.ICallEvent;
 import org.soulspace.mdlrepo.metamodel.IClass;
 import org.soulspace.mdlrepo.metamodel.IDataType;
 import org.soulspace.mdlrepo.metamodel.IDependency;
+import org.soulspace.mdlrepo.metamodel.IEnumerationType;
 import org.soulspace.mdlrepo.metamodel.IInterface;
 import org.soulspace.mdlrepo.metamodel.IModel;
 import org.soulspace.mdlrepo.metamodel.IMultiplicity;
@@ -46,6 +47,8 @@ public interface IModelFactory {
 	IAssociationClass createAssociationClass(XmiObject xmi);
 
 	IDataType createDataType(XmiObject xmi);
+
+	IEnumerationType createEnumerationType(XmiObject xmi);
 
 	IAttribute createAttribute(XmiObject xmi);
 

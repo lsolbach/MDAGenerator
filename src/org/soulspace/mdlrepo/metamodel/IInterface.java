@@ -14,4 +14,18 @@ public interface IInterface extends IClassifier {
   List getSuperInterfaces();
   
   List getOperations();
+
+  /**
+   * Returns a list of the dependencies of this class.
+   * @return dependencyList
+   */
+  List<IDependency> getDependencies();
+  
+  /**
+   * Adds a dependency to this class.
+   * @param cf
+   */
+  void addDependency(IDependency d);
+
+
 }

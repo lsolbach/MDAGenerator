@@ -33,6 +33,7 @@ public class ArgoProfileTest {
 		System.out.println(mdlRepository.getClasses().size());
 		for(IClass clazz : mdlRepository.getClasses()) {
 			System.out.println(clazz.getName());
+			System.out.println(clazz.getAllAttributes());
 			for(IStereotype stereotype: clazz.getStereotypes()) {
 				System.out.println(stereotype.getName());
 			}

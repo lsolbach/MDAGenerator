@@ -285,4 +285,27 @@ public class AssociationEnd extends Classifier implements IAssociationEnd {
 		return true;
 	}
 
+	public boolean checkOverride(IAssociationEnd ae) {
+		if(!getName().equals(ae.getName())) {
+			return false;
+		}
+		if(!getType().equals(ae.getType())) {
+			// TODO check type compatibility (IClassifier.isCompatible()/isAssignableFrom()?)
+			return false;
+		}
+		if(!getVisibility().equals(ae.getVisibility())) {
+			// TODO implement check?
+		}
+		if(!getMultiplicity().getHigh().equals(ae.getMultiplicity().getHigh())) {
+			// TODO handle getLow()
+			return false;
+		}
+		// TODO handle other attributes (ownerScope, changeability)
+		return true;
+	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + "[" + getId() + ", " + getName() + ":" + getType().getName() + "]";
+	}
+	
 }

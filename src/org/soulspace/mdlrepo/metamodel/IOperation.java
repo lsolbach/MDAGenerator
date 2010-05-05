@@ -33,4 +33,5 @@ public interface IOperation extends IClassifier {
   public boolean getQuery();
 	public void setQuery(boolean isQuery);
 
+  public boolean checkOverride(IOperation superOp);
 }

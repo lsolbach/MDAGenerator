@@ -122,10 +122,6 @@ public class Operation extends Classifier implements IOperation {
     return visibility;
   }
   
-  public String toString() {
-    return qualifiedName;
-  }
-
   /**
    * @param concurrency The concurrency to set.
    */
@@ -239,7 +235,7 @@ public class Operation extends Classifier implements IOperation {
 		return true;
 	}
   
-	private String getSignature() {
+	public String getSignature() {
 		StringBuilder sb = new StringBuilder();
 		if(returnType != null) {
 			sb.append(returnType.getQualifiedName() + " ");
@@ -258,5 +254,30 @@ public class Operation extends Classifier implements IOperation {
 		}
 		sb.append(")");
 		return sb.toString();
+	}
+	
+	public boolean checkOverride(IOperation op) {
+		if(!getName().equals(op.getName())) {
+			return false;
+		}
+		if(getParameters().size() != op.getParameters().size()) {
+			return false;
+		}
+		for(int i = 0; i < getParameters().size(); i++) {
+			// TODO check type compatibility (IClassifier.isCompatible()/isAssignableFrom()?)
+			// TODO handle return type
+			if(!getParameters().get(i).getType().equals(op.getParameters().get(i).getType())) {
+				return false;
+			}
+		}
+		if(!getVisibility().equals(op.getVisibility())) {
+			// TODO implement check?
+		}
+		// TODO handle other attributes (isQuery, ownerScope, concurrency, ...)
+		return true;
+	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + "[ " + getId() + ", " + getSignature() + "]";
 	}
 }

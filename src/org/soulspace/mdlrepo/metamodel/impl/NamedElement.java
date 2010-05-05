@@ -45,5 +45,8 @@ public class NamedElement extends Element implements INamedElement {
 		return true;
 	}
 
-	
+	public String toString() {
+		return getClass().getSimpleName() + "["+ getId() + ", " + getName() +"]";
+	}
+
 }

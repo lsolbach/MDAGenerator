@@ -47,4 +47,7 @@ public interface IAssociationEnd extends IClassifier {
   
   List<IAttribute> getQualifiers();
   void addQualifier(IAttribute qualifier);
+  
+  boolean checkOverride(IAssociationEnd ae);
+  
 }

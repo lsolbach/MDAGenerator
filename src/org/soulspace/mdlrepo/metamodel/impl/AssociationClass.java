@@ -22,7 +22,6 @@ public class AssociationClass implements IAssociationClass {
 	private Class clazz = new Class();
 	private Association association = new Association();
 	
-
 	/**
 	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Element#getProfileElement()
@@ -61,6 +60,14 @@ public class AssociationClass implements IAssociationClass {
 	 */
 	public void addDependency(IDependency d) {
 		clazz.addDependency(d);
+	}
+
+	/**
+	 * @param d
+	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#addReverseDependency(org.soulspace.mdlrepo.metamodel.IDependency)
+	 */
+	public void addReverseDependency(IDependency d) {
+		clazz.addReverseDependency(d);
 	}
 
 	/**
@@ -137,6 +144,14 @@ public class AssociationClass implements IAssociationClass {
 
 	/**
 	 * @return
+	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllReverseDependencies()
+	 */
+	public List<IDependency> getAllReverseDependencies() {
+		return clazz.getAllReverseDependencies();
+	}
+
+	/**
+	 * @return
 	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getAllOperations()
 	 */
 	public List<IOperation> getAllOperations() {
@@ -173,6 +188,14 @@ public class AssociationClass implements IAssociationClass {
 	 */
 	public List<IDependency> getDependencies() {
 		return clazz.getDependencies();
+	}
+
+	/**
+	 * @return
+	 * @see org.soulspace.mdlrepo.metamodel.impl.Class#getReverseDependencies()
+	 */
+	public List<IDependency> getReverseDependencies() {
+		return clazz.getReverseDependencies();
 	}
 
 	/**

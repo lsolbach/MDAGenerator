@@ -141,4 +141,8 @@ public class Element implements IElement {
 		return true;
 	}
 
+	public String toString() {
+		return getClass().getSimpleName() + "["+ getId() +"]";
+	}
+	
 }

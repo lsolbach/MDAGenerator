@@ -29,4 +29,5 @@ public interface IAttribute extends IClassifier {
   void setMultiplicity(IMultiplicity multiplicity);
   
   boolean checkOverloaded(IAttribute a);
+  boolean checkOverride(IAttribute attr);
 }

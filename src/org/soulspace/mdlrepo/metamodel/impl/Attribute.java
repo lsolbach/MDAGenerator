@@ -63,9 +63,6 @@ public class Attribute extends Classifier implements IAttribute {
     return visibility;
   }
   
-  public String toString() {
-    return getQualifiedName();
-  }
 
   /**
    * @param changeability The changeability to set.
@@ -188,5 +185,27 @@ public class Attribute extends Classifier implements IAttribute {
 			return false;
 		return true;
 	}
-  
+
+	public boolean checkOverride(IAttribute attr) {
+		if(attr == null) {
+			return false;
+		}
+		if(!getType().equals(attr.getType())) {
+			// TODO check type compatibility (IClassifier.isCompatible()/isAssignableFrom()?)
+			return false;
+		}
+		if(!getName().equals(attr.getName())) {
+			return false;
+		}
+		if(!getVisibility().equals(attr.getVisibility())) {
+			// TODO implement check?
+		}
+		// TODO handle other attributes (ownerScope, changeability)
+		return true;
+	}
+	
+	public String toString() {
+		return getClass().getSimpleName() + "[ " + getId() + ", " + getName() + ":" + getType().getName() + "]";
+	}
+
 }

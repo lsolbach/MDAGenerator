@@ -8,4 +8,5 @@ import java.util.List;
 public interface IModel extends IClassifier {
 
   public List getPackages();
+  public void addPackage(IPackage pkg);
 }

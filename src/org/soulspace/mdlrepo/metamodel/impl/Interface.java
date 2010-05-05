@@ -6,49 +6,76 @@ package org.soulspace.mdlrepo.metamodel.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.soulspace.mdlrepo.metamodel.IDependency;
 import org.soulspace.mdlrepo.metamodel.IInterface;
 import org.soulspace.mdlrepo.metamodel.IOperation;
 
-
 /**
  * @author soulman
- *
+ * 
  */
 public class Interface extends Classifier implements IInterface {
 
 	List<IInterface> superInterfaceList = new ArrayList<IInterface>();
 	List<IOperation> operationList = new ArrayList<IOperation>();
-	
-  /**
+	List<IDependency> dependencyList = new ArrayList<IDependency>();
+
+	/**
    * 
    */
-  public Interface() {
-    super();
-  }
+	public Interface() {
+		super();
+	}
 
-  /* (non-Javadoc)
-   * @see org.soulspace.xmi.uml.IInterface#getSuperInterfaces()
-   */
-  public List<IInterface> getSuperInterfaces() {
-    return superInterfaceList;
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.soulspace.xmi.uml.IInterface#getSuperInterfaces()
+	 */
+	public List<IInterface> getSuperInterfaces() {
+		return superInterfaceList;
+	}
 
-  public void addSuperInterface(IInterface i) {
-  	superInterfaceList.add(i);
-  }
-  
-  /* (non-Javadoc)
-   * @see org.soulspace.xmi.uml.IInterface#getOperations()
-   */
-  public List<IOperation> getOperations() {
-    return operationList;
-  }
+	public void addSuperInterface(IInterface i) {
+		superInterfaceList.add(i);
+	}
 
-  public void addOperation(IOperation o) {
-  	operationList.add(o);
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.soulspace.xmi.uml.IInterface#getOperations()
+	 */
+	public List<IOperation> getOperations() {
+		return operationList;
+	}
 
-	/* (non-Javadoc)
+	public void addOperation(IOperation o) {
+		operationList.add(o);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.soulspace.mdlrepo.metamodel.IInterface#addDependency(org.soulspace
+	 * .mdlrepo.metamodel.IDependency)
+	 */
+	public void addDependency(IDependency d) {
+		dependencyList.add(d);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.soulspace.mdlrepo.metamodel.IInterface#getDependencies()
+	 */
+	public List<IDependency> getDependencies() {
+		return dependencyList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -58,7 +85,9 @@ public class Interface extends Classifier implements IInterface {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -72,5 +101,5 @@ public class Interface extends Classifier implements IInterface {
 		final Interface other = (Interface) obj;
 		return true;
 	}
-  
+
 }

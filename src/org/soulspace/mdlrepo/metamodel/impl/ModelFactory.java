@@ -31,6 +31,7 @@ import org.soulspace.xmi.marshal.DataTypeItem;
 import org.soulspace.xmi.marshal.DependencyItem;
 import org.soulspace.xmi.marshal.Dependency_clientItem;
 import org.soulspace.xmi.marshal.Dependency_supplierItem;
+import org.soulspace.xmi.marshal.EnumerationItem;
 import org.soulspace.xmi.marshal.Event_parameterItem;
 import org.soulspace.xmi.marshal.Extend;
 import org.soulspace.xmi.marshal.ExtendItem;
@@ -155,6 +156,14 @@ public class ModelFactory implements IModelFactory {
 		dt = initDataType(dt, xmiDataType);
 		repository.register(dt);
 		return dt;
+	}
+
+	public IEnumerationType createEnumerationType(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.Enumeration xmiEnumerationType = (org.soulspace.xmi.marshal.Enumeration) xmiObj;
+		IEnumerationType et = getEnumerationTypeInstance(xmiEnumerationType);
+		et = initEnumerationType(et, xmiEnumerationType);
+		repository.register(et);
+		return et;
 	}
 
 	public IAttribute createAttribute(XmiObject xmiObj) {
@@ -364,6 +373,12 @@ public class ModelFactory implements IModelFactory {
 		p.setName(xmiPackage.getName());
 		p.setPackage(findPackage(p.getNamespace()));
 
+		// FIXME implement reference to model in package, so that packages can be added to models
+		Model m = (Model) findModel("Don't know how at the moment");
+		if (m != null) {
+			//p.setModel(m);
+			m.addPackage(p);
+		}
 		Enumeration e1 = xmiPackage.enumeratePackageItem();
 		while (e1.hasMoreElements()) {
 			PackageItem pI = (PackageItem) e1.nextElement();
@@ -431,7 +446,7 @@ public class ModelFactory implements IModelFactory {
 		ac.setVisibility(XmiHelper
 				.toString(xmiAssociationClass.getVisibility()));
 		// FIXME handle association attributes
-		
+
 		Package p = (Package) findPackage(ac.getNamespace());
 		if (p != null) {
 			ac.setPackage(p);
@@ -533,9 +548,37 @@ public class ModelFactory implements IModelFactory {
 			DataTypeItem dtI = (DataTypeItem) e1.nextElement();
 			if (dtI.getModelElement_stereotype() != null) {
 				addStereotypes(dt, dtI.getModelElement_stereotype());
+			} else if (dtI.getModelElement_taggedValue() != null) {
+				addTaggedValues(dt, dtI.getModelElement_taggedValue());
 			}
 		}
 		return dt;
+	}
+
+	protected IEnumerationType getEnumerationTypeInstance(
+			org.soulspace.xmi.marshal.Enumeration xmiEnumerationType) {
+		IEnumerationType et = new EnumerationType();
+		et.setId(xmiEnumerationType.getXmi_id());
+		return et;
+	}
+
+	protected IEnumerationType initEnumerationType(IEnumerationType et,
+			org.soulspace.xmi.marshal.Enumeration xmiEnumerationType) {
+		et.setProfileElement(xmiEnumerationType.getProfileElement());
+		et.setName(xmiEnumerationType.getName());
+		et.setNamespace(xmiEnumerationType.getNamespace());
+		et.setQualifiedName(xmiEnumerationType.getQualifiedName());
+
+		Enumeration e1 = xmiEnumerationType.enumerateEnumerationItem();
+		while (e1.hasMoreElements()) {
+			EnumerationItem eI = (EnumerationItem) e1.nextElement();
+			if (eI.getModelElement_stereotype() != null) {
+				addStereotypes(et, eI.getModelElement_stereotype());
+			} else if (eI.getModelElement_taggedValue() != null) {
+				addTaggedValues(et, eI.getModelElement_taggedValue());
+			}
+		}
+		return et;
 	}
 
 	protected IAttribute getAttributeInstance(
@@ -586,6 +629,10 @@ public class ModelFactory implements IModelFactory {
 					a.setType(findDataType(teT.getDataType()));
 				} else if (teT.getInterface() != null) {
 					a.setType(findInterface(teT.getInterface()));
+				} else {
+					System.err.println("ERROR: The type of attribute "
+							+ xmiAttribute.getXmi_id()
+							+ " is not a class, an interface or a datatype!");
 				}
 			} else if (aI.getStructuralFeature_type() != null) {
 				// UML1
@@ -600,6 +647,13 @@ public class ModelFactory implements IModelFactory {
 						a.setType(findDataType(tI.getDataType()));
 					} else if (tI.getInterface() != null) {
 						a.setType(findInterface(tI.getInterface()));
+					} else if (tI.getEnumeration() != null) {
+						a.setType(findEnumerationType(tI.getEnumeration()));
+					} else {
+						System.err
+								.println("ERROR: The type of attribute "
+										+ xmiAttribute.getXmi_id()
+										+ " is not a class, an interface, an enumeration or a datatype!");
 					}
 				}
 			} else if (aI.getStructuralFeature_multiplicity() != null) {
@@ -664,11 +718,16 @@ public class ModelFactory implements IModelFactory {
 					BehavioralFeature_parameterItem pI = (BehavioralFeature_parameterItem) e2
 							.nextElement();
 					if (pI.getParameter() != null) {
-						if(!pI.getParameter().getKind().equals(KindType.RETURN)) {
+						if (pI.getParameter().getKind() == null
+								|| !pI.getParameter().getKind().equals(
+										KindType.RETURN)) {
 							// normal parameter
-							o.addParameter(createParameter(pI.getParameter()));							
+							// add to parameter list
+							o.addParameter(createParameter(pI.getParameter()));
 						} else {
 							// return parameter
+							// add to parameter list and set as return type
+							o.addParameter(createParameter(pI.getParameter()));
 							o.setReturnType(getReturnType(pI.getParameter()));
 						}
 					}
@@ -681,8 +740,8 @@ public class ModelFactory implements IModelFactory {
 		}
 
 		if (o.getReturnType() == null) {
-			System.out.println("WARN: The return type of method "
-					+ o.getName() + " is not set!");
+			System.out.println("WARN: The return type of method " + o.getName()
+					+ " is not set!");
 		}
 		Class c = (Class) repository.lookupClassByQualifiedName(o
 				.getNamespace());
@@ -1000,7 +1059,8 @@ public class ModelFactory implements IModelFactory {
 					Dependency_supplierItem dsI = (Dependency_supplierItem) e2
 							.nextElement();
 					if (dsI.getClazz() != null) {
-						d.setSupplier(findClass(dsI.getClazz()));
+						IClass c = findClass(dsI.getClazz());
+						d.setSupplier(c);
 					} else if (dsI.getDataType() != null) {
 						d.setSupplier(findDataType(dsI.getDataType()));
 					} else if (dsI.getInterface() != null) {
@@ -1020,9 +1080,13 @@ public class ModelFactory implements IModelFactory {
 						d.setClient(c);
 						c.addDependency(d);
 					} else if (dcI.getDataType() != null) {
+						IDataType dt = findDataType(dcI.getDataType());
 						d.setClient(findDataType(dcI.getDataType()));
+						// dt.addDependency(d); // TODO implement if necessary
 					} else if (dcI.getInterface() != null) {
-						d.setClient(findInterface(dcI.getInterface()));
+						IInterface i = findInterface(dcI.getInterface());
+						d.setClient(i);
+						i.addDependency(d);
 					} else if (dcI.getPackage() != null) {
 						d.setClient(findPackage(dcI.getPackage()));
 					}
@@ -1701,6 +1765,10 @@ public class ModelFactory implements IModelFactory {
 		return repository.lookupByXmiId(xmiId);
 	}
 
+	IElement findModel(String xmiId) {
+		return repository.lookupByXmiId(xmiId);
+	}
+
 	IPackage findPackage(String namespace) {
 		return repository.lookupPackageByQualifiedName(namespace);
 	}
@@ -1717,8 +1785,17 @@ public class ModelFactory implements IModelFactory {
 		return (DataType) repository.lookupByXmiId(dt.getRefId());
 	}
 
+	private IEnumerationType findEnumerationType(
+			org.soulspace.xmi.marshal.Enumeration e) {
+		return (EnumerationType) repository.lookupByXmiId(e.getRefId());
+	}
+
 	private IInterface findInterface(org.soulspace.xmi.marshal.Interface i) {
 		return (Interface) repository.lookupByXmiId(i.getRefId());
+	}
+
+	private IClassifier findClassifier(org.soulspace.xmi.base.XmiObject xmiObj) {
+		return (IClassifier) repository.lookupByXmiId(xmiObj.getRefId());
 	}
 
 	private IUseCase findUseCase(org.soulspace.xmi.marshal.UseCase uc) {
@@ -1769,11 +1846,14 @@ public class ModelFactory implements IModelFactory {
 				// UML2 TypedElement.type
 				TypedElement_type tet = pI.getTypedElement_type();
 				if (tet.getClazz() != null) {
-					return (IClassifier) this.findElement(tet.getClazz().getRefId());
+					return (IClassifier) this.findElement(tet.getClazz()
+							.getRefId());
 				} else if (tet.getDataType() != null) {
-					return (IClassifier) this.findElement(tet.getDataType().getRefId());
+					return (IClassifier) this.findElement(tet.getDataType()
+							.getRefId());
 				} else if (tet.getInterface() != null) {
-					return (IClassifier) this.findElement(tet.getInterface().getRefId());
+					return (IClassifier) this.findElement(tet.getInterface()
+							.getRefId());
 				}
 			} else if (pI.getParameter_type() != null) {
 				// UML ParameterType
@@ -1783,11 +1863,14 @@ public class ModelFactory implements IModelFactory {
 					Parameter_typeItem ptI = (Parameter_typeItem) e5
 							.nextElement();
 					if (ptI.getClazz() != null) {
-						return (IClassifier) this.findElement(ptI.getClazz().getRefId());
+						return (IClassifier) this.findElement(ptI.getClazz()
+								.getRefId());
 					} else if (ptI.getDataType() != null) {
-						return (IClassifier) this.findElement(ptI.getDataType().getRefId());
+						return (IClassifier) this.findElement(ptI.getDataType()
+								.getRefId());
 					} else if (ptI.getInterface() != null) {
-						return (IClassifier) this.findElement(ptI.getInterface().getRefId());
+						return (IClassifier) this.findElement(ptI
+								.getInterface().getRefId());
 					}
 				}
 			} else if (pI.getModelElement_stereotype() != null) {

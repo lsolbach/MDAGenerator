@@ -131,4 +131,17 @@ public interface IClass extends IClassifier {
    */
   void addDependency(IDependency d);
 
+  /**
+   * Returns a list of reverse dependencies of this class.
+   * @return
+   */
+  List<IDependency> getReverseDependencies();
+  
+  /**
+   * Returns a list of reverse dependencies of this class.
+   * @return
+   */
+  List<IDependency> getAllReverseDependencies();
+  
+  void addReverseDependency(IDependency d);
 }
