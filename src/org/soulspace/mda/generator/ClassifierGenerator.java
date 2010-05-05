@@ -1,7 +1,7 @@
 /*
  * Created on Feb 21, 2005
  */
-package org.soulspace.mda.generator.ant;
+package org.soulspace.mda.generator;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,13 +13,17 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.oro.text.regex.MatchResult;
 import org.apache.tools.ant.BuildException;
+import org.omg.CORBA.CTX_RESTRICT_SCOPE;
+import org.soulspace.mda.generator.ant.MdaGeneratorTask;
 import org.soulspace.mdlrepo.metamodel.IClassifier;
+import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.template.TemplateEngine;
 import org.soulspace.template.datasource.impl.BeanDataSource;
 import org.soulspace.template.impl.TemplateEngineImpl;
@@ -31,7 +35,7 @@ import org.soulspace.util.CollectionUtils;
  * @author soulman Base class for ant generators
  * 
  */
-public abstract class AntGenerator {
+public abstract class ClassifierGenerator {
 
 	private GeneratorContext genContext;
 
@@ -44,7 +48,7 @@ public abstract class AntGenerator {
 	/**
 	 * Constructor
 	 */
-	public AntGenerator() {
+	public ClassifierGenerator() {
 		super();
 		genContext = new GeneratorContext();
 	}
@@ -199,6 +203,22 @@ public abstract class AntGenerator {
 	}
 
 	/**
+	 * @return
+	 * @see org.soulspace.mda.generator.GeneratorContext#getUseNameAsNamespace()
+	 */
+	public boolean getUseNameAsNamespace() {
+		return genContext.getUseNameAsNamespace();
+	}
+
+	/**
+	 * @param useNameAsNamespace
+	 * @see org.soulspace.mda.generator.GeneratorContext#setUseNameAsNamespace(boolean)
+	 */
+	public void setUseNameAsNamespace(boolean useNameAsNamespace) {
+		genContext.setUseNameAsNamespace(useNameAsNamespace);
+	}
+
+	/**
 	 * @return Returns the prefix.
 	 */
 	public String getPrefix() {
@@ -263,9 +283,14 @@ public abstract class AntGenerator {
 	/**
 	 * @return Returns the TemplateEngine.
 	 */
-	public TemplateEngine getEngine(File templateDir) {
-		if (templateDir == null) {
-			throw new BuildException("Template directory not set");
+	public TemplateEngine getEngine(GenerationContext ctx) {
+		File[] templateDirs;
+		if (ctx.getTemplateDir() == null && ctx.getTemplateDirs() == null) {
+			throw new GeneratorException("Template directory not set");
+		} else if (ctx.getTemplateDirs() != null) {
+			templateDirs = getTemplateDirs(ctx.getTemplateDirs());
+		} else {
+			templateDirs = new File[] { ctx.getTemplateDir() };
 		}
 
 		if (engine != null) {
@@ -275,32 +300,57 @@ public abstract class AntGenerator {
 		engine = new TemplateEngineImpl();
 		String[] importTemplateNames = null;
 		String[] templates = null;
+
 		try {
 			if (isSet(genContext.getImports())) {
 				importTemplateNames = genContext.getImports().split(",");
 				templates = new String[importTemplateNames.length + 1];
 				File[] templateFiles = new File[importTemplateNames.length + 1];
 				for (int i = 0; i < importTemplateNames.length; i++) {
-					templateFiles[i] = new File(templateDir.getAbsolutePath()
-							+ "/" + importTemplateNames[i] + ".tinc");
+					templateFiles[i] = locateFile(templateDirs,
+							importTemplateNames[i], ".tinc");
 				}
-				templateFiles[importTemplateNames.length] = new File(
-						templateDir.getAbsolutePath() + "/"
-								+ genContext.getName() + ".tmpl");
+				templateFiles[importTemplateNames.length] = locateFile(
+						templateDirs, genContext.getName(), ".tmpl");
 				engine.loadTemplates(templateFiles);
 			} else {
-				engine.loadTemplate(new File(templateDir.getAbsolutePath()
-						+ "/" + genContext.getName() + ".tmpl"));
+				engine.loadTemplate(locateFile(templateDirs, genContext
+						.getName(), ".tmpl"));
 			}
 		} catch (Exception e) {
 			engine = null;
 			System.err.println("Error processing " + genContext.getName());
-			throw new BuildException(
+			throw new RuntimeException(
 					"Error creating a template engine for template "
 							+ genContext.getName(), e);
 		}
 
 		return engine;
+	}
+
+	File[] getTemplateDirs(List<String> templateDirNames) {
+		File[] templateDirs = new File[templateDirNames.size()];
+		for (int i = 0; i < templateDirNames.size(); i++) {
+			File file = new File(templateDirNames.get(i));
+			if (!file.exists() || !file.isDirectory()) {
+				throw new RuntimeException("Error validating directory "
+						+ templateDirNames.get(i));
+			}
+			templateDirs[i] = file;
+		}
+		return templateDirs;
+	}
+
+	File locateFile(File[] templateDirs, String basename, String extension) {
+		for (File templateDir : templateDirs) {
+			File file = new File(templateDir.getAbsolutePath() + "/" + basename
+					+ extension);
+			if (file.exists()) {
+				return file;
+			}
+		}
+		throw new RuntimeException("Error locating file " + basename
+				+ extension);
 	}
 
 	/**
@@ -313,15 +363,17 @@ public abstract class AntGenerator {
 	}
 
 	boolean mustGenerate(IClassifier classifier) {
-		return generateForNamespace(classifier) && generateForStereotype(classifier) && !checkForProfile(classifier);
+		return generateForNamespace(classifier)
+				&& generateForStereotype(classifier)
+				&& !checkForProfile(classifier);
 	}
-	
+
 	boolean checkForProfile(IClassifier classifier) {
 		return classifier.getProfileElement();
 	}
-	
+
 	boolean generateForStereotype(IClassifier classifier) {
-		if(!genContext.getExcludeStereotypes().isEmpty()) {
+		if (!genContext.getExcludeStereotypes().isEmpty()) {
 			for (String excStereotype : genContext.getExcludeStereotypes()) {
 				if (classifier.getStereotypeMap().containsKey(excStereotype)) {
 					return false;
@@ -335,13 +387,21 @@ public abstract class AntGenerator {
 			return true;
 		}
 		String st = genContext.getStereotype();
-		if (st.equals("NONE") && !classifier.getStereotypeMap().isEmpty()) {
-			return false;
+		if (st.equals("NONE")) {
+			if(classifier.getStereotypeMap().isEmpty()) {
+				return true;
+			} else {
+				return false;				
+			}
 		}
-		if (st.equals("ALL") && classifier.getStereotypeMap().isEmpty()) {
-			return false;
+		if (st.equals("ALL")) {
+			if(classifier.getStereotypeMap().isEmpty()) {
+				return false;				
+			} else {
+				return true;
+			}
 		}
-		
+
 		boolean generate = false;
 		String[] incStereotypes = genContext.getStereotype().split(",");
 		for (String incStereotype : incStereotypes) {
@@ -349,7 +409,7 @@ public abstract class AntGenerator {
 				generate = true;
 			}
 		}
-		
+
 		return generate;
 	}
 
@@ -359,7 +419,7 @@ public abstract class AntGenerator {
 				&& genContext.getNamespaceExcludes().size() == 0
 				&& !classifier.getNamespace().startsWith("java")) {
 			generate = true;
-		} else if(genContext.getNamespaceIncludes().size() > 0) {
+		} else if (genContext.getNamespaceIncludes().size() > 0) {
 			for (String namespace : genContext.getNamespaceIncludes()) {
 				if (classifier.getNamespace().startsWith(namespace)) {
 					generate = true;
@@ -381,32 +441,31 @@ public abstract class AntGenerator {
 	 * @param gt
 	 * @param classifier
 	 */
-	public void generate(MdaGeneratorTask gt, IClassifier classifier) {
+	public void generate(GenerationContext ctx, IClassifier classifier) {
 		if (!mustGenerate(classifier)) {
 			// no generation needed
 			return;
 		}
 		String output;
 		Map<String, String> userSections = null;
-		File templateDir = gt.getTemplateDir();
-		dataSource = gt.getDataSource();
+		dataSource = ctx.getDataSource();
 
-		engine = getEngine(templateDir);
+		engine = getEngine(ctx);
 
 		// TODO fix exception handling?
 		try {
 			BeanDataSource myDS = new BeanDataSource(classifier);
 			myDS.add("GenContext", genContext);
 			if (isSet(genContext.getUserSection())) {
-				userSections = readUserSections(getPath(gt, classifier, true));
+				userSections = readUserSections(getPath(ctx, classifier, true));
 				myDS.add("USERSECTIONS", userSections);
 			}
 
 			output = engine.generate(myDS);
 
 			if (acceptWrite(output)) {
-				createPackagePath(gt, classifier);
-				writeFile(getPath(gt, classifier, false), output);
+				createPackagePath(ctx, classifier);
+				writeFile(getPath(ctx, classifier, false), output);
 			}
 		} catch (Exception e1) {
 			System.err.println("Exception while processing template "
@@ -424,11 +483,11 @@ public abstract class AntGenerator {
 	}
 
 	// FIXME refactor to use JavaUtils instead of TemplateEngine StringHelper
-
-	protected void createPackagePath(MdaGeneratorTask gt, IClassifier classifier) {
+	protected void createPackagePath(GenerationContext ctx,
+			IClassifier classifier) {
 		StringBuilder sb = new StringBuilder();
-		if (gt.getDestDir() != null) {
-			sb.append(gt.getDestDir().getAbsolutePath() + File.separator);
+		if (ctx.getDestDir() != null) {
+			sb.append(ctx.getDestDir().getAbsolutePath() + File.separator);
 		}
 		if (StringHelper.isSet(genContext.getSubdir())) {
 			sb.append(genContext.getSubdir() + File.separatorChar);
@@ -440,13 +499,22 @@ public abstract class AntGenerator {
 					+ File.separatorChar);
 		} else {
 			if (StringHelper.isSet(genContext.getNamespacePrefix())) {
-				sb.append(genContext.getNamespacePrefix() + File.separatorChar);
+				sb.append(genContext.getNamespacePrefix().replace('.',
+						File.separatorChar)
+						+ File.separatorChar);
 			}
 			sb.append(classifier.getNamespace()
 					.replace('.', File.separatorChar)
 					+ File.separatorChar);
+			if (classifier instanceof IPackage
+					&& genContext.getUseNameAsNamespace()) {
+				sb.append(classifier.getName().replace('.', File.separatorChar)
+						+ File.separatorChar);
+			}
 			if (StringHelper.isSet(genContext.getNamespaceSuffix())) {
-				sb.append(genContext.getNamespaceSuffix() + File.separatorChar);
+				sb.append(genContext.getNamespaceSuffix().replace('.',
+						File.separatorChar)
+						+ File.separatorChar);
 			}
 		}
 
@@ -500,16 +568,19 @@ public abstract class AntGenerator {
 		return sb.toString();
 	}
 
-	protected String getPath(MdaGeneratorTask gt, IClassifier cf, boolean backup) {
+	protected String getPath(GenerationContext ctx, IClassifier cf,
+			boolean backup) {
 		StringBuilder sb = new StringBuilder();
 
 		if (!backup) {
-			if (gt.getDestDir() != null) {
-				sb.append(gt.getDestDir().getAbsolutePath() + File.separator);
+			if (ctx.getDestDir() != null) {
+				sb.append(ctx.getDestDir().getAbsolutePath() + File.separator);
 			}
 		} else {
-			if (gt.getBackupDir() != null) {
-				sb.append(gt.getBackupDir().getAbsolutePath() + File.separator);
+			if (ctx.getBackupDir() != null) {
+				sb
+						.append(ctx.getBackupDir().getAbsolutePath()
+								+ File.separator);
 			}
 		}
 		if (StringHelper.isSet(genContext.getSubdir())) {
@@ -522,12 +593,20 @@ public abstract class AntGenerator {
 					+ File.separatorChar);
 		} else {
 			if (StringHelper.isSet(genContext.getNamespacePrefix())) {
-				sb.append(genContext.getNamespacePrefix() + File.separatorChar);
+				sb.append(genContext.getNamespacePrefix().replace('.',
+						File.separatorChar)
+						+ File.separatorChar);
 			}
 			sb.append(cf.getNamespace().replace('.', File.separatorChar)
 					+ File.separatorChar);
+			if (cf instanceof IPackage && genContext.getUseNameAsNamespace()) {
+				sb.append(cf.getName().replace('.', File.separatorChar)
+						+ File.separatorChar);
+			}
 			if (StringHelper.isSet(genContext.getNamespaceSuffix())) {
-				sb.append(genContext.getNamespaceSuffix() + File.separatorChar);
+				sb.append(genContext.getNamespaceSuffix().replace('.',
+						File.separatorChar)
+						+ File.separatorChar);
 			}
 		}
 

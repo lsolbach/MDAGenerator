@@ -1,7 +1,21 @@
 MdaGenerator
 ============
 
+Version 1.0.0 (--.--.2010)
+---------------------------
+
+* added template search directories
+* fixed directory names with namespacePrefix and namespaceSuffix
+* added UML Profile support
+* added generatorGroups
+* added generators for actors and use cases
+* refactored generator core, make it ant independent to faciliate integration in other tools
+    (TODO: remove reference to ClassPathUtils)
+* refactored ModelGenerator to a subclass of ClassifierGenerator
+* add referrable ant datatype for generatorGroups (TODO) 
+
 Version 0.9.14 (21.09.2009)
+---------------------------
 
 * updated dependencies
 * new versions of TemplateEngine, XmiRepository, ModelRepository and DomainMetaModel
@@ -9,11 +23,13 @@ Version 0.9.14 (21.09.2009)
 * added profiles attribute
 
 Version 0.9.13 (10.09.2008)
+---------------------------
 
 * updated dependencies
 * new versions of TemplateEngine, XmiRepository and ModelRepository
 
 Version 0.9.12 (01.09.2008)
+---------------------------
 
 * updated dependencies
 * added generation filter patterns

@@ -1,4 +1,4 @@
-package org.soulspace.mda.generator.ant;
+package org.soulspace.mda.generator;
 
 /**
  * Datatype for TaggedValues used include or exclude specific

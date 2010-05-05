@@ -1,4 +1,4 @@
-package org.soulspace.mda.generator.ant;
+package org.soulspace.mda.generator;
 
 public class Param {
 	private String name;

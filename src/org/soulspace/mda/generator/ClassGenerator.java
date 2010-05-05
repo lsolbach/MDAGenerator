@@ -1,13 +1,14 @@
 /*
  * Created on Feb 21, 2005
  */
-package org.soulspace.mda.generator.ant;
+package org.soulspace.mda.generator;
+
 
 /**
  * @author soulman
  * 
  */
-public class ClassGenerator extends AntGenerator {
+public class ClassGenerator extends ClassifierGenerator {
 
   /**
    * 

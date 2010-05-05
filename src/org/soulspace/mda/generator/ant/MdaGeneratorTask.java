@@ -11,16 +11,27 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.util.ClasspathUtils;
+import org.soulspace.mda.generator.ActorGenerator;
+import org.soulspace.mda.generator.ClassGenerator;
+import org.soulspace.mda.generator.GenerationContext;
+import org.soulspace.mda.generator.GeneratorGroup;
+import org.soulspace.mda.generator.ModelGenerator;
+import org.soulspace.mda.generator.PackageGenerator;
+import org.soulspace.mda.generator.StateMachineGenerator;
+import org.soulspace.mda.generator.UseCaseGenerator;
 import org.soulspace.mdlrepo.IModelBuilder;
 import org.soulspace.mdlrepo.IModelFactory;
 import org.soulspace.mdlrepo.IModelRepository;
 import org.soulspace.mdlrepo.impl.ModelBuilder;
 import org.soulspace.mdlrepo.impl.ModelRepository;
+import org.soulspace.mdlrepo.metamodel.IActor;
 import org.soulspace.mdlrepo.metamodel.IClass;
 import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
+import org.soulspace.mdlrepo.metamodel.IUseCase;
 import org.soulspace.mdlrepo.metamodel.impl.ModelFactory;
 import org.soulspace.template.datasource.impl.BeanDataSource;
+import org.soulspace.util.CollectionUtils;
 import org.soulspace.xmi.repository.XMIRepository;
 
 /**
@@ -29,241 +40,82 @@ import org.soulspace.xmi.repository.XMIRepository;
  */
 public class MdaGeneratorTask extends Task {
 
-	private File destDir;
-
-	private File backupDir;
-
-	private File templateDir;
-
-	private File modelFile;
-
-	private String profiles;
-
-	private String modelFactory;
-
-	private List<ModelGenerator> modelGenerators = new ArrayList<ModelGenerator>();
-
-	private List<PackageGenerator> packageGenerators = new ArrayList<PackageGenerator>();
-
-	private List<ClassGenerator> classGenerators = new ArrayList<ClassGenerator>();
-
-	private List<StateMachineGenerator> stateMachineGenerators = new ArrayList<StateMachineGenerator>();
-
-	private BeanDataSource dataSource;
-
-	/**
-	 * Constructor
-	 */
+	private GenerationContext ctx;
+	
 	public MdaGeneratorTask() {
 		super();
+		ctx = new GenerationContext();
 	}
 
-	/**
-	 * @return Returns the dataSource.
-	 */
-	public BeanDataSource getDataSource() {
-		return dataSource;
-	}
-
-	/**
-	 * @param destdir
-	 *            The destdir to set.
-	 */
 	public void setDestDir(File destDir) {
-		this.destDir = destDir;
+		ctx.setDestDir(destDir);
 	}
 
-	/**
-	 * @return Returns the destDir.
-	 */
-	public File getDestDir() {
-		return destDir;
-	}
-
-	/**
-	 * @param backupDir
-	 *            The backupDir to set.
-	 */
 	public void setBackupDir(File backupDir) {
-		this.backupDir = backupDir;
+		ctx.setBackupDir(backupDir);
 	}
 
-	/**
-	 * @return Returns the backupDir.
-	 */
-	public File getBackupDir() {
-		return backupDir;
-	}
-
-	/**
-	 * @param templateDir
-	 *            The templateDir to set.
-	 */
 	public void setTemplateDir(File templateDir) {
-		this.templateDir = templateDir;
+		ctx.setTemplateDir(templateDir);
 	}
 
-	/**
-	 * @return Returns the templateDir.
-	 */
-	public File getTemplateDir() {
-		return templateDir;
+	public void setTemplateDirs(String templateDirs) {
+		String[] dirs = templateDirs.split(",");
+		ctx.setTemplateDirs(CollectionUtils
+				.asArrayList(dirs));
 	}
-
-	/**
-	 * @param modelFile
-	 *            The modelFile to set.
-	 */
+	
 	public void setModelFile(File modelFile) {
-		this.modelFile = modelFile;
+		ctx.setModelFile(modelFile);
 	}
 
-	/**
-	 * @return Returns the modelFile.
-	 */
-	public File getModelFile() {
-		return modelFile;
-	}
-
-	/**
-	 * @return the modelFactory
-	 */
-	public String getModelFactory() {
-		return modelFactory;
-	}
-
-	/**
-	 * @param modelFactory
-	 *            the modelFactory to set
-	 */
 	public void setModelFactory(String modelFactory) {
-		this.modelFactory = modelFactory;
+		ctx.setModelFactory(modelFactory);
 	}
 
-	/**
-	 * @return the profiles
-	 */
-	public String getProfiles() {
-		return profiles;
-	}
-
-	/**
-	 * @param profiles
-	 *            the profiles to set
-	 */
 	public void setProfiles(String profiles) {
-		this.profiles = profiles;
+		ctx.setProfiles(profiles);
 	}
 
-	/**
-	 * 
-	 * @param cg
-	 */
 	public void addClassGenerator(ClassGenerator cg) {
-		classGenerators.add(cg);
+		ctx.getMainGroup().addClassGenerator(cg);
 	}
 
-	/**
-	 * 
-	 * @param mg
-	 */
 	public void addModelGenerator(ModelGenerator mg) {
-		modelGenerators.add(mg);
+		ctx.getMainGroup().addModelGenerator(mg);
 	}
 
-	/**
-	 * 
-	 * @param pg
-	 */
 	public void addPackageGenerator(PackageGenerator pg) {
-		packageGenerators.add(pg);
+		ctx.getMainGroup().addPackageGenerator(pg);
 	}
 
-	/**
-	 * 
-	 * @param sg
-	 */
 	public void addStateMachineGenerator(StateMachineGenerator sg) {
-		stateMachineGenerators.add(sg);
+		ctx.getMainGroup().addStateMachineGenerator(sg);
 	}
 
-	IModelRepository initRepository() throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException {
-		// TODO changes for uml version/tool dependend xmi repositories
-		// TODO instanciate (specific) XmiRepository
-
-		XMIRepository xmiRepository = new XMIRepository();
-		IModelFactory mFactory;
-		
-		if (modelFactory != null) {
-			// instanciate model factory
-			mFactory = (IModelFactory) ClasspathUtils.newInstance(
-					modelFactory, this.getClass().getClassLoader());
-		} else {
-			mFactory = new ModelFactory();
-		}
-		IModelBuilder modelBuilder = new ModelBuilder(mFactory);
-
-		if (getProfiles() != null) {
-			// initialize repository with the provided xmi files
-			String[] profileNames = getProfiles().split(",");
-			for(String profileName : profileNames) {
-				xmiRepository.loadProfile(new File(profileName));
-			}
-		}		
-		xmiRepository.loadModel(modelFile);
-		modelBuilder.addXmiRepository(xmiRepository);
-		
-		return modelBuilder.getModelRepository();
+	public void addActorGenerator(ActorGenerator ag) {
+		ctx.getMainGroup().addActorGenerator(ag);
 	}
 
+	public void addUseCaseGenerator(UseCaseGenerator ug) {
+		ctx.getMainGroup().addUseCaseGenerator(ug);
+	}
+
+	public void addGeneratorGroup(GeneratorGroup group) {
+		ctx.getMainGroup().addGeneratorGroup(group);
+	}	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.apache.tools.ant.Task#execute()
 	 */
 	public void execute() throws BuildException {
-		if (destDir == null || !destDir.isDirectory()) {
-			throw new BuildException(destDir + " is not a valid directory");
-		}
-
-		if (modelFile == null) {
-			throw new BuildException("no modelFile set");
-		}
-
-		IModelRepository repository;
 		try {
-			repository = initRepository();
+			ctx.callGenerators(ctx, ctx.getMainGroup());
 		} catch (Exception e) {
-			throw new BuildException("error initializing model repository", e);
-		}
-		dataSource = new BeanDataSource(repository);
-
-		// model
-		for (ModelGenerator mg : modelGenerators) {
-			mg.generate(this, repository);
-		}
-
-		// packages
-		for (IPackage p : repository.getPackages()) {
-			for (PackageGenerator pg : packageGenerators) {
-				pg.generate(this, p);
-			}
-		}
-
-		// classes
-		for (IClass c : repository.getClasses()) {
-			for (ClassGenerator cg : classGenerators) {
-				cg.generate(this, c);
-			}
-		}
-
-		// state machines
-		for (IStateMachine s : repository.getStateMachines()) {
-			for (StateMachineGenerator sg : stateMachineGenerators) {
-				sg.generate(this, s);
-			}
+			throw new BuildException("error while generating!", e);
 		}
 	}
-
+	
 }

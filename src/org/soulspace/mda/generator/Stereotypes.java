@@ -1,4 +1,4 @@
-package org.soulspace.mda.generator.ant;
+package org.soulspace.mda.generator;
 
 /**
  * Datatype for Stereotypes used to include or exclude specific
