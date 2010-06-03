@@ -731,6 +731,9 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ModelElement.stereotype"/>
 				<xs:element ref="ModelElement.taggedValue"/>
+				<xs:element ref="ModelElement.comment"/>
+				<xs:element ref="ModelElement.clientDependency"/>
+				<xs:element ref="Namespace.ownedElement"/>
 				<xs:element ref="Association.connection"/>
 				<xs:element ref="GeneralizableElement.generalization" />
 				<xs:element ref="Classifier.feature"/>

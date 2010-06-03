@@ -176,6 +176,7 @@ import org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.
 		xmiIdMap.put(element.getXmi_id(), element);
 		<xsl:if test="../../@name='Package'
 						or ../../@name='Class'
+						or ../../@name='AssociationClass'
 						or ../../@name='Interface'
 						or ../../@name='DataType'
 						or ../../@name='Enumeration'
