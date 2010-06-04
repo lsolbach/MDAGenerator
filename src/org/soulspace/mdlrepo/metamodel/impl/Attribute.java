@@ -10,121 +10,144 @@ import org.soulspace.mdlrepo.metamodel.IClassifier;
 import org.soulspace.mdlrepo.metamodel.IMultiplicity;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 
-
 /**
  * @author soulman
- *
+ * 
  */
 public class Attribute extends Classifier implements IAttribute {
 
-  private IClassifier type;
-  private String visibility;
-  private String changeability;
-  private String ownerScope;
-  private IMultiplicity multiplicity;
-  private boolean derived = false;
-  
-  public Attribute() {
-    super();
-  }
-  
-  /**
-   * @param typeClass The typeClass to set.
-   */
-  public void setType(IClassifier type) {
-    this.type = type;
-  }
-  
-  /**
-   * @return Returns the changeability.
-   */
-  public String getChangeability() {
-    return changeability;
-  }
+	private IClassifier type;
+	private String visibility;
+	private String changeability;
+	private String ownerScope;
+	private IMultiplicity multiplicity;
+	private boolean derived = false;
+	private IClassifier owner;
 
-  /**
-   * @return Returns the ownerScope.
-   */
-  public String getOwnerScope() {
-    return ownerScope;
-  }
+	/**
+	 * @return the owner
+	 */
+	public IClassifier getOwner() {
+		return owner;
+	}
 
-  /**
-   * @return Returns the type.
-   */
-  public IClassifier getType() {
-    return type;
-  }
-  
-  /**
-   * @return Returns the visibility.
-   */
-  public String getVisibility() {
-    return visibility;
-  }
-  
+	/**
+	 * @param owner
+	 *            the owner to set
+	 */
+	public void setOwner(IClassifier owner) {
+		this.owner = owner;
+	}
 
-  /**
-   * @param changeability The changeability to set.
-   */
-  public void setChangeability(String changeability) {
-    this.changeability = changeability;
-  }
+	public Attribute() {
+		super();
+	}
 
-  /**
-   * @param ownerScope The ownerScope to set.
-   */
-  public void setOwnerScope(String ownerScope) {
-    this.ownerScope = ownerScope;
-  }
+	/**
+	 * @param typeClass
+	 *            The typeClass to set.
+	 */
+	public void setType(IClassifier type) {
+		this.type = type;
+	}
 
-  /**
-   * @param visibility The visibility to set.
-   */
-  public void setVisibility(String visibility) {
-    this.visibility = visibility;
-  }
-  
-  /* (non-Javadoc)
-   * @see org.soulspace.xmi.repository.IAttribute#getMultiplicity()
-   */
-  public IMultiplicity getMultiplicity() {
-   return multiplicity;
-  }
+	/**
+	 * @return Returns the changeability.
+	 */
+	public String getChangeability() {
+		return changeability;
+	}
 
-  /**
-   * @param multiplicity The multiplicity to set.
-   */
-  public void setMultiplicity(IMultiplicity multiplicity) {
-    this.multiplicity = multiplicity;
-  }
-  
-  public boolean isDerived() {
-  	return derived;
-  }
-  
-  public void setDerived(boolean derived) {
-  	this.derived = derived;
-  }
+	/**
+	 * @return Returns the ownerScope.
+	 */
+	public String getOwnerScope() {
+		return ownerScope;
+	}
+
+	/**
+	 * @return Returns the type.
+	 */
+	public IClassifier getType() {
+		return type;
+	}
+
+	/**
+	 * @return Returns the visibility.
+	 */
+	public String getVisibility() {
+		return visibility;
+	}
+
+	/**
+	 * @param changeability
+	 *            The changeability to set.
+	 */
+	public void setChangeability(String changeability) {
+		this.changeability = changeability;
+	}
+
+	/**
+	 * @param ownerScope
+	 *            The ownerScope to set.
+	 */
+	public void setOwnerScope(String ownerScope) {
+		this.ownerScope = ownerScope;
+	}
+
+	/**
+	 * @param visibility
+	 *            The visibility to set.
+	 */
+	public void setVisibility(String visibility) {
+		this.visibility = visibility;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.soulspace.xmi.repository.IAttribute#getMultiplicity()
+	 */
+	public IMultiplicity getMultiplicity() {
+		return multiplicity;
+	}
+
+	/**
+	 * @param multiplicity
+	 *            The multiplicity to set.
+	 */
+	public void setMultiplicity(IMultiplicity multiplicity) {
+		this.multiplicity = multiplicity;
+	}
+
+	public boolean isDerived() {
+		return derived;
+	}
+
+	public void setDerived(boolean derived) {
+		this.derived = derived;
+	}
 
 	public boolean checkOverloaded(IAttribute a) {
-    if(a == null)
-      return false;
-    if(!getName().equals(a.getName()))
-      return false;
-    if(!changeability.equals(a.getChangeability()))
-      return false;
-    if(!visibility.equals(a.getVisibility()))
-      return false;
-    if(!ownerScope.equals(a.getOwnerScope()))
-      return false;
-    if(!type.equals(a.getType()))
-      return false;
+		if (a == null)
+			return false;
+		if (!getName().equals(a.getName()))
+			return false;
+		if (!changeability.equals(a.getChangeability()))
+			return false;
+		if (!visibility.equals(a.getVisibility()))
+			return false;
+		if (!ownerScope.equals(a.getOwnerScope()))
+			return false;
+		if (!type.equals(a.getType()))
+			return false;
 
-    return true;    
-  }
+		return true;
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -144,7 +167,9 @@ public class Attribute extends Classifier implements IAttribute {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -187,25 +212,27 @@ public class Attribute extends Classifier implements IAttribute {
 	}
 
 	public boolean checkOverride(IAttribute attr) {
-		if(attr == null) {
+		if (attr == null) {
 			return false;
 		}
-		if(!getType().equals(attr.getType())) {
-			// TODO check type compatibility (IClassifier.isCompatible()/isAssignableFrom()?)
+		if (!getType().equals(attr.getType())) {
+			// TODO check type compatibility
+			// (IClassifier.isCompatible()/isAssignableFrom()?)
 			return false;
 		}
-		if(!getName().equals(attr.getName())) {
+		if (!getName().equals(attr.getName())) {
 			return false;
 		}
-		if(!getVisibility().equals(attr.getVisibility())) {
+		if (!getVisibility().equals(attr.getVisibility())) {
 			// TODO implement check?
 		}
 		// TODO handle other attributes (ownerScope, changeability)
 		return true;
 	}
-	
+
 	public String toString() {
-		return getClass().getSimpleName() + "[ " + getId() + ", " + getName() + ":" + getType().getName() + "]";
+		return getClass().getSimpleName() + "[ " + getId() + ", " + getName()
+				+ ":" + getType().getName() + "]";
 	}
 
 }

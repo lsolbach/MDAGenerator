@@ -379,6 +379,7 @@ public class ModelFactory implements IModelFactory {
 			//p.setModel(m);
 			m.addPackage(p);
 		}
+
 		Enumeration e1 = xmiPackage.enumeratePackageItem();
 		while (e1.hasMoreElements()) {
 			PackageItem pI = (PackageItem) e1.nextElement();
@@ -525,7 +526,6 @@ public class ModelFactory implements IModelFactory {
 			}
 		}
 
-		repository.register(i);
 		return i;
 	}
 
@@ -612,7 +612,18 @@ public class ModelFactory implements IModelFactory {
 		a.setVisibility(xmiAttribute.getVisibility().toString());
 		a.setChangeability(xmiAttribute.getChangeability().toString());
 		a.setOwnerScope(xmiAttribute.getOwnerScope());
-
+		if(xmiAttribute.getParent() != null) {
+			IClassifier cf;
+			if((cf = (IClassifier) findElement(xmiAttribute.getParent().getXmiId())) != null) {
+				a.setOwner(cf);
+			} else {
+				System.err.println("WARN: Parent Classifier " + xmiAttribute.getParent().getXmiId() + " not found.");
+			}
+		} else {
+			System.err.println("WARN: Owner of attribute "
+					+ xmiAttribute.getXmi_id() + " is not set.");
+		}
+		
 		Enumeration e1 = xmiAttribute.enumerateAttributeItem();
 		while (e1.hasMoreElements()) {
 			AttributeItem aI = (AttributeItem) e1.nextElement();
@@ -632,7 +643,7 @@ public class ModelFactory implements IModelFactory {
 				} else {
 					System.err.println("ERROR: The type of attribute "
 							+ xmiAttribute.getXmi_id()
-							+ " is not a class, an interface or a datatype!");
+							+ " is not a class, an interface or a datatype.");
 				}
 			} else if (aI.getStructuralFeature_type() != null) {
 				// UML1
@@ -1704,7 +1715,7 @@ public class ModelFactory implements IModelFactory {
 			p.addAssociation(a);
 		}
 
-		repository.register(a);
+		//repository.register(a);
 	}
 
 	public void processInclude(XmiObject xmiObj) {

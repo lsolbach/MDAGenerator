@@ -198,12 +198,12 @@ public class AssociationClass implements IAssociationClass {
 		return clazz.getReverseDependencies();
 	}
 
-	/**
-	 * @return
-	 * @see org.soulspace.mdlrepo.metamodel.impl.Element#getElementType()
-	 */
 	public String getElementType() {
-		return clazz.getElementType();
+		return getClass().getSimpleName();
+	}
+
+	public IElement getThis() {
+		return this;
 	}
 
 	/**
@@ -324,14 +324,6 @@ public class AssociationClass implements IAssociationClass {
 	 */
 	public List<ITaggedValue> getTaggedValues() {
 		return clazz.getTaggedValues();
-	}
-
-	/**
-	 * @return
-	 * @see org.soulspace.mdlrepo.metamodel.impl.Element#getThis()
-	 */
-	public IElement getThis() {
-		return clazz.getThis();
 	}
 
 	/**

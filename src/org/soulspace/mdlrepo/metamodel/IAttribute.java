@@ -13,6 +13,9 @@ public interface IAttribute extends IClassifier {
   IClassifier getType();
   void setType(IClassifier cf);
   
+  IClassifier getOwner();
+  void setOwner(IClassifier owner);
+  
   String getOwnerScope();
   void setOwnerScope(String ownerScope);
   

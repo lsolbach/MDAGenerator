@@ -74,11 +74,11 @@ public class ModelBuilder implements IModelBuilder {
 		buildTagDefinitions(xmiRepository);
 		buildModels(xmiRepository);
 		buildPackages(xmiRepository);
+		buildEnumerations(xmiRepository);
 		buildActors(xmiRepository);
 		buildUseCases(xmiRepository);
 		buildEvents(xmiRepository);
 		buildStateMachines(xmiRepository);
-		buildEnumerations(xmiRepository);
 		buildDataTypes(xmiRepository);
 		buildInterfaces(xmiRepository);
 		buildClasses(xmiRepository);
