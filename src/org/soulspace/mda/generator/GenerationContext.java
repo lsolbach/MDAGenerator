@@ -36,7 +36,7 @@ public class GenerationContext {
 
 	private GeneratorGroup mainGroup = new GeneratorGroup();
 
-	private BeanDataSource dataSource;
+//	private BeanDataSource dataSource;
 
 	private IModelRepository repository;
 
@@ -247,20 +247,20 @@ public class GenerationContext {
 	/**
 	 * @return the dataSource
 	 */
-	public BeanDataSource getDataSource() {
-		if(dataSource == null) {
-			initDataSource();
-		}
-		return dataSource;
-	}
+//	public BeanDataSource getDataSource() {
+//		if(dataSource == null) {
+//			initDataSource();
+//		}
+//		return dataSource;
+//	}
 
 	/**
 	 * @param dataSource
 	 *            the dataSource to set
 	 */
-	public void setDataSource(BeanDataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+//	public void setDataSource(BeanDataSource dataSource) {
+//		this.dataSource = dataSource;
+//	}
 
 	IModelRepository initRepository() {
 		// TODO changes for uml version/tool dependend xmi repositories
@@ -301,9 +301,9 @@ public class GenerationContext {
 		return modelBuilder.getModelRepository();
 	}
 
-	private void initDataSource() {
-		dataSource = new BeanDataSource(getRepository());
-	}
+//	private void initDataSource() {
+//		dataSource = new BeanDataSource(getRepository());
+//	}
 	
 	public void callGenerators(GenerationContext ctx, GeneratorGroup gg) {
 		// model

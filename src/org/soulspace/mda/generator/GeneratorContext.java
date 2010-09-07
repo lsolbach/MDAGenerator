@@ -347,6 +347,5 @@ public class GeneratorContext {
 	public void setUseNameAsNamespace(boolean useNameAsNamespace) {
 		this.useNameAsNamespace = useNameAsNamespace;
 	}
-
 	
 }

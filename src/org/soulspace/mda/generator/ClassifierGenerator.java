@@ -448,7 +448,7 @@ public abstract class ClassifierGenerator {
 		}
 		String output;
 		Map<String, String> userSections = null;
-		dataSource = ctx.getDataSource();
+		//dataSource = ctx.getDataSource();
 
 		engine = getEngine(ctx);
 
@@ -666,15 +666,15 @@ public abstract class ClassifierGenerator {
 			while ((line = in.readLine()) != null) {
 				// match user section
 				if ((result = RegExHelper.match(line, "^.*"
-						+ genContext.getUserSection() + "-BEGIN\\((.*)\\)$")) != null) {
+						+ genContext.getUserSection() + "-BEGIN\\((.*)\\).*$")) != null) {
 					name = result.group(1);
 					sb = new StringBuffer(64);
 				} else if ((result = RegExHelper.match(line, "^.*"
 						+ genContext.getUserSection() + "-END\\(" + name
-						+ "\\)$")) != null) {
+						+ "\\).*$")) != null) {
 					userSections.put(name, sb.toString() + "\n");
 					name = "";
-				} else if (!name.equals("")) {
+				} else { // if (!name.equals("")) {
 					sb.append(line);
 				}
 			}
