@@ -59,13 +59,13 @@ public class XMIBuilder {
 	</xsl:template>
 
 	<!-- choose correct namespace for child elements -->
-  <!-- According to XmiReader -->
+  	<!-- According to XmiReader -->
 	<!--
 		Qualified Name for Package, Class, Interface, Operation, Attribute, Method,
 		TagDefinition, Stereotype, Association, DataType, Dependency, Abstraction, Generalization
 		-->
 	<!-- Traverse with Qualified Name at Package, Class, Interface, Method?, DataType -->
-  <!--
+  	<!--
 		Missing in XmiReader Parameter, Exception, AssociationEnd, AssociationClass,
 		Actor, UseCase, EventOccurance, ExecutionOccurance, Message, MessageEnd,
 		OpaqueExpression, Lifeline, ...
@@ -92,6 +92,8 @@ public class XMIBuilder {
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
 									or ./@name='FinalState'
+									or ./@name='CallEvent'
+									or ./@name='SignalEvent'
 									or ./@name='DataType'
 									or ./@name='Enumeration'">
 		if(element.getXmi_idref() != null || element.getHref() != null) {
@@ -122,6 +124,8 @@ public class XMIBuilder {
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
 									or ./@name='FinalState'
+									or ./@name='CallEvent'
+									or ./@name='SignalEvent'
 									or ./@name='DataType'
 									or ./@name='Enumeration'">
 		<!-- TODO make reporting more elegant than console output -->
@@ -140,6 +144,8 @@ public class XMIBuilder {
 									or ./@name='DataType'
 									or ./@name='AssociationClass'
 									or ./@name='Enumeration'
+									or ./@name='CallEvent'
+									or ./@name='SignalEvent'
 		">
 		childNamespace = qualifiedName;
 		</xsl:if>

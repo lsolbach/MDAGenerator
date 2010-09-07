@@ -182,6 +182,11 @@ import org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.
 						or ../../@name='Enumeration'
 						or ../../@name='Actor'
 						or ../../@name='UseCase'
+						or ../../@name='StateMachine'
+						or ../../@name='State'
+						or ../../@name='FinalState'
+						or ../../@name='CallEvent'
+						or ../../@name='SignalEvent'
 			">
 		nameMap.put(element.getQualifiedName(), element);
 		</xsl:if>
