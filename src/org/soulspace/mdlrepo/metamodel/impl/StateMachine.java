@@ -3,34 +3,57 @@ package org.soulspace.mdlrepo.metamodel.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.soulspace.mdlrepo.metamodel.IElement;
 import org.soulspace.mdlrepo.metamodel.IState;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.ITransition;
 
 public class StateMachine extends Classifier implements IStateMachine {
 
+	private IElement context;
 	private List<IState> stateList = new ArrayList<IState>();
 	private List<ITransition> transitionList = new ArrayList<ITransition>();
 	
-	public void addState(IState state) {
-		stateList.add(state);
+	public IElement getContext() {
+		return context;
+	}
+
+	public void setContext(IElement context) {
+		this.context = context;
 	}
 
 	public List<IState> getStates() {
 		return stateList;
 	}
 
-	public void addTransition(ITransition transition) {
-		transitionList.add(transition);
+	public void setStates(List<IState> states) {
+		this.stateList = states;
+	}
+
+	public void addState(IState state) {
+		stateList.add(state);
+	}
+
+	public void removeState(IState state) {
+		stateList.remove(state);
 	}
 
 	public List<ITransition> getTransitions() {
 		return transitionList;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+	public void setTransitions(List<ITransition> transitions) {
+		this.transitionList = transitions;
+	}
+
+	public void addTransition(ITransition transition) {
+		transitionList.add(transition);
+	}
+
+	public void removeTransition(ITransition transition) {
+		transitionList.remove(transition);		
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

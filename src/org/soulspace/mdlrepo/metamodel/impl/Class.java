@@ -211,8 +211,8 @@ public class Class extends Classifier implements IClass {
 					}
 				}
 				if (overridden != null) {
-					System.out.println("DEBUG: overriding attribute "
-							+ overridden + " with " + attr);
+//					System.out.println("DEBUG: overriding attribute "
+//							+ overridden + " with " + attr);
 					allAttributes.remove(overridden);
 				}
 				allAttributes.add(attr);

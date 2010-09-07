@@ -1,8 +1,6 @@
 package org.soulspace.mdlrepo.metamodel;
 
-import java.util.List;
-
-public interface ICallEvent extends IEvent {
+public interface ICallAction extends IAction {
 
 	IOperation getOperation();
 	void setOperation(IOperation operation);

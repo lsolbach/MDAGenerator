@@ -15,10 +15,13 @@ import org.soulspace.mdlrepo.metamodel.IActor;
 import org.soulspace.mdlrepo.metamodel.IAssociation;
 import org.soulspace.mdlrepo.metamodel.IAssociationClass;
 import org.soulspace.mdlrepo.metamodel.IAttribute;
+import org.soulspace.mdlrepo.metamodel.ICallAction;
 import org.soulspace.mdlrepo.metamodel.ICallEvent;
 import org.soulspace.mdlrepo.metamodel.IClass;
+import org.soulspace.mdlrepo.metamodel.ICreateAction;
 import org.soulspace.mdlrepo.metamodel.IDataType;
 import org.soulspace.mdlrepo.metamodel.IDependency;
+import org.soulspace.mdlrepo.metamodel.IDestroyAction;
 import org.soulspace.mdlrepo.metamodel.IEnumerationType;
 import org.soulspace.mdlrepo.metamodel.IExtend;
 import org.soulspace.mdlrepo.metamodel.IInclude;
@@ -26,6 +29,8 @@ import org.soulspace.mdlrepo.metamodel.IInterface;
 import org.soulspace.mdlrepo.metamodel.IModel;
 import org.soulspace.mdlrepo.metamodel.IOperation;
 import org.soulspace.mdlrepo.metamodel.IPackage;
+import org.soulspace.mdlrepo.metamodel.ISendAction;
+import org.soulspace.mdlrepo.metamodel.ISignalEvent;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 import org.soulspace.mdlrepo.metamodel.ITagDefinition;
@@ -34,10 +39,14 @@ import org.soulspace.xmi.marshal.Actor;
 import org.soulspace.xmi.marshal.Association;
 import org.soulspace.xmi.marshal.AssociationClass;
 import org.soulspace.xmi.marshal.Attribute;
+import org.soulspace.xmi.marshal.CallAction;
 import org.soulspace.xmi.marshal.CallEvent;
+import org.soulspace.xmi.marshal.ChangeEvent;
 import org.soulspace.xmi.marshal.Class;
+import org.soulspace.xmi.marshal.CreateAction;
 import org.soulspace.xmi.marshal.DataType;
 import org.soulspace.xmi.marshal.Dependency;
+import org.soulspace.xmi.marshal.DestroyAction;
 import org.soulspace.xmi.marshal.Enumeration;
 import org.soulspace.xmi.marshal.Extend;
 import org.soulspace.xmi.marshal.Generalization;
@@ -46,9 +55,12 @@ import org.soulspace.xmi.marshal.Interface;
 import org.soulspace.xmi.marshal.Model;
 import org.soulspace.xmi.marshal.Operation;
 import org.soulspace.xmi.marshal.Package;
+import org.soulspace.xmi.marshal.SendAction;
+import org.soulspace.xmi.marshal.SignalEvent;
 import org.soulspace.xmi.marshal.StateMachine;
 import org.soulspace.xmi.marshal.Stereotype;
 import org.soulspace.xmi.marshal.TagDefinition;
+import org.soulspace.xmi.marshal.TimeEvent;
 import org.soulspace.xmi.marshal.UseCase;
 import org.soulspace.xmi.repository.XMIRepository;
 
@@ -77,8 +89,6 @@ public class ModelBuilder implements IModelBuilder {
 		buildEnumerations(xmiRepository);
 		buildActors(xmiRepository);
 		buildUseCases(xmiRepository);
-		buildEvents(xmiRepository);
-		buildStateMachines(xmiRepository);
 		buildDataTypes(xmiRepository);
 		buildInterfaces(xmiRepository);
 		buildClasses(xmiRepository);
@@ -87,6 +97,9 @@ public class ModelBuilder implements IModelBuilder {
 		buildOperations(xmiRepository);
 		buildAssociations(xmiRepository);
 		buildGeneralizations(xmiRepository);
+		buildEvents(xmiRepository);
+		buildActions(xmiRepository);
+		buildStateMachines(xmiRepository);
 		buildDependencies(xmiRepository);
 
 		// FIXME workaround because there are no reference from package to containing model in Xmi
@@ -98,7 +111,6 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiModelListIterator();
 		while (i.hasNext()) {
 			IModel element = modelFactory.createModel((Model) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -107,7 +119,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IStereotype element = modelFactory.createStereotype((Stereotype) i
 					.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -116,7 +127,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			ITagDefinition element = modelFactory
 					.createTagDefinition((TagDefinition) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -124,7 +134,6 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiPackageListIterator();
 		while (i.hasNext()) {
 			IPackage element = modelFactory.createPackage((Package) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -133,7 +142,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IEnumerationType element = modelFactory
 					.createEnumerationType((Enumeration) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -142,7 +150,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IDataType element = modelFactory
 					.createDataType((DataType) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -151,7 +158,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IInterface element = modelFactory.createInterface((Interface) i
 					.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -159,7 +165,6 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiClassListIterator();
 		while (i.hasNext()) {
 			IClass element = modelFactory.createClass((Class) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -168,7 +173,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IAssociationClass element = modelFactory
 					.createAssociationClass((AssociationClass) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -177,7 +181,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			// FIXME no return value
 			modelFactory.processGeneralization((Generalization) i.next());
-			// modelRepository.register(element);
 		}
 	}
 
@@ -186,7 +189,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IAttribute element = modelFactory.createAttribute((Attribute) i
 					.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -195,7 +197,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IOperation element = modelFactory.createOperation((Operation) i
 					.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -203,7 +204,6 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiAssociationListIterator();
 		while (i.hasNext()) {
 			modelFactory.processAssociation((Association) i.next());
-			// modelRepository.register(element);
 		}
 	}
 
@@ -212,7 +212,6 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IDependency element = modelFactory.createDependency((Dependency) i
 					.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -220,7 +219,6 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiUseCaseListIterator();
 		while (i.hasNext()) {
 			IUseCase element = modelFactory.createUseCase((UseCase) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -228,7 +226,6 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiActorListIterator();
 		while (i.hasNext()) {
 			IActor element = modelFactory.createActor((Actor) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -236,7 +233,6 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiIncludeListIterator();
 		while (i.hasNext()) {
 			modelFactory.processInclude((Include) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -244,7 +240,6 @@ public class ModelBuilder implements IModelBuilder {
 		Iterator i = xmiRepository.xmiExtendListIterator();
 		while (i.hasNext()) {
 			modelFactory.processExtend((Extend) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
@@ -253,17 +248,40 @@ public class ModelBuilder implements IModelBuilder {
 		while (i.hasNext()) {
 			IStateMachine element = modelFactory
 					.createStateMachine((StateMachine) i.next());
-//			modelRepository.register(element);
 		}
 	}
 
 	private void buildEvents(XMIRepository xmiRepository) {
 		for (CallEvent ce : xmiRepository.getCallEventList()) {
 			ICallEvent element = modelFactory.createCallEvent(ce);
-//			modelRepository.register(element);
+		}
+		for(SignalEvent se : xmiRepository.getSignalEventList()) {
+			ISignalEvent element = modelFactory.createSignalEvent(se);
+		}
+		for(ChangeEvent ce : xmiRepository.getChangeEventList()) {
+			// TODO IChangeEvent element = modelFactory.createChangeEvent(ce);
+		}
+		for(TimeEvent te : xmiRepository.getTimeEventList()) {
+			// TODO ITimeEvent element = modelFactory.createTimeEvent(te);
 		}
 	}
 
+	private void buildActions(XMIRepository xmiRepository) {
+		for(CallAction ca : xmiRepository.getCallActionList()) {
+			ICallAction element = modelFactory.createCallAction(ca);
+		}
+		for(CreateAction ca : xmiRepository.getCreateActionList()) {
+			ICreateAction element = modelFactory.createCreateAction(ca);
+		}
+		for(DestroyAction da : xmiRepository.getDestroyActionList()) {
+			IDestroyAction element = modelFactory.createDestroyAction(da);
+		}
+		for(SendAction ca : xmiRepository.getSendActionList()) {
+			ISendAction element = modelFactory.createSendAction(ca);
+		}
+		// TODO add missing actions
+	}
+	
 	private void addPackagesToModel() {
 		// only handle non profile elements here
 		for(IModel model : modelRepository.getModels()) {

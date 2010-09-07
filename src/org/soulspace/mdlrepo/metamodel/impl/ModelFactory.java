@@ -23,14 +23,20 @@ import org.soulspace.xmi.marshal.Association_connection;
 import org.soulspace.xmi.marshal.Association_connectionItem;
 import org.soulspace.xmi.marshal.AttributeItem;
 import org.soulspace.xmi.marshal.BehavioralFeature_parameterItem;
+import org.soulspace.xmi.marshal.CallActionItem;
+import org.soulspace.xmi.marshal.CallAction_operationItem;
 import org.soulspace.xmi.marshal.CallEventItem;
+import org.soulspace.xmi.marshal.ChangeEventItem;
 import org.soulspace.xmi.marshal.ClassItem;
 import org.soulspace.xmi.marshal.CompositeStateItem;
 import org.soulspace.xmi.marshal.CompositeState_subvertexItem;
+import org.soulspace.xmi.marshal.CreateActionItem;
+import org.soulspace.xmi.marshal.CreateAction_instanciationItem;
 import org.soulspace.xmi.marshal.DataTypeItem;
 import org.soulspace.xmi.marshal.DependencyItem;
 import org.soulspace.xmi.marshal.Dependency_clientItem;
 import org.soulspace.xmi.marshal.Dependency_supplierItem;
+import org.soulspace.xmi.marshal.DestroyActionItem;
 import org.soulspace.xmi.marshal.EnumerationItem;
 import org.soulspace.xmi.marshal.Event_parameterItem;
 import org.soulspace.xmi.marshal.Extend;
@@ -59,12 +65,19 @@ import org.soulspace.xmi.marshal.ParameterItem;
 import org.soulspace.xmi.marshal.Parameter_typeItem;
 import org.soulspace.xmi.marshal.PseudostateItem;
 import org.soulspace.xmi.marshal.RegionItem;
+import org.soulspace.xmi.marshal.SendActionItem;
+import org.soulspace.xmi.marshal.SendAction_signalItem;
+import org.soulspace.xmi.marshal.SignalEventItem;
 import org.soulspace.xmi.marshal.SimpleState;
 import org.soulspace.xmi.marshal.SimpleStateItem;
 import org.soulspace.xmi.marshal.StateMachineItem;
+import org.soulspace.xmi.marshal.StateMachine_context;
+import org.soulspace.xmi.marshal.StateMachine_contextItem;
 import org.soulspace.xmi.marshal.StateMachine_submachineStateItem;
 import org.soulspace.xmi.marshal.StateMachine_topItem;
 import org.soulspace.xmi.marshal.StateMachine_transitionsItem;
+import org.soulspace.xmi.marshal.StateVertex_incomingItem;
+import org.soulspace.xmi.marshal.StateVertex_outgoingItem;
 import org.soulspace.xmi.marshal.StructuralFeature_multiplicityItem;
 import org.soulspace.xmi.marshal.StructuralFeature_typeItem;
 import org.soulspace.xmi.marshal.SubmachineStateItem;
@@ -72,6 +85,7 @@ import org.soulspace.xmi.marshal.SubmachineState_submachineItem;
 import org.soulspace.xmi.marshal.TaggedValueItem;
 import org.soulspace.xmi.marshal.TaggedValue_dataValue;
 import org.soulspace.xmi.marshal.TaggedValue_typeItem;
+import org.soulspace.xmi.marshal.TimeEventItem;
 import org.soulspace.xmi.marshal.TransitionItem;
 import org.soulspace.xmi.marshal.Transition_triggerItem;
 import org.soulspace.xmi.marshal.TypedElement_type;
@@ -316,6 +330,70 @@ public class ModelFactory implements IModelFactory {
 		ce = initCallEvent(ce, xmiCallEvent);
 		repository.register(ce);
 		return ce;
+	}
+
+	public ISignalEvent createSignalEvent(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.SignalEvent xmiSignalEvent = (org.soulspace.xmi.marshal.SignalEvent) xmiObj;
+		ISignalEvent se = getSignalEventInstance(xmiSignalEvent);
+		se = initSignalEvent(se, xmiSignalEvent);
+		repository.register(se);
+		return se;
+	}
+
+	public IChangeEvent createChangeEvent(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.ChangeEvent xmiChangeEvent = (org.soulspace.xmi.marshal.ChangeEvent) xmiObj;
+		IChangeEvent ce = getChangeEventInstance(xmiChangeEvent);
+		ce = initChangeEvent(ce, xmiChangeEvent);
+		repository.register(ce);
+		return ce;
+	}
+
+	public ITimeEvent createTimeEvent(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.TimeEvent xmiTimeEvent = (org.soulspace.xmi.marshal.TimeEvent) xmiObj;
+		ITimeEvent te = getTimeEventInstance(xmiTimeEvent);
+		te = initTimeEvent(te, xmiTimeEvent);
+		repository.register(te);
+		return te;
+	}
+
+	public IArgument createArgument(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.Argument xmiArgument = (org.soulspace.xmi.marshal.Argument) xmiObj;
+		IArgument a = getArgumentInstance(xmiArgument);
+		a = initArgument(a, xmiArgument);
+		repository.register(a);
+		return a;
+	}
+
+	public ICallAction createCallAction(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.CallAction xmiCallAction = (org.soulspace.xmi.marshal.CallAction) xmiObj;
+		ICallAction ca = getCallActionInstance(xmiCallAction);
+		ca = initCallAction(ca, xmiCallAction);
+		repository.register(ca);
+		return ca;
+	}
+
+	public ICreateAction createCreateAction(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.CreateAction xmiCreateAction = (org.soulspace.xmi.marshal.CreateAction) xmiObj;
+		ICreateAction ca = getCreateActionInstance(xmiCreateAction);
+		ca = initCreateAction(ca, xmiCreateAction);
+		repository.register(ca);
+		return ca;
+	}
+
+	public IDestroyAction createDestroyAction(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.DestroyAction xmiDestroyAction = (org.soulspace.xmi.marshal.DestroyAction) xmiObj;
+		IDestroyAction ca = getDestroyActionInstance(xmiDestroyAction);
+		ca = initDestroyAction(ca, xmiDestroyAction);
+		repository.register(ca);
+		return ca;
+	}
+
+	public ISendAction createSendAction(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.SendAction xmiSendAction = (org.soulspace.xmi.marshal.SendAction) xmiObj;
+		ISendAction ca = getSendActionInstance(xmiSendAction);
+		ca = initSendAction(ca, xmiSendAction);
+		repository.register(ca);
+		return ca;
 	}
 
 	// protected void initNamedElement(INamedElement n,
@@ -623,6 +701,12 @@ public class ModelFactory implements IModelFactory {
 			System.err.println("WARN: Owner of attribute "
 					+ xmiAttribute.getXmi_id() + " is not set.");
 		}
+		// FIXME not only classes
+		IClass c = (IClass) repository.lookupClassByQualifiedName(a
+				.getNamespace());
+		if (c != null) {
+			c.addAttribute(a);
+		}
 		
 		Enumeration e1 = xmiAttribute.enumerateAttributeItem();
 		while (e1.hasMoreElements()) {
@@ -682,11 +766,12 @@ public class ModelFactory implements IModelFactory {
 			}
 		}
 
-		// FIXME not only classes
-		IClass c = (IClass) repository.lookupClassByQualifiedName(a
-				.getNamespace());
-		if (c != null) {
-			c.addAttribute(a);
+		// check validity
+		if(a.getType() == null) {
+			System.err
+			.println("ERROR: The type of attribute "
+					+ xmiAttribute.getXmi_id() + " - " + xmiAttribute.getName()
+					+ " is not set!");			
 		}
 		return a;
 	}
@@ -1219,7 +1304,7 @@ public class ModelFactory implements IModelFactory {
 		if (xmiStateMachine.getName() != null) {
 			sm.setName(xmiStateMachine.getName());
 		}
-
+		
 		Enumeration e1 = xmiStateMachine.enumerateStateMachineItem();
 		while (e1.hasMoreElements()) {
 			StateMachineItem smI = (StateMachineItem) e1.nextElement();
@@ -1261,6 +1346,25 @@ public class ModelFactory implements IModelFactory {
 							}
 						}
 					}
+				}
+			} else if (smI.getStateMachine_context() != null) {
+				Enumeration e2 = smI.getStateMachine_context().enumerateStateMachine_contextItem();
+				while(e2.hasMoreElements()) {
+					StateMachine_contextItem smCI = (StateMachine_contextItem) e2.nextElement();
+					if(smCI.getClazz() != null) {
+						sm.setContext(findElement(smCI.getClazz().getRefId()));
+					} else if(smCI.getInterface() != null) {
+						sm.setContext(findElement(smCI.getInterface().getRefId()));
+					} else if(smCI.getPackage() != null) {
+						sm.setContext(findElement(smCI.getPackage().getRefId()));
+					} else if(smCI.getAssociationClass() != null) {
+						sm.setContext(findElement(smCI.getAssociationClass().getRefId()));
+					} else if(smCI.getActor() != null) {
+						sm.setContext(findElement(smCI.getActor().getRefId()));
+					} else if(smCI.getUseCase() != null) {
+						sm.setContext(findElement(smCI.getUseCase().getRefId()));
+					}
+					
 				}
 			} else if (smI.getStateMachine_region() != null) {
 				Enumeration e2 = smI.getStateMachine_region().getRegion()
@@ -1410,9 +1514,17 @@ public class ModelFactory implements IModelFactory {
 			} else if (ssI.getModelElement_taggedValue() != null) {
 
 			} else if (ssI.getStateVertex_incoming() != null) {
-
-				// } else if(ssI.getStateVertex_outgoing() != null) {
-
+				Enumeration e2 = ssI.getStateVertex_incoming().enumerateStateVertex_incomingItem();
+				while (e2.hasMoreElements()) {
+					StateVertex_incomingItem svII = (StateVertex_incomingItem) e2.nextElement();
+					// TODO handle
+				}
+			} else if(ssI.getStateVertex_outgoing() != null) {
+				Enumeration e2 = ssI.getStateVertex_outgoing().enumerateStateVertex_outgoingItem();
+				while(e2.hasMoreElements()) {
+					StateVertex_outgoingItem svOI = (StateVertex_outgoingItem) e2.nextElement();
+					// TODO handle
+				}
 			} else if (ssI.getSubmachineState_submachine() != null) {
 				Enumeration e2 = ssI.getSubmachineState_submachine()
 						.enumerateSubmachineState_submachineItem();
@@ -1420,7 +1532,9 @@ public class ModelFactory implements IModelFactory {
 					SubmachineState_submachineItem sssI = (SubmachineState_submachineItem) e2
 							.nextElement();
 					// FIXME ???
+					sssI.getStateMachine();
 					// sssI.getStateMachine();
+					
 				}
 			} else {
 				System.out
@@ -1463,6 +1577,8 @@ public class ModelFactory implements IModelFactory {
 							.nextElement();
 					if (ttI.getCallEvent() != null) {
 						t.addEvent(findEvent(ttI.getCallEvent().getRefId()));
+					} else if(ttI.getSignalEvent() != null) {
+						t.addEvent(findEvent(ttI.getSignalEvent().getRefId()));
 					}
 				}
 			} else if (tI.getTransition_source() != null) {
@@ -1541,15 +1657,19 @@ public class ModelFactory implements IModelFactory {
 	protected ICallEvent initCallEvent(ICallEvent ce,
 			org.soulspace.xmi.marshal.CallEvent xmiCallEvent) {
 		ce.setProfileElement(xmiCallEvent.getProfileElement());
-		ce.setName(xmiCallEvent.getName());
+		if(xmiCallEvent.getName() != null) {
+			ce.setName(xmiCallEvent.getName());
+		}
 		ce.setNamespace(xmiCallEvent.getNamespace());
-		ce.setQualifiedName(ce.getQualifiedName());
-		// TODO
 
 		Enumeration e1 = xmiCallEvent.enumerateCallEventItem();
 		while (e1.hasMoreElements()) {
 			CallEventItem ceI = (CallEventItem) e1.nextElement();
-			if (ceI.getEvent_parameter() != null) {
+			if (ceI.getModelElement_stereotype() != null) {
+				addStereotypes(ce, ceI.getModelElement_stereotype());
+			} else if (ceI.getModelElement_taggedValue() != null) {
+				addTaggedValues(ce, ceI.getModelElement_taggedValue());
+			} else if (ceI.getEvent_parameter() != null) {
 				Enumeration e2 = ceI.getEvent_parameter()
 						.enumerateEvent_parameterItem();
 				while (e2.hasMoreElements()) {
@@ -1559,9 +1679,295 @@ public class ModelFactory implements IModelFactory {
 						ce.addParameter(createParameter(epI.getParameter()));
 					}
 				}
+			} else if(ceI.getCallEvent_operation() != null) {
+				// TODO implement				
 			}
 		}
 		return ce;
+	}
+
+	protected ISignalEvent getSignalEventInstance(
+			org.soulspace.xmi.marshal.SignalEvent xmiSignalEvent) {
+		ISignalEvent se = new SignalEvent();
+		se.setId(xmiSignalEvent.getXmi_id());
+		return se;
+	}
+
+	protected ISignalEvent initSignalEvent(ISignalEvent se,
+			org.soulspace.xmi.marshal.SignalEvent xmiSignalEvent) {
+		se.setProfileElement(xmiSignalEvent.getProfileElement());
+		if(xmiSignalEvent.getName() != null) {
+			se.setName(xmiSignalEvent.getName());
+		}
+		se.setName(xmiSignalEvent.getName());
+		se.setNamespace(xmiSignalEvent.getNamespace());
+
+		Enumeration e1 = xmiSignalEvent.enumerateSignalEventItem();
+		while (e1.hasMoreElements()) {
+			SignalEventItem seI = (SignalEventItem) e1.nextElement();
+			if (seI.getModelElement_stereotype() != null) {
+				addStereotypes(se, seI.getModelElement_stereotype());
+			} else if (seI.getModelElement_taggedValue() != null) {
+				addTaggedValues(se, seI.getModelElement_taggedValue());
+			} else if (seI.getEvent_parameter() != null) {
+				Enumeration e2 = seI.getEvent_parameter()
+						.enumerateEvent_parameterItem();
+				while (e2.hasMoreElements()) {
+					Event_parameterItem epI = (Event_parameterItem) e2
+							.nextElement();
+					if (epI.getParameter() != null) {
+						se.addParameter(createParameter(epI.getParameter()));
+					}
+				}
+			} else if(seI.getSignalEvent_signal() != null) {
+				// TODO implement
+			}
+		}
+		return se;
+	}
+
+	protected IChangeEvent getChangeEventInstance(
+			org.soulspace.xmi.marshal.ChangeEvent xmiChangeEvent) {
+		IChangeEvent ce = new ChangeEvent();
+		ce.setId(xmiChangeEvent.getXmi_id());
+		return ce;
+	}
+
+	protected IChangeEvent initChangeEvent(IChangeEvent ce,
+			org.soulspace.xmi.marshal.ChangeEvent xmiChangeEvent) {
+		ce.setProfileElement(xmiChangeEvent.getProfileElement());
+		if(xmiChangeEvent.getName() != null) {
+			ce.setName(xmiChangeEvent.getName());
+		}
+		ce.setName(xmiChangeEvent.getName());
+		ce.setNamespace(xmiChangeEvent.getNamespace());
+
+		Enumeration e1 = xmiChangeEvent.enumerateChangeEventItem();
+		while (e1.hasMoreElements()) {
+			ChangeEventItem ceI = (ChangeEventItem) e1.nextElement();
+			if (ceI.getModelElement_stereotype() != null) {
+				addStereotypes(ce, ceI.getModelElement_stereotype());
+			} else if (ceI.getModelElement_taggedValue() != null) {
+				addTaggedValues(ce, ceI.getModelElement_taggedValue());
+			} else if (ceI.getEvent_parameter() != null) {
+				Enumeration e2 = ceI.getEvent_parameter()
+						.enumerateEvent_parameterItem();
+				while (e2.hasMoreElements()) {
+					Event_parameterItem epI = (Event_parameterItem) e2
+							.nextElement();
+					if (epI.getParameter() != null) {
+						ce.addParameter(createParameter(epI.getParameter()));
+					}
+				}
+			} else if(ceI.getChangeEvent_changeExpression() != null) {
+				// TODO implement
+			}
+		}
+		return ce;
+	}
+
+	protected ITimeEvent getTimeEventInstance(
+			org.soulspace.xmi.marshal.TimeEvent xmiTimeEvent) {
+		ITimeEvent te = new TimeEvent();
+		te.setId(xmiTimeEvent.getXmi_id());
+		return te;
+	}
+
+	protected ITimeEvent initTimeEvent(ITimeEvent te,
+			org.soulspace.xmi.marshal.TimeEvent xmiTimeEvent) {
+		te.setProfileElement(xmiTimeEvent.getProfileElement());
+		if(xmiTimeEvent.getName() != null) {
+			te.setName(xmiTimeEvent.getName());
+		}
+		te.setName(xmiTimeEvent.getName());
+		te.setNamespace(xmiTimeEvent.getNamespace());
+
+		Enumeration e1 = xmiTimeEvent.enumerateTimeEventItem();
+		while (e1.hasMoreElements()) {
+			TimeEventItem teI = (TimeEventItem) e1.nextElement();
+			if (teI.getModelElement_stereotype() != null) {
+				addStereotypes(te, teI.getModelElement_stereotype());
+			} else if (teI.getModelElement_taggedValue() != null) {
+				addTaggedValues(te, teI.getModelElement_taggedValue());
+			} else if (teI.getEvent_parameter() != null) {
+				Enumeration e2 = teI.getEvent_parameter()
+						.enumerateEvent_parameterItem();
+				while (e2.hasMoreElements()) {
+					Event_parameterItem epI = (Event_parameterItem) e2
+							.nextElement();
+					if (epI.getParameter() != null) {
+						te.addParameter(createParameter(epI.getParameter()));
+					}
+				}
+			} else if(teI.getTimeEvent_when() != null) {
+				// TODO implement
+			}
+		}
+		return te;
+	}
+
+	protected IArgument getArgumentInstance(
+			org.soulspace.xmi.marshal.Argument xmiArgument) {
+		IArgument te = new Argument();
+		te.setId(xmiArgument.getXmi_id());
+		return te;
+	}
+
+	protected IArgument initArgument(IArgument a,
+			org.soulspace.xmi.marshal.Argument xmiArgument) {
+		a.setProfileElement(xmiArgument.getProfileElement());
+		if(xmiArgument.getName() != null) {
+			a.setName(xmiArgument.getName());
+		}
+		a.setName(xmiArgument.getName());
+		a.setNamespace(xmiArgument.getNamespace());
+
+//		Enumeration e1 = xmiArgument.enumerateArgumentItem();
+//		while (e1.hasMoreElements()) {
+//			ArgumentItem teI = (ArgumentItem) e1.nextElement();
+//			if (teI.getModelElement_stereotype() != null) {
+//				addStereotypes(te, teI.getModelElement_stereotype());
+//			} else if (teI.getModelElement_taggedValue() != null) {
+//				addTaggedValues(te, teI.getModelElement_taggedValue());
+//			}
+//		}
+		return a;
+	}
+
+	protected ICallAction getCallActionInstance(
+			org.soulspace.xmi.marshal.CallAction xmiCallAction) {
+		ICallAction ca = new CallAction();
+		ca.setId(xmiCallAction.getXmi_id());
+		return ca;
+	}
+
+	protected ICallAction initCallAction(ICallAction ca,
+			org.soulspace.xmi.marshal.CallAction xmiCallAction) {
+		ca.setProfileElement(xmiCallAction.getProfileElement());
+		if(xmiCallAction.getName() != null) {
+			ca.setName(xmiCallAction.getName());
+		}
+		ca.setNamespace(xmiCallAction.getNamespace());
+
+		Enumeration e1 = xmiCallAction.enumerateCallActionItem();
+		while (e1.hasMoreElements()) {
+			CallActionItem caI = (CallActionItem) e1.nextElement();
+			if (caI.getCallAction_operation() != null) {
+				Enumeration e2 = caI.getCallAction_operation()
+						.enumerateCallAction_operationItem();
+				while (e2.hasMoreElements()) {
+					CallAction_operationItem caOI = (CallAction_operationItem) e2
+							.nextElement();
+					if (caOI.getOperation() != null) {
+						ca.setOperation((IOperation) findElement(caOI.getOperation().getRefId()));
+					}
+				}
+			} else if(caI.getAction_actualArgument() != null) {
+				
+			}
+		}
+		return ca;
+	}
+	
+	protected ICreateAction getCreateActionInstance(
+			org.soulspace.xmi.marshal.CreateAction xmiCreateAction) {
+		ICreateAction ca = new CreateAction();
+		ca.setId(xmiCreateAction.getXmi_id());
+		return ca;
+	}
+
+	protected ICreateAction initCreateAction(ICreateAction ca,
+			org.soulspace.xmi.marshal.CreateAction xmiCreateAction) {
+		ca.setProfileElement(xmiCreateAction.getProfileElement());
+		if(xmiCreateAction.getName() != null) {
+			ca.setName(xmiCreateAction.getName());
+		}
+		ca.setNamespace(xmiCreateAction.getNamespace());
+//		ca.setQualifiedName(ca.getQualifiedName());
+
+		Enumeration e1 = xmiCreateAction.enumerateCreateActionItem();
+		while (e1.hasMoreElements()) {
+			CreateActionItem caI = (CreateActionItem) e1.nextElement();
+			if (caI.getCreateAction_instanciation() != null) {
+				Enumeration e2 = caI.getCreateAction_instanciation()
+						.enumerateCreateAction_instanciationItem();
+				while (e2.hasMoreElements()) {
+					CreateAction_instanciationItem caII = (CreateAction_instanciationItem) e2
+							.nextElement();
+					if (caII.getClass() != null) {
+						ca.setInstanciation(findClass(caII.getClazz()));
+					} else if(caII.getAssociationClass() != null) {
+						ca.setInstanciation((IAssociationClass) findElement(caII.getAssociationClass().getRefId()));						
+					}
+				}
+			} else if(caI.getAction_actualArgument() != null) {
+				
+			}
+		}
+		return ca;
+	}
+
+	protected ISendAction getSendActionInstance(
+			org.soulspace.xmi.marshal.SendAction xmiSendAction) {
+		ISendAction ca = new SendAction();
+		ca.setId(xmiSendAction.getXmi_id());
+		return ca;
+	}
+
+	protected ISendAction initSendAction(ISendAction ca,
+			org.soulspace.xmi.marshal.SendAction xmiSendAction) {
+		ca.setProfileElement(xmiSendAction.getProfileElement());
+		if(xmiSendAction.getName() != null) {
+			ca.setName(xmiSendAction.getName());
+		}
+		ca.setNamespace(xmiSendAction.getNamespace());
+//		ca.setQualifiedName(ca.getQualifiedName());
+
+		Enumeration e1 = xmiSendAction.enumerateSendActionItem();
+		while (e1.hasMoreElements()) {
+			SendActionItem caI = (SendActionItem) e1.nextElement();
+			if (caI.getSendAction_signal() != null) {
+				Enumeration e2 = caI.getSendAction_signal()
+						.enumerateSendAction_signalItem();
+				while (e2.hasMoreElements()) {
+					SendAction_signalItem caOI = (SendAction_signalItem) e2
+							.nextElement();
+					if (caOI.getSignal() != null) {
+						// TODO add signal
+						// ca.setOperation((IOperation) findElement(caOI.getOperation().getRefId()));
+					}
+				}
+			} else if(caI.getAction_actualArgument() != null) {
+				
+			}
+		}
+		return ca;
+	}
+
+	protected IDestroyAction getDestroyActionInstance(
+			org.soulspace.xmi.marshal.DestroyAction xmiDestroyAction) {
+		IDestroyAction da = new DestroyAction();
+		da.setId(xmiDestroyAction.getXmi_id());
+		return da;
+	}
+
+	protected IDestroyAction initDestroyAction(IDestroyAction da,
+			org.soulspace.xmi.marshal.DestroyAction xmiDestroyAction) {
+		da.setProfileElement(xmiDestroyAction.getProfileElement());
+		if(xmiDestroyAction.getName() != null) {
+			da.setName(xmiDestroyAction.getName());
+		}
+		da.setNamespace(xmiDestroyAction.getNamespace());
+//		da.setQualifiedName(ca.getQualifiedName());
+
+		Enumeration e1 = xmiDestroyAction.enumerateDestroyActionItem();
+		while (e1.hasMoreElements()) {
+			DestroyActionItem daI = (DestroyActionItem) e1.nextElement();
+			if(daI.getAction_actualArgument() != null) {
+				
+			}
+		}
+		return da;
 	}
 
 	public IMultiplicity createMultiplicity(XmiObject xmiObj) {

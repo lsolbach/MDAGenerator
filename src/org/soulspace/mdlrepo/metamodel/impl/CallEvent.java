@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.soulspace.mdlrepo.metamodel.ICallEvent;
+import org.soulspace.mdlrepo.metamodel.IOperation;
 import org.soulspace.mdlrepo.metamodel.IParameter;
 
 public class CallEvent extends Event implements ICallEvent {
 
-	List<IParameter> parameterList = new ArrayList<IParameter>();
+	IOperation operation;
 	
-	public void addParameter(IParameter parameter) {
-		parameterList.add(parameter);
+	public IOperation getOperation() {
+		return operation;
 	}
 
-	public List<IParameter> getParameters() {
-		return parameterList;
+	public void setOperation(IOperation operation) {
+		this.operation = operation;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -28,9 +26,6 @@ public class CallEvent extends Event implements ICallEvent {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

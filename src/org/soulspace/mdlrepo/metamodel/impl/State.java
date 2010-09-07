@@ -11,20 +11,36 @@ public class State extends Classifier implements IState {
 	private List<ITransition> incomingTransitionList = new ArrayList<ITransition>();
 	private List<ITransition> outgoingTransitionList = new ArrayList<ITransition>();
 	
+	public List<ITransition> getIncomingTransitions() {
+		return incomingTransitionList;
+	}
+
+	public void setIncomingTransitions(List<ITransition> transitions) {
+		incomingTransitionList = transitions;
+	}
+
 	public void addIncomingTransition(ITransition transition) {
 		incomingTransitionList.add(transition);
 	}
 
-	public List<ITransition> getIncomingTransitions() {
-		return incomingTransitionList;
+	public void removeIncomingTransition(ITransition transition) {
+		incomingTransitionList.remove(transition);
+	}
+
+	public List<ITransition> getOutgoingTransitions() {
+		return outgoingTransitionList;
+	}
+
+	public void setOutgoingTransitions(List<ITransition> transitions) {
+		outgoingTransitionList = transitions;
 	}
 
 	public void addOutgoingTransition(ITransition transition) {
 		outgoingTransitionList.add(transition);
 	}
 
-	public List<ITransition> getOutgoingTransitions() {
-		return outgoingTransitionList;
+	public void removeOutgoingTransition(ITransition transition) {
+		outgoingTransitionList.remove(transition);
 	}
 
 	/* (non-Javadoc)

@@ -8,10 +8,13 @@ import org.soulspace.mdlrepo.metamodel.IAssociation;
 import org.soulspace.mdlrepo.metamodel.IAssociationClass;
 import org.soulspace.mdlrepo.metamodel.IAssociationEnd;
 import org.soulspace.mdlrepo.metamodel.IAttribute;
+import org.soulspace.mdlrepo.metamodel.ICallAction;
 import org.soulspace.mdlrepo.metamodel.ICallEvent;
 import org.soulspace.mdlrepo.metamodel.IClass;
+import org.soulspace.mdlrepo.metamodel.ICreateAction;
 import org.soulspace.mdlrepo.metamodel.IDataType;
 import org.soulspace.mdlrepo.metamodel.IDependency;
+import org.soulspace.mdlrepo.metamodel.IDestroyAction;
 import org.soulspace.mdlrepo.metamodel.IEnumerationType;
 import org.soulspace.mdlrepo.metamodel.IInterface;
 import org.soulspace.mdlrepo.metamodel.IModel;
@@ -19,6 +22,8 @@ import org.soulspace.mdlrepo.metamodel.IMultiplicity;
 import org.soulspace.mdlrepo.metamodel.IOperation;
 import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.mdlrepo.metamodel.IParameter;
+import org.soulspace.mdlrepo.metamodel.ISendAction;
+import org.soulspace.mdlrepo.metamodel.ISignalEvent;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 import org.soulspace.mdlrepo.metamodel.ITagDefinition;
@@ -80,6 +85,16 @@ public interface IModelFactory {
 
 	ICallEvent createCallEvent(XmiObject xmi);
 
+	ISignalEvent createSignalEvent(XmiObject xmi);
+
+	ICallAction createCallAction(XmiObject xmi);
+	
+	ICreateAction createCreateAction(XmiObject xmi);
+	
+	IDestroyAction createDestroyAction(XmiObject xmi);
+	
+	ISendAction createSendAction(XmiObject xmi);
+	
 	void processInclude(XmiObject xmi);
 
 	void processExtend(XmiObject xmi);
