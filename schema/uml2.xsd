@@ -1299,11 +1299,15 @@
 	<xs:element name="CompositeState">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
 				<xs:element ref="CompositeState.subvertex"/>
 				<xs:element ref="State.entry"/>
 				<xs:element ref="State.exit"/>
 				<xs:element ref="State.doActivity"/>
 				<xs:element ref="State.deferredEvent"/>
+				<xs:element ref="StateVertex.outgoing"/>
+				<xs:element ref="StateVertex.incoming"/>				
 			</xs:choice>	
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1321,6 +1325,7 @@
 				<xs:element ref="SubState"/>
 				<xs:element ref="SynchState"/>
 				<xs:element ref="SimpleState"/>
+				<xs:element ref="CompositeState"/>
 				<xs:element ref="SubmachineState"/>
 				<xs:element ref="FinalState"/>
 			</xs:choice>	
@@ -1356,9 +1361,6 @@
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="StateVertex.outgoing"/>
-				<!-- Poseidon UML2.0 -->
-				<xs:element ref="Vertex.incoming"/>
-				<xs:element ref="Vertex.outgoing"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1378,9 +1380,6 @@
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="StateVertex.outgoing"/>
-				<!-- Poseidon UML2.0 -->
-				<xs:element ref="Vertex.incoming"/>
-				<xs:element ref="Vertex.outgoing"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1400,9 +1399,6 @@
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="StateVertex.outgoing"/>
-				<!-- Poseidon UML2.0 -->
-				<xs:element ref="Vertex.incoming"/>
-				<xs:element ref="Vertex.outgoing"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1422,6 +1418,10 @@
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="StateVertex.outgoing"/>
+				<xs:element ref="State.entry"/>
+				<xs:element ref="State.exit"/>
+				<xs:element ref="State.doActivity"/>
+				<xs:element ref="State.deferredEvent"/>
 				<xs:element ref="SubmachineState.submachine"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -1450,8 +1450,6 @@
 				<xs:element ref="State.exit"/>
 				<xs:element ref="State.doActivity"/>
 				<xs:element ref="State.deferredEvent"/>
-				<!-- Poseidon UML2.0 -->
-				<xs:element ref="Vertex.incoming"/>				
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1483,9 +1481,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
-				<xs:element ref="Transition.trigger"/>
 				<xs:element ref="Transition.source"/>
 				<xs:element ref="Transition.target"/>
+				<xs:element ref="Transition.trigger"/>
+				<xs:element ref="Transition.guard"/>
 				<xs:element ref="Transition.effect"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -1498,11 +1497,21 @@
 		</xs:complexType>
 	</xs:element>
 	
+	<xs:element name="Transition.guard">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Guard"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
 	<xs:element name="Transition.trigger">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="CallEvent"/>
+				<xs:element ref="ChangeEvent"/>
 				<xs:element ref="SignalEvent"/>
+				<xs:element ref="TimeEvent"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -1510,12 +1519,14 @@
 	<xs:element name="Transition.effect">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ActionSequence"/>
 				<xs:element ref="CallAction"/>
 				<xs:element ref="CreateAction"/>
 				<xs:element ref="DestroyAction"/>
 				<xs:element ref="ReturnAction"/>
 				<xs:element ref="SendAction"/>
-				<xs:element ref="AcceptEventAction"/>
+				<xs:element ref="TerminateAction"/>
+				<xs:element ref="UninterpretedAction"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -1546,6 +1557,19 @@
 				<!-- Poseidon UML2.0 -->
 				<xs:element ref="State"/>
 			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Guard">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="BooleanExpression"/>
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
 		</xs:complexType>
 	</xs:element>
 	
@@ -1722,13 +1746,12 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="State.region"/>
-				<xs:element ref="State.submachine"/>
 				<xs:element ref="State.entry"/>
 				<xs:element ref="State.exit"/>
 				<xs:element ref="State.doActivity"/>
 				<xs:element ref="State.deferredEvent"/>
-				<xs:element ref="Vertex.outgoing"/>
-				<xs:element ref="Vertex.incoming"/>				
+				<xs:element ref="StateVertex.outgoing"/>
+				<xs:element ref="StateVertex.incoming"/>				
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 			</xs:choice>
@@ -1744,11 +1767,14 @@
 	<xs:element name="State.entry">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ActionSequence"/>
 				<xs:element ref="CallAction"/>
 				<xs:element ref="CreateAction"/>
 				<xs:element ref="DestroyAction"/>
 				<xs:element ref="ReturnAction"/>
 				<xs:element ref="SendAction"/>
+				<xs:element ref="TerminateAction"/>
+				<xs:element ref="UninterpretedAction"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>	
@@ -1756,11 +1782,14 @@
 	<xs:element name="State.exit">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ActionSequence"/>
 				<xs:element ref="CallAction"/>
 				<xs:element ref="CreateAction"/>
 				<xs:element ref="DestroyAction"/>
 				<xs:element ref="ReturnAction"/>
 				<xs:element ref="SendAction"/>
+				<xs:element ref="TerminateAction"/>
+				<xs:element ref="UninterpretedAction"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>	
@@ -1768,11 +1797,14 @@
 	<xs:element name="State.doActivity">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ActionSequence"/>
 				<xs:element ref="CallAction"/>
 				<xs:element ref="CreateAction"/>
 				<xs:element ref="DestroyAction"/>
 				<xs:element ref="ReturnAction"/>
 				<xs:element ref="SendAction"/>
+				<xs:element ref="TerminateAction"/>
+				<xs:element ref="UninterpretedAction"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>	
@@ -1795,32 +1827,7 @@
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
-	
-	<xs:element name="State.submachine">
-		<xs:complexType>
-			<xs:choice>
-				<xs:element ref="StateMachine"/>
-			</xs:choice>
-		</xs:complexType>
-	</xs:element>
-	
-	<xs:element name="Vertex.outgoing">
-		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="Transition"/>
-			</xs:choice>
-		</xs:complexType>
-	</xs:element>
-	
-		<xs:element name="Vertex.incoming">
-		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="Transition"/>				
-			</xs:choice>
-		</xs:complexType>
-	</xs:element>
-	
-	
+		
 	<xs:element name="Interaction">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -2624,24 +2631,30 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ActionSequence.action"/>
 				<xs:element ref="Action.actualArgument"/>
+				<xs:element ref="Action.script"/>
+				<xs:element ref="Action.target"/>
+				<xs:element ref="Action.recurrence"/>
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
 			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
 		</xs:complexType>
 	</xs:element>
 
 	<xs:element name="ActionSequence.action">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ActionSequence"/>
 				<xs:element ref="CallAction"/>
 				<xs:element ref="CreateAction"/>
 				<xs:element ref="DestroyAction"/>
 				<xs:element ref="ReturnAction"/>
 				<xs:element ref="SendAction"/>
-				<xs:element ref="AcceptEventAction"/>
+				<xs:element ref="TerminateAction"/>
+				<xs:element ref="UninterpretedAction"/>
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -2651,8 +2664,11 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="CallAction.operation"/>
 				<xs:element ref="Action.actualArgument"/>
-				<xs:element ref="ModelElement.stereotype" />
-				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="Action.script"/>
+				<xs:element ref="Action.target"/>
+				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.stereotype"/>
+				<xs:element ref="ModelElement.taggedValue"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2677,6 +2693,9 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="CreateAction.instanciation"/>
 				<xs:element ref="Action.actualArgument"/>
+				<xs:element ref="Action.script"/>
+				<xs:element ref="Action.target"/>
+				<xs:element ref="Action.recurrence"/>
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 			</xs:choice>
@@ -2706,6 +2725,9 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Action.actualArgument"/>
+				<xs:element ref="Action.script"/>
+				<xs:element ref="Action.target"/>
+				<xs:element ref="Action.recurrence"/>
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 			</xs:choice>
@@ -2722,6 +2744,9 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Action.actualArgument"/>
+				<xs:element ref="Action.script"/>
+				<xs:element ref="Action.target"/>
+				<xs:element ref="Action.recurrence"/>
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 			</xs:choice>
@@ -2738,8 +2763,9 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Action.actualArgument"/>
-				<xs:element ref="Action.output"/>
-				<xs:element ref="Action.input"/>
+				<xs:element ref="Action.script"/>
+				<xs:element ref="Action.target"/>
+				<xs:element ref="Action.recurrence"/>
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 			</xs:choice>
@@ -2757,8 +2783,9 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="SendAction.signal"/>
 				<xs:element ref="Action.actualArgument"/>
-				<xs:element ref="Action.output"/>
-				<xs:element ref="Action.input"/>
+				<xs:element ref="Action.script"/>
+				<xs:element ref="Action.target"/>
+				<xs:element ref="Action.recurrence"/>
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 			</xs:choice>
@@ -2779,6 +2806,25 @@
 		</xs:complexType>
 	</xs:element>
 	
+	<xs:element name="TerminateAction">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Action.actualArgument"/>
+				<xs:element ref="Action.script"/>
+				<xs:element ref="Action.target"/>
+				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+			</xs:choice>
+			<xs:attribute ref="xmi.id" />
+			<xs:attribute ref="xmi.idref" />
+			<xs:attribute ref="href"/>
+			<xs:attribute ref="name" />
+			<xs:attribute ref="isSpecification" />
+			<xs:attribute ref="isAsynchronous" />
+		</xs:complexType>
+	</xs:element>
+
 	<xs:element name="AcceptEventAction">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -2825,6 +2871,30 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Argument"/>
+			</xs:choice>
+		</xs:complexType>	
+	</xs:element>
+	
+	<xs:element name="Action.script">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ActionExpression"/>
+			</xs:choice>
+		</xs:complexType>	
+	</xs:element>
+	
+	<xs:element name="Action.recurrence">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="IterationExpression"/>
+			</xs:choice>
+		</xs:complexType>	
+	</xs:element>
+	
+	<xs:element name="Action.target">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ObjectSetExpression"/>
 			</xs:choice>
 		</xs:complexType>	
 	</xs:element>
