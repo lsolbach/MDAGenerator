@@ -20,8 +20,6 @@ import java.util.regex.Pattern;
 
 import org.apache.oro.text.regex.MatchResult;
 import org.apache.tools.ant.BuildException;
-import org.omg.CORBA.CTX_RESTRICT_SCOPE;
-import org.soulspace.mda.generator.ant.MdaGeneratorTask;
 import org.soulspace.mdlrepo.metamodel.IClassifier;
 import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.template.TemplateEngine;
@@ -37,7 +35,7 @@ import org.soulspace.util.CollectionUtils;
  */
 public abstract class ClassifierGenerator {
 
-	private GeneratorContext genContext;
+	protected GeneratorContext genContext;
 
 	protected TemplateEngine engine;
 
@@ -53,8 +51,17 @@ public abstract class ClassifierGenerator {
 		genContext = new GeneratorContext();
 	}
 
+	public ClassifierGenerator(GeneratorContext genContext) {
+		super();
+		this.genContext = genContext;
+	}
+	
 	public GeneratorContext getGeneratorContext() {
 		return genContext;
+	}
+
+	public void getGeneratorContext(GeneratorContext genContext) {
+		this.genContext = genContext;
 	}
 
 	/**
@@ -672,13 +679,15 @@ public abstract class ClassifierGenerator {
 				} else if ((result = RegExHelper.match(line, "^.*"
 						+ genContext.getUserSection() + "-END\\(" + name
 						+ "\\).*$")) != null) {
-					userSections.put(name, sb.toString() + "\n");
+					userSections.put(name, sb.toString());
+					sb = null;
 					name = "";
-				} else { // if (!name.equals("")) {
-					sb.append(line);
+				} else if (sb != null) { // ) {
+					sb.append(line + "\n");
 				}
 			}
 		} catch (IOException e1) {
+			System.err.println("Error parsing user sections on file " + filename);
 			e1.printStackTrace();
 		}
 

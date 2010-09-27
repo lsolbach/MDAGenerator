@@ -4,35 +4,12 @@
 package org.soulspace.mda.generator.ant;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.util.ClasspathUtils;
-import org.soulspace.mda.generator.ActorGenerator;
-import org.soulspace.mda.generator.ClassGenerator;
 import org.soulspace.mda.generator.GenerationContext;
 import org.soulspace.mda.generator.GeneratorGroup;
-import org.soulspace.mda.generator.ModelGenerator;
-import org.soulspace.mda.generator.PackageGenerator;
-import org.soulspace.mda.generator.StateMachineGenerator;
-import org.soulspace.mda.generator.UseCaseGenerator;
-import org.soulspace.mdlrepo.IModelBuilder;
-import org.soulspace.mdlrepo.IModelFactory;
-import org.soulspace.mdlrepo.IModelRepository;
-import org.soulspace.mdlrepo.impl.ModelBuilder;
-import org.soulspace.mdlrepo.impl.ModelRepository;
-import org.soulspace.mdlrepo.metamodel.IActor;
-import org.soulspace.mdlrepo.metamodel.IClass;
-import org.soulspace.mdlrepo.metamodel.IPackage;
-import org.soulspace.mdlrepo.metamodel.IStateMachine;
-import org.soulspace.mdlrepo.metamodel.IUseCase;
-import org.soulspace.mdlrepo.metamodel.impl.ModelFactory;
-import org.soulspace.template.datasource.impl.BeanDataSource;
 import org.soulspace.util.CollectionUtils;
-import org.soulspace.xmi.repository.XMIRepository;
 
 /**
  * @author soulman

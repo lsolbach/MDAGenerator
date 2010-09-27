@@ -4,6 +4,12 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.tools.ant.util.ClasspathUtils;
+import org.soulspace.mda.generator.ant.ActorGenerator;
+import org.soulspace.mda.generator.ant.ClassGenerator;
+import org.soulspace.mda.generator.ant.ModelGenerator;
+import org.soulspace.mda.generator.ant.PackageGenerator;
+import org.soulspace.mda.generator.ant.StateMachineGenerator;
+import org.soulspace.mda.generator.ant.UseCaseGenerator;
 import org.soulspace.mdlrepo.IModelBuilder;
 import org.soulspace.mdlrepo.IModelFactory;
 import org.soulspace.mdlrepo.IModelRepository;
@@ -15,7 +21,6 @@ import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 import org.soulspace.mdlrepo.metamodel.impl.ModelFactory;
-import org.soulspace.template.datasource.impl.BeanDataSource;
 import org.soulspace.xmi.repository.XMIRepository;
 
 public class GenerationContext {
@@ -308,40 +313,40 @@ public class GenerationContext {
 	public void callGenerators(GenerationContext ctx, GeneratorGroup gg) {
 		// model
 		for(IModel model : getRepository().getModels()) {
-			for (ModelGenerator mg : gg.getModelGenerators()) {
+			for (ClassifierGenerator mg : gg.getModelGenerators()) {
 				mg.generate(ctx, model);
 			}
 		}
 
 		// packages
 		for (IPackage p : getRepository().getPackages()) {
-			for (PackageGenerator pg : gg.getPackageGenerators()) {
+			for (ClassifierGenerator pg : gg.getPackageGenerators()) {
 				pg.generate(ctx, p);
 			}
 		}
 
 		// classes
 		for (IClass c : getRepository().getClasses()) {
-			for (ClassGenerator cg : gg.getClassGenerators()) {
+			for (ClassifierGenerator cg : gg.getClassGenerators()) {
 				cg.generate(ctx, c);
 			}
 		}
 
 		// state machines
 		for (IStateMachine s : getRepository().getStateMachines()) {
-			for (StateMachineGenerator sg : gg.getStateMachineGenerators()) {
+			for (ClassifierGenerator sg : gg.getStateMachineGenerators()) {
 				sg.generate(ctx, s);
 			}
 		}
 		
 		for(IActor a : getRepository().getActors()) {
-			for(ActorGenerator ag : gg.getActorGenerators()) {
+			for(ClassifierGenerator ag : gg.getActorGenerators()) {
 				ag.generate(ctx, a);
 			}
 		}
 		
 		for(IUseCase uc : getRepository().getUseCases()) {
-			for(UseCaseGenerator ug : gg.getUseCaseGenerators()) {
+			for(ClassifierGenerator ug : gg.getUseCaseGenerators()) {
 				ug.generate(ctx, uc);
 			}
 		}

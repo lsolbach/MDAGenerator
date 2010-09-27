@@ -3,22 +3,29 @@ package org.soulspace.mda.generator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.soulspace.mda.generator.ant.ActorGenerator;
+import org.soulspace.mda.generator.ant.ClassGenerator;
+import org.soulspace.mda.generator.ant.ModelGenerator;
+import org.soulspace.mda.generator.ant.PackageGenerator;
+import org.soulspace.mda.generator.ant.StateMachineGenerator;
+import org.soulspace.mda.generator.ant.UseCaseGenerator;
+
 
 public class GeneratorGroup {
 
 	private List<GeneratorGroup> generatorGroups = new ArrayList<GeneratorGroup>();
 	
-	private List<ModelGenerator> modelGenerators = new ArrayList<ModelGenerator>();
+	private List<ClassifierGenerator> modelGenerators = new ArrayList<ClassifierGenerator>();
 
-	private List<PackageGenerator> packageGenerators = new ArrayList<PackageGenerator>();
+	private List<ClassifierGenerator> packageGenerators = new ArrayList<ClassifierGenerator>();
 
-	private List<ClassGenerator> classGenerators = new ArrayList<ClassGenerator>();
+	private List<ClassifierGenerator> classGenerators = new ArrayList<ClassifierGenerator>();
 
-	private List<StateMachineGenerator> stateMachineGenerators = new ArrayList<StateMachineGenerator>();
+	private List<ClassifierGenerator> stateMachineGenerators = new ArrayList<ClassifierGenerator>();
 
-	private List<ActorGenerator> actorGenerators = new ArrayList<ActorGenerator>();
+	private List<ClassifierGenerator> actorGenerators = new ArrayList<ClassifierGenerator>();
 
-	private List<UseCaseGenerator> useCaseGenerators = new ArrayList<UseCaseGenerator>();
+	private List<ClassifierGenerator> useCaseGenerators = new ArrayList<ClassifierGenerator>();
 
 	/**
 	 * Adds a generator group.
@@ -36,11 +43,11 @@ public class GeneratorGroup {
 	 * Adds a class generator.
 	 * @param cg
 	 */
-	public void addClassGenerator(ClassGenerator cg) {
+	public void addClassGenerator(ClassifierGenerator cg) {
 		classGenerators.add(cg);
 	}
 
-	public List<ClassGenerator> getClassGenerators() {
+	public List<ClassifierGenerator> getClassGenerators() {
 		return classGenerators;
 	}
 	
@@ -48,11 +55,11 @@ public class GeneratorGroup {
 	 * Adds a model generator.
 	 * @param mg
 	 */
-	public void addModelGenerator(ModelGenerator mg) {
+	public void addModelGenerator(ClassifierGenerator mg) {
 		modelGenerators.add(mg);
 	}
 
-	public List<ModelGenerator> getModelGenerators() {
+	public List<ClassifierGenerator> getModelGenerators() {
 		return modelGenerators;
 	}
 	
@@ -60,11 +67,11 @@ public class GeneratorGroup {
 	 * Adds a package generator.
 	 * @param pg
 	 */
-	public void addPackageGenerator(PackageGenerator pg) {
+	public void addPackageGenerator(ClassifierGenerator pg) {
 		packageGenerators.add(pg);
 	}
 
-	public List<PackageGenerator> getPackageGenerators() {
+	public List<ClassifierGenerator> getPackageGenerators() {
 		return packageGenerators;
 	}
 	
@@ -72,11 +79,11 @@ public class GeneratorGroup {
 	 * Adds a state machine generator.
 	 * @param sg
 	 */
-	public void addStateMachineGenerator(StateMachineGenerator sg) {
+	public void addStateMachineGenerator(ClassifierGenerator sg) {
 		stateMachineGenerators.add(sg);
 	}
 
-	public List<StateMachineGenerator> getStateMachineGenerators() {
+	public List<ClassifierGenerator> getStateMachineGenerators() {
 		return stateMachineGenerators;
 	}
 	
@@ -84,11 +91,11 @@ public class GeneratorGroup {
 	 * Adds a model generator.
 	 * @param mg
 	 */
-	public void addActorGenerator(ActorGenerator ag) {
+	public void addActorGenerator(ClassifierGenerator ag) {
 		actorGenerators.add(ag);
 	}
 
-	public List<ActorGenerator> getActorGenerators() {
+	public List<ClassifierGenerator> getActorGenerators() {
 		return actorGenerators;
 	}
 	
@@ -96,11 +103,11 @@ public class GeneratorGroup {
 	 * Adds a model generator.
 	 * @param mg
 	 */
-	public void addUseCaseGenerator(UseCaseGenerator ug) {
+	public void addUseCaseGenerator(ClassifierGenerator ug) {
 		useCaseGenerators.add(ug);
 	}
 
-	public List<UseCaseGenerator> getUseCaseGenerators() {
+	public List<ClassifierGenerator> getUseCaseGenerators() {
 		return useCaseGenerators;
 	}
 	
