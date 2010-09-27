@@ -9,6 +9,9 @@ public interface IStateMachine extends IClassifier {
 	
 	IElement getContext();
 	void setContext(IElement context);
+
+	IState getTopState();
+	void setTopState(IState state);
 	
 	List<IState> getStates();
 	void setStates(List<IState> states);

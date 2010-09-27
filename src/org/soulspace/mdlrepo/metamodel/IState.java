@@ -7,6 +7,15 @@ import java.util.List;
 
 public interface IState extends INamedElement {
 
+	IAction getEntryAction();
+	void setEntryAction(IAction action);
+
+	IAction getExitAction();
+	void setExitAction(IAction action);
+
+	IAction getActivityAction();
+	void setActivityAction(IAction action);
+	
 	List<ITransition> getIncomingTransitions();
 	void setIncomingTransitions(List<ITransition> transitions);
 	void addIncomingTransition(ITransition transition);
@@ -16,4 +25,15 @@ public interface IState extends INamedElement {
 	void setOutgoingTransitions(List<ITransition> transitions);
 	void addOutgoingTransition(ITransition transition);
 	void removeOutgoingTransition(ITransition transition);
+	
+	List<ITransition> getInternalTransitions();
+	void setInternalTransitions(List<ITransition> transitions);
+	void addInternalTransition(ITransition transition);
+	void removeInternalTransition(ITransition transition);
+	
+	List<IEvent> getDeferredEvents();
+	void setDeferredEvents(List<IEvent> events);
+	void addDeferredEvent(IEvent event);
+	void removeDeferredEvent(IEvent event);
+
 }

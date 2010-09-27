@@ -12,85 +12,7 @@ import org.soulspace.mdlrepo.IModelRepository;
 import org.soulspace.mdlrepo.impl.ModelRepository;
 import org.soulspace.mdlrepo.metamodel.*;
 import org.soulspace.xmi.base.XmiObject;
-import org.soulspace.xmi.marshal.ActorItem;
-import org.soulspace.xmi.marshal.AssociationClassItem;
-import org.soulspace.xmi.marshal.AssociationEndItem;
-import org.soulspace.xmi.marshal.AssociationEnd_multiplicityItem;
-import org.soulspace.xmi.marshal.AssociationEnd_participantItem;
-import org.soulspace.xmi.marshal.AssociationEnd_qualifierItem;
-import org.soulspace.xmi.marshal.AssociationItem;
-import org.soulspace.xmi.marshal.Association_connection;
-import org.soulspace.xmi.marshal.Association_connectionItem;
-import org.soulspace.xmi.marshal.AttributeItem;
-import org.soulspace.xmi.marshal.BehavioralFeature_parameterItem;
-import org.soulspace.xmi.marshal.CallActionItem;
-import org.soulspace.xmi.marshal.CallAction_operationItem;
-import org.soulspace.xmi.marshal.CallEventItem;
-import org.soulspace.xmi.marshal.ChangeEventItem;
-import org.soulspace.xmi.marshal.ClassItem;
-import org.soulspace.xmi.marshal.CompositeStateItem;
-import org.soulspace.xmi.marshal.CompositeState_subvertexItem;
-import org.soulspace.xmi.marshal.CreateActionItem;
-import org.soulspace.xmi.marshal.CreateAction_instanciationItem;
-import org.soulspace.xmi.marshal.DataTypeItem;
-import org.soulspace.xmi.marshal.DependencyItem;
-import org.soulspace.xmi.marshal.Dependency_clientItem;
-import org.soulspace.xmi.marshal.Dependency_supplierItem;
-import org.soulspace.xmi.marshal.DestroyActionItem;
-import org.soulspace.xmi.marshal.EnumerationItem;
-import org.soulspace.xmi.marshal.Event_parameterItem;
-import org.soulspace.xmi.marshal.Extend;
-import org.soulspace.xmi.marshal.ExtendItem;
-import org.soulspace.xmi.marshal.Extend_baseItem;
-import org.soulspace.xmi.marshal.Extend_extensionItem;
-import org.soulspace.xmi.marshal.Extend_extensionPointItem;
-import org.soulspace.xmi.marshal.FinalStateItem;
-import org.soulspace.xmi.marshal.GeneralizationItem;
-import org.soulspace.xmi.marshal.Generalization_childItem;
-import org.soulspace.xmi.marshal.Generalization_parentItem;
-import org.soulspace.xmi.marshal.Include;
-import org.soulspace.xmi.marshal.IncludeItem;
-import org.soulspace.xmi.marshal.InterfaceItem;
-import org.soulspace.xmi.marshal.ModelElement_stereotype;
-import org.soulspace.xmi.marshal.ModelElement_stereotypeItem;
-import org.soulspace.xmi.marshal.ModelElement_taggedValue;
-import org.soulspace.xmi.marshal.ModelElement_taggedValueItem;
-import org.soulspace.xmi.marshal.ModelItem;
-import org.soulspace.xmi.marshal.MultiplicityItem;
-import org.soulspace.xmi.marshal.Multiplicity_rangeItem;
-import org.soulspace.xmi.marshal.Namespace_ownedElementItem;
-import org.soulspace.xmi.marshal.OperationItem;
-import org.soulspace.xmi.marshal.PackageItem;
-import org.soulspace.xmi.marshal.ParameterItem;
-import org.soulspace.xmi.marshal.Parameter_typeItem;
-import org.soulspace.xmi.marshal.PseudostateItem;
-import org.soulspace.xmi.marshal.RegionItem;
-import org.soulspace.xmi.marshal.SendActionItem;
-import org.soulspace.xmi.marshal.SendAction_signalItem;
-import org.soulspace.xmi.marshal.SignalEventItem;
-import org.soulspace.xmi.marshal.SimpleState;
-import org.soulspace.xmi.marshal.SimpleStateItem;
-import org.soulspace.xmi.marshal.StateMachineItem;
-import org.soulspace.xmi.marshal.StateMachine_context;
-import org.soulspace.xmi.marshal.StateMachine_contextItem;
-import org.soulspace.xmi.marshal.StateMachine_submachineStateItem;
-import org.soulspace.xmi.marshal.StateMachine_topItem;
-import org.soulspace.xmi.marshal.StateMachine_transitionsItem;
-import org.soulspace.xmi.marshal.StateVertex_incomingItem;
-import org.soulspace.xmi.marshal.StateVertex_outgoingItem;
-import org.soulspace.xmi.marshal.StructuralFeature_multiplicityItem;
-import org.soulspace.xmi.marshal.StructuralFeature_typeItem;
-import org.soulspace.xmi.marshal.SubmachineStateItem;
-import org.soulspace.xmi.marshal.SubmachineState_submachineItem;
-import org.soulspace.xmi.marshal.TaggedValueItem;
-import org.soulspace.xmi.marshal.TaggedValue_dataValue;
-import org.soulspace.xmi.marshal.TaggedValue_typeItem;
-import org.soulspace.xmi.marshal.TimeEventItem;
-import org.soulspace.xmi.marshal.TransitionItem;
-import org.soulspace.xmi.marshal.Transition_triggerItem;
-import org.soulspace.xmi.marshal.TypedElement_type;
-import org.soulspace.xmi.marshal.UseCaseItem;
-import org.soulspace.xmi.marshal.UseCase_extensionPointItem;
+import org.soulspace.xmi.marshal.*;
 import org.soulspace.xmi.marshal.types.KindType;
 import org.soulspace.xmi.util.XmiHelper;
 
@@ -124,6 +46,20 @@ public class ModelFactory implements IModelFactory {
 		this.repository = mr;
 	}
 
+	public IAction createAction(XmiObject xmiObj) {
+		IAction action = null;
+		if(xmiObj instanceof org.soulspace.xmi.marshal.CallAction) {
+			action = createCallAction(xmiObj);
+		} else if(xmiObj instanceof org.soulspace.xmi.marshal.CreateAction) {
+			action = createCreateAction(xmiObj);			
+		} else if(xmiObj instanceof org.soulspace.xmi.marshal.DestroyAction) {
+			action = createDestroyAction(xmiObj);
+		} else if(xmiObj instanceof org.soulspace.xmi.marshal.SendAction) {
+			action = createSendAction(xmiObj);
+		}
+		return action;
+	}
+	
 	public IModel createModel(XmiObject xmiObj) {
 		org.soulspace.xmi.marshal.Model xmiModel = (org.soulspace.xmi.marshal.Model) xmiObj;
 		IModel model = getModelInstance(xmiModel);
@@ -284,6 +220,14 @@ public class ModelFactory implements IModelFactory {
 		return sm;
 	}
 
+	public ICompositeState createCompositeState(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.CompositeState xmiCompositeState = (org.soulspace.xmi.marshal.CompositeState) xmiObj;
+		ICompositeState s = getCompositeStateInstance(xmiCompositeState);
+		s = initCompositeState(s, xmiCompositeState);
+		repository.register(s);
+		return s;
+	}
+
 	public IState createSimpleState(XmiObject xmiObj) {
 		SimpleState xmiSimpleState = (SimpleState) xmiObj;
 		IState s = getSimpleStateInstance(xmiSimpleState);
@@ -392,6 +336,38 @@ public class ModelFactory implements IModelFactory {
 		org.soulspace.xmi.marshal.SendAction xmiSendAction = (org.soulspace.xmi.marshal.SendAction) xmiObj;
 		ISendAction ca = getSendActionInstance(xmiSendAction);
 		ca = initSendAction(ca, xmiSendAction);
+		repository.register(ca);
+		return ca;
+	}
+
+	public IReturnAction createReturnAction(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.ReturnAction xmiReturnAction = (org.soulspace.xmi.marshal.ReturnAction) xmiObj;
+		IReturnAction ca = getReturnActionInstance(xmiReturnAction);
+		ca = initReturnAction(ca, xmiReturnAction);
+		repository.register(ca);
+		return ca;
+	}
+
+	public ITerminateAction createTerminateAction(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.TerminateAction xmiTerminateAction = (org.soulspace.xmi.marshal.TerminateAction) xmiObj;
+		ITerminateAction ca = getTerminateActionInstance(xmiTerminateAction);
+		ca = initTerminateAction(ca, xmiTerminateAction);
+		repository.register(ca);
+		return ca;
+	}
+
+	public IUninterpretedAction createUninterpretedAction(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.UninterpretedAction xmiUninterpretedAction = (org.soulspace.xmi.marshal.UninterpretedAction) xmiObj;
+		IUninterpretedAction ca = getUninterpretedActionInstance(xmiUninterpretedAction);
+		ca = initUninterpretedAction(ca, xmiUninterpretedAction);
+		repository.register(ca);
+		return ca;
+	}
+
+	public IActionSequence createActionSequence(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.ActionSequence xmiActionSequence = (org.soulspace.xmi.marshal.ActionSequence) xmiObj;
+		IActionSequence ca = getActionSequenceInstance(xmiActionSequence);
+		ca = initActionSequence(ca, xmiActionSequence);
 		repository.register(ca);
 		return ca;
 	}
@@ -1318,33 +1294,8 @@ public class ModelFactory implements IModelFactory {
 				while (e2.hasMoreElements()) {
 					StateMachine_topItem smtI = (StateMachine_topItem) e2
 							.nextElement();
-					// TODO create top states
 					if (smtI.getCompositeState() != null) {
-						Enumeration e3 = smtI.getCompositeState()
-								.enumerateCompositeStateItem();
-						while (e3.hasMoreElements()) {
-							CompositeStateItem csI = (CompositeStateItem) e3
-									.nextElement();
-							Enumeration e4 = csI.getCompositeState_subvertex()
-									.enumerateCompositeState_subvertexItem();
-							while (e4.hasMoreElements()) {
-								CompositeState_subvertexItem cssI = (CompositeState_subvertexItem) e4
-										.nextElement();
-								if (cssI.getSimpleState() != null) {
-									sm.addState(createSimpleState(cssI
-											.getSimpleState()));
-								} else if (cssI.getPseudostate() != null) {
-									sm.addState(createPseudostate(cssI
-											.getPseudostate()));
-								} else if (cssI.getFinalState() != null) {
-									sm.addState(createFinalState(cssI
-											.getFinalState()));
-								} else if (cssI.getSubmachineState() != null) {
-									// TODO
-									// sm.addState(createSubmachineState(cssI.getSubmachineState()));
-								}
-							}
-						}
+						sm.setTopState(createCompositeState(smtI.getCompositeState()));
 					}
 				}
 			} else if (smI.getStateMachine_context() != null) {
@@ -1366,22 +1317,6 @@ public class ModelFactory implements IModelFactory {
 					}
 					
 				}
-			} else if (smI.getStateMachine_region() != null) {
-				Enumeration e2 = smI.getStateMachine_region().getRegion()
-						.enumerateRegionItem();
-				while (e2.hasMoreElements()) {
-					RegionItem rI = (RegionItem) e2.nextElement();
-					// TODO create region
-				}
-			} else if (smI.getStateMachine_submachineState() != null) {
-				Enumeration e2 = smI.getStateMachine_submachineState()
-						.enumerateStateMachine_submachineStateItem();
-				while (e2.hasMoreElements()) {
-					StateMachine_submachineStateItem smssI = (StateMachine_submachineStateItem) e2
-							.nextElement();
-					// TODO create submachine state
-
-				}
 			} else if (smI.getStateMachine_transitions() != null) {
 				Enumeration e2 = smI.getStateMachine_transitions()
 						.enumerateStateMachine_transitionsItem();
@@ -1397,6 +1332,116 @@ public class ModelFactory implements IModelFactory {
 			}
 		}
 		return sm;
+	}
+
+	protected ICompositeState getCompositeStateInstance(
+			org.soulspace.xmi.marshal.CompositeState xmiCompositeState) {
+		ICompositeState cs = new CompositeState();
+		cs.setId(xmiCompositeState.getXmi_id());
+		return cs;
+	}
+
+	protected ICompositeState initCompositeState(ICompositeState s, org.soulspace.xmi.marshal.CompositeState xmiCompositeState) {
+		if (xmiCompositeState.getName() != null) {
+			s.setName(xmiCompositeState.getName());
+		} else {
+			System.out.println("INFO: no name set for state");
+		}
+		s.setProfileElement(xmiCompositeState.getProfileElement());
+		// TODO complete
+		Enumeration e1 = xmiCompositeState.enumerateCompositeStateItem();
+		while (e1.hasMoreElements()) {
+			CompositeStateItem csI = (CompositeStateItem) e1.nextElement();
+			if (csI.getModelElement_stereotype() != null) {
+				addStereotypes(s, csI.getModelElement_stereotype());
+			} else if (csI.getModelElement_taggedValue() != null) {
+				addTaggedValues(s, csI.getModelElement_taggedValue());
+			} else if (csI.getStateVertex_incoming() != null) {
+				// TODO complete
+				csI.getStateVertex_incoming().enumerateStateVertex_incomingItem();
+			} else if (csI.getStateVertex_outgoing() != null) {
+				// TODO complete
+				csI.getStateVertex_outgoing().enumerateStateVertex_outgoingItem();
+			} else if (csI.getCompositeState_subvertex() != null) {
+				Enumeration e2 = csI.getCompositeState_subvertex().enumerateCompositeState_subvertexItem();
+				while (e2.hasMoreElements()) {
+					CompositeState_subvertexItem cssI = (CompositeState_subvertexItem) e2.nextElement();
+					if (cssI.getSimpleState() != null) {
+						s.addSubState(createSimpleState(cssI
+								.getSimpleState()));
+					} else if (cssI.getPseudostate() != null) {
+						s.addSubState(createPseudostate(cssI
+								.getPseudostate()));
+					} else if (cssI.getFinalState() != null) {
+						s.addSubState(createFinalState(cssI
+								.getFinalState()));
+					} else if (cssI.getSubmachineState() != null) {
+						s.addSubState(createSubmachineState(cssI.getSubmachineState()));
+					}
+
+				}
+			} else if (csI.getState_entry() != null) {
+				Enumeration e2 = csI.getState_entry().enumerateState_entryItem();
+				while (e2.hasMoreElements()) {
+					State_entryItem sI = (State_entryItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (csI.getState_doActivity() != null) {
+				Enumeration e2 = csI.getState_doActivity().enumerateState_doActivityItem();
+				while (e2.hasMoreElements()) {
+					State_doActivityItem sI = (State_doActivityItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (csI.getState_exit() != null) {
+				Enumeration e2 = csI.getState_exit().enumerateState_exitItem();
+				while (e2.hasMoreElements()) {
+					State_exitItem sI = (State_exitItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (csI.getState_deferredEvent() != null) {
+				Enumeration e2 = csI.getState_deferredEvent().enumerateState_deferredEventItem();
+				while (e2.hasMoreElements()) {
+					State_deferredEventItem dI = (State_deferredEventItem) e2.nextElement();
+					if(dI.getCallEvent() != null) {
+						s.addDeferredEvent(createCallEvent(dI.getCallEvent()));
+					} else if(dI.getChangeEvent() != null) {
+						s.addDeferredEvent(createChangeEvent(dI.getChangeEvent()));
+					} else if(dI.getSignalEvent() != null) {
+						s.addDeferredEvent(createSignalEvent(dI.getSignalEvent()));
+					} else if(dI.getTimeEvent() != null) {
+						s.addDeferredEvent(createTimeEvent(dI.getTimeEvent()));
+					}
+				}
+			} else {
+				System.out
+						.println("INFO: unhandled element on CompositeStateItem.");
+			}
+		}
+		return s;
 	}
 
 	protected IState getSimpleStateInstance(SimpleState xmiSimpleState) {
@@ -1421,9 +1466,65 @@ public class ModelFactory implements IModelFactory {
 			} else if (ssI.getModelElement_taggedValue() != null) {
 				addTaggedValues(s, ssI.getModelElement_taggedValue());
 			} else if (ssI.getStateVertex_incoming() != null) {
-
+				ssI.getStateVertex_incoming();
 			} else if (ssI.getStateVertex_outgoing() != null) {
-
+				ssI.getStateVertex_outgoing();
+			} else if (ssI.getState_entry() != null) {
+				Enumeration e2 = ssI.getState_entry().enumerateState_entryItem();
+				while (e2.hasMoreElements()) {
+					State_entryItem sI = (State_entryItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (ssI.getState_doActivity() != null) {
+				Enumeration e2 = ssI.getState_doActivity().enumerateState_doActivityItem();
+				while (e2.hasMoreElements()) {
+					State_doActivityItem sI = (State_doActivityItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (ssI.getState_exit() != null) {
+				Enumeration e2 = ssI.getState_exit().enumerateState_exitItem();
+				while (e2.hasMoreElements()) {
+					State_exitItem sI = (State_exitItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (ssI.getState_deferredEvent() != null) {
+				Enumeration e2 = ssI.getState_deferredEvent().enumerateState_deferredEventItem();
+				while (e2.hasMoreElements()) {
+					State_deferredEventItem dI = (State_deferredEventItem) e2.nextElement();
+					if(dI.getCallEvent() != null) {
+						s.addDeferredEvent(createCallEvent(dI.getCallEvent()));
+					} else if(dI.getChangeEvent() != null) {
+						s.addDeferredEvent(createChangeEvent(dI.getChangeEvent()));
+					} else if(dI.getSignalEvent() != null) {
+						s.addDeferredEvent(createSignalEvent(dI.getSignalEvent()));
+					} else if(dI.getTimeEvent() != null) {
+						s.addDeferredEvent(createTimeEvent(dI.getTimeEvent()));
+					}
+				}
 			} else {
 				System.out
 						.println("INFO: unhandled element on SimpleStateItem.");
@@ -1453,8 +1554,6 @@ public class ModelFactory implements IModelFactory {
 				addTaggedValues(ps, pI.getModelElement_taggedValue());
 			} else if (pI.getStateVertex_outgoing() != null) {
 
-			} else if (pI.getVertex_outgoing() != null) {
-
 			} else {
 				System.out
 						.println("INFO: unhandled element on PseudostateItem.");
@@ -1470,28 +1569,82 @@ public class ModelFactory implements IModelFactory {
 		return fs;
 	}
 
-	protected IFinalState initFinalState(IFinalState fs,
+	protected IFinalState initFinalState(IFinalState s,
 			org.soulspace.xmi.marshal.FinalState xmiFinalState) {
-		fs.setName(xmiFinalState.getName());
-		fs.setProfileElement(xmiFinalState.getProfileElement());
+		s.setName(xmiFinalState.getName());
+		s.setProfileElement(xmiFinalState.getProfileElement());
 		// TODO complete
 		Enumeration e1 = xmiFinalState.enumerateFinalStateItem();
 		while (e1.hasMoreElements()) {
-			FinalStateItem fsI = (FinalStateItem) e1.nextElement();
-			if (fsI.getModelElement_stereotype() != null) {
-				addStereotypes(fs, fsI.getModelElement_stereotype());
-			} else if (fsI.getModelElement_taggedValue() != null) {
-				addTaggedValues(fs, fsI.getModelElement_taggedValue());
-			} else if (fsI.getStateVertex_incoming() != null) {
-
-			} else if (fsI.getVertex_incoming() != null) {
-
+			FinalStateItem ssI = (FinalStateItem) e1.nextElement();
+			if (ssI.getModelElement_stereotype() != null) {
+				addStereotypes(s, ssI.getModelElement_stereotype());
+			} else if (ssI.getModelElement_taggedValue() != null) {
+				addTaggedValues(s, ssI.getModelElement_taggedValue());
+			} else if (ssI.getStateVertex_incoming() != null) {
+				ssI.getStateVertex_incoming();
+			} else if (ssI.getState_entry() != null) {
+				Enumeration e2 = ssI.getState_entry().enumerateState_entryItem();
+				while (e2.hasMoreElements()) {
+					State_entryItem sI = (State_entryItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (ssI.getState_doActivity() != null) {
+				Enumeration e2 = ssI.getState_doActivity().enumerateState_doActivityItem();
+				while (e2.hasMoreElements()) {
+					State_doActivityItem sI = (State_doActivityItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (ssI.getState_exit() != null) {
+				Enumeration e2 = ssI.getState_exit().enumerateState_exitItem();
+				while (e2.hasMoreElements()) {
+					State_exitItem sI = (State_exitItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (ssI.getState_deferredEvent() != null) {
+				Enumeration e2 = ssI.getState_deferredEvent().enumerateState_deferredEventItem();
+				while (e2.hasMoreElements()) {
+					State_deferredEventItem dI = (State_deferredEventItem) e2.nextElement();
+					if(dI.getCallEvent() != null) {
+						s.addDeferredEvent(createCallEvent(dI.getCallEvent()));
+					} else if(dI.getChangeEvent() != null) {
+						s.addDeferredEvent(createChangeEvent(dI.getChangeEvent()));
+					} else if(dI.getSignalEvent() != null) {
+						s.addDeferredEvent(createSignalEvent(dI.getSignalEvent()));
+					} else if(dI.getTimeEvent() != null) {
+						s.addDeferredEvent(createTimeEvent(dI.getTimeEvent()));
+					}
+				}
 			} else {
 				System.out
 						.println("INFO: unhandled element on FinalStateItem.");
 			}
 		}
-		return fs;
+		return s;
 	}
 
 	protected ISubmachineState getSubmachineStateInstance(
@@ -1501,29 +1654,77 @@ public class ModelFactory implements IModelFactory {
 		return ss;
 	}
 
-	protected ISubmachineState initSubmachineState(ISubmachineState ss,
+	protected ISubmachineState initSubmachineState(ISubmachineState s,
 			org.soulspace.xmi.marshal.SubmachineState xmiSubmachineState) {
-		ss.setName(xmiSubmachineState.getName());
-		ss.setProfileElement(xmiSubmachineState.getProfileElement());
+		s.setName(xmiSubmachineState.getName());
+		s.setProfileElement(xmiSubmachineState.getProfileElement());
 
 		Enumeration e1 = xmiSubmachineState.enumerateSubmachineStateItem();
 		while (e1.hasMoreElements()) {
 			SubmachineStateItem ssI = (SubmachineStateItem) e1.nextElement();
 			if (ssI.getModelElement_stereotype() != null) {
-
+				addStereotypes(s, ssI.getModelElement_stereotype());
 			} else if (ssI.getModelElement_taggedValue() != null) {
-
+				addTaggedValues(s, ssI.getModelElement_taggedValue());
 			} else if (ssI.getStateVertex_incoming() != null) {
-				Enumeration e2 = ssI.getStateVertex_incoming().enumerateStateVertex_incomingItem();
+				ssI.getStateVertex_incoming();
+			} else if (ssI.getStateVertex_outgoing() != null) {
+				ssI.getStateVertex_outgoing();
+			} else if (ssI.getState_entry() != null) {
+				Enumeration e2 = ssI.getState_entry().enumerateState_entryItem();
 				while (e2.hasMoreElements()) {
-					StateVertex_incomingItem svII = (StateVertex_incomingItem) e2.nextElement();
-					// TODO handle
+					State_entryItem sI = (State_entryItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
 				}
-			} else if(ssI.getStateVertex_outgoing() != null) {
-				Enumeration e2 = ssI.getStateVertex_outgoing().enumerateStateVertex_outgoingItem();
-				while(e2.hasMoreElements()) {
-					StateVertex_outgoingItem svOI = (StateVertex_outgoingItem) e2.nextElement();
-					// TODO handle
+			} else if (ssI.getState_doActivity() != null) {
+				Enumeration e2 = ssI.getState_doActivity().enumerateState_doActivityItem();
+				while (e2.hasMoreElements()) {
+					State_doActivityItem sI = (State_doActivityItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (ssI.getState_exit() != null) {
+				Enumeration e2 = ssI.getState_exit().enumerateState_exitItem();
+				while (e2.hasMoreElements()) {
+					State_exitItem sI = (State_exitItem) e2.nextElement();
+					if(sI.getCallAction() != null) {
+						s.setEntryAction(createCallAction(sI.getCallAction()));
+					} else if(sI.getCreateAction() != null) {
+						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+					} else if(sI.getDestroyAction() != null) {
+						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+					} else if(sI.getSendAction() != null) {
+						s.setEntryAction(createSendAction(sI.getSendAction()));
+					}
+				}
+			} else if (ssI.getState_deferredEvent() != null) {
+				Enumeration e2 = ssI.getState_deferredEvent().enumerateState_deferredEventItem();
+				while (e2.hasMoreElements()) {
+					State_deferredEventItem dI = (State_deferredEventItem) e2.nextElement();
+					if(dI.getCallEvent() != null) {
+						s.addDeferredEvent(createCallEvent(dI.getCallEvent()));
+					} else if(dI.getChangeEvent() != null) {
+						s.addDeferredEvent(createChangeEvent(dI.getChangeEvent()));
+					} else if(dI.getSignalEvent() != null) {
+						s.addDeferredEvent(createSignalEvent(dI.getSignalEvent()));
+					} else if(dI.getTimeEvent() != null) {
+						s.addDeferredEvent(createTimeEvent(dI.getTimeEvent()));
+					}
 				}
 			} else if (ssI.getSubmachineState_submachine() != null) {
 				Enumeration e2 = ssI.getSubmachineState_submachine()
@@ -1541,7 +1742,7 @@ public class ModelFactory implements IModelFactory {
 						.println("INFO: unhandled element on SubmachineStateItem.");
 			}
 		}
-		return ss;
+		return s;
 	}
 
 	protected ITransition getTransitionInstance(
@@ -1579,7 +1780,48 @@ public class ModelFactory implements IModelFactory {
 						t.addEvent(findEvent(ttI.getCallEvent().getRefId()));
 					} else if(ttI.getSignalEvent() != null) {
 						t.addEvent(findEvent(ttI.getSignalEvent().getRefId()));
+					} else if(ttI.getChangeEvent() != null) {
+						t.addEvent(findEvent(ttI.getChangeEvent().getRefId()));
+					} else if(ttI.getTimeEvent() != null) {
+						t.addEvent(findEvent(ttI.getTimeEvent().getRefId()));
 					}
+				}
+			} else if (tI.getTransition_effect() != null) {
+				Enumeration e2 = tI.getTransition_effect().enumerateTransition_effectItem();
+				while (e2.hasMoreElements()) {
+					Transition_effectItem teI = (Transition_effectItem) e2.nextElement();
+					if(teI.getActionSequence() != null) {
+						t.setEffect(createActionSequence(teI.getActionSequence()));
+					} else if(teI.getCallAction() != null) {
+						t.setEffect(createCallAction(teI.getCallAction()));						
+					} else if(teI.getCreateAction() != null) {
+						t.setEffect(createCreateAction(teI.getCreateAction()));												
+					} else if(teI.getDestroyAction() != null) {
+						t.setEffect(createDestroyAction(teI.getDestroyAction()));												
+					} else if(teI.getReturnAction() != null) {
+						t.setEffect(createReturnAction(teI.getReturnAction()));						
+					} else if(teI.getSendAction() != null) {
+						t.setEffect(createSendAction(teI.getSendAction()));						
+					} else if(teI.getTerminateAction() != null) {
+						t.setEffect(createTerminateAction(teI.getTerminateAction()));						
+					} else if(teI.getUninterpretedAction() != null) {
+						t.setEffect(createUninterpretedAction(teI.getUninterpretedAction()));
+					}
+				}
+			} else if (tI.getTransition_guard() != null) {
+				Enumeration e2 = tI.getTransition_guard().enumerateTransition_guardItem();
+				while (e2.hasMoreElements()) {
+					Transition_guardItem tgI = (Transition_guardItem) e2.nextElement();
+					if(tgI.getGuard() != null) {
+						Enumeration e3 = tgI.getGuard().enumerateGuardItem();
+						while (e3.hasMoreElements()) {
+							GuardItem gI = (GuardItem) e3.nextElement();
+							if(gI.getBooleanExpression() != null) {
+								t.setGuard(gI.getBooleanExpression().getBody());
+							}
+						}
+					}
+					
 				}
 			} else if (tI.getTransition_source() != null) {
 				if (tI.getTransition_source().getSimpleState() != null) {
@@ -1863,7 +2105,65 @@ public class ModelFactory implements IModelFactory {
 					}
 				}
 			} else if(caI.getAction_actualArgument() != null) {
-				
+				Enumeration e2 = caI.getAction_actualArgument().enumerateAction_actualArgumentItem();
+				while (e2.hasMoreElements()) {
+					Action_actualArgumentItem aaI = (Action_actualArgumentItem) e2.nextElement();
+					if(aaI.getArgument() != null) {
+						Enumeration e3 = aaI.getArgument().enumerateArgumentItem();
+						while (e3.hasMoreElements()) {
+							ArgumentItem argI = (ArgumentItem) e3.nextElement();
+							if(argI.getArgument_value() != null) {
+								Enumeration e4 = argI.getArgument_value().enumerateArgument_valueItem();
+								while (e4.hasMoreElements()) {
+									Argument_valueItem avI = (Argument_valueItem) e4.nextElement();
+									if(avI.getActionExpression() != null) {
+										ca.addArgument(avI.getActionExpression().getBody());
+									} else if(avI.getArgListExpression() != null) {
+										ca.addArgument(avI.getArgListExpression().getBody());
+									} else if(avI.getBooleanExpression() != null) {
+										ca.addArgument(avI.getBooleanExpression().getBody());
+									} else if(avI.getIterationExpression() != null) {
+										ca.addArgument(avI.getIterationExpression().getBody());
+									} else if(avI.getMappingExpression() != null) {
+										ca.addArgument(avI.getMappingExpression().getBody());
+									} else if(avI.getObjectSetExpression() != null) {
+										ca.addArgument(avI.getObjectSetExpression().getBody());
+									} else if(avI.getProcedureExpression() != null) {
+										ca.addArgument(avI.getProcedureExpression().getBody());
+									} else if(avI.getTimeExpression() != null) {
+										ca.addArgument(avI.getTimeExpression().getBody());
+									} else if(avI.getTypeExpression() != null) {
+										ca.addArgument(avI.getTypeExpression().getBody());
+									}
+								}
+							}
+						}						
+					}
+				}
+			} else if(caI.getAction_script() != null) {
+				Enumeration e2 = caI.getAction_script().enumerateAction_scriptItem();
+				while (e2.hasMoreElements()) {
+					Action_scriptItem asI = (Action_scriptItem) e2.nextElement();
+					if(asI.getActionExpression() != null) {
+						ca.setScript(asI.getActionExpression().getBody());
+					}
+				}
+			} else if(caI.getAction_recurrence() != null) {
+				Enumeration e2 = caI.getAction_recurrence().enumerateAction_recurrenceItem();
+				while (e2.hasMoreElements()) {
+					Action_recurrenceItem arI = (Action_recurrenceItem) e2.nextElement();
+					if(arI.getIterationExpression() != null) {
+						ca.setRecurrence(arI.getIterationExpression().getBody());
+					}
+				}
+			} else if(caI.getAction_target() != null) {
+				Enumeration e2 = caI.getAction_target().enumerateAction_targetItem();
+				while (e2.hasMoreElements()) {
+					Action_targetItem atI = (Action_targetItem) e2.nextElement();
+					if(atI.getObjectSetExpression() != null) {
+						ca.setTarget(atI.getObjectSetExpression().getBody());
+					}
+				}
 			}
 		}
 		return ca;
@@ -1901,7 +2201,65 @@ public class ModelFactory implements IModelFactory {
 					}
 				}
 			} else if(caI.getAction_actualArgument() != null) {
-				
+				Enumeration e2 = caI.getAction_actualArgument().enumerateAction_actualArgumentItem();
+				while (e2.hasMoreElements()) {
+					Action_actualArgumentItem aaI = (Action_actualArgumentItem) e2.nextElement();
+					if(aaI.getArgument() != null) {
+						Enumeration e3 = aaI.getArgument().enumerateArgumentItem();
+						while (e3.hasMoreElements()) {
+							ArgumentItem argI = (ArgumentItem) e3.nextElement();
+							if(argI.getArgument_value() != null) {
+								Enumeration e4 = argI.getArgument_value().enumerateArgument_valueItem();
+								while (e4.hasMoreElements()) {
+									Argument_valueItem avI = (Argument_valueItem) e4.nextElement();
+									if(avI.getActionExpression() != null) {
+										ca.addArgument(avI.getActionExpression().getBody());
+									} else if(avI.getArgListExpression() != null) {
+										ca.addArgument(avI.getArgListExpression().getBody());
+									} else if(avI.getBooleanExpression() != null) {
+										ca.addArgument(avI.getBooleanExpression().getBody());
+									} else if(avI.getIterationExpression() != null) {
+										ca.addArgument(avI.getIterationExpression().getBody());
+									} else if(avI.getMappingExpression() != null) {
+										ca.addArgument(avI.getMappingExpression().getBody());
+									} else if(avI.getObjectSetExpression() != null) {
+										ca.addArgument(avI.getObjectSetExpression().getBody());
+									} else if(avI.getProcedureExpression() != null) {
+										ca.addArgument(avI.getProcedureExpression().getBody());
+									} else if(avI.getTimeExpression() != null) {
+										ca.addArgument(avI.getTimeExpression().getBody());
+									} else if(avI.getTypeExpression() != null) {
+										ca.addArgument(avI.getTypeExpression().getBody());
+									}
+								}
+							}
+						}						
+					}
+				}
+			} else if(caI.getAction_script() != null) {
+				Enumeration e2 = caI.getAction_script().enumerateAction_scriptItem();
+				while (e2.hasMoreElements()) {
+					Action_scriptItem asI = (Action_scriptItem) e2.nextElement();
+					if(asI.getActionExpression() != null) {
+						ca.setScript(asI.getActionExpression().getBody());
+					}
+				}
+			} else if(caI.getAction_recurrence() != null) {
+				Enumeration e2 = caI.getAction_recurrence().enumerateAction_recurrenceItem();
+				while (e2.hasMoreElements()) {
+					Action_recurrenceItem arI = (Action_recurrenceItem) e2.nextElement();
+					if(arI.getIterationExpression() != null) {
+						ca.setRecurrence(arI.getIterationExpression().getBody());
+					}
+				}
+			} else if(caI.getAction_target() != null) {
+				Enumeration e2 = caI.getAction_target().enumerateAction_targetItem();
+				while (e2.hasMoreElements()) {
+					Action_targetItem atI = (Action_targetItem) e2.nextElement();
+					if(atI.getObjectSetExpression() != null) {
+						ca.setTarget(atI.getObjectSetExpression().getBody());
+					}
+				}
 			}
 		}
 		return ca;
@@ -1938,7 +2296,65 @@ public class ModelFactory implements IModelFactory {
 					}
 				}
 			} else if(caI.getAction_actualArgument() != null) {
-				
+				Enumeration e2 = caI.getAction_actualArgument().enumerateAction_actualArgumentItem();
+				while (e2.hasMoreElements()) {
+					Action_actualArgumentItem aaI = (Action_actualArgumentItem) e2.nextElement();
+					if(aaI.getArgument() != null) {
+						Enumeration e3 = aaI.getArgument().enumerateArgumentItem();
+						while (e3.hasMoreElements()) {
+							ArgumentItem argI = (ArgumentItem) e3.nextElement();
+							if(argI.getArgument_value() != null) {
+								Enumeration e4 = argI.getArgument_value().enumerateArgument_valueItem();
+								while (e4.hasMoreElements()) {
+									Argument_valueItem avI = (Argument_valueItem) e4.nextElement();
+									if(avI.getActionExpression() != null) {
+										ca.addArgument(avI.getActionExpression().getBody());
+									} else if(avI.getArgListExpression() != null) {
+										ca.addArgument(avI.getArgListExpression().getBody());
+									} else if(avI.getBooleanExpression() != null) {
+										ca.addArgument(avI.getBooleanExpression().getBody());
+									} else if(avI.getIterationExpression() != null) {
+										ca.addArgument(avI.getIterationExpression().getBody());
+									} else if(avI.getMappingExpression() != null) {
+										ca.addArgument(avI.getMappingExpression().getBody());
+									} else if(avI.getObjectSetExpression() != null) {
+										ca.addArgument(avI.getObjectSetExpression().getBody());
+									} else if(avI.getProcedureExpression() != null) {
+										ca.addArgument(avI.getProcedureExpression().getBody());
+									} else if(avI.getTimeExpression() != null) {
+										ca.addArgument(avI.getTimeExpression().getBody());
+									} else if(avI.getTypeExpression() != null) {
+										ca.addArgument(avI.getTypeExpression().getBody());
+									}
+								}
+							}
+						}						
+					}
+				}
+			} else if(caI.getAction_script() != null) {
+				Enumeration e2 = caI.getAction_script().enumerateAction_scriptItem();
+				while (e2.hasMoreElements()) {
+					Action_scriptItem asI = (Action_scriptItem) e2.nextElement();
+					if(asI.getActionExpression() != null) {
+						ca.setScript(asI.getActionExpression().getBody());
+					}
+				}
+			} else if(caI.getAction_recurrence() != null) {
+				Enumeration e2 = caI.getAction_recurrence().enumerateAction_recurrenceItem();
+				while (e2.hasMoreElements()) {
+					Action_recurrenceItem arI = (Action_recurrenceItem) e2.nextElement();
+					if(arI.getIterationExpression() != null) {
+						ca.setRecurrence(arI.getIterationExpression().getBody());
+					}
+				}
+			} else if(caI.getAction_target() != null) {
+				Enumeration e2 = caI.getAction_target().enumerateAction_targetItem();
+				while (e2.hasMoreElements()) {
+					Action_targetItem atI = (Action_targetItem) e2.nextElement();
+					if(atI.getObjectSetExpression() != null) {
+						ca.setTarget(atI.getObjectSetExpression().getBody());
+					}
+				}
 			}
 		}
 		return ca;
@@ -1964,7 +2380,401 @@ public class ModelFactory implements IModelFactory {
 		while (e1.hasMoreElements()) {
 			DestroyActionItem daI = (DestroyActionItem) e1.nextElement();
 			if(daI.getAction_actualArgument() != null) {
-				
+				Enumeration e2 = daI.getAction_actualArgument().enumerateAction_actualArgumentItem();
+				while (e2.hasMoreElements()) {
+					Action_actualArgumentItem aaI = (Action_actualArgumentItem) e2.nextElement();
+					if(aaI.getArgument() != null) {
+						Enumeration e3 = aaI.getArgument().enumerateArgumentItem();
+						while (e3.hasMoreElements()) {
+							ArgumentItem argI = (ArgumentItem) e3.nextElement();
+							if(argI.getArgument_value() != null) {
+								Enumeration e4 = argI.getArgument_value().enumerateArgument_valueItem();
+								while (e4.hasMoreElements()) {
+									Argument_valueItem avI = (Argument_valueItem) e4.nextElement();
+									if(avI.getActionExpression() != null) {
+										da.addArgument(avI.getActionExpression().getBody());
+									} else if(avI.getArgListExpression() != null) {
+										da.addArgument(avI.getArgListExpression().getBody());
+									} else if(avI.getBooleanExpression() != null) {
+										da.addArgument(avI.getBooleanExpression().getBody());
+									} else if(avI.getIterationExpression() != null) {
+										da.addArgument(avI.getIterationExpression().getBody());
+									} else if(avI.getMappingExpression() != null) {
+										da.addArgument(avI.getMappingExpression().getBody());
+									} else if(avI.getObjectSetExpression() != null) {
+										da.addArgument(avI.getObjectSetExpression().getBody());
+									} else if(avI.getProcedureExpression() != null) {
+										da.addArgument(avI.getProcedureExpression().getBody());
+									} else if(avI.getTimeExpression() != null) {
+										da.addArgument(avI.getTimeExpression().getBody());
+									} else if(avI.getTypeExpression() != null) {
+										da.addArgument(avI.getTypeExpression().getBody());
+									}
+								}
+							}
+						}						
+					}
+				}
+			} else if(daI.getAction_script() != null) {
+				Enumeration e2 = daI.getAction_script().enumerateAction_scriptItem();
+				while (e2.hasMoreElements()) {
+					Action_scriptItem asI = (Action_scriptItem) e2.nextElement();
+					if(asI.getActionExpression() != null) {
+						da.setScript(asI.getActionExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_recurrence() != null) {
+				Enumeration e2 = daI.getAction_recurrence().enumerateAction_recurrenceItem();
+				while (e2.hasMoreElements()) {
+					Action_recurrenceItem arI = (Action_recurrenceItem) e2.nextElement();
+					if(arI.getIterationExpression() != null) {
+						da.setRecurrence(arI.getIterationExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_target() != null) {
+				Enumeration e2 = daI.getAction_target().enumerateAction_targetItem();
+				while (e2.hasMoreElements()) {
+					Action_targetItem atI = (Action_targetItem) e2.nextElement();
+					if(atI.getObjectSetExpression() != null) {
+						da.setTarget(atI.getObjectSetExpression().getBody());
+					}
+				}
+			}
+		}
+		return da;
+	}
+
+	protected IReturnAction getReturnActionInstance(
+			org.soulspace.xmi.marshal.ReturnAction xmiReturnAction) {
+		IReturnAction da = new ReturnAction();
+		da.setId(xmiReturnAction.getXmi_id());
+		return da;
+	}
+
+	protected IReturnAction initReturnAction(IReturnAction da,
+			org.soulspace.xmi.marshal.ReturnAction xmiReturnAction) {
+		da.setProfileElement(xmiReturnAction.getProfileElement());
+		if(xmiReturnAction.getName() != null) {
+			da.setName(xmiReturnAction.getName());
+		}
+		da.setNamespace(xmiReturnAction.getNamespace());
+//		da.setQualifiedName(ca.getQualifiedName());
+
+		Enumeration e1 = xmiReturnAction.enumerateReturnActionItem();
+		while (e1.hasMoreElements()) {
+			ReturnActionItem daI = (ReturnActionItem) e1.nextElement();
+			if(daI.getAction_actualArgument() != null) {
+				Enumeration e2 = daI.getAction_actualArgument().enumerateAction_actualArgumentItem();
+				while (e2.hasMoreElements()) {
+					Action_actualArgumentItem aaI = (Action_actualArgumentItem) e2.nextElement();
+					if(aaI.getArgument() != null) {
+						Enumeration e3 = aaI.getArgument().enumerateArgumentItem();
+						while (e3.hasMoreElements()) {
+							ArgumentItem argI = (ArgumentItem) e3.nextElement();
+							if(argI.getArgument_value() != null) {
+								Enumeration e4 = argI.getArgument_value().enumerateArgument_valueItem();
+								while (e4.hasMoreElements()) {
+									Argument_valueItem avI = (Argument_valueItem) e4.nextElement();
+									if(avI.getActionExpression() != null) {
+										da.addArgument(avI.getActionExpression().getBody());
+									} else if(avI.getArgListExpression() != null) {
+										da.addArgument(avI.getArgListExpression().getBody());
+									} else if(avI.getBooleanExpression() != null) {
+										da.addArgument(avI.getBooleanExpression().getBody());
+									} else if(avI.getIterationExpression() != null) {
+										da.addArgument(avI.getIterationExpression().getBody());
+									} else if(avI.getMappingExpression() != null) {
+										da.addArgument(avI.getMappingExpression().getBody());
+									} else if(avI.getObjectSetExpression() != null) {
+										da.addArgument(avI.getObjectSetExpression().getBody());
+									} else if(avI.getProcedureExpression() != null) {
+										da.addArgument(avI.getProcedureExpression().getBody());
+									} else if(avI.getTimeExpression() != null) {
+										da.addArgument(avI.getTimeExpression().getBody());
+									} else if(avI.getTypeExpression() != null) {
+										da.addArgument(avI.getTypeExpression().getBody());
+									}
+								}
+							}
+						}						
+					}
+				}
+			} else if(daI.getAction_script() != null) {
+				Enumeration e2 = daI.getAction_script().enumerateAction_scriptItem();
+				while (e2.hasMoreElements()) {
+					Action_scriptItem asI = (Action_scriptItem) e2.nextElement();
+					if(asI.getActionExpression() != null) {
+						da.setScript(asI.getActionExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_recurrence() != null) {
+				Enumeration e2 = daI.getAction_recurrence().enumerateAction_recurrenceItem();
+				while (e2.hasMoreElements()) {
+					Action_recurrenceItem arI = (Action_recurrenceItem) e2.nextElement();
+					if(arI.getIterationExpression() != null) {
+						da.setRecurrence(arI.getIterationExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_target() != null) {
+				Enumeration e2 = daI.getAction_target().enumerateAction_targetItem();
+				while (e2.hasMoreElements()) {
+					Action_targetItem atI = (Action_targetItem) e2.nextElement();
+					if(atI.getObjectSetExpression() != null) {
+						da.setTarget(atI.getObjectSetExpression().getBody());
+					}
+				}
+			}
+		}
+		return da;
+	}
+
+	protected ITerminateAction getTerminateActionInstance(
+			org.soulspace.xmi.marshal.TerminateAction xmiTerminateAction) {
+		ITerminateAction da = new TerminateAction();
+		da.setId(xmiTerminateAction.getXmi_id());
+		return da;
+	}
+
+	protected ITerminateAction initTerminateAction(ITerminateAction da,
+			org.soulspace.xmi.marshal.TerminateAction xmiTerminateAction) {
+		da.setProfileElement(xmiTerminateAction.getProfileElement());
+		if(xmiTerminateAction.getName() != null) {
+			da.setName(xmiTerminateAction.getName());
+		}
+		da.setNamespace(xmiTerminateAction.getNamespace());
+//		da.setQualifiedName(ca.getQualifiedName());
+
+		Enumeration e1 = xmiTerminateAction.enumerateTerminateActionItem();
+		while (e1.hasMoreElements()) {
+			TerminateActionItem daI = (TerminateActionItem) e1.nextElement();
+			if(daI.getAction_actualArgument() != null) {
+				Enumeration e2 = daI.getAction_actualArgument().enumerateAction_actualArgumentItem();
+				while (e2.hasMoreElements()) {
+					Action_actualArgumentItem aaI = (Action_actualArgumentItem) e2.nextElement();
+					if(aaI.getArgument() != null) {
+						Enumeration e3 = aaI.getArgument().enumerateArgumentItem();
+						while (e3.hasMoreElements()) {
+							ArgumentItem argI = (ArgumentItem) e3.nextElement();
+							if(argI.getArgument_value() != null) {
+								Enumeration e4 = argI.getArgument_value().enumerateArgument_valueItem();
+								while (e4.hasMoreElements()) {
+									Argument_valueItem avI = (Argument_valueItem) e4.nextElement();
+									if(avI.getActionExpression() != null) {
+										da.addArgument(avI.getActionExpression().getBody());
+									} else if(avI.getArgListExpression() != null) {
+										da.addArgument(avI.getArgListExpression().getBody());
+									} else if(avI.getBooleanExpression() != null) {
+										da.addArgument(avI.getBooleanExpression().getBody());
+									} else if(avI.getIterationExpression() != null) {
+										da.addArgument(avI.getIterationExpression().getBody());
+									} else if(avI.getMappingExpression() != null) {
+										da.addArgument(avI.getMappingExpression().getBody());
+									} else if(avI.getObjectSetExpression() != null) {
+										da.addArgument(avI.getObjectSetExpression().getBody());
+									} else if(avI.getProcedureExpression() != null) {
+										da.addArgument(avI.getProcedureExpression().getBody());
+									} else if(avI.getTimeExpression() != null) {
+										da.addArgument(avI.getTimeExpression().getBody());
+									} else if(avI.getTypeExpression() != null) {
+										da.addArgument(avI.getTypeExpression().getBody());
+									}
+								}
+							}
+						}						
+					}
+				}
+			} else if(daI.getAction_script() != null) {
+				Enumeration e2 = daI.getAction_script().enumerateAction_scriptItem();
+				while (e2.hasMoreElements()) {
+					Action_scriptItem asI = (Action_scriptItem) e2.nextElement();
+					if(asI.getActionExpression() != null) {
+						da.setScript(asI.getActionExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_recurrence() != null) {
+				Enumeration e2 = daI.getAction_recurrence().enumerateAction_recurrenceItem();
+				while (e2.hasMoreElements()) {
+					Action_recurrenceItem arI = (Action_recurrenceItem) e2.nextElement();
+					if(arI.getIterationExpression() != null) {
+						da.setRecurrence(arI.getIterationExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_target() != null) {
+				Enumeration e2 = daI.getAction_target().enumerateAction_targetItem();
+				while (e2.hasMoreElements()) {
+					Action_targetItem atI = (Action_targetItem) e2.nextElement();
+					if(atI.getObjectSetExpression() != null) {
+						da.setTarget(atI.getObjectSetExpression().getBody());
+					}
+				}
+			}
+		}
+		return da;
+	}
+
+	protected IUninterpretedAction getUninterpretedActionInstance(
+			org.soulspace.xmi.marshal.UninterpretedAction xmiUninterpretedAction) {
+		IUninterpretedAction da = new UninterpretedAction();
+		da.setId(xmiUninterpretedAction.getXmi_id());
+		return da;
+	}
+
+	protected IUninterpretedAction initUninterpretedAction(IUninterpretedAction da,
+			org.soulspace.xmi.marshal.UninterpretedAction xmiUninterpretedAction) {
+		da.setProfileElement(xmiUninterpretedAction.getProfileElement());
+		if(xmiUninterpretedAction.getName() != null) {
+			da.setName(xmiUninterpretedAction.getName());
+		}
+		da.setNamespace(xmiUninterpretedAction.getNamespace());
+//		da.setQualifiedName(ca.getQualifiedName());
+
+		Enumeration e1 = xmiUninterpretedAction.enumerateUninterpretedActionItem();
+		while (e1.hasMoreElements()) {
+			ReturnActionItem daI = (ReturnActionItem) e1.nextElement();
+			if(daI.getAction_actualArgument() != null) {
+				Enumeration e2 = daI.getAction_actualArgument().enumerateAction_actualArgumentItem();
+				while (e2.hasMoreElements()) {
+					Action_actualArgumentItem aaI = (Action_actualArgumentItem) e2.nextElement();
+					if(aaI.getArgument() != null) {
+						Enumeration e3 = aaI.getArgument().enumerateArgumentItem();
+						while (e3.hasMoreElements()) {
+							ArgumentItem argI = (ArgumentItem) e3.nextElement();
+							if(argI.getArgument_value() != null) {
+								Enumeration e4 = argI.getArgument_value().enumerateArgument_valueItem();
+								while (e4.hasMoreElements()) {
+									Argument_valueItem avI = (Argument_valueItem) e4.nextElement();
+									if(avI.getActionExpression() != null) {
+										da.addArgument(avI.getActionExpression().getBody());
+									} else if(avI.getArgListExpression() != null) {
+										da.addArgument(avI.getArgListExpression().getBody());
+									} else if(avI.getBooleanExpression() != null) {
+										da.addArgument(avI.getBooleanExpression().getBody());
+									} else if(avI.getIterationExpression() != null) {
+										da.addArgument(avI.getIterationExpression().getBody());
+									} else if(avI.getMappingExpression() != null) {
+										da.addArgument(avI.getMappingExpression().getBody());
+									} else if(avI.getObjectSetExpression() != null) {
+										da.addArgument(avI.getObjectSetExpression().getBody());
+									} else if(avI.getProcedureExpression() != null) {
+										da.addArgument(avI.getProcedureExpression().getBody());
+									} else if(avI.getTimeExpression() != null) {
+										da.addArgument(avI.getTimeExpression().getBody());
+									} else if(avI.getTypeExpression() != null) {
+										da.addArgument(avI.getTypeExpression().getBody());
+									}
+								}
+							}
+						}						
+					}
+				}
+			} else if(daI.getAction_script() != null) {
+				Enumeration e2 = daI.getAction_script().enumerateAction_scriptItem();
+				while (e2.hasMoreElements()) {
+					Action_scriptItem asI = (Action_scriptItem) e2.nextElement();
+					if(asI.getActionExpression() != null) {
+						da.setScript(asI.getActionExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_recurrence() != null) {
+				Enumeration e2 = daI.getAction_recurrence().enumerateAction_recurrenceItem();
+				while (e2.hasMoreElements()) {
+					Action_recurrenceItem arI = (Action_recurrenceItem) e2.nextElement();
+					if(arI.getIterationExpression() != null) {
+						da.setRecurrence(arI.getIterationExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_target() != null) {
+				Enumeration e2 = daI.getAction_target().enumerateAction_targetItem();
+				while (e2.hasMoreElements()) {
+					Action_targetItem atI = (Action_targetItem) e2.nextElement();
+					if(atI.getObjectSetExpression() != null) {
+						da.setTarget(atI.getObjectSetExpression().getBody());
+					}
+				}
+			}
+		}
+		return da;
+	}
+
+	protected IActionSequence getActionSequenceInstance(
+			org.soulspace.xmi.marshal.ActionSequence xmiActionSequence) {
+		IActionSequence da = new ActionSequence();
+		da.setId(xmiActionSequence.getXmi_id());
+		return da;
+	}
+
+	protected IActionSequence initActionSequence(IActionSequence da,
+			org.soulspace.xmi.marshal.ActionSequence xmiActionSequence) {
+		da.setProfileElement(xmiActionSequence.getProfileElement());
+		if(xmiActionSequence.getName() != null) {
+			da.setName(xmiActionSequence.getName());
+		}
+		da.setNamespace(xmiActionSequence.getNamespace());
+//		da.setQualifiedName(ca.getQualifiedName());
+
+		Enumeration e1 = xmiActionSequence.enumerateActionSequenceItem();
+		while (e1.hasMoreElements()) {
+			ActionSequenceItem daI = (ActionSequenceItem) e1.nextElement();
+			if(daI.getAction_actualArgument() != null) {
+				Enumeration e2 = daI.getAction_actualArgument().enumerateAction_actualArgumentItem();
+				while (e2.hasMoreElements()) {
+					Action_actualArgumentItem aaI = (Action_actualArgumentItem) e2.nextElement();
+					if(aaI.getArgument() != null) {
+						Enumeration e3 = aaI.getArgument().enumerateArgumentItem();
+						while (e3.hasMoreElements()) {
+							ArgumentItem argI = (ArgumentItem) e3.nextElement();
+							if(argI.getArgument_value() != null) {
+								Enumeration e4 = argI.getArgument_value().enumerateArgument_valueItem();
+								while (e4.hasMoreElements()) {
+									Argument_valueItem avI = (Argument_valueItem) e4.nextElement();
+									if(avI.getActionExpression() != null) {
+										da.addArgument(avI.getActionExpression().getBody());
+									} else if(avI.getArgListExpression() != null) {
+										da.addArgument(avI.getArgListExpression().getBody());
+									} else if(avI.getBooleanExpression() != null) {
+										da.addArgument(avI.getBooleanExpression().getBody());
+									} else if(avI.getIterationExpression() != null) {
+										da.addArgument(avI.getIterationExpression().getBody());
+									} else if(avI.getMappingExpression() != null) {
+										da.addArgument(avI.getMappingExpression().getBody());
+									} else if(avI.getObjectSetExpression() != null) {
+										da.addArgument(avI.getObjectSetExpression().getBody());
+									} else if(avI.getProcedureExpression() != null) {
+										da.addArgument(avI.getProcedureExpression().getBody());
+									} else if(avI.getTimeExpression() != null) {
+										da.addArgument(avI.getTimeExpression().getBody());
+									} else if(avI.getTypeExpression() != null) {
+										da.addArgument(avI.getTypeExpression().getBody());
+									}
+								}
+							}
+						}						
+					}
+				}
+			} else if(daI.getAction_script() != null) {
+				Enumeration e2 = daI.getAction_script().enumerateAction_scriptItem();
+				while (e2.hasMoreElements()) {
+					Action_scriptItem asI = (Action_scriptItem) e2.nextElement();
+					if(asI.getActionExpression() != null) {
+						da.setScript(asI.getActionExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_recurrence() != null) {
+				Enumeration e2 = daI.getAction_recurrence().enumerateAction_recurrenceItem();
+				while (e2.hasMoreElements()) {
+					Action_recurrenceItem arI = (Action_recurrenceItem) e2.nextElement();
+					if(arI.getIterationExpression() != null) {
+						da.setRecurrence(arI.getIterationExpression().getBody());
+					}
+				}
+			} else if(daI.getAction_target() != null) {
+				Enumeration e2 = daI.getAction_target().enumerateAction_targetItem();
+				while (e2.hasMoreElements()) {
+					Action_targetItem atI = (Action_targetItem) e2.nextElement();
+					if(atI.getObjectSetExpression() != null) {
+						da.setTarget(atI.getObjectSetExpression().getBody());
+					}
+				}
 			}
 		}
 		return da;

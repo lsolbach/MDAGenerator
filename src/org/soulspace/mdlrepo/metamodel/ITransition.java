@@ -10,6 +10,12 @@ public interface ITransition extends INamedElement {
 	IState getTarget();
 	void setTarget(IState s);
 	
+	String getGuard();
+	void setGuard(String guard);
+	
+	IAction getEffect();
+	void setEffect(IAction effect);
+	
 	List<IEvent> getEvents();
 	void addEvent(IEvent event);
 	

@@ -139,7 +139,7 @@ public class Class extends Classifier implements IClass {
 	}
 
 	/**
-	 * @return Returns the superClasses.
+	 * @return Returns the subClasses.
 	 */
 	public List<IClass> getSubClasses() {
 		return subClasses;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.soulspace.mdlrepo.metamodel.IAction;
 import org.soulspace.mdlrepo.metamodel.IEvent;
 import org.soulspace.mdlrepo.metamodel.IState;
 import org.soulspace.mdlrepo.metamodel.ITransition;
@@ -11,9 +12,9 @@ import org.soulspace.mdlrepo.metamodel.ITransition;
 public class Transition extends NamedElement implements ITransition {
 
 	IState source;
-	
 	IState target;
-	
+	IAction effect;
+	String guard;
 	List<IEvent> eventList = new ArrayList<IEvent>();
 	
 	public IState getSource() {
@@ -32,9 +33,24 @@ public class Transition extends NamedElement implements ITransition {
 		this.target = target;
 	}
 
+	public IAction getEffect() {
+		return effect;
+	}
+
+	public void setEffect(IAction effect) {
+		this.effect = effect;
+	}
+
+	public String getGuard() {
+		return guard;
+	}
+
+	public void setGuard(String guard) {
+		this.guard = guard;
+	}
+
 	public void addEvent(IEvent event) {
-		eventList.add(event);
-		
+		eventList.add(event);	
 	}
 
 	public List<IEvent> getEvents() {

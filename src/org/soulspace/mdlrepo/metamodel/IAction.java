@@ -1,10 +1,21 @@
 package org.soulspace.mdlrepo.metamodel;
 
+import java.util.List;
+
 public interface IAction extends INamedElement {
 
-	// IArgument getArguments();
-	// void setArguments(List<IArgument> argumentList);
-	// void addArgument(IArgument argument);
-	// void removeArgument(IArgument argument);
+	List<String> getArguments();
+	void setArguments(List<String> arguments);
+	void addArgument(String argument);
+	void removeArgument(String argument);
+
+	String getScript();
+	void setScript(String script);
+
+	String getTarget();
+	void setTarget(String target);
+
+	String getRecurrence();
+	void setRecurrence(String recurrence);
 
 }

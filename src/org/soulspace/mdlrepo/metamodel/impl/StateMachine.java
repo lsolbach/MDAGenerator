@@ -11,9 +11,19 @@ import org.soulspace.mdlrepo.metamodel.ITransition;
 public class StateMachine extends Classifier implements IStateMachine {
 
 	private IElement context;
+	private IState topState;
+	
 	private List<IState> stateList = new ArrayList<IState>();
 	private List<ITransition> transitionList = new ArrayList<ITransition>();
 	
+	public IState getTopState() {
+		return topState;
+	}
+
+	public void setTopState(IState topState) {
+		this.topState = topState;
+	}
+
 	public IElement getContext() {
 		return context;
 	}

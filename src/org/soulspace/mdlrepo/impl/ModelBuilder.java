@@ -81,7 +81,6 @@ public class ModelBuilder implements IModelBuilder {
 	}
 	
 	public void addXmiRepository(XMIRepository xmiRepository) {		
-
 		buildStereotypes(xmiRepository);
 		buildTagDefinitions(xmiRepository);
 		buildModels(xmiRepository);
@@ -98,7 +97,7 @@ public class ModelBuilder implements IModelBuilder {
 		buildAssociations(xmiRepository);
 		buildGeneralizations(xmiRepository);
 		buildEvents(xmiRepository);
-		buildActions(xmiRepository);
+//		buildActions(xmiRepository);
 		buildStateMachines(xmiRepository);
 		buildDependencies(xmiRepository);
 

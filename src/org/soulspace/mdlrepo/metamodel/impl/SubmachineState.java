@@ -3,7 +3,7 @@ package org.soulspace.mdlrepo.metamodel.impl;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.ISubmachineState;
 
-public class SubmachineState extends State implements ISubmachineState {
+public class SubmachineState extends CompositeState implements ISubmachineState {
 
 	private boolean isConcurrent = false;
 	private IStateMachine stateMachine;
