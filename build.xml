@@ -12,23 +12,4 @@
 	  - project specific targets
 	  -->
 
-	<!--
-	<target name="test-local" depends="test-modelloader"/>
-	
-	<target name="test-modelloader">
-		<java
-			classname="org.soulspace.xmi.util.ModelLoader"
-			classpathref="unittest.classpath">
-			<arg value="refModels/argouml/state.xmi"/>
-			<arg value="refModels/argouml/usecase.xmi"/>
-			<arg value="refModels/argouml/associationclass.xmi"/>
-			<arg value="refModels/poseidon/state.xmi"/>
-			<arg value="refModels/poseidon/activity.xmi"/>
-			<arg value="refModels/poseidon/usecase.xmi"/>
-			<arg value="refModels/poseidon/interface.xmi"/>
-			<arg value="refModels/poseidon/generalization.xmi"/>
-			<arg value="refModels/poseidon/generalization2.xmi"/>
-		</java>
-	</target>
-	-->
 </project>

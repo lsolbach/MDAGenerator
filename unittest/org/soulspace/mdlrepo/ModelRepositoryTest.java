@@ -28,6 +28,7 @@ public class ModelRepositoryTest extends TestCase {
 		super.tearDown();
 	}
 
+/*	
 	public void testAssociationClass() {
 		xmiRepository.loadModel(new File("refModels/argouml/associationclass.xmi"));
 
@@ -48,7 +49,14 @@ public class ModelRepositoryTest extends TestCase {
 		assertEquals("1 Association", 1, repository.getAssociations().size());
 		
 	}
+*/
 	
-	
-	
+	public void testStateMachine() {
+		xmiRepository.loadModel(new File("refModels/argouml/statemachine.xmi"));
+
+		builder.addXmiRepository(xmiRepository);
+		repository = builder.getModelRepository();
+		
+	}
+
 }

@@ -1375,6 +1375,8 @@ public class ModelFactory implements IModelFactory {
 					} else if (cssI.getFinalState() != null) {
 						s.addSubState(createFinalState(cssI
 								.getFinalState()));
+					} else if (cssI.getCompositeState() != null) {
+						s.addSubState(createCompositeState(cssI.getCompositeState()));
 					} else if (cssI.getSubmachineState() != null) {
 						s.addSubState(createSubmachineState(cssI.getSubmachineState()));
 					}
