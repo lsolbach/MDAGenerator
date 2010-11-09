@@ -76,6 +76,7 @@
 				<xs:element ref="Namespace.ownedElement" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="name" />
@@ -90,6 +91,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Comment.annotatedElement" />
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="name" />
@@ -262,6 +267,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Link.connection"/>
 				<xs:element ref="LinkEnd.instance"/>
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -286,6 +295,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="LinkEnd.instance"/>
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -412,8 +425,10 @@
 	<xs:element name="Abstraction">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Dependency.client" />
 				<xs:element ref="Dependency.supplier" />
 			</xs:choice>
@@ -437,8 +452,10 @@
 	<xs:element name="Method">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Method.specification"/>
 				<xs:element ref="Method.body"/>
 			</xs:choice>
@@ -473,8 +490,10 @@
 				<!-- UML -->
 				<xs:element ref="StructuralFeature.type" />
 				<xs:element ref="StructuralFeature.multiplicity" />
-				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<!-- UML2 -->
 				<xs:element ref="TypedElement.type" />
 			</xs:choice>
@@ -509,8 +528,10 @@
 	<xs:element name="Operation">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="BehavioralFeature.parameter"/>
 				<xs:element ref="BehavioralFeature.raisedSignal"/>
 			</xs:choice>
@@ -550,8 +571,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<!-- UML -->
-				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Parameter.type" />
 				<xs:element ref="Parameter.defaultValue"/>
 				<!-- UML2 -->
@@ -617,6 +640,7 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Association.connection" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 				<xs:element ref="ModelElement.comment" />
@@ -647,8 +671,10 @@
 				<xs:element ref="AssociationEnd.multiplicity" />
 				<xs:element ref="AssociationEnd.participant" />
 				<xs:element ref="AssociationEnd.qualifier" />
-				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="name" />
@@ -754,8 +780,10 @@
 	<xs:element name="Enumeration">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="ModelElement.stereotype"/>
-				<xs:element ref="ModelElement.taggedValue"/>
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Enumeration.literal"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -781,8 +809,10 @@
 	<xs:element name="EnumerationLiteral">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="ModelElement.stereotype"/>
-				<xs:element ref="ModelElement.taggedValue"/>
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -799,8 +829,10 @@
 	<xs:element name="Stereotype">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="ModelElement.stereotype"/>
-				<xs:element ref="ModelElement.taggedValue"/>
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Stereotype.baseClass"/>
 				<xs:element ref="Stereotype.definedTag"/>
 			</xs:choice>
@@ -862,8 +894,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Dependency.supplier"/>
 				<xs:element ref="Dependency.client"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="name" />
@@ -874,8 +908,10 @@
 	<xs:element name="DataType">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id"/>
 			<xs:attribute ref="xmi.idref"/>
@@ -893,8 +929,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="TagDefinition.multiplicity" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -926,6 +964,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Generalization.parent" />
 				<xs:element ref="Generalization.child" />
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -955,8 +997,10 @@
 	<xs:element name="TaggedValue">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="TaggedValue.dataValue" />
 				<xs:element ref="TaggedValue.type" />
 			</xs:choice>
@@ -983,8 +1027,10 @@
 	<xs:element name="Collaboration">
 		<xs:complexType>
 			<xs:choice>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="ClassifierRole"/>
 				<xs:element ref="Collaboration.interaction"/>
 				<xs:element ref="Collaboration.representedClassifier"/>
@@ -1022,8 +1068,10 @@
 	<xs:element name="ClassifierRole">
 		<xs:complexType>
 			<xs:choice>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="ClassifierRole.multiplicity"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -1048,8 +1096,10 @@
 	<xs:element name="AssociationRole">
 		<xs:complexType>
 			<xs:choice>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Association.connection"/>
 				<xs:element ref="AssociationRole.message"/>
 			</xs:choice>
@@ -1067,8 +1117,10 @@
 	<xs:element name="AssociationEndRole">
 		<xs:complexType>
 			<xs:choice>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="AssociationEnd.participant"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -1095,8 +1147,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="GeneralizableElement.generalization"/>
-				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1116,8 +1170,10 @@
 				<xs:element ref="UseCase.include"/>
 				<xs:element ref="UseCase.extend"/>
 				<xs:element ref="UseCase.extensionPoint"/>
-				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1144,6 +1200,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Include.base"/>
 				<xs:element ref="Include.addition"/>
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1198,6 +1258,10 @@
 	<xs:element name="Extend">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Extend.base"/>
 				<xs:element ref="Extend.extension"/>
 				<xs:element ref="Extend.extensionPoint"/>
@@ -1236,8 +1300,10 @@
 	<xs:element name="StateMachine">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateMachine.top"/>
 				<xs:element ref="StateMachine.context"/>
@@ -1299,8 +1365,10 @@
 	<xs:element name="CompositeState">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="CompositeState.subvertex"/>
 				<xs:element ref="State.entry"/>
 				<xs:element ref="State.exit"/>
@@ -1335,8 +1403,10 @@
 	<xs:element name="SimpleState">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="State.entry"/>
 				<xs:element ref="State.exit"/>
@@ -1356,8 +1426,10 @@
 	<xs:element name="Pseudostate">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="StateVertex.outgoing"/>
@@ -1375,8 +1447,10 @@
 	<xs:element name="SynchState">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="StateVertex.outgoing"/>
@@ -1394,8 +1468,10 @@
 	<xs:element name="SubState">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="StateVertex.outgoing"/>
@@ -1413,8 +1489,10 @@
 	<xs:element name="SubmachineState">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="StateVertex.outgoing"/>
@@ -1442,8 +1520,10 @@
 	<xs:element name="FinalState">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<!-- ArgoUML UML1.4 -->
 				<xs:element ref="StateVertex.incoming"/>
 				<xs:element ref="State.entry"/>
@@ -1479,8 +1559,10 @@
 	<xs:element name="Transition">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="Transition.source"/>
 				<xs:element ref="Transition.target"/>
 				<xs:element ref="Transition.trigger"/>
@@ -1563,6 +1645,10 @@
 	<xs:element name="Guard">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="BooleanExpression"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -1578,8 +1664,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="CallEvent.operation"/>
 				<xs:element ref="Event.parameter"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1602,8 +1690,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ChangeEvent.changeExpression"/>
 				<xs:element ref="Event.parameter"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1626,8 +1716,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="SignalEvent.signal"/>
 				<xs:element ref="Event.parameter"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1650,8 +1742,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="TimeEvent.when"/>
 				<xs:element ref="Event.parameter"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1713,8 +1807,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Region.subvertex"/>
 				<xs:element ref="Region.transition"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1752,8 +1848,10 @@
 				<xs:element ref="State.deferredEvent"/>
 				<xs:element ref="StateVertex.outgoing"/>
 				<xs:element ref="StateVertex.incoming"/>				
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1835,8 +1933,10 @@
 				<xs:element ref="Interaction.fragment" />
 				<xs:element ref="Interaction.message" />
 				<xs:element ref="Interaction.lifeline" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -1891,8 +1991,10 @@
 				<xs:element ref="MessageEnd.receiveMessage"/>
 				<xs:element ref="EventOccurrence.startExec"/>
 				<xs:element ref="EventOccurrence.finishExec"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1924,8 +2026,10 @@
 				<xs:element ref="InteractionFragment.covered"/>
 				<xs:element ref="ExecutionOccurrence.start"/>
 				<xs:element ref="ExecutionOccurrence.finish"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1965,8 +2069,10 @@
 				<xs:element ref="Message.sendEvent"/>
 				<xs:element ref="Message.signature"/>
 				<xs:element ref="Message.argument"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2064,8 +2170,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="InteractionFragment.covered"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2094,8 +2202,10 @@
 	<xs:element name="ActionExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2110,8 +2220,10 @@
 	<xs:element name="ArgListExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2126,8 +2238,10 @@
 	<xs:element name="BooleanExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2142,8 +2256,10 @@
 	<xs:element name="IterationExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2158,8 +2274,10 @@
 	<xs:element name="MappingExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2174,8 +2292,10 @@
 	<xs:element name="ProcedureExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2190,8 +2310,10 @@
 	<xs:element name="ObjectSetExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2206,8 +2328,10 @@
 	<xs:element name="OpaqueExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2222,8 +2346,10 @@
 	<xs:element name="TimeExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2238,8 +2364,10 @@
 	<xs:element name="TypeExpression">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2256,8 +2384,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Lifeline.coveredBy"/>
 				<xs:element ref="Lifeline.represents"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2291,8 +2421,10 @@
 				<xs:element ref="Namespace.ownedElement"/>
 				<xs:element ref="Activity.edge"/>
 				<xs:element ref="Activity.node"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2340,8 +2472,10 @@
 				<xs:element ref="ActivityEdge.target"/>
 				<xs:element ref="ActivityEdge.guard"/>
 				<xs:element ref="ActivityEdge.weight"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2402,8 +2536,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ActivityNode.outgoingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2419,8 +2555,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ActivityNode.outgoingEdge"/>
 				<xs:element ref="ActivityNode.incomingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2436,8 +2574,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ActivityNode.outgoingEdge"/>
 				<xs:element ref="ActivityNode.incomingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2453,8 +2593,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ActivityNode.outgoingEdge"/>
 				<xs:element ref="ActivityNode.incomingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2471,8 +2613,10 @@
 				<xs:element ref="ActivityNode.outgoingEdge"/>
 				<xs:element ref="ActivityNode.incomingEdge"/>
 				<xs:element ref="JoinNode.joinSpec"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2488,8 +2632,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ActivityNode.incomingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2504,8 +2650,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ActivityNode.incomingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2522,8 +2670,10 @@
 				<xs:element ref="Signal.context"/>
 				<xs:element ref="Signal.reception"/>
 				<xs:element ref="Signal.occurence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2563,8 +2713,10 @@
 	<xs:element name="Reception">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 				<xs:element ref="BehavioralFeature.parameter" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -2584,8 +2736,10 @@
 				<xs:element ref="Signal.context"/>
 				<xs:element ref="Signal.reception"/>
 				<xs:element ref="Signal.occurence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2600,6 +2754,10 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Argument.value"/>
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2634,8 +2792,10 @@
 				<xs:element ref="Action.script"/>
 				<xs:element ref="Action.target"/>
 				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2667,8 +2827,10 @@
 				<xs:element ref="Action.script"/>
 				<xs:element ref="Action.target"/>
 				<xs:element ref="Action.recurrence"/>
-				<xs:element ref="ModelElement.stereotype"/>
-				<xs:element ref="ModelElement.taggedValue"/>
+				<xs:element ref="ModelElement.clientDependency" />
+				<xs:element ref="ModelElement.stereotype" />
+				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2696,8 +2858,10 @@
 				<xs:element ref="Action.script"/>
 				<xs:element ref="Action.target"/>
 				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2728,8 +2892,10 @@
 				<xs:element ref="Action.script"/>
 				<xs:element ref="Action.target"/>
 				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2747,8 +2913,10 @@
 				<xs:element ref="Action.script"/>
 				<xs:element ref="Action.target"/>
 				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2766,8 +2934,10 @@
 				<xs:element ref="Action.script"/>
 				<xs:element ref="Action.target"/>
 				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2786,8 +2956,10 @@
 				<xs:element ref="Action.script"/>
 				<xs:element ref="Action.target"/>
 				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2813,8 +2985,10 @@
 				<xs:element ref="Action.script"/>
 				<xs:element ref="Action.target"/>
 				<xs:element ref="Action.recurrence"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2831,8 +3005,10 @@
 				<xs:element ref="Action.actualArgument"/>
 				<xs:element ref="ActivityNode.outgoingEdge"/>
 				<xs:element ref="ActivityNode.incomingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2920,8 +3096,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ObjectNode.upperBound"/>
 				<xs:element ref="ActivityNode.outgoingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -2944,8 +3122,10 @@
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="ObjectNode.upperBound"/>
 				<xs:element ref="ActivityNode.incomingEdge"/>
+				<xs:element ref="ModelElement.clientDependency" />
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
+				<xs:element ref="ModelElement.comment" />
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
