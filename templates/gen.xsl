@@ -66,9 +66,7 @@ public class XMIBuilder {
 		-->
 	<!-- Traverse with Qualified Name at Package, Class, Interface, Method?, DataType -->
   	<!--
-		Missing in XmiReader Parameter, Exception, AssociationEnd, AssociationClass,
-		Actor, UseCase, EventOccurance, ExecutionOccurance, Message, MessageEnd,
-		OpaqueExpression, Lifeline, ...
+		Missing in XmiReader Parameter, Exception, AssociationEnd, ...
 		-->
 	
 	<!-- Rule: Set Namespace for Elements in Namespace_ownedElements? -->
@@ -148,7 +146,16 @@ public class XMIBuilder {
 									or ./@name='Enumeration'
 									or ./@name='CallEvent'
 									or ./@name='SignalEvent'
-		">
+									or ./@name='UseCase'
+									or ./@name='Actor'
+									or ./@name='StateMachine'
+									or ./@name='State'
+									or ./@name='SimpleState'
+									or ./@name='CompositeState'
+									or ./@name='SubmachineState'
+									or ./@name='Pseudostate'
+									or ./@name='FinalState'
+									or ./@name='Enumeration'">
 		childNamespace = qualifiedName;
 		</xsl:if>
 	</xsl:template>

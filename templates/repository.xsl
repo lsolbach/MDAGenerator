@@ -24,6 +24,7 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 
 import org.soulspace.xmi.base.XmiObject;
+import org.soulspace.xmi.base.XmiRepositoryException;
 import org.soulspace.xmi.marshal.XMI;
 import org.soulspace.xmi.marshal.XMI_content;
 import org.soulspace.xmi.marshal.XMI_contentItem;
@@ -104,12 +105,8 @@ public class XMIRepository {
 		try {
 			reader = new FileReader(file);
 			xmi = (XMI) XMI.unmarshal(reader);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (MarshalException e) {
-			e.printStackTrace();
-		} catch (ValidationException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new XmiRepositoryException("Error reading xmi file!", e);
 		}
 
 		return xmi;
@@ -175,28 +172,28 @@ import org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.
 		xmi<xsl:value-of select="translate(../../@name, '.', '_')"/>List.add(element);
 		xmiIdMap.put(element.getXmi_id(), element);
 		<xsl:if test="../../@name='Package'
-									or ./@name='Class'
-									or ./@name='Interface'
-									or ./@name='Operation'
-									or ./@name='Attribute'
-									or ./@name='Method'
-									or ./@name='TagDefinition'
-									or ./@name='Stereotype'
-									or ./@name='Association'
-									or ./@name='AssociationClass'
-									or ./@name='UseCase'
-									or ./@name='Actor'
-									or ./@name='StateMachine'
-									or ./@name='State'
-									or ./@name='SimpleState'
-									or ./@name='CompositeState'
-									or ./@name='SubmachineState'
-									or ./@name='Pseudostate'
-									or ./@name='FinalState'
-									or ./@name='CallEvent'
-									or ./@name='SignalEvent'
-									or ./@name='DataType'
-									or ./@name='Enumeration'">
+									or ../../@name='Class'
+									or ../../@name='Interface'
+									or ../../@name='Operation'
+									or ../../@name='Attribute'
+									or ../../@name='Method'
+									or ../../@name='TagDefinition'
+									or ../../@name='Stereotype'
+									or ../../@name='Association'
+									or ../../@name='AssociationClass'
+									or ../../@name='UseCase'
+									or ../../@name='Actor'
+									or ../../@name='StateMachine'
+									or ../../@name='State'
+									or ../../@name='SimpleState'
+									or ../../@name='CompositeState'
+									or ../../@name='SubmachineState'
+									or ../../@name='Pseudostate'
+									or ../../@name='FinalState'
+									or ../../@name='CallEvent'
+									or ../../@name='SignalEvent'
+									or ../../@name='DataType'
+									or ../../@name='Enumeration'">
 		nameMap.put(element.getQualifiedName(), element);
 		</xsl:if>
 <!--
