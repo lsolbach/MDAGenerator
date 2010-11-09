@@ -2923,9 +2923,31 @@ public class ModelFactory implements IModelFactory {
 			((AssociationEnd) fromEnd).setSourceEnd(toEnd);
 			((AssociationEnd) toEnd).setSourceEnd(fromEnd);
 
-			// FIXME add other types (UseCase, Actor, ...)
-			((Class) fromEnd.getType()).addAssociation(toEnd);
-			((Class) toEnd.getType()).addAssociation(fromEnd);
+			// TODO add other types
+			if(fromEnd.getType() instanceof Class) {
+				((Class) fromEnd.getType()).addAssociation(toEnd);
+			} else if(fromEnd.getType() instanceof Interface) {
+				((Interface) fromEnd.getType()).addAssociation(toEnd);				
+			} else if(fromEnd.getType() instanceof DataType) {
+				((DataType) fromEnd.getType()).addAssociation(toEnd);				
+			} else if(fromEnd.getType() instanceof UseCase) {
+				((UseCase) fromEnd.getType()).addAssociation(toEnd);				
+			} else if(fromEnd.getType() instanceof Actor) {
+				((Actor) fromEnd.getType()).addAssociation(toEnd);				
+			}
+
+			if(toEnd.getType() instanceof Class) {
+				((Class) toEnd.getType()).addAssociation(fromEnd);
+			} else if(toEnd.getType() instanceof Interface) {
+				((Interface) toEnd.getType()).addAssociation(fromEnd);
+			} else if(toEnd.getType() instanceof DataType) {
+				((DataType) toEnd.getType()).addAssociation(fromEnd);
+			} else if(toEnd.getType() instanceof UseCase) {
+				((UseCase) toEnd.getType()).addAssociation(fromEnd);
+			} else if(toEnd.getType() instanceof Actor) {
+				((Actor) toEnd.getType()).addAssociation(fromEnd);
+			}
+
 		}
 		Package p = (Package) repository.lookupPackageByQualifiedName(a
 				.getNamespace());

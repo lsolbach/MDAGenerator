@@ -3,6 +3,7 @@ package org.soulspace.mdlrepo.metamodel.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.soulspace.mdlrepo.metamodel.IAssociationEnd;
 import org.soulspace.mdlrepo.metamodel.IExtensionPoint;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 
@@ -13,7 +14,8 @@ public class UseCase extends Classifier implements IUseCase {
 	private List<IUseCase> includedList = new ArrayList<IUseCase>();
 	private List<IUseCase> extendList = new ArrayList<IUseCase>();
 	private List<IUseCase> extendedList = new ArrayList<IUseCase>();
-	
+	private List<IAssociationEnd> associations = new ArrayList<IAssociationEnd>();
+
 	public void addExtensionPoint(IExtensionPoint extensionPoint) {
 		extensionPointList.add(extensionPoint);
 	}
@@ -52,6 +54,14 @@ public class UseCase extends Classifier implements IUseCase {
 
 	public List<IUseCase> getIncluded() {
 		return includedList;
+	}
+
+	public List<IAssociationEnd> getAssociations() {
+		return associations;
+	}
+
+	public void addAssociation(IAssociationEnd ae) {
+		associations.add(ae);
 	}
 
 	/* (non-Javadoc)

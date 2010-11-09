@@ -6,6 +6,7 @@ package org.soulspace.mdlrepo.metamodel.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.soulspace.mdlrepo.metamodel.IAssociationEnd;
 import org.soulspace.mdlrepo.metamodel.IDependency;
 import org.soulspace.mdlrepo.metamodel.IInterface;
 import org.soulspace.mdlrepo.metamodel.IOperation;
@@ -16,9 +17,10 @@ import org.soulspace.mdlrepo.metamodel.IOperation;
  */
 public class Interface extends Classifier implements IInterface {
 
-	List<IInterface> superInterfaceList = new ArrayList<IInterface>();
-	List<IOperation> operationList = new ArrayList<IOperation>();
-	List<IDependency> dependencyList = new ArrayList<IDependency>();
+	private List<IInterface> superInterfaceList = new ArrayList<IInterface>();
+	private List<IOperation> operationList = new ArrayList<IOperation>();
+	private List<IDependency> dependencyList = new ArrayList<IDependency>();
+	private List<IAssociationEnd> associations = new ArrayList<IAssociationEnd>();
 
 	/**
    * 
@@ -71,6 +73,14 @@ public class Interface extends Classifier implements IInterface {
 	 */
 	public List<IDependency> getDependencies() {
 		return dependencyList;
+	}
+
+	public List<IAssociationEnd> getAssociations() {
+		return associations;
+	}
+
+	public void addAssociation(IAssociationEnd ae) {
+		associations.add(ae);
 	}
 
 	/*
