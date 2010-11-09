@@ -58,6 +58,10 @@ public class MdaGeneratorTask extends Task {
 		ctx.getMainGroup().addClassGenerator(cg);
 	}
 
+	public void addInterfaceGenerator(InterfaceGenerator ig) {
+		ctx.getMainGroup().addInterfaceGenerator(ig);
+	}
+
 	public void addModelGenerator(ModelGenerator mg) {
 		ctx.getMainGroup().addModelGenerator(mg);
 	}

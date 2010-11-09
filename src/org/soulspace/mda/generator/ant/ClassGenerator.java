@@ -3,16 +3,14 @@
  */
 package org.soulspace.mda.generator.ant;
 
-
-
 /**
  * @author soulman
  * 
  */
 public class ClassGenerator extends ClassifierGeneratorWrapper {
 
-  public ClassGenerator() {
-    super();
-  }
+	public ClassGenerator() {
+		super();
+	}
 
 }

@@ -24,7 +24,7 @@
 		<package name="DomainMetaModel" version="0.2.0" type="project">
 			<module name="DomainMetaModel"/>
 		</package>
-		<package name="JavaUtilLibrary" version="0.1.0" type="project">
+		<package name="JavaUtilLibrary" version="0.2.0" type="project">
 			<module name="JavaUtilLibrary"/>
 		</package>
 		<package name="jakarta-oro" version="2.0.8" type="lib">

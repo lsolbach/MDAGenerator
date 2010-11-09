@@ -10,7 +10,6 @@ import org.soulspace.mda.generator.ant.PackageGenerator;
 import org.soulspace.mda.generator.ant.StateMachineGenerator;
 import org.soulspace.mda.generator.ant.UseCaseGenerator;
 
-
 public class GeneratorGroup {
 
 	private List<GeneratorGroup> generatorGroups = new ArrayList<GeneratorGroup>();
@@ -20,6 +19,8 @@ public class GeneratorGroup {
 	private List<ClassifierGenerator> packageGenerators = new ArrayList<ClassifierGenerator>();
 
 	private List<ClassifierGenerator> classGenerators = new ArrayList<ClassifierGenerator>();
+
+	private List<ClassifierGenerator> interfaceGenerators = new ArrayList<ClassifierGenerator>();
 
 	private List<ClassifierGenerator> stateMachineGenerators = new ArrayList<ClassifierGenerator>();
 
@@ -49,6 +50,18 @@ public class GeneratorGroup {
 
 	public List<ClassifierGenerator> getClassGenerators() {
 		return classGenerators;
+	}
+	
+	/**
+	 * Adds an interface generator.
+	 * @param ig
+	 */
+	public void addInterfaceGenerator(ClassifierGenerator ig) {
+		interfaceGenerators.add(ig);
+	}
+
+	public List<ClassifierGenerator> getInterfaceGenerators() {
+		return interfaceGenerators;
 	}
 	
 	/**

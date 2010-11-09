@@ -21,6 +21,7 @@ import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 import org.soulspace.mdlrepo.metamodel.impl.ModelFactory;
+import org.soulspace.xmi.base.XmiRepositoryException;
 import org.soulspace.xmi.repository.XMIRepository;
 
 public class GenerationContext {
@@ -290,16 +291,22 @@ public class GenerationContext {
 			mFactory = new ModelFactory();
 		}
 		IModelBuilder modelBuilder = new ModelBuilder(mFactory);
-
+		
 		if (getProfiles() != null) {
+			File profileFile;
 			// initialize repository with the provided xmi files
 			String[] profileNames = getProfiles().split(",");
 			for (String profileName : profileNames) {
-				// log("loading profile " + profileName);
-				xmiRepository.loadProfile(new File(profileName));
+				profileFile = new File(profileName.trim());
+				log("loading profile " + profileFile.getAbsolutePath());
+				try {
+					xmiRepository.loadProfile(profileFile);
+				} catch (XmiRepositoryException e) {
+					e.printStackTrace(System.err);
+				}
 			}
 		}
-		// log("loading model " + modelFile);
+		log("loading model " + modelFile);
 		xmiRepository.loadModel(modelFile);
 		modelBuilder.addXmiRepository(xmiRepository);
 
@@ -354,6 +361,10 @@ public class GenerationContext {
 		for(GeneratorGroup genGroup : gg.getGeneratorGroups()) {
 			callGenerators(ctx, genGroup);
 		}
+	}
+
+	void log(String message) {
+		System.out.println(message);
 	}
 
 }

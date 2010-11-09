@@ -55,7 +55,7 @@ public abstract class ClassifierGenerator {
 		super();
 		this.genContext = genContext;
 	}
-	
+
 	public GeneratorContext getGeneratorContext() {
 		return genContext;
 	}
@@ -315,7 +315,7 @@ public abstract class ClassifierGenerator {
 				File[] templateFiles = new File[importTemplateNames.length + 1];
 				for (int i = 0; i < importTemplateNames.length; i++) {
 					templateFiles[i] = locateFile(templateDirs,
-							importTemplateNames[i], ".tinc");
+							importTemplateNames[i].trim(), ".tinc");
 				}
 				templateFiles[importTemplateNames.length] = locateFile(
 						templateDirs, genContext.getName(), ".tmpl");
@@ -338,7 +338,7 @@ public abstract class ClassifierGenerator {
 	File[] getTemplateDirs(List<String> templateDirNames) {
 		File[] templateDirs = new File[templateDirNames.size()];
 		for (int i = 0; i < templateDirNames.size(); i++) {
-			File file = new File(templateDirNames.get(i));
+			File file = new File(templateDirNames.get(i).trim());
 			if (!file.exists() || !file.isDirectory()) {
 				throw new RuntimeException("Error validating directory "
 						+ templateDirNames.get(i));
@@ -382,7 +382,8 @@ public abstract class ClassifierGenerator {
 	boolean generateForStereotype(IClassifier classifier) {
 		if (!genContext.getExcludeStereotypes().isEmpty()) {
 			for (String excStereotype : genContext.getExcludeStereotypes()) {
-				if (classifier.getStereotypeMap().containsKey(excStereotype)) {
+				if (classifier.getStereotypeMap().containsKey(
+						excStereotype.trim())) {
 					return false;
 				}
 			}
@@ -395,15 +396,15 @@ public abstract class ClassifierGenerator {
 		}
 		String st = genContext.getStereotype();
 		if (st.equals("NONE")) {
-			if(classifier.getStereotypeMap().isEmpty()) {
+			if (classifier.getStereotypeMap().isEmpty()) {
 				return true;
 			} else {
-				return false;				
+				return false;
 			}
 		}
 		if (st.equals("ALL")) {
-			if(classifier.getStereotypeMap().isEmpty()) {
-				return false;				
+			if (classifier.getStereotypeMap().isEmpty()) {
+				return false;
 			} else {
 				return true;
 			}
@@ -412,7 +413,7 @@ public abstract class ClassifierGenerator {
 		boolean generate = false;
 		String[] incStereotypes = genContext.getStereotype().split(",");
 		for (String incStereotype : incStereotypes) {
-			if (classifier.getStereotypeMap().containsKey(incStereotype)) {
+			if (classifier.getStereotypeMap().containsKey(incStereotype.trim())) {
 				generate = true;
 			}
 		}
@@ -428,14 +429,14 @@ public abstract class ClassifierGenerator {
 			generate = true;
 		} else if (genContext.getNamespaceIncludes().size() > 0) {
 			for (String namespace : genContext.getNamespaceIncludes()) {
-				if (classifier.getNamespace().startsWith(namespace)) {
+				if (classifier.getNamespace().startsWith(namespace.trim())) {
 					generate = true;
 				}
 			}
 		}
 		if (genContext.getNamespaceExcludes().size() > 0) {
 			for (String namespace : genContext.getNamespaceExcludes()) {
-				if (classifier.getNamespace().startsWith(namespace)) {
+				if (classifier.getNamespace().startsWith(namespace.trim())) {
 					generate = false;
 				}
 			}
@@ -455,7 +456,7 @@ public abstract class ClassifierGenerator {
 		}
 		String output;
 		Map<String, String> userSections = null;
-		//dataSource = ctx.getDataSource();
+		// dataSource = ctx.getDataSource();
 
 		engine = getEngine(ctx);
 
@@ -687,7 +688,8 @@ public abstract class ClassifierGenerator {
 				}
 			}
 		} catch (IOException e1) {
-			System.err.println("Error parsing user sections on file " + filename);
+			System.err.println("Error parsing user sections on file "
+					+ filename);
 			e1.printStackTrace();
 		}
 
