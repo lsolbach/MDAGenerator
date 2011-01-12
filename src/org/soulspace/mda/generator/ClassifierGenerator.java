@@ -23,7 +23,8 @@ import org.apache.tools.ant.BuildException;
 import org.soulspace.mdlrepo.metamodel.IClassifier;
 import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.template.TemplateEngine;
-import org.soulspace.template.datasource.impl.BeanDataSource;
+import org.soulspace.template.datasource.DataSource;
+import org.soulspace.template.datasource.impl.BeanDataSourceImpl;
 import org.soulspace.template.impl.TemplateEngineImpl;
 import org.soulspace.template.util.RegExHelper;
 import org.soulspace.template.util.StringHelper;
@@ -33,13 +34,13 @@ import org.soulspace.util.CollectionUtils;
  * @author soulman Base class for ant generators
  * 
  */
-public abstract class ClassifierGenerator {
+public class ClassifierGenerator {
 
 	protected GeneratorContext genContext;
 
 	protected TemplateEngine engine;
 
-	protected BeanDataSource dataSource;
+	protected DataSource dataSource;
 
 	protected Pattern pattern;
 
@@ -326,7 +327,7 @@ public abstract class ClassifierGenerator {
 			}
 		} catch (Exception e) {
 			engine = null;
-			System.err.println("Error processing " + genContext.getName());
+			System.err.println("Error creating a template engine for template " + genContext.getName());
 			throw new RuntimeException(
 					"Error creating a template engine for template "
 							+ genContext.getName(), e);
@@ -365,7 +366,7 @@ public abstract class ClassifierGenerator {
 	 * 
 	 * @param ds
 	 */
-	public void setDataSource(BeanDataSource ds) {
+	public void setDataSource(BeanDataSourceImpl ds) {
 		dataSource = ds;
 	}
 
@@ -444,12 +445,16 @@ public abstract class ClassifierGenerator {
 		return generate;
 	}
 
+	public void generate(GenerationContext ctx, IClassifier classifier) {
+		generate(ctx, classifier, null);
+	}
+	
 	/**
 	 * 
 	 * @param gt
 	 * @param classifier
 	 */
-	public void generate(GenerationContext ctx, IClassifier classifier) {
+	public void generate(GenerationContext ctx, IClassifier classifier, BeanDataSourceImpl ds) {
 		if (!mustGenerate(classifier)) {
 			// no generation needed
 			return;
@@ -459,15 +464,19 @@ public abstract class ClassifierGenerator {
 		// dataSource = ctx.getDataSource();
 
 		engine = getEngine(ctx);
-
+		BeanDataSourceImpl myDS;
 		// TODO fix exception handling?
+		if(ds != null) {
+			myDS = new BeanDataSourceImpl(classifier, ds);
+		} else {
+			myDS = new BeanDataSourceImpl(classifier);			
+		}
+		if (isSet(genContext.getUserSection())) {
+			userSections = readUserSections(getPath(ctx, classifier, true));
+			myDS.add("USERSECTIONS", userSections);
+		}
 		try {
-			BeanDataSource myDS = new BeanDataSource(classifier);
 			myDS.add("GenContext", genContext);
-			if (isSet(genContext.getUserSection())) {
-				userSections = readUserSections(getPath(ctx, classifier, true));
-				myDS.add("USERSECTIONS", userSections);
-			}
 
 			output = engine.generate(myDS);
 
@@ -475,11 +484,13 @@ public abstract class ClassifierGenerator {
 				createPackagePath(ctx, classifier);
 				writeFile(getPath(ctx, classifier, false), output);
 			}
-		} catch (Exception e1) {
+		} catch (Exception e) {
 			System.err.println("Exception while processing template "
 					+ genContext.getName() + " for classifier "
 					+ classifier.getName() + "!");
-			e1.printStackTrace();
+			throw new RuntimeException("Exception while processing template "
+					+ genContext.getName() + " for classifier "
+					+ classifier.getName() + "!", e);
 		}
 	}
 
@@ -687,10 +698,11 @@ public abstract class ClassifierGenerator {
 					sb.append(line + "\n");
 				}
 			}
-		} catch (IOException e1) {
+		} catch (IOException e) {
 			System.err.println("Error parsing user sections on file "
 					+ filename);
-			e1.printStackTrace();
+			throw new RuntimeException("Error parsing user sections on file "
+					+ filename, e);
 		}
 
 		return userSections;

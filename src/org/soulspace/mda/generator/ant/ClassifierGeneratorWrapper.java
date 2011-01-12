@@ -8,7 +8,7 @@ import org.soulspace.mda.generator.Param;
 import org.soulspace.template.util.StringHelper;
 import org.soulspace.util.CollectionUtils;
 
-public abstract class ClassifierGeneratorWrapper extends ClassifierGenerator {
+public class ClassifierGeneratorWrapper extends ClassifierGenerator {
 
 	
 	public ClassifierGeneratorWrapper() {

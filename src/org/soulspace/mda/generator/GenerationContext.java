@@ -21,6 +21,7 @@ import org.soulspace.mdlrepo.metamodel.IPackage;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 import org.soulspace.mdlrepo.metamodel.impl.ModelFactory;
+import org.soulspace.template.datasource.impl.BeanDataSourceImpl;
 import org.soulspace.xmi.base.XmiRepositoryException;
 import org.soulspace.xmi.repository.XMIRepository;
 
@@ -41,8 +42,6 @@ public class GenerationContext {
 	private String modelFactory;
 
 	private GeneratorGroup mainGroup = new GeneratorGroup();
-
-//	private BeanDataSource dataSource;
 
 	private IModelRepository repository;
 
@@ -250,24 +249,6 @@ public class GenerationContext {
 		mainGroup.addGeneratorGroup(group);
 	}
 
-	/**
-	 * @return the dataSource
-	 */
-//	public BeanDataSource getDataSource() {
-//		if(dataSource == null) {
-//			initDataSource();
-//		}
-//		return dataSource;
-//	}
-
-	/**
-	 * @param dataSource
-	 *            the dataSource to set
-	 */
-//	public void setDataSource(BeanDataSource dataSource) {
-//		this.dataSource = dataSource;
-//	}
-
 	IModelRepository initRepository() {
 		// TODO changes for uml version/tool dependend xmi repositories
 		// TODO instanciate (specific) XmiRepository
@@ -312,54 +293,54 @@ public class GenerationContext {
 
 		return modelBuilder.getModelRepository();
 	}
-
-//	private void initDataSource() {
-//		dataSource = new BeanDataSource(getRepository());
-//	}
 	
-	public void callGenerators(GenerationContext ctx, GeneratorGroup gg) {
+	public void callGenerators(GenerationContext ctx, GeneratorGroup gg, BeanDataSourceImpl ds) {
+		if(ds == null) {
+			ds = new BeanDataSourceImpl(getRepository());
+		}
+		// 
 		// model
 		for(IModel model : getRepository().getModels()) {
 			for (ClassifierGenerator mg : gg.getModelGenerators()) {
-				mg.generate(ctx, model);
+				mg.generate(ctx, model, ds);
 			}
 		}
 
 		// packages
 		for (IPackage p : getRepository().getPackages()) {
 			for (ClassifierGenerator pg : gg.getPackageGenerators()) {
-				pg.generate(ctx, p);
+				pg.generate(ctx, p, ds);
 			}
 		}
 
 		// classes
 		for (IClass c : getRepository().getClasses()) {
 			for (ClassifierGenerator cg : gg.getClassGenerators()) {
-				cg.generate(ctx, c);
+				cg.generate(ctx, c, ds);
 			}
 		}
 
 		// state machines
 		for (IStateMachine s : getRepository().getStateMachines()) {
 			for (ClassifierGenerator sg : gg.getStateMachineGenerators()) {
-				sg.generate(ctx, s);
+				sg.generate(ctx, s, ds);
 			}
 		}
 		
 		for(IActor a : getRepository().getActors()) {
 			for(ClassifierGenerator ag : gg.getActorGenerators()) {
-				ag.generate(ctx, a);
+				ag.generate(ctx, a, ds);
 			}
 		}
 		
 		for(IUseCase uc : getRepository().getUseCases()) {
 			for(ClassifierGenerator ug : gg.getUseCaseGenerators()) {
-				ug.generate(ctx, uc);
+				ug.generate(ctx, uc, ds);
 			}
 		}
 		
 		for(GeneratorGroup genGroup : gg.getGeneratorGroups()) {
-			callGenerators(ctx, genGroup);
+			callGenerators(ctx, genGroup, ds);
 		}
 	}
 

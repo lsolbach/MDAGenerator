@@ -93,7 +93,7 @@ public class MdaGeneratorTask extends Task {
 	 */
 	public void execute() throws BuildException {
 		try {
-			ctx.callGenerators(ctx, ctx.getMainGroup());
+			ctx.callGenerators(ctx, ctx.getMainGroup(), null);
 		} catch (Exception e) {
 			throw new BuildException("error while generating!", e);
 		}
