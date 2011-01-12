@@ -948,9 +948,9 @@ public class ModelFactory implements IModelFactory {
 						ae.addQualifier(a);
 					}
 				}
-				if (!ae.getMultiplicity().getHigh().equals("1")) {
+				if (ae.getMultiplicity() != null && !ae.getMultiplicity().getHigh().equals("1")) {
 					System.out
-							.println("INFO: The multiplicity of an  AssociationEnd with Qualifiers should be 0..1 for AssociationEnd id: "
+							.println("INFO: The multiplicity of an  AssociationEnd with Qualifiers may be 0..1 for AssociationEnd id: "
 									+ ae.getId());
 				}
 			} else if (aeI.getModelElement_taggedValue() != null) {
@@ -958,6 +958,12 @@ public class ModelFactory implements IModelFactory {
 			} else if (aeI.getModelElement_stereotype() != null) {
 				addStereotypes(ae, aeI.getModelElement_stereotype());
 			}
+		}
+		if(ae.getMultiplicity() == null) {
+			Multiplicity m = new Multiplicity();
+			m.setHigh("1");
+			m.setLow("1");
+			ae.setMultiplicity(m);
 		}
 		return ae;
 	}
