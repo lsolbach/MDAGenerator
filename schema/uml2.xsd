@@ -593,6 +593,7 @@
 				<xs:element ref="Class" />
 				<xs:element ref="DataType" />
 				<xs:element ref="Interface" />
+				<xs:element ref="Enumeration" />
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -1374,6 +1375,7 @@
 				<xs:element ref="State.exit"/>
 				<xs:element ref="State.doActivity"/>
 				<xs:element ref="State.deferredEvent"/>
+				<xs:element ref="State.internalTransition"/>
 				<xs:element ref="StateVertex.outgoing"/>
 				<xs:element ref="StateVertex.incoming"/>				
 			</xs:choice>	
@@ -1412,6 +1414,7 @@
 				<xs:element ref="State.exit"/>
 				<xs:element ref="State.doActivity"/>
 				<xs:element ref="State.deferredEvent"/>
+				<xs:element ref="State.internalTransition"/>
 				<xs:element ref="StateVertex.outgoing"/>
 				<xs:element ref="StateVertex.incoming"/>
 			</xs:choice>
@@ -1500,6 +1503,7 @@
 				<xs:element ref="State.exit"/>
 				<xs:element ref="State.doActivity"/>
 				<xs:element ref="State.deferredEvent"/>
+				<xs:element ref="State.internalTransition"/>
 				<xs:element ref="SubmachineState.submachine"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
@@ -1530,6 +1534,7 @@
 				<xs:element ref="State.exit"/>
 				<xs:element ref="State.doActivity"/>
 				<xs:element ref="State.deferredEvent"/>
+				<xs:element ref="State.internalTransition"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
@@ -1846,6 +1851,7 @@
 				<xs:element ref="State.exit"/>
 				<xs:element ref="State.doActivity"/>
 				<xs:element ref="State.deferredEvent"/>
+				<xs:element ref="State.internalTransition"/>
 				<xs:element ref="StateVertex.outgoing"/>
 				<xs:element ref="StateVertex.incoming"/>				
 				<xs:element ref="ModelElement.clientDependency" />
@@ -1918,6 +1924,14 @@
 		</xs:complexType>
 	</xs:element>
 	
+	<xs:element name="State.internalTransition">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="Transition"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
 	<xs:element name="State.region">
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">

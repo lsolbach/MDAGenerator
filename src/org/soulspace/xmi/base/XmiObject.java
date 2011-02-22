@@ -157,6 +157,8 @@ public class XmiObject {
 				String xmiIdRef = parts[1];
 				return xmiIdRef;
 			}
+		} else if(getXmiId() != null) {
+			return getXmiId();
 		}
 		return null;
 	}
