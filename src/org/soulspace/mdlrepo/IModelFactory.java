@@ -10,6 +10,7 @@ import org.soulspace.mdlrepo.metamodel.IAssociationEnd;
 import org.soulspace.mdlrepo.metamodel.IAttribute;
 import org.soulspace.mdlrepo.metamodel.ICallAction;
 import org.soulspace.mdlrepo.metamodel.ICallEvent;
+import org.soulspace.mdlrepo.metamodel.IChangeEvent;
 import org.soulspace.mdlrepo.metamodel.IClass;
 import org.soulspace.mdlrepo.metamodel.ICreateAction;
 import org.soulspace.mdlrepo.metamodel.IDataType;
@@ -28,6 +29,7 @@ import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 import org.soulspace.mdlrepo.metamodel.ITagDefinition;
 import org.soulspace.mdlrepo.metamodel.ITaggedValue;
+import org.soulspace.mdlrepo.metamodel.ITimeEvent;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 import org.soulspace.xmi.base.XmiObject;
 
@@ -85,7 +87,11 @@ public interface IModelFactory {
 
 	ICallEvent createCallEvent(XmiObject xmi);
 
+	IChangeEvent createChangeEvent(XmiObject xmi);
+
 	ISignalEvent createSignalEvent(XmiObject xmi);
+
+	ITimeEvent createTimeEvent(XmiObject xmi);
 
 	ICallAction createCallAction(XmiObject xmi);
 	
@@ -102,5 +108,7 @@ public interface IModelFactory {
 	void processGeneralization(XmiObject xmi);
 
 	void processAssociation(XmiObject xmi);
+
+	void processStateMachine(XmiObject xmi);
 
 }

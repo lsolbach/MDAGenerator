@@ -17,6 +17,7 @@ import org.soulspace.mdlrepo.metamodel.IAssociationClass;
 import org.soulspace.mdlrepo.metamodel.IAttribute;
 import org.soulspace.mdlrepo.metamodel.ICallAction;
 import org.soulspace.mdlrepo.metamodel.ICallEvent;
+import org.soulspace.mdlrepo.metamodel.IChangeEvent;
 import org.soulspace.mdlrepo.metamodel.IClass;
 import org.soulspace.mdlrepo.metamodel.ICreateAction;
 import org.soulspace.mdlrepo.metamodel.IDataType;
@@ -34,6 +35,7 @@ import org.soulspace.mdlrepo.metamodel.ISignalEvent;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 import org.soulspace.mdlrepo.metamodel.ITagDefinition;
+import org.soulspace.mdlrepo.metamodel.ITimeEvent;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 import org.soulspace.xmi.marshal.Actor;
 import org.soulspace.xmi.marshal.Association;
@@ -248,6 +250,10 @@ public class ModelBuilder implements IModelBuilder {
 			IStateMachine element = modelFactory
 					.createStateMachine((StateMachine) i.next());
 		}
+		i = xmiRepository.xmiStateMachineListIterator();
+		while (i.hasNext()) {
+			 modelFactory.processStateMachine((StateMachine) i.next());
+		}
 	}
 
 	private void buildEvents(XMIRepository xmiRepository) {
@@ -258,10 +264,10 @@ public class ModelBuilder implements IModelBuilder {
 			ISignalEvent element = modelFactory.createSignalEvent(se);
 		}
 		for(ChangeEvent ce : xmiRepository.getChangeEventList()) {
-			// TODO IChangeEvent element = modelFactory.createChangeEvent(ce);
+			IChangeEvent element = modelFactory.createChangeEvent(ce);
 		}
 		for(TimeEvent te : xmiRepository.getTimeEventList()) {
-			// TODO ITimeEvent element = modelFactory.createTimeEvent(te);
+			ITimeEvent element = modelFactory.createTimeEvent(te);
 		}
 	}
 

@@ -27,8 +27,8 @@ public class ModelFactory implements IModelFactory {
 	private IModelRepository repository;
 
 	/**
-   * 
-   */
+	 * 
+	 */
 	public ModelFactory(IModelRepository mr) {
 		super();
 		this.repository = mr;
@@ -1363,11 +1363,21 @@ public class ModelFactory implements IModelFactory {
 			} else if (csI.getModelElement_taggedValue() != null) {
 				addTaggedValues(s, csI.getModelElement_taggedValue());
 			} else if (csI.getStateVertex_incoming() != null) {
-				// TODO complete
-				csI.getStateVertex_incoming().enumerateStateVertex_incomingItem();
+				Enumeration e2 = csI.getStateVertex_incoming().enumerateStateVertex_incomingItem();
+				while (e2.hasMoreElements()) {
+					StateVertex_incomingItem sviI = (StateVertex_incomingItem) e2.nextElement();
+					if(sviI.getTransition() != null) {
+						s.addIncomingTransition(createTransition(sviI.getTransition()));
+					}					
+				}
 			} else if (csI.getStateVertex_outgoing() != null) {
-				// TODO complete
-				csI.getStateVertex_outgoing().enumerateStateVertex_outgoingItem();
+				Enumeration e2 = csI.getStateVertex_outgoing().enumerateStateVertex_outgoingItem();
+				while (e2.hasMoreElements()) {
+					StateVertex_outgoingItem svoI = (StateVertex_outgoingItem) e2.nextElement();
+					if(svoI.getTransition() != null) {
+						s.addOutgoingTransition(createTransition(svoI.getTransition()));
+					}
+				}
 			} else if (csI.getCompositeState_subvertex() != null) {
 				Enumeration e2 = csI.getCompositeState_subvertex().enumerateCompositeState_subvertexItem();
 				while (e2.hasMoreElements()) {
@@ -1443,6 +1453,12 @@ public class ModelFactory implements IModelFactory {
 					} else if(dI.getTimeEvent() != null) {
 						s.addDeferredEvent(createTimeEvent(dI.getTimeEvent()));
 					}
+				}
+			} else if(csI.getState_internalTransition() != null) {
+				Enumeration e2 = csI.getState_internalTransition().enumerateState_internalTransitionItem();
+				while (e2.hasMoreElements()) {
+					State_internalTransitionItem sitI = (State_internalTransitionItem) e2.nextElement();
+					s.addInternalTransition(createTransition(sitI.getTransition()));
 				}
 			} else {
 				System.out
@@ -1532,6 +1548,12 @@ public class ModelFactory implements IModelFactory {
 					} else if(dI.getTimeEvent() != null) {
 						s.addDeferredEvent(createTimeEvent(dI.getTimeEvent()));
 					}
+				}
+			} else if(ssI.getState_internalTransition() != null) {
+				Enumeration e2 = ssI.getState_internalTransition().enumerateState_internalTransitionItem();
+				while (e2.hasMoreElements()) {
+					State_internalTransitionItem sitI = (State_internalTransitionItem) e2.nextElement();
+					s.addInternalTransition(createTransition(sitI.getTransition()));
 				}
 			} else {
 				System.out
@@ -1647,6 +1669,12 @@ public class ModelFactory implements IModelFactory {
 						s.addDeferredEvent(createTimeEvent(dI.getTimeEvent()));
 					}
 				}
+			} else if(ssI.getState_internalTransition() != null) {
+				Enumeration e2 = ssI.getState_internalTransition().enumerateState_internalTransitionItem();
+				while (e2.hasMoreElements()) {
+					State_internalTransitionItem sitI = (State_internalTransitionItem) e2.nextElement();
+					s.addInternalTransition(createTransition(sitI.getTransition()));
+				}
 			} else {
 				System.out
 						.println("INFO: unhandled element on FinalStateItem.");
@@ -1734,16 +1762,25 @@ public class ModelFactory implements IModelFactory {
 						s.addDeferredEvent(createTimeEvent(dI.getTimeEvent()));
 					}
 				}
-			} else if (ssI.getSubmachineState_submachine() != null) {
-				Enumeration e2 = ssI.getSubmachineState_submachine()
-						.enumerateSubmachineState_submachineItem();
+//			} else if (ssI.getSubmachineState_submachine() != null) {
+//				Enumeration e2 = ssI.getSubmachineState_submachine()
+//						.enumerateSubmachineState_submachineItem();
+//				while (e2.hasMoreElements()) {
+//					SubmachineState_submachineItem sssI = (SubmachineState_submachineItem) e2
+//							.nextElement();
+//					IStateMachine submachine = (IStateMachine) findElement(sssI.getStateMachine().getRefId());
+//					if(submachine != null) {
+//						s.setSubmachine(submachine);
+//					} else {
+//						System.out
+//						.println("INFO: Submachine is not created yet.");
+//					}
+//				}
+			} else if(ssI.getState_internalTransition() != null) {
+				Enumeration e2 = ssI.getState_internalTransition().enumerateState_internalTransitionItem();
 				while (e2.hasMoreElements()) {
-					SubmachineState_submachineItem sssI = (SubmachineState_submachineItem) e2
-							.nextElement();
-					// FIXME ???
-					sssI.getStateMachine();
-					// sssI.getStateMachine();
-					
+					State_internalTransitionItem sitI = (State_internalTransitionItem) e2.nextElement();
+					s.addInternalTransition(createTransition(sitI.getTransition()));
 				}
 			} else {
 				System.out
@@ -3018,6 +3055,65 @@ public class ModelFactory implements IModelFactory {
 		}
 	}
 
+	public void processStateMachine(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.StateMachine xmiStateMachine = (org.soulspace.xmi.marshal.StateMachine) xmiObj;
+		Enumeration e1 = xmiStateMachine.enumerateStateMachineItem();
+		while (e1.hasMoreElements()) {
+			StateMachineItem smI = (StateMachineItem) e1.nextElement();
+			if(smI.getStateMachine_top() != null) {
+				Enumeration e2 = smI.getStateMachine_top().enumerateStateMachine_topItem();
+				while (e2.hasMoreElements()) {
+					StateMachine_topItem smtI = (StateMachine_topItem) e2.nextElement();
+					if(smtI.getCompositeState() != null) {
+						processCompositeState(smtI.getCompositeState());
+					}
+				}
+			}
+		}
+	}
+	
+	void processCompositeState(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.CompositeState cs = (org.soulspace.xmi.marshal.CompositeState) xmiObj;
+		Enumeration e3 = cs.enumerateCompositeStateItem();
+		while (e3.hasMoreElements()) {
+			CompositeStateItem csI = (CompositeStateItem) e3.nextElement();
+			if(csI.getCompositeState_subvertex() != null) {
+				Enumeration e4 = csI.getCompositeState_subvertex().enumerateCompositeState_subvertexItem();
+				while (e4.hasMoreElements()) {
+					CompositeState_subvertexItem cssI = (CompositeState_subvertexItem) e4.nextElement();
+					if(cssI.getSubmachineState() != null) {
+						processSubmachineState(cssI.getSubmachineState());
+					} else if(cssI.getCompositeState() != null) {
+						processCompositeState(cssI.getCompositeState());
+					}
+				}
+			}
+		}
+	}
+
+	void processSubmachineState(XmiObject xmiObj) {
+		org.soulspace.xmi.marshal.SubmachineState ss = (org.soulspace.xmi.marshal.SubmachineState) xmiObj;
+		System.out.println("INFO: SubmachineState found");
+		Enumeration e1 = ss.enumerateSubmachineStateItem();
+		while (e1.hasMoreElements()) {
+			SubmachineStateItem ssI = (SubmachineStateItem) e1
+					.nextElement();
+			if(ssI.getSubmachineState_submachine() != null) {
+				Enumeration e2 = ssI.getSubmachineState_submachine().enumerateSubmachineState_submachineItem();
+				while (e2.hasMoreElements()) {
+					SubmachineState_submachineItem sssI = (SubmachineState_submachineItem) e2.nextElement();
+					System.out.println("INFO: Initializing SubmachineState");
+					SubmachineState submachineState = (SubmachineState) findState(ss.getRefId());
+					StateMachine submachine = (StateMachine) findElement(sssI.getStateMachine().getRefId());
+					if(submachineState != null && submachine != null) {
+						submachineState.setSubmachine(submachine);
+						System.out.println("INFO: Initializing SubmachineState");
+					}
+				}
+			}
+		}		
+	}
+	
 	IElement findElement(String xmiId) {
 		return repository.lookupByXmiId(xmiId);
 	}

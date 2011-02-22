@@ -7,6 +7,7 @@ public class SubmachineState extends CompositeState implements ISubmachineState 
 
 	private boolean isConcurrent = false;
 	private IStateMachine stateMachine;
+	private IStateMachine submachine;
 	
 	public boolean getIsConcurrent() {
 		return isConcurrent;
@@ -16,12 +17,12 @@ public class SubmachineState extends CompositeState implements ISubmachineState 
 		this.isConcurrent = isConcurrent;
 	}
 	
-	public IStateMachine getStateMachine() {
-		return stateMachine;
+	public IStateMachine getSubmachine() {
+		return submachine;
 	}
 
-	public void setStateMachine(IStateMachine stateMachine) {
-		this.stateMachine = stateMachine;
+	public void setSubmachine(IStateMachine submachine) {
+		this.submachine = submachine;
 	}
 
 	/* (non-Javadoc)
