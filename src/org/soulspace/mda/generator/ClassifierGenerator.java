@@ -424,20 +424,26 @@ public class ClassifierGenerator {
 
 	boolean generateForNamespace(IClassifier classifier) {
 		boolean generate = false;
+		String namespace = "";
+		if(getUseNameAsNamespace()) {
+			namespace = classifier.getQualifiedName();
+		} else {
+			namespace = classifier.getNamespace();
+		}
 		if (genContext.getNamespaceIncludes().size() == 0
 				&& genContext.getNamespaceExcludes().size() == 0
-				&& !classifier.getNamespace().startsWith("java")) {
+				&& !namespace.startsWith("java")) {
 			generate = true;
 		} else if (genContext.getNamespaceIncludes().size() > 0) {
-			for (String namespace : genContext.getNamespaceIncludes()) {
-				if (classifier.getNamespace().startsWith(namespace.trim())) {
+			for (String ns : genContext.getNamespaceIncludes()) {
+				if (namespace.startsWith(ns.trim())) {
 					generate = true;
 				}
 			}
 		}
 		if (genContext.getNamespaceExcludes().size() > 0) {
-			for (String namespace : genContext.getNamespaceExcludes()) {
-				if (classifier.getNamespace().startsWith(namespace.trim())) {
+			for (String ns : genContext.getNamespaceExcludes()) {
+				if (namespace.startsWith(ns.trim())) {
 					generate = false;
 				}
 			}

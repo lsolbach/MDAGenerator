@@ -3,13 +3,6 @@ package org.soulspace.mda.generator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.soulspace.mda.generator.ant.ActorGenerator;
-import org.soulspace.mda.generator.ant.ClassGenerator;
-import org.soulspace.mda.generator.ant.ModelGenerator;
-import org.soulspace.mda.generator.ant.PackageGenerator;
-import org.soulspace.mda.generator.ant.StateMachineGenerator;
-import org.soulspace.mda.generator.ant.UseCaseGenerator;
-
 public class GeneratorGroup {
 
 	private List<GeneratorGroup> generatorGroups = new ArrayList<GeneratorGroup>();
@@ -123,7 +116,5 @@ public class GeneratorGroup {
 	public List<ClassifierGenerator> getUseCaseGenerators() {
 		return useCaseGenerators;
 	}
-	
-
 	
 }
