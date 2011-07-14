@@ -9,6 +9,7 @@ import org.soulspace.mda.generator.ant.ClassGenerator;
 import org.soulspace.mda.generator.ant.ModelGenerator;
 import org.soulspace.mda.generator.ant.PackageGenerator;
 import org.soulspace.mda.generator.ant.StateMachineGenerator;
+import org.soulspace.mda.generator.ant.TransitionGenerator;
 import org.soulspace.mda.generator.ant.UseCaseGenerator;
 import org.soulspace.mdlrepo.IModelBuilder;
 import org.soulspace.mdlrepo.IModelFactory;
@@ -16,9 +17,12 @@ import org.soulspace.mdlrepo.IModelRepository;
 import org.soulspace.mdlrepo.impl.ModelBuilder;
 import org.soulspace.mdlrepo.metamodel.IActor;
 import org.soulspace.mdlrepo.metamodel.IClass;
+import org.soulspace.mdlrepo.metamodel.IInterface;
 import org.soulspace.mdlrepo.metamodel.IModel;
 import org.soulspace.mdlrepo.metamodel.IPackage;
+import org.soulspace.mdlrepo.metamodel.IState;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
+import org.soulspace.mdlrepo.metamodel.ITransition;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 import org.soulspace.mdlrepo.metamodel.impl.ModelFactory;
 import org.soulspace.template.datasource.impl.BeanDataSourceImpl;
@@ -227,6 +231,15 @@ public class GenerationContext {
 	 * 
 	 * @param sg
 	 */
+	public void addTransitionGenerator(TransitionGenerator tg) {
+		mainGroup.addTransitionGenerator(tg);
+	}
+
+	/**
+	 * Adds a state machine generator.
+	 * 
+	 * @param sg
+	 */
 	public void addActorGenerator(ActorGenerator ag) {
 		mainGroup.addActorGenerator(ag);
 	}
@@ -299,7 +312,7 @@ public class GenerationContext {
 			ds = new BeanDataSourceImpl(getRepository());
 		}
 		// 
-		// model
+		// models
 		for(IModel model : getRepository().getModels()) {
 			for (ClassifierGenerator mg : gg.getModelGenerators()) {
 				mg.generate(ctx, model, ds);
@@ -310,6 +323,13 @@ public class GenerationContext {
 		for (IPackage p : getRepository().getPackages()) {
 			for (ClassifierGenerator pg : gg.getPackageGenerators()) {
 				pg.generate(ctx, p, ds);
+			}
+		}
+
+		// interfaces
+		for (IInterface i : getRepository().getInterfaces()) {
+			for (ClassifierGenerator cg : gg.getInterfaceGenerators()) {
+				cg.generate(ctx, i, ds);
 			}
 		}
 
@@ -324,6 +344,20 @@ public class GenerationContext {
 		for (IStateMachine s : getRepository().getStateMachines()) {
 			for (ClassifierGenerator sg : gg.getStateMachineGenerators()) {
 				sg.generate(ctx, s, ds);
+			}
+		}
+		
+		// states
+		for (IState s : getRepository().getStates()) {
+			for (ClassifierGenerator sg : gg.getStateGenerators()) {
+				sg.generate(ctx, s, ds);
+			}
+		}
+		
+		// transitions
+		for (ITransition s : getRepository().getTransitions()) {
+			for (ClassifierGenerator tg : gg.getTransitionGenerators()) {
+				tg.generate(ctx, s, ds);
 			}
 		}
 		

@@ -74,6 +74,14 @@ public class MdaGeneratorTask extends Task {
 		ctx.getMainGroup().addStateMachineGenerator(sg);
 	}
 
+	public void addStateGenerator(StateGenerator sg) {
+		ctx.getMainGroup().addStateGenerator(sg);
+	}
+
+	public void addTransitionGenerator(TransitionGenerator tg) {
+		ctx.getMainGroup().addTransitionGenerator(tg);
+	}
+
 	public void addActorGenerator(ActorGenerator ag) {
 		ctx.getMainGroup().addActorGenerator(ag);
 	}

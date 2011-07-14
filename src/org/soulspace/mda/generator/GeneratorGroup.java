@@ -16,6 +16,10 @@ public class GeneratorGroup {
 	private List<ClassifierGenerator> interfaceGenerators = new ArrayList<ClassifierGenerator>();
 
 	private List<ClassifierGenerator> stateMachineGenerators = new ArrayList<ClassifierGenerator>();
+	
+	private List<ClassifierGenerator> stateGenerators = new ArrayList<ClassifierGenerator>();
+
+	private List<ClassifierGenerator> transitionGenerators = new ArrayList<ClassifierGenerator>();
 
 	private List<ClassifierGenerator> actorGenerators = new ArrayList<ClassifierGenerator>();
 
@@ -91,6 +95,30 @@ public class GeneratorGroup {
 
 	public List<ClassifierGenerator> getStateMachineGenerators() {
 		return stateMachineGenerators;
+	}
+	
+	/**
+	 * Adds a transition generator.
+	 * @param tg
+	 */
+	public void addTransitionGenerator(ClassifierGenerator tg) {
+		transitionGenerators.add(tg);
+	}
+
+	public List<ClassifierGenerator> getTransitionGenerators() {
+		return transitionGenerators;
+	}
+	
+	/**
+	 * Adds a transition generator.
+	 * @param tg
+	 */
+	public void addStateGenerator(ClassifierGenerator sg) {
+		stateGenerators.add(sg);
+	}
+
+	public List<ClassifierGenerator> getStateGenerators() {
+		return stateGenerators;
 	}
 	
 	/**

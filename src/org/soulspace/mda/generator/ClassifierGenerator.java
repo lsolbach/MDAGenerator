@@ -430,21 +430,20 @@ public class ClassifierGenerator {
 		} else {
 			namespace = classifier.getNamespace();
 		}
-		if (genContext.getNamespaceIncludes().size() == 0
-				&& genContext.getNamespaceExcludes().size() == 0
-				&& !namespace.startsWith("java")) {
+		if (!namespace.startsWith("java")) {
 			generate = true;
-		} else if (genContext.getNamespaceIncludes().size() > 0) {
-			for (String ns : genContext.getNamespaceIncludes()) {
-				if (namespace.startsWith(ns.trim())) {
-					generate = true;
-				}
-			}
 		}
 		if (genContext.getNamespaceExcludes().size() > 0) {
 			for (String ns : genContext.getNamespaceExcludes()) {
 				if (namespace.startsWith(ns.trim())) {
 					generate = false;
+				}
+			}
+		}
+		if (genContext.getNamespaceIncludes().size() > 0) {
+			for (String ns : genContext.getNamespaceIncludes()) {
+				if (namespace.startsWith(ns.trim())) {
+					generate = true;
 				}
 			}
 		}
