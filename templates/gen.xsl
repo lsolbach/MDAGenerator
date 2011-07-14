@@ -91,6 +91,7 @@ public class XMIBuilder {
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
 									or ./@name='FinalState'
+									or ./@name='Transition'
 									or ./@name='CallEvent'
 									or ./@name='SignalEvent'
 									or ./@name='DataType'
@@ -124,6 +125,7 @@ public class XMIBuilder {
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
 									or ./@name='FinalState'
+									or ./@name='Transition'
 									or ./@name='CallEvent'
 									or ./@name='SignalEvent'
 									or ./@name='DataType'
@@ -155,6 +157,7 @@ public class XMIBuilder {
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
 									or ./@name='FinalState'
+									or ./@name='Transition'
 									or ./@name='Enumeration'">
 		childNamespace = qualifiedName;
 		</xsl:if>

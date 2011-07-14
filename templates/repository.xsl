@@ -190,6 +190,7 @@ import org.soulspace.xmi.marshal.<xsl:value-of select="translate(../../@name, '.
 									or ../../@name='SubmachineState'
 									or ../../@name='Pseudostate'
 									or ../../@name='FinalState'
+									or ../../@name='Transition'
 									or ../../@name='CallEvent'
 									or ../../@name='SignalEvent'
 									or ../../@name='DataType'

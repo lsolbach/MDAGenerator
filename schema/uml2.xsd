@@ -370,6 +370,7 @@
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 				<xs:element ref="ModelElement.comment" />
+				<xs:element ref="ModelElement.behaviour"/>
 				<xs:element ref="GeneralizableElement.generalization" />
 				<xs:element ref="Classifier.feature" />
 				<xs:element ref="Namespace.ownedElement" />
@@ -418,6 +419,14 @@
 		<xs:complexType>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="Comment" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ModelElement.behaviour">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="StateMachine" />
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
@@ -1654,13 +1663,21 @@
 				<xs:element ref="ModelElement.stereotype" />
 				<xs:element ref="ModelElement.taggedValue" />
 				<xs:element ref="ModelElement.comment" />
-				<xs:element ref="BooleanExpression"/>
+				<xs:element ref="Guard.expression"/>
 			</xs:choice>
 			<xs:attribute ref="xmi.id" />
 			<xs:attribute ref="xmi.idref" />
 			<xs:attribute ref="href"/>
 			<xs:attribute ref="name" />
 			<xs:attribute ref="isSpecification" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Guard.expression">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="BooleanExpression"/>
+			</xs:choice>
 		</xs:complexType>
 	</xs:element>
 	
