@@ -425,8 +425,12 @@ public class ModelFactory implements IModelFactory {
 		p.setNamespace(xmiPackage.getNamespace());
 		p.setQualifiedName(xmiPackage.getQualifiedName());
 		p.setName(xmiPackage.getName());
-		p.setPackage(findPackage(p.getNamespace()));
-
+		IPackage parentPackage = findPackage(p.getNamespace());
+		if(parentPackage != null) {
+			p.setPackage(findPackage(p.getNamespace()));
+			((Package) parentPackage).addPackage(p);
+		}
+		
 		// FIXME implement reference to model in package, so that packages can be added to models
 		Model m = (Model) findModel("Don't know how at the moment");
 		if (m != null) {
@@ -443,6 +447,10 @@ public class ModelFactory implements IModelFactory {
 				addTaggedValues(p, pI.getModelElement_taggedValue());
 			}
 		}
+		if(xmiPackage.getParent() != null) {
+			p.setParentElement(findElement(xmiPackage.getRefId()));
+		}
+		
 		return p;
 	}
 
@@ -477,6 +485,10 @@ public class ModelFactory implements IModelFactory {
 				addTaggedValues(c, cI.getModelElement_taggedValue());
 			}
 		}
+		if(xmiClass.getParent() != null) {
+			c.setParentElement(findElement(xmiClass.getRefId()));
+		}
+		
 		return c;
 	}
 
@@ -553,6 +565,10 @@ public class ModelFactory implements IModelFactory {
 			((Class) toEnd.getType()).addAssociation(fromEnd);
 		}
 
+		if(xmiAssociationClass.getParent() != null) {
+			ac.setParentElement(findElement(xmiAssociationClass.getRefId()));
+		}
+		
 		return ac;
 	}
 
@@ -1309,9 +1325,13 @@ public class ModelFactory implements IModelFactory {
 				while(e2.hasMoreElements()) {
 					StateMachine_contextItem smCI = (StateMachine_contextItem) e2.nextElement();
 					if(smCI.getClazz() != null) {
-						sm.setContext(findElement(smCI.getClazz().getRefId()));
+						Class c = (Class) findElement(smCI.getClazz().getRefId());
+						sm.setContext(c);
+						c.setBehaviour(sm);
 					} else if(smCI.getInterface() != null) {
-						sm.setContext(findElement(smCI.getInterface().getRefId()));
+						Interface i = (Interface) findElement(smCI.getInterface().getRefId());
+						sm.setContext(i);
+						i.setBehaviour(sm);
 					} else if(smCI.getPackage() != null) {
 						sm.setContext(findElement(smCI.getPackage().getRefId()));
 					} else if(smCI.getAssociationClass() != null) {
@@ -1337,6 +1357,9 @@ public class ModelFactory implements IModelFactory {
 				}
 			}
 		}
+		if(xmiStateMachine.getParent() != null) {
+			sm.setParentElement(findElement(xmiStateMachine.getRefId()));
+		}
 		return sm;
 	}
 
@@ -1353,6 +1376,8 @@ public class ModelFactory implements IModelFactory {
 		} else {
 			System.out.println("INFO: no name set for state");
 		}
+		s.setNamespace(xmiCompositeState.getNamespace());
+		s.setQualifiedName(xmiCompositeState.getQualifiedName());
 		s.setProfileElement(xmiCompositeState.getProfileElement());
 		// TODO complete
 		Enumeration e1 = xmiCompositeState.enumerateCompositeStateItem();
@@ -1480,8 +1505,11 @@ public class ModelFactory implements IModelFactory {
 		} else {
 			System.out.println("INFO: no name set for state");
 		}
+		s.setNamespace(xmiSimpleState.getNamespace());
+		s.setQualifiedName(xmiSimpleState.getQualifiedName());
 		s.setProfileElement(xmiSimpleState.getProfileElement());
 		// TODO complete
+
 		Enumeration e1 = xmiSimpleState.enumerateSimpleStateItem();
 		while (e1.hasMoreElements()) {
 			SimpleStateItem ssI = (SimpleStateItem) e1.nextElement();
@@ -1505,6 +1533,8 @@ public class ModelFactory implements IModelFactory {
 						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
 					} else if(sI.getSendAction() != null) {
 						s.setEntryAction(createSendAction(sI.getSendAction()));
+					} else if(sI.getActionSequence() != null) {
+						s.setEntryAction(createActionSequence(sI.getActionSequence()));
 					}
 				}
 			} else if (ssI.getState_doActivity() != null) {
@@ -1512,13 +1542,15 @@ public class ModelFactory implements IModelFactory {
 				while (e2.hasMoreElements()) {
 					State_doActivityItem sI = (State_doActivityItem) e2.nextElement();
 					if(sI.getCallAction() != null) {
-						s.setEntryAction(createCallAction(sI.getCallAction()));
+						s.setActivityAction(createCallAction(sI.getCallAction()));
 					} else if(sI.getCreateAction() != null) {
-						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+						s.setActivityAction(createCreateAction(sI.getCreateAction()));
 					} else if(sI.getDestroyAction() != null) {
-						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+						s.setActivityAction(createDestroyAction(sI.getDestroyAction()));
 					} else if(sI.getSendAction() != null) {
-						s.setEntryAction(createSendAction(sI.getSendAction()));
+						s.setActivityAction(createSendAction(sI.getSendAction()));
+					} else if(sI.getActionSequence() != null) {
+						s.setActivityAction(createActionSequence(sI.getActionSequence()));
 					}
 				}
 			} else if (ssI.getState_exit() != null) {
@@ -1526,13 +1558,15 @@ public class ModelFactory implements IModelFactory {
 				while (e2.hasMoreElements()) {
 					State_exitItem sI = (State_exitItem) e2.nextElement();
 					if(sI.getCallAction() != null) {
-						s.setEntryAction(createCallAction(sI.getCallAction()));
+						s.setExitAction(createCallAction(sI.getCallAction()));
 					} else if(sI.getCreateAction() != null) {
-						s.setEntryAction(createCreateAction(sI.getCreateAction()));
+						s.setExitAction(createCreateAction(sI.getCreateAction()));
 					} else if(sI.getDestroyAction() != null) {
-						s.setEntryAction(createDestroyAction(sI.getDestroyAction()));
+						s.setExitAction(createDestroyAction(sI.getDestroyAction()));
 					} else if(sI.getSendAction() != null) {
-						s.setEntryAction(createSendAction(sI.getSendAction()));
+						s.setExitAction(createSendAction(sI.getSendAction()));
+					} else if(sI.getActionSequence() != null) {
+						s.setExitAction(createActionSequence(sI.getActionSequence()));
 					}
 				}
 			} else if (ssI.getState_deferredEvent() != null) {
@@ -1560,6 +1594,9 @@ public class ModelFactory implements IModelFactory {
 						.println("INFO: unhandled element on SimpleStateItem.");
 			}
 		}
+		if(xmiSimpleState.getParent() != null) {
+			s.setParentElement(findElement(xmiSimpleState.getRefId()));
+		}
 		return s;
 	}
 
@@ -1573,6 +1610,9 @@ public class ModelFactory implements IModelFactory {
 	protected IPseudostate initPseudostate(IPseudostate ps,
 			org.soulspace.xmi.marshal.Pseudostate xmiPseudostate) {
 		ps.setKind(xmiPseudostate.getKind().toString());
+		ps.setNamespace(xmiPseudostate.getNamespace());
+		ps.setQualifiedName(xmiPseudostate.getQualifiedName());
+
 		ps.setProfileElement(xmiPseudostate.getProfileElement());
 		// TODO complete
 		Enumeration e1 = xmiPseudostate.enumeratePseudostateItem();
@@ -1589,6 +1629,9 @@ public class ModelFactory implements IModelFactory {
 						.println("INFO: unhandled element on PseudostateItem.");
 			}
 		}
+		if(xmiPseudostate.getParent() != null) {
+			ps.setParentElement(findElement(xmiPseudostate.getRefId()));
+		}
 		return ps;
 	}
 
@@ -1603,6 +1646,9 @@ public class ModelFactory implements IModelFactory {
 			org.soulspace.xmi.marshal.FinalState xmiFinalState) {
 		s.setName(xmiFinalState.getName());
 		s.setProfileElement(xmiFinalState.getProfileElement());
+		s.setNamespace(xmiFinalState.getNamespace());
+		s.setQualifiedName(xmiFinalState.getQualifiedName());
+
 		// TODO complete
 		Enumeration e1 = xmiFinalState.enumerateFinalStateItem();
 		while (e1.hasMoreElements()) {
@@ -1693,6 +1739,8 @@ public class ModelFactory implements IModelFactory {
 	protected ISubmachineState initSubmachineState(ISubmachineState s,
 			org.soulspace.xmi.marshal.SubmachineState xmiSubmachineState) {
 		s.setName(xmiSubmachineState.getName());
+		s.setNamespace(xmiSubmachineState.getNamespace());
+		s.setQualifiedName(xmiSubmachineState.getQualifiedName());
 		s.setProfileElement(xmiSubmachineState.getProfileElement());
 
 		Enumeration e1 = xmiSubmachineState.enumerateSubmachineStateItem();
@@ -1806,6 +1854,9 @@ public class ModelFactory implements IModelFactory {
 			t.setName(xmiTransition.getName());
 		}
 		t.setProfileElement(xmiTransition.getProfileElement());
+		t.setNamespace(xmiTransition.getNamespace());
+		t.setQualifiedName(xmiTransition.getQualifiedName());
+
 		// TODO further transition attributes
 
 		Enumeration e1 = xmiTransition.enumerateTransitionItem();
@@ -1861,12 +1912,17 @@ public class ModelFactory implements IModelFactory {
 						Enumeration e3 = tgI.getGuard().enumerateGuardItem();
 						while (e3.hasMoreElements()) {
 							GuardItem gI = (GuardItem) e3.nextElement();
-							if(gI.getBooleanExpression() != null) {
-								t.setGuard(gI.getBooleanExpression().getBody());
+							if(gI.getGuard_expression() != null) {
+								Enumeration e4 = gI.getGuard_expression().enumerateGuard_expressionItem();
+								while (e4.hasMoreElements()) {
+									Guard_expressionItem geI = (Guard_expressionItem) e4.nextElement();
+									if(geI.getBooleanExpression() != null) {
+										t.setGuard(geI.getBooleanExpression().getBody());
+									}
+								}
 							}
 						}
-					}
-					
+					}					
 				}
 			} else if (tI.getTransition_source() != null) {
 				if (tI.getTransition_source().getSimpleState() != null) {
@@ -2819,6 +2875,22 @@ public class ModelFactory implements IModelFactory {
 					if(atI.getObjectSetExpression() != null) {
 						da.setTarget(atI.getObjectSetExpression().getBody());
 					}
+				}
+			} else if(daI.getActionSequence_action() != null) {
+				Enumeration e2 = daI.getActionSequence_action().enumerateActionSequence_actionItem();
+				while (e2.hasMoreElements()) {
+					ActionSequence_actionItem asaI = (ActionSequence_actionItem) e2.nextElement();
+					if(asaI.getCallAction() != null) {
+						da.addAction(createAction(asaI.getCallAction()));
+					} else if(asaI.getCreateAction() != null) {
+						da.addAction(createAction(asaI.getCreateAction()));						
+					} else if(asaI.getReturnAction() != null) {
+						da.addAction(createAction(asaI.getReturnAction()));
+					} else if(asaI.getSendAction() != null) {
+						da.addAction(createAction(asaI.getSendAction()));
+					} else if(asaI.getTerminateAction() != null) {
+						da.addAction(createAction(asaI.getTerminateAction()));
+					} // TODO add rest of actions
 				}
 			}
 		}

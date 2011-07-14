@@ -13,7 +13,9 @@ import org.soulspace.mdlrepo.metamodel.IElement;
 import org.soulspace.mdlrepo.metamodel.IInterface;
 import org.soulspace.mdlrepo.metamodel.IModel;
 import org.soulspace.mdlrepo.metamodel.IPackage;
+import org.soulspace.mdlrepo.metamodel.IState;
 import org.soulspace.mdlrepo.metamodel.IStateMachine;
+import org.soulspace.mdlrepo.metamodel.ITransition;
 import org.soulspace.mdlrepo.metamodel.IUseCase;
 
 /**
@@ -116,9 +118,13 @@ public interface IModelRepository {
 	 */
 	List<IStateMachine> getStateMachines();
 
+	List<ITransition> getTransitions();
+	
+	List<IState> getStates();
+	
 	/**
-   * 
-   */
+     * 
+     */
 	List<IAssociation> getAssociations();
 
 }

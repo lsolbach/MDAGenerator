@@ -9,7 +9,7 @@ import org.soulspace.mdlrepo.metamodel.IEvent;
 import org.soulspace.mdlrepo.metamodel.IState;
 import org.soulspace.mdlrepo.metamodel.ITransition;
 
-public class Transition extends NamedElement implements ITransition {
+public class Transition extends Classifier implements ITransition {
 
 	IState source;
 	IState target;

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.soulspace.mdlrepo.metamodel.IElement;
+import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 import org.soulspace.mdlrepo.metamodel.ITaggedValue;
 
@@ -22,8 +23,11 @@ public class Element implements IElement {
 
 	private String id;
 	private String namespace = "";
+	private IElement parentElement = null;
 	private boolean profileElement = false;
-
+	
+	private IStateMachine behaviour;
+	
 	protected List<IStereotype> stereotypes = new ArrayList<IStereotype>();
 	protected Map<String, IStereotype> stereotypeMap = new HashMap<String, IStereotype>();
 
@@ -97,6 +101,22 @@ public class Element implements IElement {
 
 	public IElement getThis() {
 		return this;
+	}
+
+	public IElement getParentElement() {
+		return parentElement;
+	}
+
+	public void setParentElement(IElement parentElement) {
+		this.parentElement = parentElement;
+	}
+	
+	public IStateMachine getBehaviour() {
+		return behaviour;
+	}
+
+	public void setBehaviour(IStateMachine behaviour) {
+		this.behaviour = behaviour;
 	}
 
 	/*

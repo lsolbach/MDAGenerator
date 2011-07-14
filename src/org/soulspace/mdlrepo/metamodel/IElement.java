@@ -15,6 +15,10 @@ public interface IElement {
 
 	IElement getThis();
 
+	IElement getParentElement();
+
+	void setParentElement(IElement parentElement);
+
 	String getId();
 
 	void setId(String id);
@@ -39,4 +43,7 @@ public interface IElement {
 
 	void addTaggedValue(ITaggedValue tv);
 
+	IStateMachine getBehaviour();
+	
+	void setBehaviour(IStateMachine sm);
 }

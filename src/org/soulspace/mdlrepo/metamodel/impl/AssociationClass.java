@@ -14,6 +14,7 @@ import org.soulspace.mdlrepo.metamodel.IElement;
 import org.soulspace.mdlrepo.metamodel.IInterface;
 import org.soulspace.mdlrepo.metamodel.IOperation;
 import org.soulspace.mdlrepo.metamodel.IPackage;
+import org.soulspace.mdlrepo.metamodel.IStateMachine;
 import org.soulspace.mdlrepo.metamodel.IStereotype;
 import org.soulspace.mdlrepo.metamodel.ITaggedValue;
 
@@ -21,6 +22,14 @@ public class AssociationClass implements IAssociationClass {
 
 	private Class clazz = new Class();
 	private Association association = new Association();
+	
+	public IElement getParentElement() {
+		return clazz.getParentElement();
+	}
+
+	public void setParentElement(IElement parentElement) {
+		clazz.setParentElement(parentElement);
+	}
 	
 	/**
 	 * @return
@@ -553,5 +562,12 @@ public class AssociationClass implements IAssociationClass {
 		return clazz.hashCode();
 	}
 
+	public IStateMachine getBehaviour() {
+		return clazz.getBehaviour();
+	}
+
+	public void setBehaviour(IStateMachine sm) {
+		clazz.setBehaviour(sm);
+	}
 
 }

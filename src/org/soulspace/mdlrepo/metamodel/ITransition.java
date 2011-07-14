@@ -2,7 +2,7 @@ package org.soulspace.mdlrepo.metamodel;
 
 import java.util.List;
 
-public interface ITransition extends INamedElement {
+public interface ITransition extends IClassifier {
 
 	IState getSource();
 	void setSource(IState state);

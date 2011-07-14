@@ -5,7 +5,7 @@ package org.soulspace.mdlrepo.metamodel;
 
 import java.util.List;
 
-public interface IState extends INamedElement {
+public interface IState extends IClassifier {
 
 	IAction getEntryAction();
 	void setEntryAction(IAction action);
