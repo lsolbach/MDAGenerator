@@ -16,6 +16,7 @@ Version 0.9.16 (--.--.2010)
 * added toString() methods
 * add return parameter to parameter list again so it's possible to
     access the parameter metadata of the return parameter
+* added reference to parent element to model elements
 
 Version 0.9.15 (21.09.2009)
 ---------------------------
