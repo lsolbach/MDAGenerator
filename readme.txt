@@ -1,7 +1,7 @@
 MdaGenerator
 ============
 
-Version 1.0.0 (--.--.2010)
+Version 0.9.19 (28.07.2011)
 ---------------------------
 
 * added template search directories
@@ -9,10 +9,11 @@ Version 1.0.0 (--.--.2010)
 * added UML Profile support
 * added generatorGroups
 * added generators for actors and use cases
+* added generators for states and transitions
 * refactored generator core, make it ant independent to faciliate integration in other tools
     (TODO: remove reference to ClassPathUtils)
 * refactored ModelGenerator to a subclass of ClassifierGenerator
-* add referrable ant datatype for generatorGroups (TODO) 
+* added generators for states and transitions
 
 Version 0.9.14 (21.09.2009)
 ---------------------------
