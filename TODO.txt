@@ -1,4 +1,5 @@
-TODO-List
+TODO List
 ---------
 
-* add referrable ant datatype for generatorGroups (TODO) 
+* add referrable ant datatype for generatorGroups 
+* remove reference to ClassPathUtils
