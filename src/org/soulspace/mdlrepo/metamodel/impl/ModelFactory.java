@@ -1155,12 +1155,18 @@ public class ModelFactory implements IModelFactory {
 					if (dsI.getClazz() != null) {
 						IClass c = findClass(dsI.getClazz());
 						d.setSupplier(c);
+						c.addReverseDependency(d);
 					} else if (dsI.getDataType() != null) {
-						d.setSupplier(findDataType(dsI.getDataType()));
+						IDataType dt = findDataType(dsI.getDataType());
+						d.setSupplier(dt);
 					} else if (dsI.getInterface() != null) {
-						d.setSupplier(findInterface(dsI.getInterface()));
+						IInterface i = findInterface(dsI.getInterface()); 
+						d.setSupplier(i);
+						i.addReverseDependency(d);
 					} else if (dsI.getPackage() != null) {
-						d.setSupplier(findPackage(dsI.getPackage()));
+						IPackage p = findPackage(dsI.getPackage()); 
+						d.setSupplier(p);
+						p.addReverseDependency(d);
 					}
 				}
 			} else if (dI.getDependency_client() != null) {
@@ -1175,14 +1181,16 @@ public class ModelFactory implements IModelFactory {
 						c.addDependency(d);
 					} else if (dcI.getDataType() != null) {
 						IDataType dt = findDataType(dcI.getDataType());
-						d.setClient(findDataType(dcI.getDataType()));
+						d.setClient(dt);
 						// dt.addDependency(d); // TODO implement if necessary
 					} else if (dcI.getInterface() != null) {
 						IInterface i = findInterface(dcI.getInterface());
 						d.setClient(i);
 						i.addDependency(d);
 					} else if (dcI.getPackage() != null) {
-						d.setClient(findPackage(dcI.getPackage()));
+						IPackage p = findPackage(dcI.getPackage()); 
+						d.setClient(p);
+						p.addDependency(d);
 					}
 				}
 			}

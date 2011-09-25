@@ -1,11 +1,15 @@
 ModelRepository
 ===============
 
-Version 0.9.16 (--.--.2010)
+Version 1.0.0 (--.--.201x)
+--------------------------
+
+
+Version 0.9.16 (08.09.2011)
 ---------------------------
 * added SignalEvents
 * added context to IStateMachine
-* added dependencies on IInterface
+* added dependencies and reverse dependencies on IInterface and IPackage
 * added reverse dependencies on IClass
 * added INode and IComponent
 * added packages to model

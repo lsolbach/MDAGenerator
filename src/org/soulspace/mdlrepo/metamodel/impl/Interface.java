@@ -20,20 +20,13 @@ public class Interface extends Classifier implements IInterface {
 	private List<IInterface> superInterfaceList = new ArrayList<IInterface>();
 	private List<IOperation> operationList = new ArrayList<IOperation>();
 	private List<IDependency> dependencyList = new ArrayList<IDependency>();
+	private List<IDependency> reverseDependencyList = new ArrayList<IDependency>();
 	private List<IAssociationEnd> associations = new ArrayList<IAssociationEnd>();
 
-	/**
-   * 
-   */
 	public Interface() {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.soulspace.xmi.uml.IInterface#getSuperInterfaces()
-	 */
 	public List<IInterface> getSuperInterfaces() {
 		return superInterfaceList;
 	}
@@ -42,11 +35,6 @@ public class Interface extends Classifier implements IInterface {
 		superInterfaceList.add(i);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.soulspace.xmi.uml.IInterface#getOperations()
-	 */
 	public List<IOperation> getOperations() {
 		return operationList;
 	}
@@ -55,24 +43,20 @@ public class Interface extends Classifier implements IInterface {
 		operationList.add(o);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.soulspace.mdlrepo.metamodel.IInterface#addDependency(org.soulspace
-	 * .mdlrepo.metamodel.IDependency)
-	 */
 	public void addDependency(IDependency d) {
 		dependencyList.add(d);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.soulspace.mdlrepo.metamodel.IInterface#getDependencies()
-	 */
 	public List<IDependency> getDependencies() {
 		return dependencyList;
+	}
+
+	public void addReverseDependency(IDependency d) {
+		reverseDependencyList.add(d);
+	}
+
+	public List<IDependency> getReverseDependencies() {
+		return reverseDependencyList;
 	}
 
 	public List<IAssociationEnd> getAssociations() {
