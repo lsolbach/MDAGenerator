@@ -17,81 +17,85 @@ import org.soulspace.util.CollectionUtils;
  */
 public class MdaGeneratorTask extends Task {
 
-	private GenerationContext ctx;
+	private GenerationContext generationContext;
 	
 	public MdaGeneratorTask() {
 		super();
-		ctx = new GenerationContext();
+		generationContext = new GenerationContext();
 	}
 
+	public void setGenerationContext(GenerationContext ctx) {
+		this.generationContext = ctx;
+	}
+	
 	public void setDestDir(File destDir) {
-		ctx.setDestDir(destDir);
+		generationContext.setDestDir(destDir);
 	}
 
 	public void setBackupDir(File backupDir) {
-		ctx.setBackupDir(backupDir);
+		generationContext.setBackupDir(backupDir);
 	}
 
 	public void setTemplateDir(File templateDir) {
-		ctx.setTemplateDir(templateDir);
+		generationContext.setTemplateDir(templateDir);
 	}
 
 	public void setTemplateDirs(String templateDirs) {
 		String[] dirs = templateDirs.split(",");
-		ctx.setTemplateDirs(CollectionUtils
+		generationContext.setTemplateDirs(CollectionUtils
 				.asArrayList(dirs));
 	}
 	
 	public void setModelFile(File modelFile) {
-		ctx.setModelFile(modelFile);
+		generationContext.setModelFile(modelFile);
 	}
 
 	public void setModelFactory(String modelFactory) {
-		ctx.setModelFactory(modelFactory);
+		generationContext.setModelFactory(modelFactory);
 	}
 
 	public void setProfiles(String profiles) {
-		ctx.setProfiles(profiles);
+		generationContext.setProfiles(profiles);
 	}
 
 	public void addClassGenerator(ClassGenerator cg) {
-		ctx.getMainGroup().addClassGenerator(cg);
+		generationContext.getMainGroup().addClassGenerator(cg);
 	}
 
 	public void addInterfaceGenerator(InterfaceGenerator ig) {
-		ctx.getMainGroup().addInterfaceGenerator(ig);
+		generationContext.getMainGroup().addInterfaceGenerator(ig);
 	}
 
 	public void addModelGenerator(ModelGenerator mg) {
-		ctx.getMainGroup().addModelGenerator(mg);
+		generationContext.getMainGroup().addModelGenerator(mg);
 	}
 
 	public void addPackageGenerator(PackageGenerator pg) {
-		ctx.getMainGroup().addPackageGenerator(pg);
+		generationContext.getMainGroup().addPackageGenerator(pg);
 	}
 
 	public void addStateMachineGenerator(StateMachineGenerator sg) {
-		ctx.getMainGroup().addStateMachineGenerator(sg);
+		generationContext.getMainGroup().addStateMachineGenerator(sg);
 	}
 
 	public void addStateGenerator(StateGenerator sg) {
-		ctx.getMainGroup().addStateGenerator(sg);
+		generationContext.getMainGroup().addStateGenerator(sg);
 	}
 
 	public void addTransitionGenerator(TransitionGenerator tg) {
-		ctx.getMainGroup().addTransitionGenerator(tg);
+		generationContext.getMainGroup().addTransitionGenerator(tg);
 	}
 
 	public void addActorGenerator(ActorGenerator ag) {
-		ctx.getMainGroup().addActorGenerator(ag);
+		generationContext.getMainGroup().addActorGenerator(ag);
 	}
 
 	public void addUseCaseGenerator(UseCaseGenerator ug) {
-		ctx.getMainGroup().addUseCaseGenerator(ug);
+		generationContext.getMainGroup().addUseCaseGenerator(ug);
 	}
 
 	public void addGeneratorGroup(GeneratorGroup group) {
-		ctx.getMainGroup().addGeneratorGroup(group);
+		generationContext.getMainGroup().addGeneratorGroup(group);
 	}	
 	
 	/*
@@ -101,7 +105,7 @@ public class MdaGeneratorTask extends Task {
 	 */
 	public void execute() throws BuildException {
 		try {
-			ctx.callGenerators(ctx, ctx.getMainGroup(), null);
+			generationContext.callGenerators(generationContext, generationContext.getMainGroup(), null);
 		} catch (Exception e) {
 			throw new BuildException("error while generating!", e);
 		}
