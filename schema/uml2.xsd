@@ -133,6 +133,16 @@
 				<xs:element ref="Dependency"/>
 				<xs:element ref="Exception"/>
 				<xs:element ref="StateMachine"/>
+				<xs:element ref="State"/>
+				<xs:element ref="SimpleState"/>
+				<xs:element ref="Pseudostate"/>
+				<xs:element ref="SubState"/>
+				<xs:element ref="SynchState"/>
+				<xs:element ref="FinalState"/>
+				<xs:element ref="CompositeState"/>
+				<xs:element ref="SubmachineState"/>
+				<xs:element ref="Transition"/>
+				<xs:element ref="Guard"/>
 				<xs:element ref="Actor"/>
 				<xs:element ref="UseCase"/>
 				<xs:element ref="Include"/>

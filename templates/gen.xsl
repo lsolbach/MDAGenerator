@@ -90,8 +90,11 @@ public class XMIBuilder {
 									or ./@name='CompositeState'
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
+									or ./@name='SubState'
+									or ./@name='SynchState'
 									or ./@name='FinalState'
 									or ./@name='Transition'
+									or ./@name='Guard'
 									or ./@name='CallEvent'
 									or ./@name='SignalEvent'
 									or ./@name='DataType'
@@ -105,31 +108,6 @@ public class XMIBuilder {
 			}
 			return;
 		}
-		</xsl:if>
-		<xsl:if test="./@name='Package'
-									or ./@name='Class'
-									or ./@name='Interface'
-									or ./@name='Operation'
-									or ./@name='Attribute'
-									or ./@name='Method'
-									or ./@name='TagDefinition'
-									or ./@name='Stereotype'
-									or ./@name='Association'
-									or ./@name='AssociationClass'
-									or ./@name='UseCase'
-									or ./@name='Actor'
-									or ./@name='StateMachine'
-									or ./@name='State'
-									or ./@name='SimpleState'
-									or ./@name='CompositeState'
-									or ./@name='SubmachineState'
-									or ./@name='Pseudostate'
-									or ./@name='FinalState'
-									or ./@name='Transition'
-									or ./@name='CallEvent'
-									or ./@name='SignalEvent'
-									or ./@name='DataType'
-									or ./@name='Enumeration'">
 		<!-- TODO make reporting more elegant than console output -->
 		if(element.getName() == null) {
 			System.out.println("INFO: Name of <xsl:value-of select="translate(./@name, '.', '_')"/> with XmiId " + element.getXmi_id() + " is not set");
@@ -156,8 +134,14 @@ public class XMIBuilder {
 									or ./@name='CompositeState'
 									or ./@name='SubmachineState'
 									or ./@name='Pseudostate'
+									or ./@name='SubState'
+									or ./@name='SynchState'
 									or ./@name='FinalState'
 									or ./@name='Transition'
+									or ./@name='Guard'
+									or ./@name='CallEvent'
+									or ./@name='SignalEvent'
+									or ./@name='DataType'
 									or ./@name='Enumeration'">
 		childNamespace = qualifiedName;
 		</xsl:if>
