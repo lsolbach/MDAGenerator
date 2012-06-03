@@ -1,9 +1,9 @@
 ModelRepository
 ===============
 
-Version 1.0.0 (--.--.201x)
+Version 1.0.0 (--.--.2012)
 --------------------------
-
+* added ParentElement reference to every element
 
 Version 0.9.16 (08.09.2011)
 ---------------------------
@@ -20,7 +20,7 @@ Version 0.9.16 (08.09.2011)
 * added toString() methods
 * add return parameter to parameter list again so it's possible to
     access the parameter metadata of the return parameter
-* added reference to parent element to model elements
+* added reference to parent element to some model elements
 
 Version 0.9.15 (21.09.2009)
 ---------------------------

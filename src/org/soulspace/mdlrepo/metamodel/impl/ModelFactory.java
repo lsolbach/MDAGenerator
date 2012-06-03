@@ -409,6 +409,9 @@ public class ModelFactory implements IModelFactory {
 				addTaggedValues(m, mI.getModelElement_taggedValue());
 			}
 		}
+		if(xmiModel.getParent() != null) {
+			m.setParentElement(findElement(xmiModel.getRefId()));
+		}
 		return m;
 	}
 
@@ -595,6 +598,9 @@ public class ModelFactory implements IModelFactory {
 				addTaggedValues(i, iI.getModelElement_taggedValue());
 			}
 		}
+		if(xmiInterface.getParent() != null) {
+			i.setParentElement(findElement(xmiInterface.getRefId()));
+		}
 
 		return i;
 	}
@@ -622,6 +628,9 @@ public class ModelFactory implements IModelFactory {
 				addTaggedValues(dt, dtI.getModelElement_taggedValue());
 			}
 		}
+		if(xmiDataType.getParent() != null) {
+			dt.setParentElement(findElement(xmiDataType.getRefId()));
+		}
 		return dt;
 	}
 
@@ -647,6 +656,9 @@ public class ModelFactory implements IModelFactory {
 			} else if (eI.getModelElement_taggedValue() != null) {
 				addTaggedValues(et, eI.getModelElement_taggedValue());
 			}
+		}
+		if(xmiEnumerationType.getParent() != null) {
+			et.setParentElement(findElement(xmiEnumerationType.getRefId()));
 		}
 		return et;
 	}
@@ -686,6 +698,7 @@ public class ModelFactory implements IModelFactory {
 			IClassifier cf;
 			if((cf = (IClassifier) findElement(xmiAttribute.getParent().getXmiId())) != null) {
 				a.setOwner(cf);
+				a.setParentElement(cf);
 			} else {
 				System.err.println("WARN: Parent Classifier " + xmiAttribute.getParent().getXmiId() + " not found.");
 			}
@@ -836,6 +849,9 @@ public class ModelFactory implements IModelFactory {
 		if (c != null) {
 			c.addOperation(o);
 		}
+		if(xmiOperation.getParent() != null) {
+			o.setParentElement(findElement(xmiOperation.getRefId()));
+		}
 		return o;
 	}
 
@@ -875,6 +891,9 @@ public class ModelFactory implements IModelFactory {
 				.getNamespace());
 		if (c != null) {
 			// c.addAssociation(a);
+		}
+		if(xmiAssociation.getParent() != null) {
+			a.setParentElement(findElement(xmiAssociation.getRefId()));
 		}
 		return a;
 	}
@@ -981,6 +1000,9 @@ public class ModelFactory implements IModelFactory {
 			m.setLow("1");
 			ae.setMultiplicity(m);
 		}
+		if(xmiAssociationEnd.getParent() != null) {
+			ae.setParentElement(findElement(xmiAssociationEnd.getRefId()));
+		}
 		return ae;
 	}
 
@@ -995,6 +1017,9 @@ public class ModelFactory implements IModelFactory {
 			org.soulspace.xmi.marshal.Stereotype xmiStereotype) {
 		s.setName(xmiStereotype.getName());
 		s.setProfileElement(xmiStereotype.getProfileElement());
+		if(xmiStereotype.getParent() != null) {
+			s.setParentElement(findElement(xmiStereotype.getRefId()));
+		}
 		return s;
 	}
 
@@ -1010,6 +1035,9 @@ public class ModelFactory implements IModelFactory {
 		td.setProfileElement(xmiTagDefinition.getProfileElement());
 		td.setName(xmiTagDefinition.getName());
 		td.setNamespace(xmiTagDefinition.getNamespace());
+		if(xmiTagDefinition.getParent() != null) {
+			td.setParentElement(findElement(xmiTagDefinition.getRefId()));
+		}
 		return td;
 	}
 
@@ -1055,6 +1083,9 @@ public class ModelFactory implements IModelFactory {
 					}
 				}
 			}
+		}
+		if(xmiTaggedValue.getParent() != null) {
+			tv.setParentElement(findElement(xmiTaggedValue.getRefId()));
 		}
 		return tv;
 	}
@@ -1120,6 +1151,9 @@ public class ModelFactory implements IModelFactory {
 		if (p.getName() == null) {
 			System.out.println("ERROR: Parameter name not set for parameter "
 					+ p.getId());
+		}
+		if(xmiParameter.getParent() != null) {
+			p.setParentElement(findElement(xmiParameter.getRefId()));
 		}
 		return p;
 	}
@@ -1195,6 +1229,9 @@ public class ModelFactory implements IModelFactory {
 				}
 			}
 		}
+		if(xmiDependency.getParent() != null) {
+			d.setParentElement(findElement(xmiDependency.getRefId()));
+		}
 		return d;
 	}
 
@@ -1248,6 +1285,9 @@ public class ModelFactory implements IModelFactory {
 				// }
 			}
 		}
+		if(xmiUseCase.getParent() != null) {
+			uc.setParentElement(findElement(xmiUseCase.getRefId()));
+		}
 
 		return uc;
 	}
@@ -1264,6 +1304,9 @@ public class ModelFactory implements IModelFactory {
 		ep.setProfileElement(xmiExtensionPoint.getProfileElement());
 		ep.setName(xmiExtensionPoint.getName());
 		ep.setLocation(xmiExtensionPoint.getLocation());
+		if(xmiExtensionPoint.getParent() != null) {
+			ep.setParentElement(findElement(xmiExtensionPoint.getRefId()));
+		}
 
 		return ep;
 	}
@@ -1289,6 +1332,9 @@ public class ModelFactory implements IModelFactory {
 			} else if (aI.getModelElement_taggedValue() != null) {
 				addTaggedValues(a, aI.getModelElement_taggedValue());
 			}
+		}
+		if(xmiActor.getParent() != null) {
+			a.setParentElement(findElement(xmiActor.getRefId()));
 		}
 		// TODO add generalized Actor
 
@@ -1497,6 +1543,9 @@ public class ModelFactory implements IModelFactory {
 				System.out
 						.println("INFO: unhandled element on CompositeStateItem.");
 			}
+		}
+		if(xmiCompositeState.getParent() != null) {
+			s.setParentElement(findElement(xmiCompositeState.getRefId()));
 		}
 		return s;
 	}
@@ -1734,6 +1783,9 @@ public class ModelFactory implements IModelFactory {
 						.println("INFO: unhandled element on FinalStateItem.");
 			}
 		}
+		if(xmiFinalState.getParent() != null) {
+			s.setParentElement(findElement(xmiFinalState.getRefId()));
+		}
 		return s;
 	}
 
@@ -1842,6 +1894,9 @@ public class ModelFactory implements IModelFactory {
 				System.out
 						.println("INFO: unhandled element on SubmachineStateItem.");
 			}
+		}
+		if(xmiSubmachineState.getParent() != null) {
+			s.setParentElement(findElement(xmiSubmachineState.getRefId()));
 		}
 		return s;
 	}
@@ -1995,6 +2050,9 @@ public class ModelFactory implements IModelFactory {
 					.println("ERROR: Transition target not set for transition "
 							+ t.getId());
 		}
+		if(xmiTransition.getParent() != null) {
+			t.setParentElement(findElement(xmiTransition.getRefId()));
+		}
 		return t;
 	}
 
@@ -2033,6 +2091,9 @@ public class ModelFactory implements IModelFactory {
 			} else if(ceI.getCallEvent_operation() != null) {
 				// TODO implement				
 			}
+		}
+		if(xmiCallEvent.getParent() != null) {
+			ce.setParentElement(findElement(xmiCallEvent.getRefId()));
 		}
 		return ce;
 	}
@@ -2074,6 +2135,9 @@ public class ModelFactory implements IModelFactory {
 				// TODO implement
 			}
 		}
+		if(xmiSignalEvent.getParent() != null) {
+			se.setParentElement(findElement(xmiSignalEvent.getRefId()));
+		}
 		return se;
 	}
 
@@ -2113,6 +2177,9 @@ public class ModelFactory implements IModelFactory {
 			} else if(ceI.getChangeEvent_changeExpression() != null) {
 				// TODO implement
 			}
+		}
+		if(xmiChangeEvent.getParent() != null) {
+			ce.setParentElement(findElement(xmiChangeEvent.getRefId()));
 		}
 		return ce;
 	}
@@ -2154,6 +2221,9 @@ public class ModelFactory implements IModelFactory {
 				// TODO implement
 			}
 		}
+		if(xmiTimeEvent.getParent() != null) {
+			te.setParentElement(findElement(xmiTimeEvent.getRefId()));
+		}
 		return te;
 	}
 
@@ -2182,6 +2252,9 @@ public class ModelFactory implements IModelFactory {
 //				addTaggedValues(te, teI.getModelElement_taggedValue());
 //			}
 //		}
+		if(xmiArgument.getParent() != null) {
+			a.setParentElement(findElement(xmiArgument.getRefId()));
+		}
 		return a;
 	}
 
@@ -2274,6 +2347,9 @@ public class ModelFactory implements IModelFactory {
 					}
 				}
 			}
+		}
+		if(xmiCallAction.getParent() != null) {
+			ca.setParentElement(findElement(xmiCallAction.getRefId()));
 		}
 		return ca;
 	}
@@ -2371,6 +2447,9 @@ public class ModelFactory implements IModelFactory {
 				}
 			}
 		}
+		if(xmiCreateAction.getParent() != null) {
+			ca.setParentElement(findElement(xmiCreateAction.getRefId()));
+		}
 		return ca;
 	}
 
@@ -2466,6 +2545,9 @@ public class ModelFactory implements IModelFactory {
 				}
 			}
 		}
+		if(xmiSendAction.getParent() != null) {
+			ca.setParentElement(findElement(xmiSendAction.getRefId()));
+		}
 		return ca;
 	}
 
@@ -2549,6 +2631,9 @@ public class ModelFactory implements IModelFactory {
 					}
 				}
 			}
+		}
+		if(xmiDestroyAction.getParent() != null) {
+			da.setParentElement(findElement(xmiDestroyAction.getRefId()));
 		}
 		return da;
 	}
@@ -2634,6 +2719,9 @@ public class ModelFactory implements IModelFactory {
 				}
 			}
 		}
+		if(xmiReturnAction.getParent() != null) {
+			da.setParentElement(findElement(xmiReturnAction.getRefId()));
+		}
 		return da;
 	}
 
@@ -2718,6 +2806,9 @@ public class ModelFactory implements IModelFactory {
 				}
 			}
 		}
+		if(xmiTerminateAction.getParent() != null) {
+			da.setParentElement(findElement(xmiTerminateAction.getRefId()));
+		}
 		return da;
 	}
 
@@ -2801,6 +2892,9 @@ public class ModelFactory implements IModelFactory {
 					}
 				}
 			}
+		}
+		if(xmiUninterpretedAction.getParent() != null) {
+			da.setParentElement(findElement(xmiUninterpretedAction.getRefId()));
 		}
 		return da;
 	}
@@ -2901,6 +2995,9 @@ public class ModelFactory implements IModelFactory {
 					} // TODO add rest of actions
 				}
 			}
+		}
+		if(xmiActionSequence.getParent() != null) {
+			da.setParentElement(findElement(xmiActionSequence.getRefId()));
 		}
 		return da;
 	}
