@@ -1,0 +1,4 @@
+TODO's:
+=======
+
+* remove Enumeration import from Enumeration class after generation
