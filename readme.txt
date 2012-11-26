@@ -1,17 +1,16 @@
 XmiRepository
 =============
 
-An XmiRepository for ArgoUML and Poseidon XMI files.
+An XmiRepository for reading UML XMI 1.2 files (e.g. ArgoUML, Poseidon).
 Reads XMI files and makes the contained model available as java objects for
-further processing. Retaines the structure of the XMI 1.2/UML 1.4 meta model.
+further processing. Retains the structure of the XMI 1.2/UML 1.4 meta model.
 For further processing the transformation into a model that's more convenient
-to handle is adviced. 
+to handle is adviced (take a look the ModelRepository).
 
 Runtime Requirements:
 ---------------------
-Castor-XML
-Xerces
-commons-logging
+Castor-XML 0.9.5.3
+(Xerces 2.9.0)
 
 License
 -------
@@ -40,7 +39,6 @@ Version 0.9.13 (21.09.2009)
 Version 0.9.11 (31.08.2008)
 ---------------------------
 * added package dependencies
-
 
 Versions before (since 2004)
 ----------------------------
