@@ -3,14 +3,18 @@ MdaGenerator
 
 Generators and ant tasks for model driven software development.
 
+Project Lead
+------------
+Ludger Solbach
+
 License
 -------
-Eclipse Public License 1.0 (http://www.eclipse.org/legal/epl-v10.html)
+[Eclipse Public License 1.0] (http://www.eclipse.org/legal/epl-v10.html "EPL 1.0")
 
 History
 -------
 
-Version 1.0.0rc1 (--.--.201-)
+Version 1.0.0 (--.--.2012)
 -----------------------------
 * added encoding parameter to generators 
 
