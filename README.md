@@ -24,7 +24,7 @@ History
 
 Version 1.0.0 (--.--.2012)
 ---------------------------
-* intitial import to github
+* initial import to github
 * switched to git
 * support for collaborations (sequence diagrams)
 * support for deployment models
