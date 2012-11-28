@@ -2,11 +2,5 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/runtime/castor-xml.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="lib/dev/junit.jar"/>
-	<classpathentry kind="lib" path="lib/dev/junitperf.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/XmiRepository.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/ModelRepository.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,13 +1,15 @@
 [
  :name "DomainMetaModel"
+ :version "0.3.0"
+ :type "framework"
  :project "org.soulspace.modelling"
  :project-lead "Ludger Solbach"
  :vendor "soulspace.org"
- :type "framework"
- :version "0.2.0"
- :description "Extension of the meta model of the model repository."
+ :description
+ "Domain driven design extension for the meta model of the model repository.
+ This module servers as an example for the extensibility of the meta model."
  :license ["Eclipse Public License 1.0" "http://www.eclipse.org/legal/epl-v10.html"]
  :plugins ["global" "deps" "java" "package"]
- :dependencies [["org.soulspace.modelling" "ModelRepository" "1.0.0"]
-                ["org.junit" "junit" "3.8.1" "dev"]]
+ :dependencies [["org.soulspace.modelling" "ModelRepository" "1.0.0" "dev"]
+                ["org.soulspace.modelling" "XmiRepository" "1.0.0" "dev"]]
  ]
