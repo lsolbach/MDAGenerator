@@ -1,6 +1,6 @@
 <dependencies>
 	<dependency type="runtime">
-		<package name="ModelRepository" version="0.9.16" type="project">
+		<package name="ModelRepository" version="1.0.0" type="project">
 			<module name="ModelRepository"/>
 		</package>
 		<package name="XmiRepository" version="1.0.0" type="project">
