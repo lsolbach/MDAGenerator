@@ -1,9 +1,9 @@
 [
  :name "XmiRepository"
- :project "org.soulspace.modelling"
+ :project "org.soulspace.mda"
  :project-lead "Ludger Solbach"
  :vendor "soulspace.org"
- :type "component"
+ :type "framework"
  :version "1.0.0"
  :description "UML XMI 1.2 repository."
  :license ["Eclipse Public License 1.0" "http://www.eclipse.org/legal/epl-v10.html"]

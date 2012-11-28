@@ -26,7 +26,7 @@
 		    <srcfiles dir="${basedir}/schema" includes="uml2.xsd"/>
 		</uptodate>
 	</target>	
-		
+	
 	<target name="generate-binding" depends="initialize" unless="generateModel.notRequired">
 		<delete quiet="true">
 			<fileset dir="${generate.dir}/src/org/soulspace/xmi/marshal" includes="*.java"/>
