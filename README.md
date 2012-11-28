@@ -15,6 +15,8 @@ History
 
 Version 1.0.0 (--.--.2012)
 --------------------------
+* initial import to github
+* switched to git
 * added ParentElement reference to every element
 
 Version 0.9.16 (08.09.2011)

@@ -240,7 +240,7 @@ public class Class extends Classifier implements IClass {
 				IOperation overridden = null;
 				for (IOperation superOp : allOperations) {
 					if (op.checkOverride(superOp)) {
-					} else {
+						overridden = superOp;
 					}
 				}
 				if (overridden != null) {
