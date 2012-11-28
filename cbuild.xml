@@ -8,8 +8,4 @@
 	<import file="${common.build.dir}/ant/common.properties.xml"/>
 	<import file="${common.build.dir}/ant/common.build.xml"/>
 	
-	<!--
-	  - project specific targets
-	  -->
-
 </project>
