@@ -41,62 +41,76 @@ Fully qualified class name of a custom model factory to use. Optional.
 Subtasks of the `soulmda` Task
 -------------------------------
 
-* `modelGenerator`
-* `packageGenerator`
-* `classGenerator`
-* `interfaceGenerator`
-* `stateMachineGenerator`
-* `stateGenerator`
-* `transitionGenerator`
-* `actorGenerator`
-* `useCaseGenerator`
+#### `modelGenerator`
+#### `packageGenerator`
+#### `classGenerator`
+#### `interfaceGenerator`
+#### `stateMachineGenerator`
+#### `stateGenerator`
+#### `transitionGenerator`
+#### `actorGenerator`
+#### `useCaseGenerator`
 
 ### Parameters of the Generator Subtasks ###
 
 #### `name` ####
- ** The name of the template to use.
+The name of the template to use.
+
 #### `imports` ####
- ** comma seperated list of template includes.
+Comma seperated list of template includes.
+
 #### `stereotype` ####
- ** Stereotype to generate for. Special values are ALL and NONE.
+Stereotype to generate for. Special values are ALL and NONE.
+
 #### `basename` ####
- ** Replaces the name of the element for the generation.
+Replaces the name of the element for the generation.
+
 #### `extension` ####
- ** Extension of the generated file.
+Extension of the generated file.
+
 #### `prefix` ####
- ** Prefix appended in front of the name of the element.
+Prefix appended in front of the name of the element.
+
 #### `suffix` ####
- ** Suffix appended after the name of the element.
+Suffix appended after the name of the element.
+
 #### `namespacePrefix` ####
- ** Prefix appended in front of the namespace of the element.
+Prefix appended in front of the namespace of the element.
+
 #### `namespaceSuffix` ####
- ** Suffix appended at the end of the namespace of the element.
+Suffix appended at the end of the namespace of the element.
+
 #### `namespaceReplacement` ####
- ** Replacement of the namespace of the element.
+Replacement of the namespace of the element.
+
 #### `useNameAsNamespace` ####
- ** appends the name of the element to the namespace of it.
+Appends the name of the element to the namespace of it.
+
 #### `namespaceIncludes` ####
- ** Comma seperated list of namespaces/packages to be included in the generation.
+Comma seperated list of namespaces/packages to be included in the generation.
+
 #### `namespaceExcludes` ####
- ** Comma seperated list of namespaces/packages to be excluded from the generation.
+Comma seperated list of namespaces/packages to be excluded from the generation.
+
 #### `subdir` ####
- ** Sub directory (below ) for the generated files
+Sub directory (below ) for the generated files
+
 #### `generationFilterPattern` ####
- ** Regular expression. If the generated output matches the regular expression, no file is written for this output.
+Regular expression. If the generated output matches the regular expression, no file is written for this output.
+
 #### `encoding` ####
- ** Encoding of the generated file. Must be available in the JVM.
+Encoding of the generated file. Must be available in the JVM.
+
 #### `userSection` ####
- ** Identifier for user sections in the generated code.
+Identifier for user sections in the generated code.
 
-SubTask of the Generator Tasks
+`param` SubTask of the Generator Tasks
 ------------------------------
-
-param
 
 ### Parameters of the `param` Subtasks ###
 
-* `name`
-* `value`
+#### `name` ####
+#### `value` ####
 
 Example:
 ```
