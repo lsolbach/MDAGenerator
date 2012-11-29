@@ -15,7 +15,9 @@ History
 -------
 
 Version 1.0.0 (--.--.2012)
------------------------------
+--------------------------
+* initial import to github
+* switched to git
 * added encoding parameter to generators 
 
 Version 0.9.19 (28.07.2011)
