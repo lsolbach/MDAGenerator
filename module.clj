@@ -1,5 +1,5 @@
 [
- :name "MDAGenerator"
+ :name "MdaGenerator"
  :project "org.soulspace.modelling"
  :project-lead "Ludger Solbach"
  :vendor "soulspace.org"
