@@ -2,7 +2,7 @@ DomainMetaModel
 ===============
 
 Domain driven design extension for the meta model of the model repository.
-This module servers as an example for the extensibility of the meta model.
+This module servers as an example for the extensibility of that meta model.
 
 Project Lead
 ------------
@@ -17,6 +17,8 @@ History
 
 Version 0.3.0 (--.--.2012)
 --------------------------
+* initial import to github
+* switched to git
 
 Version 0.2.0 (--.--.201-)
 --------------------------
