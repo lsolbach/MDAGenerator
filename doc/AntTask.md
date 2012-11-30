@@ -4,8 +4,9 @@ MDA Generator Ant Task
 Definition of the `soulmda` Task
 --------------------------------
 
-To use the MdaGeneratorTask, it has to be registered within the ant build file.
-If the property `soulmda.dir` points to the dirctory with the jar files, the task can be registered with this declaration.
+To use the MdaGeneratorTask, it has to be registered within the ant
+build file. If the property `soulmda.dir` points to the dirctory with
+the jar files, the task can be registered with this declaration.
 
 ```
 <path id="soulmda.classpath">
@@ -14,12 +15,17 @@ If the property `soulmda.dir` points to the dirctory with the jar files, the tas
 	</fileset>
 </path>
 
-<taskdef name="soulmda" classname="org.soulspace.mda.generator.ant.MdaGeneratorTask"
+<taskdef name="soulmda"
+    classname="org.soulspace.mda.generator.ant.MdaGeneratorTask"
 	classpathref="soulmda.classpath"/>
 ```
 
 Usage of the `soulmda` Task
 ---------------------------
+
+The `soulmda` task does the setup of the generation process.
+It is used to specify which model to load, the directories to generate
+to and where to look for the templates. 
 
 ### Parameters ###
 
@@ -36,10 +42,15 @@ Directory where the template files reside.
 The xmi model file.
 
 #### `modelFactory` ####
-Fully qualified class name of a custom model factory to use. Optional.
+Fully qualified class name of a custom model factory to use.
+Optional.
 
 Subtasks of the `soulmda` Task
 -------------------------------
+
+The `soulmda` task has generator subtasks that perform the actual
+generation. The following generators are called for the corresponding
+model elements.
 
 #### `modelGenerator`
 #### `packageGenerator`
