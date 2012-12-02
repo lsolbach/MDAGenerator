@@ -29,7 +29,7 @@ License
 
 Copyright
 ---------
-© 2002-2012 Ludger Solbach
+© 2004-2012 Ludger Solbach
 
 Code Repository
 ---------------
