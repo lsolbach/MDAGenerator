@@ -5,10 +5,26 @@ A model repository to faciliate the generation of soure code from UML models.
 UML 1.4 models from the xmi repository are transformed into model repository models,
 which are more convenient for the generation of (java) source code.
 
+Runtime Requirements:
+---------------------
+Castor-XML 0.9.5.3
+XmiRepository >=1.0.0
+
+Author/Project Lead
+-------------------
+Ludger Solbach
+
 License
 -------
 Eclipse Public License 1.0 (http://www.eclipse.org/legal/epl-v10.html)
 
+Copyright
+---------
+© 2004-2012 Ludger Solbach
+
+Code Repository
+---------------
+[https://github.com/lsolbach/ModelRepository] (https://github.com/lsolbach/ModelRepository)
 
 History
 -------
