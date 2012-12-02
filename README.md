@@ -3,13 +3,37 @@ MdaGenerator
 
 Generators and ant tasks for model driven software development.
 
-Project Lead
-------------
+Runtime Requirements:
+---------------------
+Third party dependencies
+Jakarta ORO >= 2.0.8
+Castor-XML 0.9.5.3
+
+Internal dependencies
+JavaUtilLibrary >= 0.3.0
+XmiRepository >= 1.0.0
+ModelRepository >= 1.0.0
+TemplateEngine >= 1.0.0
+
+Documentation
+-------------
+See `doc/AntTask.md`.
+
+Author/Project Lead
+-------------------
 Ludger Solbach
 
 License
 -------
 [Eclipse Public License 1.0] (http://www.eclipse.org/legal/epl-v10.html "EPL 1.0")
+
+Copyright
+---------
+© 2002-2012 Ludger Solbach
+
+Code Repository
+---------------
+[https://github.com/lsolbach/MdaGenerator] (https://github.com/lsolbach/MdaGenerator)
 
 History
 -------

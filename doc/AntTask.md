@@ -46,7 +46,7 @@ Fully qualified class name of a custom model factory to use.
 Optional.
 
 Subtasks of the `soulmda` Task
--------------------------------
+------------------------------
 
 The `soulmda` task has generator subtasks that perform the actual
 generation. The following generators are called for the corresponding
@@ -116,14 +116,19 @@ Encoding of the generated file. Must be available in the JVM.
 Identifier for user sections in the generated code.
 
 `param` SubTask of the Generator Tasks
-------------------------------
+--------------------------------------
 
 ### Parameters of the `param` Subtasks ###
 
 #### `name` ####
-#### `value` ####
+Parameter name.
 
-Example:
+#### `value` ####
+Value of the parameter.
+
+Example
+-------
+
 ```
 <property name="generate.dir" value="${basedir}/generated"/>
 <property name="backup.dir" value="${basedir}/backup"/>
