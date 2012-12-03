@@ -17,5 +17,6 @@
                 ["org.apache.ant" "ant-testutil" "1.8.3" "dev"]
                 ["oro" "oro" "2.0.8"]
                 ["org.exolab" "castor" "0.9.5.3" "runtime" "castor-xml"]
+                ["xerces" "xercesImpl" "2.9.1"]
                 ["junit" "junit" "3.8.1" "dev"]]
  ]
