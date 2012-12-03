@@ -53,8 +53,9 @@
 			<arg value="-types"/>
 			<arg value="j2"/>
 		</java>
-	
-	<!--antcall target="refresh"/-->
+
+		<!-- remove superfluous import in Enumeration -->
+		<replaceregexp file="${generate.dir}/src/org/soulspace/xmi/marshal/Enumeration.java" match="import java.util.Enumeration;" replace="" byline="true"/>
 	</target>
 
 	<target name="generate-builders">
