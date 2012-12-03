@@ -10,5 +10,6 @@
  :plugins ["global" "deps" "java" "junit" "package"]
  :dependencies [["org.soulspace.mda" "XmiRepository" "1.0.0"]
                 ["org.exolab" "castor" "0.9.5.3" "runtime" "castor-xml"]
+                ["xerces" "xercesImpl" "2.9.1"]
                 ["junit" "junit" "3.8.1" "dev"]]
  ]
