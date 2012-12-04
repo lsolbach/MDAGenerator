@@ -7,9 +7,12 @@ which are more convenient for the generation of (java) source code.
 
 Runtime Requirements:
 ---------------------
-Castor-XML 0.9.5.3
-XercesImpl >= 2.9.0
-XmiRepository >=1.0.0
+External dependencies
+* Castor-XML 0.9.5.3
+* XercesImpl >= 2.9.0
+
+Internal dependencies
+* XmiRepository >=1.0.0
 
 Author/Project Lead
 -------------------
