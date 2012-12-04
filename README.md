@@ -9,8 +9,9 @@ to handle is advised (take a look the ModelRepository).
 
 Runtime Requirements:
 ---------------------
-Castor-XML 0.9.5.3
-XercesImpl >= 2.9.0
+External Dependencies
+* Castor-XML 0.9.5.3
+* XercesImpl >= 2.9.0
 
 Author/Project Lead
 ------------

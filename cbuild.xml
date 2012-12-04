@@ -23,7 +23,7 @@
 	<!-- generate classes from schema -->
 	<target name="check-generate-required">
 		<uptodate property="generateModel.notRequired" targetfile="${generate.dir}/src/org/soulspace/xmi/marshal/XMI.java" >
-		    <srcfiles dir="${basedir}/schema" includes="uml2.xsd"/>
+		    <srcfiles dir="${basedir}/schema" includes="uml.xsd"/>
 		</uptodate>
 	</target>	
 	
@@ -45,7 +45,7 @@
 			<!--arg value="-nodesc"/-->
 			<!--arg value="-generateImportedSchemas"/-->
 			<arg value="-i"/>
-			<arg value="${basedir}/schema/uml2.xsd"/>
+			<arg value="${basedir}/schema/uml.xsd"/>
 			<arg value="-package"/>
 			<arg value="org.soulspace.xmi.marshal"/>
 			<arg value="-dest"/>
@@ -60,12 +60,12 @@
 
 	<target name="generate-builders">
 		<xslt
-			style="templates/gen.xsl"
-			in="schema/uml2.xsd"
+			style="templates/builder.xsl"
+			in="schema/uml.xsd"
 			out="${generate.dir}/src/org/soulspace/xmi/repository/XMIBuilder.java" />
 		<xslt
 			style="templates/repository.xsl"
-			in="schema/uml2.xsd"
+			in="schema/uml.xsd"
 			out="${generate.dir}/src/org/soulspace/xmi/repository/XMIRepository.java" />
 	</target>
 	

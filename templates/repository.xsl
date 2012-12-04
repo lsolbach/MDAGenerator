@@ -50,17 +50,26 @@ public class XMIRepository {
 		super();
 	}
 
+	/**
+	 *
+	 */
 	public XMIRepository(String filename) {
 		super();
 		// this.file = new File(filename);
 		files = new File[] { new File(filename) };
 	}
 
+	/**
+	 *
+	 */
 	public XMIRepository(File file) {
 		super();
 		files = new File[] { file };
 	}
 
+	/**
+	 *
+	 */
 	public XMIRepository(String[] filenames) {
 		super();
 		files = new File[filenames.length];
@@ -74,6 +83,9 @@ public class XMIRepository {
 		this.files = files;
 	}
 
+	/**
+	 *
+	 */
 	public void initRepository() {
 		for (File file : files) {
 			XMI xmi = readXmi(file);
@@ -81,6 +93,9 @@ public class XMIRepository {
 		}
 	}
 
+	/**
+	 *
+	 */
 	public void initRepository(File file) {
 		XMI xmi = readXmi(file);
 		buildXmiRepository(xmi);
