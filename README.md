@@ -1,20 +1,21 @@
 MdaGenerator
 ============
 
-Generators and ant tasks for model driven software development.
+Generators and ant tasks for model driven software development based on
+the TemplateEngine and the ModelRepository.
 
 Runtime Requirements:
 ---------------------
 Third party dependencies
-Jakarta ORO >= 2.0.8
-Castor-XML 0.9.5.3
-XercesImpl >= 2.9.0
+* Jakarta ORO >= 2.0.8
+* Castor-XML 0.9.5.3
+* XercesImpl >= 2.9.0
 
 Internal dependencies
-JavaUtilLibrary >= 0.3.0
-XmiRepository >= 1.0.0
-ModelRepository >= 1.0.0
-TemplateEngine >= 1.0.0
+* JavaUtilLibrary >= 0.3.0
+* XmiRepository >= 1.0.0
+* ModelRepository >= 1.0.0
+* TemplateEngine >= 1.0.0
 
 Documentation
 -------------
