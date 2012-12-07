@@ -1,6 +1,6 @@
 ModelRepository Meta Model
 ==========================
-
+This is description of the meta model of the model repository.
 
 Class Hierarchy
 ---------------
@@ -25,4 +25,24 @@ Class
 State Machine
 -------------
 ![State Machine](StateMachine.png)
+
+
+Actions
+-------
+![Actions](Actions.png)
+
+
+Events
+------
+![Events](Events.png)
+
+
+UseCases
+--------
+![UseCases](UseCases.png)
+
+
+Deployment
+----------
+![Deployment](Deployment.png)
 
