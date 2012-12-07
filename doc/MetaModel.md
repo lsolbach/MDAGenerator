@@ -8,37 +8,37 @@ Class Hierarchy
 
 Element
 -------
-![Element](Element.png)
+![Element](https://github.com/downloads/lsolbach/ModelRepository/Element.png)
 
 
 Package
 -------
-![Package](Package.png)
+![Package](https://github.com/downloads/lsolbach/ModelRepository/Package.png)
 
 
 Class
 -----
-![Class](Class.png)
+![Class](https://github.com/downloads/lsolbach/ModelRepository/Class.png)
 
 
 State Machine
 -------------
-![State Machine](StateMachine.png)
+![State Machine](https://github.com/downloads/lsolbach/ModelRepository/StateMachine.png)
 
 
 Actions
 -------
-![Actions](Actions.png)
+![Actions](https://github.com/downloads/lsolbach/ModelRepository/Actions.png)
 
 
 Events
 ------
-![Events](Events.png)
+![Events](https://github.com/downloads/lsolbach/ModelRepository/Events.png)
 
 
 UseCases
 --------
-![UseCases](UseCases.png)
+![UseCases](https://github.com/downloads/lsolbach/ModelRepository/UseCases.png)
 
 
 Deployment
