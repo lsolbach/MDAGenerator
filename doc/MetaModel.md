@@ -4,7 +4,7 @@ This is description of the meta model of the model repository.
 
 Class Hierarchy
 ---------------
-![Class Hierarchy](https://github.com/lsolbach/ModelRepository/blob/master/doc/ClassHierarchy.png)
+![Class Hierarchy](https://github.com/downloads/lsolbach/ModelRepository/ClassHierarchy.png)
 
 Element
 -------
