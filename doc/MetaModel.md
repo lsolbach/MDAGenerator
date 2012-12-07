@@ -21,3 +21,8 @@ Class
 -----
 ![Class](Class.png)
 
+
+State Machine
+-------------
+![State Machine](StateMachine.png)
+
