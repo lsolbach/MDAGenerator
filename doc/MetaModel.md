@@ -5,7 +5,8 @@ This is description of the meta model of the model repository.
 Class Hierarchy
 ---------------
 ![Class Hierarchy](ClassHierarchy.png)
-<img src="ClassHierarchy.png" alt="Class Hierarchy"/>
+
+<img src="https://github.com/lsolbach/ModelRepository/blob/master/doc/ClassHierarchy.png" alt="Class Hierarchy"/>
 
 Element
 -------
