@@ -1,11 +1,13 @@
 XmiRepository
 =============
 
-An XmiRepository for reading UML XMI 1.2 files (e.g. ArgoUML).
-Reads XMI files and makes the contained model available as java objects for
-further processing. Retains the structure of the XMI 1.2/UML 1.4 meta model.
-For further processing the transformation into a model that's more convenient
-to handle is advised (take a look the ModelRepository).
+An XmiRepository for reading UML XMI 1.2 files (written by ArgoUML for
+example).
+
+Reads XMI files and makes the contained model available as java objects
+for further processing. Retains the structure of the XMI 1.2/UML 1.4
+meta model. For code generation the transformation into a model that's
+more convenient to handle is advised (take a look the ModelRepository).
 
 Runtime Requirements:
 ---------------------
@@ -41,6 +43,7 @@ Version 1.0.0 (--.--.2012)
 * enhanced enumeration support
 * enhanced support for state machine
 * mark elements loaded from a profile
+* added docs
 
 Version 0.9.13 (21.09.2009)
 ---------------------------
