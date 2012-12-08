@@ -1,7 +1,7 @@
 ModelRepository Meta Model
 ==========================
 This is description of the meta model of the model repository.
-The UML model of the ModelRepository MetaModel is located in the
+The UML model of the ModelRepository meta model is located in the
 `model` directory. You can use a recent version of the free ArgoUML to
 view it.
 
