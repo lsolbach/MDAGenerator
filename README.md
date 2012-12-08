@@ -1,7 +1,7 @@
 XmiRepository
 =============
 
-An XmiRepository for reading UML XMI 1.2 files (e.g. ArgoUML, Poseidon).
+An XmiRepository for reading UML XMI 1.2 files (e.g. ArgoUML).
 Reads XMI files and makes the contained model available as java objects for
 further processing. Retains the structure of the XMI 1.2/UML 1.4 meta model.
 For further processing the transformation into a model that's more convenient
