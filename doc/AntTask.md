@@ -3,6 +3,8 @@ MDA Generator Ant Task
 
 Definition of the `soulmda` Task
 --------------------------------
+The MdaGenerator framework provides an ant task to include a
+generation step into the your build process.
 
 To use the MdaGeneratorTask, it has to be registered within the ant
 build file. If the property `soulmda.dir` points to the dirctory with
@@ -23,7 +25,7 @@ the jar files, the task can be registered with this declaration.
 Usage of the `soulmda` Task
 ---------------------------
 
-The `soulmda` task does the setup of the generation process.
+The `soulmda` task does the setup of the generation step.
 It is used to specify which model to load, the directories to generate
 to and where to look for the templates. 
 
@@ -47,79 +49,110 @@ Optional.
 
 Subtasks of the `soulmda` Task
 ------------------------------
-
 The `soulmda` task has generator subtasks that perform the actual
 generation. The following generators are called for the corresponding
-model elements.
+model elements. The list of model elements can be filtered by
+specifying some filter criteria as parameters of the generator sub
+tasks (e.g. 'stereotype').
 
 #### `modelGenerator`
+The `modelGenerator` gets called for every Model element in the ModelRepository
+
 #### `packageGenerator`
+The `packageGenerator` gets called for every Package element in the ModelRepository
+
 #### `classGenerator`
+The `classGenerator` gets called for every Class element in the ModelRepository
+
 #### `interfaceGenerator`
+The `interfaceGenerator` gets called for every Interface element in the ModelRepository
+
 #### `stateMachineGenerator`
+The `stateMachineGenerator` gets called for every StateMachine element in the ModelRepository
+
 #### `stateGenerator`
+`stateGenerator` gets called for every State element in the ModelRepository
+
 #### `transitionGenerator`
+The `transitionGenerator` gets called for every Transition element in the ModelRepository
+
 #### `actorGenerator`
+The `actorGenerator` gets called for every Actor element in the ModelRepository
+
 #### `useCaseGenerator`
+The `useCaseGenerator` gets called for every UseCase element in the ModelRepository
 
 ### Parameters of the Generator Subtasks ###
-
 #### `name` ####
-The name of the template to use.
+The name of the template to use. Mandatory.
 
 #### `imports` ####
-Comma seperated list of template includes.
+Comma seperated list of template includes. Optional.
 
 #### `stereotype` ####
-Stereotype to generate for. Special values are ALL and NONE.
+Input filter: The Stereotype to generate for. Special values are ALL
+and NONE. Optional.
 
 #### `basename` ####
-Replaces the name of the element for the generation.
+Replaces the name of the element for the generation. Optional.
 
 #### `extension` ####
-Extension of the generated file.
+Extension of the generated file. Optional.
 
 #### `prefix` ####
-Prefix appended in front of the name of the element.
+Prefix appended in front of the name of the element. Optional.
 
 #### `suffix` ####
-Suffix appended after the name of the element.
+Suffix appended after the name of the element. Optional.
 
 #### `namespacePrefix` ####
-Prefix appended in front of the namespace of the element.
+Prefix appended in front of the namespace of the element. Optional.
 
 #### `namespaceSuffix` ####
-Suffix appended at the end of the namespace of the element.
+Suffix appended at the end of the namespace of the element. Optional.
 
 #### `namespaceReplacement` ####
-Replacement of the namespace of the element.
+Replacement of the namespace of the element. Optional.
 
 #### `useNameAsNamespace` ####
-Appends the name of the element to the namespace of it.
+Appends the name of the element to the namespace of it. Optional.
 
 #### `namespaceIncludes` ####
-Comma seperated list of namespaces/packages to be included in the generation.
+Input filter: Comma seperated list of namespaces/packages to be
+included in the generation. Optional.
 
 #### `namespaceExcludes` ####
-Comma seperated list of namespaces/packages to be excluded from the generation.
+Input filter: Comma seperated list of namespaces/packages to be
+excluded from the generation. Optional.
 
 #### `subdir` ####
-Sub directory (below ) for the generated files
+Sub directory (below ) for the generated files. Optional.
 
 #### `generationFilterPattern` ####
-Regular expression. If the generated output matches the regular expression, no file is written for this output.
+Output filter: regular expression. If the generated output matches
+the regular expression, no file is written for this output. Can be
+used to suppress the generation of empty files, for example.
+Optional.
 
 #### `encoding` ####
-Encoding of the generated file. Must be available in the JVM.
+Encoding of the generated file. The specified encoding must be
+available in the JVM. Optional.
 
 #### `userSection` ####
-Identifier for user sections in the generated code.
+Identifier for user sections in the generated code. Optional.
 
 `param` SubTask of the Generator Tasks
 --------------------------------------
+The generators can be parameterized further with the `param` sub task.
+The parameters are available as part of the DataSource provided to the
+Template Engines generate call. They can be accessed with
+GenCtx:<param-name> or GenCtx['<param-name>'] from within the
+templates.
+
+Use this mechanism to build generic templates and provide some
+neccessary specifics of your project or organization as parameters.
 
 ### Parameters of the `param` Subtasks ###
-
 #### `name` ####
 Parameter name.
 
@@ -136,30 +169,28 @@ Example
 <soulmda destdir="${generate.dir}"
          backupdir="${backup.dir}"
          templateDir="templates/"
-         modelFile="model/MyModel.xmi"
-         modelFactory="org.soulspace.mdlrepo.ddd.metamodel.impl.ModelFactory">
+         modelFile="model/MyModel.xmi">
 
-    <classGenerator name="java/domain/entity-interface" 
-                    imports="base,java/base,java/domain/base"
+    <classGenerator name="java/interface"
+                    imports="lib,java/lib,java/interface,domain/java/lib,domain/java/entity-interface"
                     extension="java"
                     subdir="src"
                     stereotype="entity">
     </classGenerator>
 
-    <classGenerator name="db/createTable"
-                    imports="base,db/base,db/db2/dialect"
+    <classGenerator name="db/ddl"
+                    imports="lib,db/lib,db/h2/dialect,db/create-table"
                     prefix="create_table_"
                     extension="sql"
-                    subdir="db2"
+                    subdir="db"
                     stereotype="entity">
         <param name="TablePrefix" value="T_"/>
     </classGenerator>
 
     <modelGenerator name="doc/html"
-                    imports="base,doc/html/base,doc/html/css"
+                    imports="lib,doc/html/lib,doc/html/css"
                     subdir="doc"
                     basename="MyModel"
                     extension="html"/>
-
 </soulmda>
 ```
