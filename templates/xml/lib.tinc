@@ -1,0 +1,7 @@
+<?
+string generationInfo() {?>
+<!--
+<?generationInfo('  - ')?>
+  --><?
+}
+?>

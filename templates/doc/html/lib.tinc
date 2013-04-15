@@ -1,0 +1,121 @@
+<?
+string html(string v) {
+	'<html>' + v + '</html>' 
+}
+
+string head(string v) {
+	'<head>' + v + '</head>' 
+}
+
+string body(string v) {
+	'<body>' + v + '</body>' 
+}
+
+string p(string v) {
+	'<p>' + v + '</p>' 
+}
+
+string p(string class, string v) {
+	'<p class="' + class + '">' + v + '</p>' 
+}
+
+string br() {
+	'<br/>'
+}
+
+string nbsp() {
+	'&nbsp;'
+}
+
+string a(string href, string v) {
+	'<a href="' + href + '">' + v + '</a>'
+}
+
+string a(string class, string href, string v) {
+	'<a class="' + class + '" href="' + href + '">' + v + '</a>' 
+}
+
+string img(string src) {
+	'<img src="' + src + '"/>'
+}
+
+string img(string src, string alt) {
+	'<img src="' + src + '" alt="' + alt + '"/>'
+}
+
+string h1(string v) {
+	'<h1>' + v + '</h1>' 
+}
+
+string h1(string class, string v) {
+	'<h1 class="' + class + '">' + v + '</h1>' 
+}
+
+string h2(string v) {
+	'<h2>' + v + '</h2>' 
+}
+
+string h2(string class, string v) {
+	'<h2 class="' + class + '">' + v + '</h2>' 
+}
+
+string h3(string v) {
+	'<h3>' + v + '</h3>' 
+}
+
+string h3(string class, string v) {
+	'<h3 class="' + class + '">' + v + '</h3>'
+}
+
+string h4(string v) {
+	'<h4>' + v + '</h4>' 
+}
+
+string h4(string class, string v) {
+	'<h4 class="' + class + '">' + v + '</h4>' 
+}
+
+string div(string v) {
+	'<div>' + v + '</div>' 
+}
+
+string div(string class, string v) {
+	'<div class="' + class + '">' + v + '</div>' 
+}
+
+string table(string v) {
+	'<table>' + v + '</table>'
+}
+
+string table(string class, string v) {
+	'<table class="' + class + '">' + v + '</table>'
+}
+
+string tr(string v) {
+	'<tr>' + v + '</tr>'
+}
+
+string tr(string class, string v) {
+	'<tr class="' + class + '">' + v + '</tr>'
+}
+
+string td(string v) {
+	'<td>' + v + '</td>'
+}
+
+string td(string class, string v) {
+	'<td class="' + class + '">' + v + '</td>'
+}
+
+string td(string class, string colspan, string v) {
+	'<td class="' + class + '" colspan="' + colspan + '">' + v + '</td>'
+}
+
+string title(string v) {
+	'<title>' + v + '</title>'
+}
+
+string style(string v) {
+	'<style>' + v + '</style>'
+}
+?>

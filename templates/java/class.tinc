@@ -1,0 +1,519 @@
+<?!--
+ * template include java/class
+ * requires includes lib, model/lib, java/lib 
+ * base methods for java class generation
+ * (C) 2010 Ludger Solbach
+--?><? 
+string imports(map element) {
+	if(namespace(element) ne element:Namespace) {?>
+import <?element:Namespace?>.*;<?
+	}
+	foreach ref <- element:AllReferencedTypes {
+		importType(ref)
+	}
+}
+
+string typeAnnotations(map element) {
+
+}
+
+string typeAnnotations() {
+	typeAnnotations(This)
+}
+
+string implementations(map element) {
+	'implements ' + element:Name
+}
+
+string implementations() {
+	implementations(This)
+}
+
+string extension(map type) {
+	if(type) {
+		'extends ' + name(type) + 'Impl'
+	}
+}
+
+string extension() {
+	
+}
+
+string staticInitialization() {
+	staticInitialisation(This)
+}
+
+string staticInitialization(map element) {
+
+}
+
+string constructors() {
+	constructors(This)
+}
+
+string constructors(map element) {
+	ctorDefault(element)
+	ctor(element)
+}
+
+string ctorDefault(map element) {?>
+	public <?name(element)?>() {
+		super();
+	}
+<?
+}
+
+string ctorDefault() {
+	ctorDefault(This)
+}
+
+string ctor(map element) {
+	list fieldList = propertyFieldList(element) + associationFieldList(element)
+	list mandatoryFieldList	= propertyMandatoryFieldList(element) + associationMandatoryFieldList(element)
+	
+	if(fieldList) {
+?>
+	public <?name(element)?>(<?ctorArguments(fieldList)?>) {<?
+		foreach field <- fieldList {?>
+		this.<?javaName(field)?> = <?javaName(field)?>;<?		
+		}
+?>
+	}
+<?	
+		if(mandatoryFieldList && mandatoryFieldList ne fieldList) {
+?>
+	public <?name(element)?>(<?ctorArguments(mandatoryFieldList)?>) {<?
+		foreach field <- mandatoryFieldList {?>
+		this.<?javaName(field)?> = <?javaName(field)?>;<?		
+		}
+?>
+	}
+<?	
+		}
+	}
+}
+
+string ctorProperties(map element) {
+	list fieldList = propertyFieldList(element)
+	list mandatoryFieldList	= propertyMandatoryFieldList(element)
+
+	if(fieldList) {
+?>
+	public <?name(element)?>(<?ctorArguments(fieldList)?>) {<?
+		foreach field <- fieldList {?>
+		this.<?javaName(field)?> = <?javaName(field)?>;<?		
+		}
+?>	}
+<?	
+		if(mandatoryFieldList && mandatoryFieldList ne fieldList) {
+?>
+	public <?name(element)?>(<?ctorArguments(mandatoryFieldList)?>) {<?
+		foreach field <- mandatoryFieldList {?>
+		this.<?javaName(field)?> = <?javaName(field)?>;<?
+		}
+?>	}
+<?	
+		}
+	}
+}
+
+string ctorAssociations(map element) {
+	list fieldList = associationFieldList(element)
+	list mandatoryFieldList	= associationMandatoryFieldList(element)
+
+	if(fieldList) {
+?>
+	public <?name(element)?>(<?ctorArguments(fieldList)?>) {<?
+		foreach field <- fieldList {?>
+		this.<?javaName(field)?> = <?javaName(field)?>;<?		
+		}
+?>	}
+<?
+		if(mandatoryFieldList && mandatoryFieldList ne fieldList) {
+?>
+	public <?name(element)?>(<?ctorArguments(mandatoryFieldList)?>) {<?
+		foreach field <- mandatoryFieldList {?>
+		this.<?javaName(field)?> = <?javaName(field)?>;<?		
+		}
+?>	}
+<?	
+		}
+	}
+}
+
+string propertyFields() {
+	propertyFields(This)
+}
+
+string propertyFields(map element) {
+	foreach attr | !isDerived(attr) <- element:AllAttributes {
+		propertyFieldAnnotations(attr)
+		propertyField(attr)
+	}
+}
+
+string propertyField(map attr) {
+	if(!isMany(attr)) {?>
+	private <?propertyType(attr)?> <?propertyName(attr)?>;
+<?
+	} else {?>
+	private <?propertyType(attr)?> <?propertyName(attr)?> = new <?propertyTypeImplementation(attr)?>();
+<?
+	}
+}
+
+string propertyFieldAnnotations(map attr) {
+
+}
+
+string propertyInitialisation(map attr) {
+	if(isMany(attr)) {
+		'= new ' + propertyTypeImplementation(attr) + '()'
+	} else {
+		'= null'
+	}
+}
+
+string propertyAccessors(map element) {
+	foreach attr | isAccessibleProperty(attr) <- element:AllAttributes {
+		propertyAccessor(attr)
+	}
+}
+
+string propertyAccessors() {
+	propertyAccessors(This)
+}
+
+string propertyAccessor(map attr) {
+	propertyGet(attr)
+	if(isChangeable(attr)) {
+		propertySet(attr)
+		if(isMany(attr)) {
+			propertyAdd(attr)
+			propertyRemove(attr)
+		}
+	}
+}
+
+string propertyGet(map attr) {
+	javaDoc(attr, 1)
+	propertyGetAnnotations(attr)
+	if(isDerived(attr)) {?>
+	<?visibility(attr)?> synchronized <?propertyType(attr)?> get<?propertyMethodBase(attr)?>() {
+			return doGet<?attr:Name.firstUpper()?>();
+	}
+	protected abstract <?propertyType(attr)?> doGet<?propertyMethodBase(attr)?>();
+	
+<?
+	} else {?>
+	<?visibility(attr)?> synchronized <?propertyType(attr)?> get<?propertyMethodBase(attr)?>() {
+			return <?propertyName(attr)?>;
+	}
+<?
+	}
+}
+
+string propertyGetAnnotations(map attr) {
+
+}
+
+string propertySet(map attr) {
+	javaDoc(attr, 1)
+	propertySetAnnotations(attr)?>
+	<?visibility(attr)?> synchronized void set<?propertyMethodBase(attr)?>(<?propertyType(attr)?> <?propertyName(attr)?>) {
+		this.<?propertyName(attr)?> = <?propertyName(attr)?>;
+	}
+<?
+}
+
+string propertySetAnnotations(map attr) {
+
+}
+
+string propertyAdd(map attr) {
+	javaDoc(attr, 1)
+	propertySetAnnotations(attr)?>
+	<?visibility(attr)?> synchronized void add<?attr:Name.firstUpper()?>(<?javaType(attr)?> <?javaName(attr)?>) {
+		<?propertyName(attr)?>.add(<?javaName(attr)?>);
+	}
+<?
+}
+
+string propertyAddAnnotations(map attr) {
+
+}
+
+string propertyRemove(map attr) {
+	javaDoc(attr, 1)
+	propertySetAnnotations(attr)?>
+	<?visibility(attr)?> synchronized void remove<?attr:Name.firstUpper()?>(<?javaType(attr)?> <?javaName(attr)?>) {
+		<?propertyName(attr)?>.remove(<?javaName(attr)?>);
+	}
+<?
+}
+
+string propertyRemoveAnnotations(map attr) {
+
+}
+
+string associationFields(map element) {
+	foreach asso | isAccessibleAssociation(asso) && !isDerived(asso) <- element:AllAssociations {
+		associationFieldAnnotations(asso)
+		associationField(asso)
+	}
+}
+
+string associationFields() {
+	associationFields(This)
+}
+
+string associationField(map asso) {
+?>
+	private <?associationType(asso)?> <?associationName(asso)?> <?associationInitialisation(asso)?>;<?
+}
+
+string associationFieldAnnotations(map asso) {
+
+}
+
+string associationInitialisation(map asso) {
+	if(isMany(asso) || isQualified(asso)) {
+		'= new ' + associationTypeImplementation(asso) + '()'
+	} else {
+		'= null'
+	}
+}
+
+string associationAccessors(map element) {
+	foreach asso | isAccessibleAssociation(asso) <- element:AllAssociations {
+		associationAccessor(asso)
+	}
+}
+
+string associationAccessors() {
+	associationAccessors(This)
+}
+
+string associationAccessor(map asso) {
+	associationGet(asso)
+	if(isQualified(asso)) {
+		associationQualifiedGet(asso)
+	}
+	if(isChangeable(asso)) {
+		associationSet(asso)
+		if(isMany(asso) || isQualified(asso)) {
+			associationAdd(asso)
+			associationRemove(asso)
+		}
+	}
+}
+
+string associationGet(map asso) {
+	javaDoc(asso, 1)
+	associationGetAnnotations(asso)
+	if(isDerived(asso)) {?>
+	<?visibility(asso)?> <?associationType(asso)?> get<?associationMethodBase(asso)?>() {
+		return doGet<?associationMethodBase(asso)?>();
+	}
+	protected abstract <?associationType(asso)?> doGet<?associationMethodBase(asso)?>();
+<?
+	} else {?>
+	<?visibility(asso)?> <?associationType(asso)?> get<?associationMethodBase(asso)?>() {
+		return <?associationName(asso)?>;
+	}
+<?
+	}
+}
+
+string associationGetAnnotations(map asso) {
+
+}
+
+string associationReturn(map asso) {
+	string collectionType = associationCollectionType(asso)
+	if(!isMany(asso) && !isQualified(asso)) {
+		associationName(asso)
+	} else if(isQualified(asso)) {
+		list qualifiers = asso:SourceEnd:Qualifiers
+	} else if(isMany(asso)) {
+		if(collectionType eq 'List') {
+			'Collections.unmodifiableList(' + associationName(asso) + ')'		
+		} else if(collectionType eq 'Set') {
+			'Collections.unmodifiableSet(' + associationName(asso) + ')'
+		} else if(collectionType eq 'Map') {
+			'Collections.unmodifiableMap(' + associationName(asso) + ')'
+		} else {
+			'Collections.unmodifiableMap(' + associationName(asso) + ')'
+		}
+	}
+}
+
+string associationQualifiedGet(map asso) {
+	javaDoc(asso, 1)
+	associationGetAnnotations(asso)
+	if(isDerived(asso)) {?>
+	<?visibility(asso)?> <?javaType(asso)?> get<?asso:Name.firstUpper()?>(<?qualifierArguments(asso)?>) {
+		return doGet<?asso:Name.firstUpper()?>(<?qualifierParameters(asso)?>);
+	}
+	protected abstract <?javaType(asso)?> doGet<?asso:Name.firstUpper()?>(<?qualifierArguments(asso)?>);
+	<?} else {?>
+	<?visibility(asso)?> <?javaType(asso)?> get<?asso:Name.firstUpper()?>(<?qualifierArguments(asso)?>) {
+		return <?associationName(asso)?>.get(<?qualifierParameters(asso)?>);
+	}
+<?
+	}
+}
+
+string associationSet(map asso) {
+	javaDoc(asso, 1)
+	associationSetAnnotations(asso)?>
+	<?visibility(asso)?> void set<?associationMethodBase(asso)?>(<?associationType(asso)?> <?associationName(asso)?>) {
+		this.<?associationName(asso)?> = <?associationName(asso)?>;
+	}
+<?
+}
+
+string associationSetAnnotations(map asso) {
+
+}
+
+string associationAdd(map asso) {
+	javaDoc(asso, 1)
+	associationAddAnnotations(asso)
+	if(!isQualified(asso)) {?>
+	<?visibility(asso)?> void add<?asso:Name.firstUpper()?>(<?javaType(asso)?> <?javaName(asso)?>) {
+		<?associationName(asso)?>.add(<?javaName(asso)?>);
+	}
+<?
+	} else {?>
+	<?visibility(asso)?> void add<?asso:Name.firstUpper()?>(<?javaType(asso:SourceEnd:Qualifiers[0])?> <?javaName(asso:SourceEnd:Qualifiers[0])?>, <?javaType(asso)?> <?javaName(asso)?>) {
+		<?associationName(asso)?>.put(<?javaName(asso:SourceEnd:Qualifiers[0])?>, <?javaName(asso)?>);
+	}
+<?
+	}
+}
+
+string associationAddAnnotations(map asso) {
+
+}
+
+string associationRemove(map asso) {
+	javaDoc(asso, 1)
+	associationRemoveAnnotations(asso)?>
+	<?visibility(asso)?> void remove<?asso:Name.firstUpper()?>(<?javaType(asso)?> <?javaName(asso)?>) {
+		<?associationName(asso)?>.remove(<?javaName(asso)?>);
+	}
+<?
+}
+
+string associationRemoveAnnotations(map asso) {
+
+}
+
+string operations(map element) {
+	foreach op <- element:AllOperations {
+		operation(op)
+	}
+}
+
+string operations() {
+	operations(This)
+}
+
+string operation(map op) {
+	javaDoc(op, 1)
+	operationAnnotations(op)
+	operationSignature(op) + ' {'
+	operationBody(op)
+	'	}'
+	operationDelegateSignature(op)
+}
+
+string operationAnnotations(map op) {
+
+}
+
+string operationSignature(map op) {?>
+	<?op:Visibility?> <?returnType(op)?> <?op:Name?>(<?operationArguments(op)?>)<?
+}
+
+string operationBody(map op) {
+	operationDelegate(op)
+}
+
+string operationDelegate(map op) {
+	if(returnType(op) ne 'void') {?>
+		return do<?op:Name.firstUpper()?>(<?operationParameters(op)?>);
+<?
+	} else {?>
+		do<?op:Name.firstUpper()?>(<?operationParameters(op)?>);
+<?
+	}	
+}
+
+string operationDelegateSignature(map op) {?>
+	protected abstract <?returnType(op)?> do<?op:Name.firstUpper()?>(<?operationArguments(op)?>);
+<?
+}
+
+string equals(map element) {?>
+	public boolean equals(java.lang.Object obj) {
+	  	if(this == obj) return true;
+ 	 	if(!(obj instanceof <?name(element)?>)) return false;
+  	
+	  	<?name(element)?> other = (<?name(element)?>) obj;
+
+	  	if(getClass().getSuperclass() != null && getClass().getSuperclass() != java.lang.Object.class) {
+	  	  if(!super.equals(other)) return false;
+	    }<?
+	foreach attr | !isDerived(attr) <- AllAttributes {
+		if(isPrimitive(attr:Type)) {?>
+		if(get<?propertyMethodBase(attr)?>() != other.get<?propertyMethodBase(attr)?>()) return false;<?
+		} else {?>
+		if(get<?propertyMethodBase(attr)?>().equals(other.get<?propertyMethodBase(attr)?>())) return false;<?
+		}
+	}?>
+		return true;
+	}
+<?
+}
+
+string equals() {
+	equals(This)
+}
+
+string hashcode(map element) {?>
+	public int hashCode() {
+		int result = 17;
+		if(getClass().getSuperclass() != null && getClass().getSuperclass() != java.lang.Object.class) {
+			result = 29 * result + super.hashCode();
+		}<?
+	foreach attr | !isDerived(attr) <- AllAttributes {	
+		if((javaType(attr) eq 'byte')
+			|| (javaType(attr) eq 'char')
+			|| (javaType(attr) eq 'short')
+			|| (javaType(attr) eq 'int')) {?>
+		result = 29 * result + <?attr:Name?>;<?
+		} else if(javaType(attr) eq 'long') {?>
+		result = 29 * result + (int) (<?attr:Name?> ^ (<?attr:Name?> >>> 32));<?
+		} else if(javaType(attr) eq 'float') {?>
+		result = 29 * result + Float.floatToIntBits(<?attr:Name?>);<?
+		} else if(javaType(attr) eq 'double') {?>
+		result = 29 * result + Double.doubleToIntBits(<?attr:Name?>);<?
+		} else if(javaType(attr) eq 'boolean') {?>
+		result = 29 * result + (<?attr:Name + '?1:0'?>);<? 
+		} else {?>
+  		if(<?propertyName(attr)?> != null) {
+			result = 29 * result + <?propertyName(attr)?>.hashCode();
+		}<?
+  		  }
+  	  }?>
+		return result;
+	}
+<?
+}
+
+string hashcode() {
+	hashcode(This)
+}
+?>

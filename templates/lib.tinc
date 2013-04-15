@@ -1,0 +1,617 @@
+<?!--
+ * Standard functions to make life easier
+ * ©2010 Ludger Solbach
+--?><?
+list cons(string e, list elements) {
+	list result
+	result.add(e)
+	result + elements
+}
+
+list cons(numeric e, list elements) {
+	list result
+	result.add(e)
+	result + elements
+}
+
+list cons(map e, list elements) {
+	list result
+	result.add(e)
+	result + elements
+}
+
+list append(list elements, string e) {
+	list result
+	result = result + elements
+	result.add(e)
+}
+
+list append(list elements, numeric e) {
+	list result
+	result = result + elements
+	result.add(e)
+}
+
+list append(list elements, map e) {
+	list result
+	result = result + elements
+	result.add(e)
+}
+
+string join(string arg1, string arg2, string separator) {
+	string result
+	if(arg1 ne '' && arg2 ne '') {
+		result = arg1 + separator + arg2
+	} else if(arg1 ne '') {
+		result = arg1
+	} else {
+		result = arg2
+	}
+	result
+}
+
+any first(list elements) {
+	if(elements) {
+		elements[0]
+	}
+}
+
+any last(list elements) {
+	if(elements) {
+		elements[elements.size() - 1]
+	}
+}
+
+list tail(list elements) {
+	list result
+	if(elements) {
+		numeric s = elements.size()
+		numeric i = 1
+		while(i < s) {
+			result.add(elements[i])
+			i = i + 1
+		}
+	}
+	result
+}
+
+list head(list elements) {
+	list result
+	if(elements) {
+		numeric s = elements.size()
+		numeric i = 0
+		while(i < s - 1) {
+			result.add(elements[i])
+			i = i + 1
+		}
+	}
+	result
+}
+
+/* TODO */
+map merge(method f, map map1, map map2) {
+	map1.keyList()
+	map2.keyList()
+		
+}
+
+numeric succ(numeric arg) {
+	arg + 1
+}
+
+numeric pred(numeric arg) {
+	arg - 1
+}
+
+
+/* operator wrappers */
+
+numeric add(numeric op1, numeric op2) {
+	op1 + op2
+}
+
+numeric sub(numeric op1, numeric op2) {
+	op1 - op2
+}
+
+numeric mult(numeric op1, numeric op2) {
+	op1 * op2
+}
+
+numeric div(numeric op1, numeric op2) {
+	op1 / op2
+}
+
+numeric iDiv(numeric op1, numeric op2) {
+	op1 // op2
+}
+
+numeric mod(numeric op1, numeric op2) {
+	op1 % op2
+}
+
+numeric equal(string op1, string op2) {
+	op1 eq op2
+}
+
+numeric equal(numeric op1, numeric op2) {
+	op1 == op2
+}
+
+numeric notEqual(string op1, string op2) {
+	op1 ne op2
+}
+
+numeric notEqual(numeric op1, numeric op2) {
+	op1 != op2
+}
+
+numeric less(string op1, string op2) {
+	op1 lt op2
+}
+
+numeric less(numeric op1, numeric op2) {
+	op1 <= op2
+}
+
+numeric lessEqual(string op1, string op2) {
+	op1 le op2
+}
+
+numeric lessEqual(numeric op1, numeric op2) {
+	op1 <= op2
+}
+
+numeric greater(string op1, string op2) {
+	op1 gt op2
+}
+
+numeric greater(numeric op1, numeric op2) {
+	op1 > op2
+}
+
+numeric greaterEqual(string op1, string op2) {
+	op1 ge op2
+}
+
+numeric greaterEqual(numeric op1, numeric op2) {
+	op1 >= op2
+}
+
+string append(string op1, string op2) {
+	op1 + op2
+}
+
+list append(list op1, list op2) {
+	op1 + op2
+}
+
+map append(map op1, map op2) {
+	op1 + op2
+}
+
+numeric and(numeric op1, numeric op2) {
+	op1 && op2
+}
+
+numeric and(string op1, string op2) {
+	op1 && op2
+}
+
+numeric or(numeric op1, numeric op2) {
+	op1 || op2
+}
+
+numeric or(string op1, string op2) {
+	op1 || op2
+}
+
+numeric not(numeric op1) {
+	!op1
+}
+
+numeric not(string op1) {
+	!op1
+}
+
+
+/* type method wrappers */
+
+string replace(string input, string sequence, string replacement) {
+	input.replace(sequence, replacement)
+}
+
+string firstUpper(string input) {
+	input.firstUpper()
+}
+
+string firstLower(string input) {
+	input.firstLower()
+}
+
+string toUpper(string input) {
+	input.toUpper()
+}
+
+string toLower(string input) {
+	input.toLower()
+}
+
+numeric startsWith(string input, string pattern) {
+	input.startsWith(pattern)
+}
+
+numeric endsWith(string input, string pattern) {
+	input.endsWith(pattern)
+}
+
+numeric matches(string input, string pattern) {
+	input.matches(pattern)
+}
+
+list split(string input, string pattern) {
+	input.split(pattern)
+}
+
+numeric indexOf(string input, string pattern) {
+	input.indexOf(pattern)
+}
+
+string substring(string input, numeric from, numeric to) {
+	input.substring(from, to)
+}
+
+numeric compare(string arg1, string arg2) {
+	arg1.compare(arg2)
+}
+
+numeric compare(method m, string arg1, string arg2) {
+	string tmp = m(arg1)
+	tmp.compare(m(arg2))
+}
+
+list reverse(list elements) {
+	elements.reverse()
+}
+
+numeric size(string input) {
+	input.size()
+}
+
+numeric size(list input) {
+	input.size()
+}
+
+numeric size(map input) {
+	input.size()
+}
+
+any get(list elements, numeric index) {
+	elements[index]
+}
+
+any get(map element, string key) {
+	element[key]
+}
+
+map put(map elementMap, string key, string value) {
+	elementMap.put(key, value)
+}
+
+map put(map elementMap, string key, numeric value) {
+	elementMap.put(key, value)
+}
+
+map put(map elementMap, string key, list value) {
+	elementMap.put(key, value)
+}
+
+map put(map elementMap, string key, map value) {
+	elementMap.put(key, value)
+}
+
+list keyList(map elementMap) {
+	elementMap.keyList()
+}
+
+string type(string element) {
+	'string'
+}
+
+string type(numeric element) {
+	'numeric'
+}
+
+string type(list element) {
+	'list'
+}
+
+string type(map element) {
+	'map'
+}
+
+string type(method element) {
+	'method'
+}
+
+
+/* math functions */
+
+numeric min(numeric arg1, numeric arg2) {
+	numeric result
+	if(arg1 < arg2) {
+		result = arg1
+	} else {
+		result = arg2
+	}
+	result
+}
+
+numeric max(numeric arg1, numeric arg2) {
+	numeric result
+	if(arg1 > arg2) {
+		result = arg1
+	} else {
+		result = arg2
+	}
+	result
+}
+
+
+/* higher order functions */
+
+list filter(method f, list elements) {
+	list result
+	foreach element | f(element) <- elements {
+		result.add(element)
+	}
+	result
+}
+
+map filter(method f, map elements) {
+	map result
+	foreach key | f(elements[key]) <- elements.keyList() {
+		result.put(key, elements[key])
+	}
+	result
+}
+
+list mapFn(method m, list elements) {
+	list result
+	foreach element <- elements {
+		result.add(m(element))
+	}
+	result
+}
+
+list mapMap(method m, map elementMap) {
+	list result
+	foreach key <- elementMap.keyList() {
+		result.add(m(key, elementMap[key]))
+	}
+	result
+}
+
+list mapFiltered(method m, method f, list elements) {
+	list result
+	foreach element | f(element) <- elements {
+		result.add(m(element))
+	}
+	result
+}
+
+string applyMethods(list methods, list elements) {
+	foreach element <- elements {
+		foreach m <- methods {
+			m(element)
+		}
+	}
+}
+
+string foldLeft(method m, list elements) {
+	string result
+	numeric i = 1
+	numeric s = elements.size()
+	if(s > 0) {
+		result = elements[0]
+		while(i < elements.size()) {
+			m(result, elements[i])
+			i = i + 1
+		}
+	}
+	result
+}
+
+numeric foldLeft(method m, list elements, numeric initial) {
+	numeric result = initial
+	foreach e <- elements {
+		result = m(result, e)
+	}
+	result
+}
+
+string foldLeft(method m, list elements, string initial) {
+	string result = initial
+	foreach e <- elements {
+		result = m(result, e)
+	}
+	result
+}
+
+string fold(method m, list elements) {
+	if(elements) {
+		fold(m, tail(elements), first(elements))
+	}
+}
+
+numeric fold(method m, list elements, numeric initial) {
+	if(elements) {
+		m(first(elements), fold(m, tail(elements), initial))
+	} else {
+		initial
+	}
+}
+
+string fold(method m, list elements, string initial) {
+	if(elements) {
+		m(first(elements), fold(m, tail(elements), initial))
+	} else {
+		initial
+	}
+}
+
+list takeWhile(method m, list elements) {
+	list result
+	numeric take = 1
+	foreach e | take <- elements {
+		if(m(e)) {
+			result.add(e)
+		} else {
+			take = 0
+		}
+	}
+	result
+}
+
+list dropWhile(method m, list elements) {
+	list result
+	numeric drop = 1
+	foreach e <- elements {
+		if(m(e) && !drop) {
+			result.add(e)
+		} else {
+			drop = 0
+		}
+	}
+	result
+}
+
+string join(list elements, string separator) {
+	fold(cJoin(separator), elements)
+}
+
+
+/* Builder methods */
+
+method cJoin(string s) {
+	method result
+	{
+		string separator = s
+		result = string fn(string a, string b) {
+			if(a ne ''  && b ne '') {
+				a + separator + b
+			} else if(a ne '') {
+				a
+			} else if(b ne '') {
+				b
+			}
+		}
+	}
+	result
+}
+
+method cEquals(string s) {
+	method result
+	{
+		string value = s
+		result = numeric fn(string element) {
+			element eq value
+		}
+	}
+	result
+}
+
+
+/* text formatting utilities */
+
+string tab() {
+	'	'
+}
+
+string tabs(numeric tabs) {
+	numeric tabCount = 0
+	while(tabCount < tabs) {
+		'	'
+		tabCount = tabCount + 1;
+	}
+}
+
+string space() {
+	' '
+}
+
+string spaces(numeric spaces) {
+	numeric spaceCount = 0
+	while(spaceCount < spaces) {
+		' '
+		spaceCount = spaceCount + 1
+	}
+}
+
+string lineFeed() {
+?>
+<?
+}
+
+string lineFeeds(numeric lineFeeds) {
+	numeric lineFeedCount = 0
+	while(lineFeedCount < lineFeeds) {
+?>
+<?
+		lineFeedCount = lineFeedCount + 1
+	}
+}
+
+string boolean(numeric value) {
+	if(value) {
+		'true'
+	} else {
+		'false'
+	}
+}
+
+string formatList(list elements, string separator) {
+	numeric first = 1
+	string sep = ''
+	foreach element <- elements {
+		sep + element
+		sep = separator
+	}
+}
+
+string formatListWithLineFeeds(list elements, string separator) {
+	numeric first = 1
+	string sep = ''
+	foreach element <- elements {
+		sep + element
+		sep = separator + lineFeed()
+	}
+}
+
+string formatListWithLineFeedsAndTabs(list elements, string separator, numeric tabs) {
+	numeric first = 1
+	string sep = ''
+	foreach element <- elements {
+		sep + element
+		sep = separator + lineFeed() + tabs(tabs)
+  	}
+}
+
+
+string declareXml() {
+	declareXml('UTF-8')
+}
+
+string declareXml(string encoding) {
+?><?beginXmlProcInst()?>xml version="1.0" encoding="<?encoding?>"<?endXmlProcInst()?><?
+}
+
+string beginXmlProcInst() {
+	'<' + '?'
+}
+
+string endXmlProcInst() {
+	'?' + '>'
+}
+
+?>

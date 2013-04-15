@@ -1,0 +1,20 @@
+<?
+string javaNameForName(String name) {
+	string javaName = super(name)
+	if(javaName eq 'package'
+		|| javaName eq 'aspect'
+		|| javaName eq 'pointcut'
+		|| javaName eq 'after'
+		|| javaName eq 'before'
+		|| javaName eq 'around'
+		|| javaName eq 'returning'
+		|| javaName eq 'declare'
+		|| javaName eq 'error'
+		|| javaName eq 'warning'
+		) {
+		'a' + javaName.firstUpper() 
+	} else {
+		javaName
+	}
+}
+?>

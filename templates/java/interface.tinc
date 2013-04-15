@@ -1,0 +1,205 @@
+<?!--
+ * template include java/interface
+ * requires includes lib, model/lib, java/lib 
+ * base methods for java interface generation
+ * (C) 2010 Ludger Solbach
+--?><?
+string imports(map element) {
+	map importMap
+	foreach ref <- element:ReferencedTypes {
+		if(!ref:Namespace eq element:Namespace) {
+			importType(ref)
+		}
+	}
+}
+
+string typeAnnotations(map element) {
+
+}
+
+string typeAnnotations() {
+	typeAnnotations(This)
+}
+
+string extensions() {
+	extensions(SuperClasses)
+}
+
+string extensions(list extensionList) {
+	if(extensionList) {
+		'extends '
+		list names
+		foreach ext <- extensionList {
+			names = names.add(name(ext))
+		}?>
+<?formatListWithLineFeedsAndTabs(names, ',', 3)?><?
+	}
+}
+
+string properties(map element) {
+	foreach attr | isAccessibleProperty(attr) <- element:Attributes {
+		property(attr)
+	}
+}
+
+string properties() {
+	properties(This)
+}
+
+string property(map attr) {
+	propertyGet(attr)
+	if(isChangeable(attr)) {
+		propertySet(attr)
+		if(isMany(attr)) {
+			propertyAdd(attr)
+			propertyRemove(attr)
+		}
+	}
+}
+
+string propertyGet(map attr) {
+	javaDoc(attr, 1)
+	propertyGetAnnotations(attr)?>
+	<?propertyType(attr)?> get<?propertyMethodBase(attr)?>();
+<?
+}
+
+string propertyGetAnnotations(map attr) {
+
+}
+
+string propertySet(map attr) {
+	javaDoc(attr, 1)
+	propertySetAnnotations(attr)?>
+	void set<?propertyMethodBase(attr)?>(<?propertyType(attr)?> <?propertyName(attr)?>);
+<?
+}
+
+string propertySetAnnotations(map attr) {
+
+}
+
+string propertyAdd(map attr) {
+	javaDoc(attr, 1)
+	propertyAddAnnotations(attr)?>
+	void add<?attr:Name.firstUpper()?>(<?javaType(attr)?> <?javaName(attr)?>);
+<?
+}
+
+string propertyAddAnnotations(map attr) {
+
+}
+
+string propertyRemove(map attr) {
+	javaDoc(attr, 1)
+	propertyAddAnnotations(attr)?>
+	void remove<?attr:Name.firstUpper()?>(<?javaType(attr)?> <?javaName(attr)?>);
+<?
+}
+
+string propertyRemoveAnnotations(map attr) {
+
+}
+
+string associations(map element) {
+	foreach asso | isAccessibleAssociation(asso) <- element:Associations {
+		association(asso)
+	}
+}
+
+string associations() {
+	associations(This)
+}
+
+string association(map asso) {
+	associationGet(asso)
+	if(isChangeable(asso)) {
+		associationSet(asso)
+		if(isMany(asso) || isQualified(asso)) {
+			associationAdd(asso)
+			associationRemove(asso)
+		}
+	}
+}
+
+string associationGet(map asso) {
+	javaDoc(asso, 1)
+	associationGetAnnotations(asso)?>
+	<?associationType(asso)?> get<?associationMethodBase(asso)?>();
+<?
+}
+
+string associationGetAnnotations(map asso) {
+
+}
+
+string associationQualifiedGet(map asso) {?>
+	<?javaType(asso)?> get<?asso:Name.firstUpper()?>(<?associationQualifierArguments(asso)?>);
+<?
+}
+
+string associationSet(map asso) {
+	javaDoc(asso, 1)
+	associationSetAnnotations(asso)?>
+	void set<?associationMethodBase(asso)?>(<?associationType(asso)?> <?associationName(asso)?>);
+<?
+}
+
+string associationSetAnnotations(map asso) {
+
+}
+
+string associationAdd(map asso) {
+	javaDoc(asso, 1)
+	associationAddAnnotations(asso)
+	if(!isQualified(asso)) {?>
+	void add<?asso:Name.firstUpper()?>(<?javaType(asso)?> <?javaName(asso)?>);
+<?
+	} else {?>
+	void add<?asso:Name.firstUpper()?>(<?javaType(asso:SourceEnd:Qualifiers[0])?> <?javaName(asso:SourceEnd:Qualifiers[0])?>, <?javaType(asso)?> <?javaName(asso)?>);
+<?
+	}
+}
+
+string associationAddAnnotations(map asso) {
+
+}
+
+string associationRemove(map asso) {
+	javaDoc(asso, 1)
+	associationRemoveAnnotations(asso)?>
+	void remove<?asso:Name.firstUpper()?>(<?javaType(asso)?> <?javaName(asso)?>);
+<?
+}
+
+string associationRemoveAnnotations(map asso) {
+
+}
+
+string operations(map element) {
+	foreach op <- element:Operations {
+		operation(op)
+	}
+}
+
+string operations() {
+	operations(This)
+}
+
+string operation(map op) {
+	if(op:Visibility eq 'public') {
+		javaDoc(op, 1)
+		operationAnnotations(op)
+		operationSignature(op)
+	}
+}
+
+string operationAnnotations(map op) {
+
+}
+
+string operationSignature(map op) {?>
+	<?returnType(op)?> <?op:Name?>(<?operationArguments(op)?>);<?
+}
+
+?>

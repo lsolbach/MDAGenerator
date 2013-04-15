@@ -1,0 +1,430 @@
+<?!--
+/*
+ * Standard helper functions based only on the meta model of the ModelRepository
+ * unspecific to any UML profile, design DSL or target language
+ * 
+ * ©2010,2011 Ludger Solbach
+ */
+--?><?
+
+/* generation information */
+
+string generationInfo() {
+?>
+Template:  <?GenContext:Name?>
+Imports:   <?GenContext:Imports?>
+Timestamp: <?GenContext:Timestamp?>
+<?
+}
+
+string generationInfo(string prefix) {
+	prefix + 'Template:  ' + GenContext:Name?>
+<?
+	prefix + 'Imports:   ' + GenContext:Imports?>
+<?
+	prefix + 'Timestamp: ' + GenContext:Timestamp
+}
+
+string name(map element) {
+	element:Name
+}
+
+string model() {
+	model(This)
+}
+
+string model(map model) {
+
+}
+
+string packages() {
+	packages(This)
+}
+
+string packages(map element) {
+	foreach package | isModelElement(package) <- element:Packages {
+		package(package)
+	}
+}
+
+string package(map package) {
+	
+}
+
+string classes() {
+	classes(This)
+}
+
+string classes(map element) {
+	foreach class | isModelElement(class) <- element:Classes {
+		class(class)
+	}
+}
+
+string class(map class) {
+
+}
+
+string properties() {
+	properties(This)
+}
+
+string properties(map element) {
+	foreach attr <- element:Attributes {
+		property(attr)
+	}
+}
+
+string property(map attr) {
+
+}
+
+string associations() {
+	associations(This)
+}
+
+string associations(map element) {
+	foreach asso <- element:Associations {
+		association(asso)
+	}
+}
+
+string association(map asso) {
+
+}
+
+string operations() {
+	operations(This)
+}
+
+string operations(map element) {
+	foreach op <- element:Operations {
+		operation(op)
+	}
+}
+
+string operation(map op) {
+
+}
+
+numeric isModelElement(map element) {
+	!element:ProfileElement
+}
+
+numeric isProfileElement(map element) {
+	element:ProfileElement
+}
+
+numeric hasGeneratorParam(string name) {
+	GenContext:ParamMap[name] ne ''
+}
+
+string getGeneratorParam(string name) {
+	if(GenContext:ParamMap[name]) {
+		GenContext:ParamMap[name]:Value
+	}
+}
+
+numeric hasStereotype(map element) {
+	element:StereotypeMap
+}
+
+numeric hasStereotype(map element, string stereotype) {
+	element:StereotypeMap[stereotype] ne ''
+}
+
+numeric hasStereotype(string stereotype) {
+	hasStereotype(This, stereotype)
+}
+
+numeric hasTaggedValue(map element) {
+	element:TaggedValueMap
+}
+
+numeric hasTaggedValue(map element, string name) {
+	element:TaggedValueMap[name] ne ''
+}
+
+numeric hasTaggedValue(string name) {
+	hasTaggedValue(This, name)
+}
+
+numeric hasTaggedValue(map element, string name, string value) {
+	element:TaggedValueMap[name] ne '' && element:TaggedValueMap[name]:Value eq value
+}
+
+string taggedValue(map element, string name) {
+	if(element:TaggedValueMap[name]) {
+		element:TaggedValueMap[name]:Value
+	}
+}
+
+string taggedValue(string name) {
+	getTaggedValue(This, name)
+}
+
+numeric hasDocumentation(map element) {
+	element:TaggedValueMap['documentation']
+}
+
+string documentation(map element) {
+	if(hasDocumentation(element)) {
+		element:TaggedValueMap['documentation']:Value
+	}
+}
+
+numeric hasReturnValue(map op) {
+	op:ReturnType && op:ReturnType:Name ne 'void'
+}
+
+numeric isOptional(map element) {
+	element:Multiplicity:Low == 0
+}
+
+numeric isMandatory(map element) {
+	!isOptional(element)
+}
+
+numeric isMany(map element) {
+	numeric result = 0
+	if(element:Multiplicity) {
+		result = element:Multiplicity:High == -1 || element:Multiplicity:High > 1
+	}
+	result
+}
+
+numeric isZeroToOne(map element) {
+	numeric result = 0
+	if(element:Multiplicity) {
+		result = element:Multiplicity:Low == 0 && element:Multiplicity:High == 1
+	}
+	result
+}
+
+numeric isOneToOne(map element) {
+	numeric result = 1
+	if(element:Multiplicity) {
+		result = element:Multiplicity:Low == 1 && element:Multiplicity:High == 1
+	}
+	result
+}
+
+numeric isZeroToMany(map element) {
+	numeric result = 0
+	if(element:Multiplicity) {
+		result = element:Multiplicity:Low == 0 && element:Multiplicity:High == -1
+	}
+	result
+}
+
+numeric isOneToMany(map element) {
+	numeric result = 0
+	if(element:Multiplicity) {
+		result = element:Multiplicity:Low == 1 && element:Multiplicity:High == -1
+	}
+	result
+}
+
+numeric isBoundedMany(map element) {
+	numeric result = 0
+	if(element:Multiplicity) {
+		result = element:Multiplicity:High > 1
+	}
+	result
+}
+
+numeric isUnboundedMany(map element) {
+	numeric result = 0
+	if(element:Multiplicity) {
+		result = element:Multiplicity:High == -1
+	}
+	result
+}
+
+numeric getLowerBound(map element) {
+	numeric result = 1
+	if(element:Multiplicity) {
+		result = element:Multiplicity:Low
+	}
+	result
+}
+
+numeric getUpperBound(map element) {
+	numeric result = 1
+	if(element:Multiplicity) {
+		result = element:Multiplicity:High
+	}
+	result
+}
+
+numeric isQualified(map asso) {
+	asso:SourceEnd:Qualifiers
+}
+
+numeric isOrdered(map asso) {
+	asso:Ordering eq 'ordered'
+}
+
+numeric isNavigable(map asso) {
+	asso:Navigable
+}
+
+numeric isQuery(map op) {
+	op:Query
+}
+
+numeric isDerived(map element) {
+	element:Derived
+}
+
+numeric hasDerivedMembers(map element) {
+	numeric derivedMembers = 0
+	foreach attr | isDerived(attr) <- element:AllAttributes {
+		derivedMembers = 1
+	}
+	foreach asso | isNavigable(asso) && isDerived(asso) <- element:AllAssociations {
+		derivedMembers = 1
+	}
+	derivedMembers
+}
+
+numeric hasDerivedMembers() {
+	hasDerivedMembers(This)
+}
+
+numeric isAggregation(map asso) {
+	asso:Aggregation eq 'aggregate'
+}
+
+numeric isAggregated(map asso) {
+	isAggregation(asso:SourceEnd)
+}
+
+numeric isComposition(map asso) {
+	asso:Aggregation eq 'composite'
+}
+
+numeric isComposed(map asso) {
+	isComposition(asso:SourceEnd)
+}
+
+numeric isReference(map asso) {
+	asso:Aggregation eq 'none'
+}
+
+numeric isReferred(map asso) {
+	isReference(asso:SourceEnd)
+}
+
+numeric isChangeable(map element) {
+	element:Changeability ne 'frozen' && !isDerived(element)
+}
+
+numeric isAddOnly(map element) {
+	element:Changeability ne 'addOnly' && !isDerived(element)
+}
+
+numeric isReadOnly(map element) {
+	element:Changeability eq 'frozen' || isDerived(element)
+}
+
+numeric isAbstract(map element) {
+	element:Abstract
+}
+
+numeric isManyAssociationEnd(map asso) {
+	isMany(asso) || isQualified(asso)
+}
+
+numeric isOneToOneAssociation(map asso) {
+	!isManyAssociationEnd(asso:SourceEnd) && !isManyAssociationEnd(asso)
+}
+
+numeric isOneToManyAssociation(map asso) {
+	!isManyAssociationEnd(asso:SourceEnd) && isManyAssociationEnd(asso)
+}
+
+numeric isManyToOneAssociation(map asso) {
+	isManyAssociationEnd(asso:SourceEnd) && !isManyAssociationEnd(asso)
+}
+
+numeric isManyToManyAssociation(map asso) {
+	isManyAssociationEnd(asso:SourceEnd) && isManyAssociationEnd(asso)
+}
+
+numeric isInstanceOf(map element, string typeName) {
+	numeric result = 0
+	if(element:Name eq typeName) {
+		result = 1
+	} else if(!element:SuperClasses) {
+		result = 0
+	} else {
+		foreach superClass <- element:SuperClasses {
+			result = result || isInstanceOf(superClass, typeName)
+		}
+	}
+	result
+}
+
+numeric isModel(map element) {
+	isInstanceOf(element, 'Model')
+}
+
+numeric isPackage(map element) {
+	isInstanceOf(element, 'Package')
+}
+
+numeric isClass(map element) {
+	isInstanceOf(element, 'Class')
+}
+
+numeric isInterface(map element) {
+	isInstanceOf(element, 'Interface')
+}
+
+numeric isDataType(map element) {
+	isInstanceOf(element, 'DataType')
+}
+
+numeric isEnumeration(map element) {
+	isInstanceOf(element, 'Enumeration')
+}
+
+map getModel(map element) {
+	map result
+	if(element:elementType eq 'Model') {
+		result = element
+	} else if(element:Parent) {
+		result = getModel(element:Parent)		
+	}
+	result
+}
+
+list getChildList(map element) {
+	list childList
+	foreach asso | isComposition(asso) <- element:AllAssociations {
+		childList.add(asso:Type)
+	}
+	childList
+}
+
+list getContainerList(map element) {
+	list containerList
+	foreach asso | isComposed(asso) <- element:AllAssociations {
+		containerList.add(asso:Type)
+	}
+	containerList
+}
+
+string getAssociationCardinality(map asso) {
+	if(!isOneToOneAssociation(asso)) {
+		'OneToOne'
+	} else if(isOneToManyAssociation(asso)) {
+		'OneToMany'
+	} else if(isManyToOneAssociation(asso)) {
+		'ManyToOne'
+	} else if(isManyToManyAssociation(asso)) {
+		'ManyToMany'
+	}
+}
+?>
