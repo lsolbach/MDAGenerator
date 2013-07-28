@@ -274,7 +274,7 @@ numeric isQuery(map op) {
 }
 
 numeric isDerived(map element) {
-	element:Derived
+	element:Derived || hasTaggedValue(element, 'derived', 'true')
 }
 
 numeric hasDerivedMembers(map element) {

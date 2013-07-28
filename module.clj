@@ -1,7 +1,7 @@
 [
  :module "MdaStandardTemplateLibrary"
  :project "org.soulspace.modelling"
- :type "data"
+ :type :data
  :version "1.0.0"
  :description "Templates for model driven software development"
  :author "Ludger Solbach"
