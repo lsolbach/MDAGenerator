@@ -1,4 +1,4 @@
-<project name="DomainMetaModel" default="distribute">
+<project name="MDADomainMetaModel" default="distribute">
 		
 	<property environment="env"/>
 	<property file="build.properties"/>
