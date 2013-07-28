@@ -34,7 +34,12 @@ Code Repository
 History
 -------
 
-Version 1.0.0 (--.--.2012)
+Version 1.0.1 (28.07.2013)
+---------------------------
+* renamed to 
+* refactored build files
+
+Version 1.0.0 (18.12.2012)
 ---------------------------
 * initial import to github
 * switched to git
