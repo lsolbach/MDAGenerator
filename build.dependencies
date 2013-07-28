@@ -1,10 +1,10 @@
 <dependencies>
 	<dependency type="runtime">
-		<package name="XmiRepository" version="1.0.0" type="project">
-			<module name="XmiRepository"/>
+		<package name="MDAXmiRepository" version="1.0.1" type="project">
+			<module name="MDAXmiRepository"/>
 		</package>
-		<package name="ModelRepository" version="1.0.0" type="project">
-			<module name="ModelRepository"/>
+		<package name="MDARepository" version="1.0.1" type="project">
+			<module name="MDAModelRepository"/>
 		</package>
 		<package name="JavaUtilLibrary" version="0.3.0" type="project">
 			<module name="JavaUtilLibrary"/>

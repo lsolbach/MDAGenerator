@@ -5,15 +5,15 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="templates"/>
 	<classpathentry kind="lib" path="lib/dev/junit.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/castor-xml.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/ModelRepository.jar" sourcepath="/ModelRepository/src"/>
 	<classpathentry kind="lib" path="lib/runtime/TemplateEngine.jar" sourcepath="/TemplateEngine/src"/>
 	<classpathentry kind="lib" path="lib/runtime/JavaUtilLibrary.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/XmiRepository.jar" sourcepath="/XmiRepository"/>
 	<classpathentry kind="lib" path="lib/dev/ant-launcher.jar"/>
 	<classpathentry kind="lib" path="lib/dev/ant-testutil.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/ant.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/oro.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/castor.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/MDARepository.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/MDAXmiRepository.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

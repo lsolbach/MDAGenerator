@@ -1,8 +1,6 @@
-MdaGenerator
+MDAGenerator
 ============
-
-Generators and ant tasks for model driven software development based on
-the TemplateEngine and the ModelRepository.
+Ant task and generators of the MDA generator framework for model driven software development.
 
 Runtime Requirements:
 ---------------------
@@ -13,8 +11,8 @@ Third party dependencies
 
 Internal dependencies
 * JavaUtilLibrary >= 0.3.0
-* XmiRepository >= 1.0.0
-* ModelRepository >= 1.0.0
+* MDAXmiRepository >= 1.0.1
+* MDARepository >= 1.0.1
 * TemplateEngine >= 1.0.0
 
 Documentation
@@ -35,7 +33,7 @@ Copyright
 
 Code Repository
 ---------------
-[https://github.com/lsolbach/MdaGenerator] (https://github.com/lsolbach/MdaGenerator)
+[https://github.com/lsolbach/MDAGenerator] (https://github.com/lsolbach/MDAGenerator)
 
 History
 -------
@@ -44,7 +42,8 @@ Version 1.0.0 (--.--.2012)
 --------------------------
 * initial import to github
 * switched to git
-* added encoding parameter to generators 
+* added encoding parameter to generators
+* renamed module to MDAGenerator
 
 Version 0.9.19 (28.07.2011)
 ---------------------------

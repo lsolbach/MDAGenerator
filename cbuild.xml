@@ -1,4 +1,4 @@
-<project name="MdaGenerator" default="distribute">
+<project name="MDAGenerator" default="distribute">
 	
 	<property environment="env"/>
 	<property file="build.properties"/>
