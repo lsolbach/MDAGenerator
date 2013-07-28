@@ -1,7 +1,7 @@
 <dependencies>
 	<dependency type="runtime">
-		<package name="XmiRepository" version="1.0.0" type="project">
-			<module name="XmiRepository"/>
+		<package name="MDAXmiRepository" version="1.0.0" type="project">
+			<module name="MDAXmiRepository"/>
 		</package>
 		<package name="castor" version="0.9.5.3" type="lib">
 			<module name="castor-xml"/>

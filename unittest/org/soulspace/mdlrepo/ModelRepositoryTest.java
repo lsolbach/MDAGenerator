@@ -28,35 +28,4 @@ public class ModelRepositoryTest extends TestCase {
 		super.tearDown();
 	}
 
-/*	
-	public void testAssociationClass() {
-		xmiRepository.loadModel(new File("refModels/argouml/associationclass.xmi"));
-
-		builder.addXmiRepository(xmiRepository);
-
-		repository = builder.getModelRepository();
-		for(IClass c : repository.getClasses()) {
-			System.out.println("Class " + c.getName());
-			for(IAssociationEnd ae : c.getAssociations()) {
-				System.out.println("Association to " + ae.getType().getName());				
-			}
-		}
-		assertEquals("3 Classes ", 3, repository.getClasses().size());
-		
-		for(IAssociation a : repository.getAssociations()) {
-			System.out.println("Association " + a.getId());
-		}
-		assertEquals("1 Association", 1, repository.getAssociations().size());
-		
-	}
-*/
-	
-	public void testStateMachine() {
-		xmiRepository.loadModel(new File("refModels/argouml/statemachine.xmi"));
-
-		builder.addXmiRepository(xmiRepository);
-		repository = builder.getModelRepository();
-		
-	}
-
 }

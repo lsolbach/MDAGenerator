@@ -1,9 +1,8 @@
-ModelRepository
+MDARepository
 ===============
 
-A model repository to faciliate the generation of soure code from UML models.
-UML 1.4 models from the xmi repository are transformed into model repository models,
-which are more convenient for the generation of (java) source code.
+The model repository  of the MDA Generator Framework to faciliate the generation of soure code from UML models.
+UML 1.4 models from the xmi repository are transformed into model repository models, which are more convenient for the generation of (java) source code.
 
 Runtime Requirements:
 ---------------------
@@ -12,7 +11,7 @@ External dependencies
 * XercesImpl >= 2.9.0
 
 Internal dependencies
-* XmiRepository >=1.0.0
+* MDAXmiRepository >=1.0.1
 
 Author/Project Lead
 -------------------
@@ -28,12 +27,17 @@ Copyright
 
 Code Repository
 ---------------
-[https://github.com/lsolbach/ModelRepository] (https://github.com/lsolbach/ModelRepository)
+[https://github.com/lsolbach/MDARepository] (https://github.com/lsolbach/MDARepository)
 
 History
 -------
 
-Version 1.0.0 (--.--.2012)
+Version 1.0.1 (28.07.2013)
+--------------------------
+* renamed to MDARepository
+* refactored build files
+
+Version 1.0.0 (18.12.2012)
 --------------------------
 * initial import to github
 * switched to git

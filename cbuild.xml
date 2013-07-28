@@ -1,4 +1,4 @@
-<project name="ModelRepository" default="distribute">
+<project name="MDARepository" default="distribute">
 
 	<property environment="env"/>
 	<property file="build.properties"/>
