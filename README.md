@@ -21,6 +21,6 @@ Code Repository
 History
 -------
 
-Version 1.0.0 (28.07.2013)
+Version 1.0.1 (28.07.2013)
 --------------------------
 * initial git import
