@@ -1,7 +1,7 @@
 MDARepository
-===============
+=============
 
-The model repository  of the MDA Generator Framework to faciliate the generation of soure code from UML models.
+The module MDARepository contains the model repository of the MDA Generator Framework to facilitate the generation of source code from UML models.
 UML 1.4 models from the xmi repository are transformed into model repository models, which are more convenient for the generation of (java) source code.
 
 Runtime Requirements:
@@ -23,7 +23,7 @@ Eclipse Public License 1.0 (http://www.eclipse.org/legal/epl-v10.html)
 
 Copyright
 ---------
-© 2004-2012 Ludger Solbach
+© 2004-2013 Ludger Solbach
 
 Code Repository
 ---------------
