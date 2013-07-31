@@ -1,13 +1,14 @@
 MDAXmiRepository
 ================
+MDAXmiRepository is the XMI 1.2/UML 1.4 repository for the MDA Generator Framework.
 
-An XmiRepository for reading UML XMI 1.2 files (written by ArgoUML for
-example).
+Reads XMI files (written by ArgoUML for example) and makes the contained model
+available as Java objects for further processing. Retains the structure of the
+XMI 1.2/UML 1.4 meta model. The UML meta model is a bit inconvenient for code
+generation. Therefore the MDAGenerator transforms these models into MDARepository
+model which are more convenient to process in generator templates.
 
-Reads XMI files and makes the contained model available as Java objects
-for further processing. Retains the structure of the XMI 1.2/UML 1.4
-meta model. For code generation the transformation into a model that's
-more convenient to handle is advised (take a look the ModelRepository).
+See the doc folder for further documentation.
 
 Runtime Requirements:
 ---------------------
