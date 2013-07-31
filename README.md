@@ -2,6 +2,8 @@ MDAGenerator
 ============
 Ant task and generators of the MDA generator framework for model driven software development.
 
+See the doc folder for further documentation.
+
 Runtime Requirements:
 ---------------------
 Third party dependencies
