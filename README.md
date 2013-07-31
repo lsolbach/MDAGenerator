@@ -1,10 +1,10 @@
-XmiRepository
-=============
+MDAXmiRepository
+================
 
 An XmiRepository for reading UML XMI 1.2 files (written by ArgoUML for
 example).
 
-Reads XMI files and makes the contained model available as java objects
+Reads XMI files and makes the contained model available as Java objects
 for further processing. Retains the structure of the XMI 1.2/UML 1.4
 meta model. For code generation the transformation into a model that's
 more convenient to handle is advised (take a look the ModelRepository).
@@ -25,7 +25,7 @@ License
 
 Copyright
 ---------
-© 2004-2012 Ludger Solbach
+© 2004-2013 Ludger Solbach
 
 Code Repository
 ---------------
@@ -36,7 +36,7 @@ History
 
 Version 1.0.1 (28.07.2013)
 ---------------------------
-* renamed to 
+* renamed to MDAXmiRepository 
 * refactored build files
 
 Version 1.0.0 (18.12.2012)
