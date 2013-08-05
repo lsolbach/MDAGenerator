@@ -11,7 +11,7 @@
  This module servers as an example how to extend the meta model."
  
  :license ["Eclipse Public License 1.0" "http://www.eclipse.org/legal/epl-v10.html"]
- :plugins ["global" "sdeps" "depsdot" "java" "package"]
+ :plugins ["global" "dependencies" "java" "package" "release"]
  :dependencies [[["org.soulspace.mda" "MDARepository" "1.0.1"] :dev]
                 [["org.soulspace.mda" "MDAXmiRepository" "1.0.1"] :dev]]
  ]
