@@ -7,7 +7,7 @@
  :version "1.0.1"
  :description "Ant task and generators of the MDA generator framework for model driven software development."
  :license ["Eclipse Public License 1.0" "http://www.eclipse.org/legal/epl-v10.html"]
- :plugins ["global" "sdeps" "depsdot" "java" "package"]
+ :plugins ["global" "dependencies" "java" "package" "release"]
  :dependencies [[["org.soulspace.template" "TemplateEngine" "1.0.1"]]
                 [["org.soulspace.common" "JavaUtilLibrary" "0.3.0"]]
                 [["org.soulspace.mda" "MDARepository" "1.0.1"]]
