@@ -6,5 +6,5 @@
  :description "Template Library for the MDA Generator Framework."
  :author "Ludger Solbach"
  :provider "soulspace.org"
- :plugins ["global" "sdeps" "package"] 
+ :plugins ["global" "dependencies" "package" "release"] 
  ]
