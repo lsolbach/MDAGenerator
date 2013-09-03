@@ -1,6 +1,6 @@
 [
  :module "MDAXmiRepository"
- :project "org.soulspace.mda"
+ :project "org.soulspace.modelling"
  :project-lead "Ludger Solbach"
  :vendor "soulspace.org"
  :type :framework
