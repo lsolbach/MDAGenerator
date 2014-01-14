@@ -37,7 +37,7 @@
 			<classpath>
 				<pathelement location="./cfg"/>
 		        <pathelement location="./bin"/>
-				<fileset dir="./lib/runtime">
+				<fileset dir="${lib.dir}/runtime">
 					<include name="*.jar" />
 				</fileset>
 			</classpath>
