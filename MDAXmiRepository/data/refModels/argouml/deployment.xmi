@@ -1,0 +1,134 @@
+<?xml version = '1.0' encoding = 'UTF-8' ?>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Wed Sep 30 09:25:11 CEST 2009'>
+  <XMI.header>    <XMI.documentation>
+      <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
+      <XMI.exporterVersion>0.28.1(6) revised on $Date: 2009/11/08 12:03:05 $ </XMI.exporterVersion>
+    </XMI.documentation>
+    <XMI.metamodel xmi.name="UML" xmi.version="1.4"/></XMI.header>
+  <XMI.content>
+    <UML:Model xmi.id = '127-0-0-1--4a405d39:124021b4123:-8000:0000000000000CF3'
+      name = 'untitledModel' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+      isAbstract = 'false'>
+      <UML:Namespace.ownedElement>
+        <UML:Component xmi.id = '127-0-0-1--4a405d39:124021b4123:-8000:0000000000000E9B'
+          name = 'AdminComponent' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:Component xmi.id = '127-0-0-1--4a405d39:124021b4123:-8000:0000000000000E9C'
+          name = 'AuthenticationComponent' isSpecification = 'false' isRoot = 'false'
+          isLeaf = 'false' isAbstract = 'false'>
+          <UML:ModelElement.clientDependency>
+            <UML:Dependency xmi.idref = '127-0-0-1--4a405d39:124021b4123:-8000:0000000000000E9D'/>
+          </UML:ModelElement.clientDependency>
+        </UML:Component>
+        <UML:Dependency xmi.id = '127-0-0-1--4a405d39:124021b4123:-8000:0000000000000E9D'
+          isSpecification = 'false'>
+          <UML:Dependency.client>
+            <UML:Component xmi.idref = '127-0-0-1--4a405d39:124021b4123:-8000:0000000000000E9C'/>
+          </UML:Dependency.client>
+          <UML:Dependency.supplier>
+            <UML:Component xmi.idref = '127-0-0-1--4a405d39:124021b4123:-8000:0000000000000E9B'/>
+          </UML:Dependency.supplier>
+        </UML:Dependency>
+        <UML:Node xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:0000000000001096'
+          name = 'appserver' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'>
+          <UML:Namespace.ownedElement>
+            <UML:Component xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AD'
+              name = 'tomcat' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false'>
+              <UML:Component.deploymentLocation>
+                <UML:Node xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:0000000000001096'/>
+              </UML:Component.deploymentLocation>
+            </UML:Component>
+          </UML:Namespace.ownedElement>
+          <UML:Node.deployedComponent>
+            <UML:Component xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AD'/>
+          </UML:Node.deployedComponent>
+        </UML:Node>
+        <UML:NodeInstance xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:0000000000001097'
+          name = 'lzebrappp02' isSpecification = 'false'>
+          <UML:Instance.linkEnd>
+            <UML:LinkEnd xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010A9'/>
+          </UML:Instance.linkEnd>
+        </UML:NodeInstance>
+        <UML:Node xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:0000000000001098'
+          name = 'webserver' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'>
+          <UML:Namespace.ownedElement>
+            <UML:Component xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AC'
+              name = 'Apache HTTPD' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+              isAbstract = 'false'>
+              <UML:Component.deploymentLocation>
+                <UML:Node xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:0000000000001098'/>
+              </UML:Component.deploymentLocation>
+            </UML:Component>
+          </UML:Namespace.ownedElement>
+          <UML:Node.deployedComponent>
+            <UML:Component xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AC'/>
+          </UML:Node.deployedComponent>
+        </UML:Node>
+        <UML:NodeInstance xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010A7'
+          name = 'lzebrappp01' isSpecification = 'false'>
+          <UML:Instance.linkEnd>
+            <UML:LinkEnd xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AA'/>
+          </UML:Instance.linkEnd>
+        </UML:NodeInstance>
+        <UML:Link xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010A8'
+          name = 'cluster' isSpecification = 'false'>
+          <UML:Link.connection>
+            <UML:LinkEnd xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010A9'
+              isSpecification = 'false'>
+              <UML:LinkEnd.instance>
+                <UML:NodeInstance xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:0000000000001097'/>
+              </UML:LinkEnd.instance>
+            </UML:LinkEnd>
+            <UML:LinkEnd xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AA'
+              isSpecification = 'false'>
+              <UML:LinkEnd.instance>
+                <UML:NodeInstance xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010A7'/>
+              </UML:LinkEnd.instance>
+            </UML:LinkEnd>
+          </UML:Link.connection>
+        </UML:Link>
+        <UML:ComponentInstance xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AB'
+          name = 'AdminWeb' isSpecification = 'false'/>
+        <UML:Association xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AE'
+          name = 'ajp' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'>
+          <UML:Association.connection>
+            <UML:AssociationEnd xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010AF'
+              visibility = 'public' isSpecification = 'false' isNavigable = 'true' ordering = 'unordered'
+              aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010B0'>
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010B1'
+                      lower = '1' upper = '1'/>
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+              <UML:AssociationEnd.participant>
+                <UML:Node xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:0000000000001098'/>
+              </UML:AssociationEnd.participant>
+            </UML:AssociationEnd>
+            <UML:AssociationEnd xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010B2'
+              visibility = 'public' isSpecification = 'false' isNavigable = 'true' ordering = 'unordered'
+              aggregation = 'none' targetScope = 'instance' changeability = 'changeable'>
+              <UML:AssociationEnd.multiplicity>
+                <UML:Multiplicity xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010B3'>
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange xmi.id = '127-0-0-1-1b8c66a5:12409c534a5:-8000:00000000000010B4'
+                      lower = '1' upper = '1'/>
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:AssociationEnd.multiplicity>
+              <UML:AssociationEnd.participant>
+                <UML:Node xmi.idref = '127-0-0-1-1b8c66a5:12409c534a5:-8000:0000000000001096'/>
+              </UML:AssociationEnd.participant>
+            </UML:AssociationEnd>
+          </UML:Association.connection>
+        </UML:Association>
+      </UML:Namespace.ownedElement>
+    </UML:Model>
+  </XMI.content>
+</XMI>

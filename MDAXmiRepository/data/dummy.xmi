@@ -1,0 +1,147 @@
+<?xml version = '1.0' encoding = 'UTF-8' ?>
+<XMI xsi:schemaLocation='http://soulspace/XMI xmi.xsd' 
+  xmlns='http://soulspace/XMI' 
+  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+  xmlns:UML='UML' 
+  xmi.version = '1.2' 
+  timestamp = 'Thu Oct 21 10:55:57 CEST 2004'>
+  <XMI.header>
+    <XMI.documentation>
+      <XMI.exporter>Netbeans XMI Writer</XMI.exporter>
+      <XMI.exporterVersion>1.0</XMI.exporterVersion>
+    </XMI.documentation>
+  </XMI.header>
+  <XMI.content>
+    <UML:Model xmi.id = 'sm$15f3ad:ffbaa119f5:-7fee' name = 'model 1' isSpecification = 'false'
+      isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+      <UML:Namespace.ownedElement>
+        <UML:Package xmi.id = 'sm$15f3ad:ffbaa119f5:-7ff6' name = 'org' visibility = 'public'
+          isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+          <UML:Namespace.ownedElement>
+            <UML:Package xmi.id = 'sm$15f3ad:ffbaa119f5:-7fe9' name = 'soulspace' visibility = 'public'
+              isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+              <UML:Namespace.ownedElement>
+                <UML:Package xmi.id = 'sm$15f3ad:ffbaa119f5:-7fdd' name = 'dummy' visibility = 'public'
+                  isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+                  <UML:Namespace.ownedElement>
+                    <UML:Class xmi.id = 'sm$15f3ad:ffbaa119f5:-7fd1' name = 'User' visibility = 'public'
+                      isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'
+                      isActive = 'false'>
+                      <UML:ModelElement.clientDependency>
+                        <UML:Abstraction xmi.idref = 'sm$15f3ad:ffbaa119f5:-7f42'/>
+                      </UML:ModelElement.clientDependency>
+                      <UML:Classifier.feature>
+                        <UML:Attribute xmi.id = 'sm$15f3ad:ffbaa119f5:-7fc4' name = 'name' visibility = 'private'
+                          isSpecification = 'false' ownerScope = 'instance' changeability = 'changeable'>
+                          <UML:StructuralFeature.type>
+                            <UML:Class xmi.idref = 'sm$15f3ad:ffbaa119f5:-7fb9'/>
+                          </UML:StructuralFeature.type>
+                        </UML:Attribute>
+                      </UML:Classifier.feature>
+                    </UML:Class>
+                    <UML:Interface xmi.id = 'sm$15f3ad:ffbaa119f5:-7faa' name = 'IUser' visibility = 'public'
+                      isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
+                    <UML:Interface xmi.id = 'sm$15f3ad:ffbaa119f5:-7f94' name = 'IAddress' visibility = 'public'
+                      isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
+                    <UML:Class xmi.id = 'sm$15f3ad:ffbaa119f5:-7f7d' name = 'Address' visibility = 'public'
+                      isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'
+                      isActive = 'false'>
+                      <UML:ModelElement.clientDependency>
+                        <UML:Abstraction xmi.idref = 'sm$15f3ad:ffbaa119f5:-7f33'/>
+                      </UML:ModelElement.clientDependency>
+                      <UML:Classifier.feature>
+                        <UML:Attribute xmi.id = 'sm$15f3ad:ffbaa119f5:-7f70' name = 'Street' visibility = 'private'
+                          isSpecification = 'false' ownerScope = 'instance' changeability = 'changeable'>
+                          <UML:StructuralFeature.type>
+                            <UML:Class xmi.idref = 'sm$15f3ad:ffbaa119f5:-7fb9'/>
+                          </UML:StructuralFeature.type>
+                        </UML:Attribute>
+                      </UML:Classifier.feature>
+                    </UML:Class>
+                    <UML:Association xmi.id = 'sm$15f3ad:ffbaa119f5:-7f5a' isSpecification = 'false'
+                      isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+                      <UML:Association.connection>
+                        <UML:AssociationEnd xmi.id = 'sm$15f3ad:ffbaa119f5:-7f57' visibility = 'public'
+                          isSpecification = 'false' isNavigable = 'false' ordering = 'unordered' aggregation = 'none'
+                          targetScope = 'instance' changeability = 'changeable'>
+                          <UML:AssociationEnd.multiplicity>
+                            <UML:Multiplicity xmi.id = 'sm$15f3ad:ffbaa119f5:-7f25'>
+                              <UML:Multiplicity.range>
+                                <UML:MultiplicityRange xmi.id = 'sm$15f3ad:ffbaa119f5:-7f24' lower = '1'
+                                  upper = '1'/>
+                              </UML:Multiplicity.range>
+                            </UML:Multiplicity>
+                          </UML:AssociationEnd.multiplicity>
+                          <UML:AssociationEnd.participant>
+                            <UML:Class xmi.idref = 'sm$15f3ad:ffbaa119f5:-7fd1'/>
+                          </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                        <UML:AssociationEnd xmi.id = 'sm$15f3ad:ffbaa119f5:-7f4e' visibility = 'public'
+                          isSpecification = 'false' isNavigable = 'true' ordering = 'unordered' aggregation = 'none'
+                          targetScope = 'instance' changeability = 'changeable'>
+                          <UML:AssociationEnd.multiplicity>
+                            <UML:Multiplicity xmi.id = 'sm$15f3ad:ffbaa119f5:-7f23'>
+                              <UML:Multiplicity.range>
+                                <UML:MultiplicityRange xmi.id = 'sm$15f3ad:ffbaa119f5:-7f22' lower = '1'
+                                  upper = '1'/>
+                              </UML:Multiplicity.range>
+                            </UML:Multiplicity>
+                          </UML:AssociationEnd.multiplicity>
+                          <UML:AssociationEnd.participant>
+                            <UML:Class xmi.idref = 'sm$15f3ad:ffbaa119f5:-7f7d'/>
+                          </UML:AssociationEnd.participant>
+                        </UML:AssociationEnd>
+                      </UML:Association.connection>
+                    </UML:Association>
+                    <UML:Abstraction xmi.id = 'sm$15f3ad:ffbaa119f5:-7f42' isSpecification = 'false'>
+                      <UML:ModelElement.stereotype>
+                        <UML:Stereotype xmi.idref = 'sm$15f3ad:ffbaa119f5:-7f3b'/>
+                      </UML:ModelElement.stereotype>
+                      <UML:Dependency.client>
+                        <UML:Class xmi.idref = 'sm$15f3ad:ffbaa119f5:-7fd1'/>
+                      </UML:Dependency.client>
+                      <UML:Dependency.supplier>
+                        <UML:Interface xmi.idref = 'sm$15f3ad:ffbaa119f5:-7faa'/>
+                      </UML:Dependency.supplier>
+                    </UML:Abstraction>
+                    <UML:Abstraction xmi.id = 'sm$15f3ad:ffbaa119f5:-7f33' isSpecification = 'false'>
+                      <UML:ModelElement.stereotype>
+                        <UML:Stereotype xmi.idref = 'sm$15f3ad:ffbaa119f5:-7f3b'/>
+                      </UML:ModelElement.stereotype>
+                      <UML:Dependency.client>
+                        <UML:Class xmi.idref = 'sm$15f3ad:ffbaa119f5:-7f7d'/>
+                      </UML:Dependency.client>
+                      <UML:Dependency.supplier>
+                        <UML:Interface xmi.idref = 'sm$15f3ad:ffbaa119f5:-7f94'/>
+                      </UML:Dependency.supplier>
+                    </UML:Abstraction>
+                  </UML:Namespace.ownedElement>
+                </UML:Package>
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+          </UML:Namespace.ownedElement>
+        </UML:Package>
+        <UML:Package xmi.id = 'sm$15f3ad:ffbaa119f5:-7f21' name = 'java' isSpecification = 'false'
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+          <UML:Namespace.ownedElement>
+            <UML:Package xmi.id = 'sm$15f3ad:ffbaa119f5:-7f20' name = 'lang' isSpecification = 'false'
+              isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+              <UML:Namespace.ownedElement>
+                <UML:DataType xmi.id = 'sm$15f3ad:ffbaa119f5:-7f1f' name = 'int' isSpecification = 'false'
+                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
+                <UML:DataType xmi.id = 'sm$15f3ad:ffbaa119f5:-7f1e' name = 'void' isSpecification = 'false'
+                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
+                <UML:Class xmi.id = 'sm$15f3ad:ffbaa119f5:-7fb9' name = 'String' isSpecification = 'false'
+                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
+              </UML:Namespace.ownedElement>
+            </UML:Package>
+          </UML:Namespace.ownedElement>
+        </UML:Package>
+        <UML:Stereotype xmi.id = 'sm$15f3ad:ffbaa119f5:-7f3b' name = 'realize' isSpecification = 'false'
+          isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
+          <UML:Stereotype.baseClass>Abstraction</UML:Stereotype.baseClass>
+        </UML:Stereotype>
+      </UML:Namespace.ownedElement>
+    </UML:Model>
+  </XMI.content>
+</XMI>
