@@ -1,0 +1,10 @@
+<dependencies>
+	<dependency type="runtime">
+		<package name="MDARepository" version="1.0.1" type="project">
+			<module name="MDARepository"/>
+		</package>
+		<package name="MDAXmiRepository" version="1.0.1" type="project">
+			<module name="MDAXmiRepository"/>
+		</package>
+	</dependency>
+</dependencies>
