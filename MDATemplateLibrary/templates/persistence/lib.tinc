@@ -1,0 +1,203 @@
+<?!--
+ *
+ *  Copyright (c) Ludger Solbach. All rights reserved.
+ *  The use and distribution terms for this software are covered by the
+ *  Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+ *  which can be found in the file license.txt at the root of this distribution.
+ *  By using this software in any fashion, you are agreeing to be bound by
+ *  the terms of this license.
+ *  You must not remove this notice, or any other, from this software.
+ *
+--?><?
+string dbName(string name) {
+	name.camelCaseToUnderScore()
+}
+
+string dbName(map element) {
+	element:Name.camelCaseToUnderScore()
+}
+
+string associationName(map asso) {
+	dbName(asso:SourceEnd:Type) + '_'
+	if(asso:Name) {
+		dbName(asso)
+	} else {
+		dbName(asso:Type)
+	}
+}
+
+string tableName(map element) {
+	dbName(element)
+}
+
+string tableName() {
+	tableName(This)
+}
+
+string columnName(map element, map attr) {
+	dbName(attr)
+}
+
+string columnName(map element, string name) {
+	dbName(name)
+}
+
+string columnName(map attr) {
+	dbName(attr)
+}
+
+string foreignKeyName(map asso) {
+	associationPrefix(asso) + '_id'
+}
+
+string foreignKeyName() {
+	foreignKeyName(This)
+}
+
+string indexName(map element) {
+  dbName(asso:SourceEnd:Type) + '_idx'
+}
+
+string indexName() {
+	indexName(This)
+}
+
+string associationTableName(map asso) {
+	associationName(asso)
+}
+
+string associationTableName() {
+	associationTableName(This)
+}
+
+list attributes() {
+	attributes(This)
+}
+
+list attributes(map element) {
+	list attrColumnList
+	foreach attr | !isDerived(attr) <- element:AllAttributes {
+		attrColumnList.add(attribute(attr))
+	}
+	attrColumnList
+}
+
+string attribute(map attr) {
+	columnName(attr) + ' ' + sqlTypeForAttribute(attr) + ' ' + optional(attr)
+}
+
+list associations() {
+	associations(This)
+}
+
+list associations(map element) {
+	list assoColumnList
+	foreach asso | !isDerived(asso) <- element:AllAssociations {
+		assoColumnList.add(association(asso))
+	}
+	assoColumnList
+}
+
+string association(map asso) {
+	if(isNavigable(asso)) {
+		if(isOneToOneAssociation(asso)) {
+			navigableOneToOneAssociation(asso)
+		} else if(isOneToManyAssociation(asso)) {
+			navigableOneToManyAssociation(asso)
+		} else if(isManyToOneAssociation(asso)) {
+			navigableManyToOneAssociation(asso)
+		} else if(isManyToManyAssociation(asso)) {
+			navigableManyToManyAssociation(asso)
+		}
+	} else {
+		if(isOneToOneAssociation(asso)) {
+			notNavigableOneToOneAssociation(asso)
+		} else if(isOneToManyAssociation(asso)) {
+			notNavigableOneToManyAssociation(asso)
+		} else if(isManyToOneAssociation(asso)) {
+			notNavigableManyToOneAssociation(asso)
+		} else if(isManyToManyAssociation(asso)) {
+			notNavigableManyToManyAssociation(asso)
+		}
+	}
+}
+
+string navigableOneToOneAssociation(map asso) {
+
+}
+
+string navigableOneToManyAssociation(map asso) {
+
+}
+
+string navigableManyToOneAssociation(map asso) {
+
+}
+
+string navigableManyToManyAssociation(map asso) {
+
+}
+
+string notNavigableOneToOneAssociation(map asso) {
+
+}
+
+string notNavigableOneToManyAssociation(map asso) {
+
+}
+
+string notNavigableManyToOneAssociation(map asso) {
+
+}
+
+string notNavigableManyToManyAssociation(map asso) {
+
+}
+
+
+string optional(map element) {
+	if(isOptional(element)) {
+		'null'
+	} else {
+		'not null'
+	}
+}
+
+
+string sqlTypeForAttribute(map attribute) {
+     sqlTypeForTypeName(attribute:Type:Name)
+}
+
+string sqlTypeForTypeName(string typeName) {
+   sqlTypeForTypeName(typeName, 254)
+}
+
+string sqlTypeForTypeName(string typeName, numeric length) {
+	if(typeName eq 'String' || typeName eq 'string') {
+		' varchar(' + length + ')'
+	} else if(typeName eq 'boolean' || typeName eq 'Boolean') {
+		' smallint'
+	} else if(typeName eq 'byte' || typeName eq 'Byte') {
+		' smallint'
+	} else if(typeName eq 'char' || typeName eq 'Char') {
+		' smallint'
+	} else if(typeName eq 'short' || typeName eq 'Short') {
+		' smallint'
+	} else if(typeName eq 'int' || typeName eq 'Integer') {
+		' integer'
+	} else if(typeName eq 'long' || typeName eq 'Long') {
+		' integer'
+	} else if(typeName eq 'float' || typeName eq 'Float') {
+		' numeric(20,10)'
+	} else if(typeName eq 'double' || typeName eq 'Double') {
+		' numeric(20,10)'
+	} else if(typeName eq 'Timestamp') {
+		' timestamp'
+	} else if(typeName eq 'Time') {
+		' time'
+	} else if(typeName eq 'Date') {
+		' date'
+	}
+}
+
+?>

@@ -1,0 +1,116 @@
+<?!--
+ *
+ *  Copyright (c) Ludger Solbach. All rights reserved.
+ *  The use and distribution terms for this software are covered by the
+ *  Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+ *  which can be found in the file license.txt at the root of this distribution.
+ *  By using this software in any fashion, you are agreeing to be bound by
+ *  the terms of this license.
+ *  You must not remove this notice, or any other, from this software.
+ *
+--?><?
+string classes() {
+	mapFn(class, This:Classes)
+}
+
+string classes(map element) {
+	mapFn(class, element:Classes)
+}
+
+string class(map element) {?>
+	<?name(element)?> [
+  	label=<<table border="0" cellborder="1" cellspacing="0" cellcolor="2" <?color(element)?>>
+      <tr><td align="CENTER" port="top"><?
+	mapFn(stereotype, element:Stereotypes)
+	name(element)?>
+  	</td></tr>
+  	<tr><td align="left"><?
+	mapFn(attribute, element:Attributes)?>
+  	</td></tr>
+  	<tr><td align="left" port="bottom"><?
+	mapFn(operation, element:Operations)?>
+  	</td></tr>
+  	</table>
+  	>];
+<?
+
+string visibilityMarker(map element) {
+	if(element:Visibility eq 'public') {
+		'+'
+	} else if(visibility(element) eq 'protected') {
+		'#'
+	} else if(visibility(element) eq 'private') {
+		'-'
+	}
+}
+
+string stereotype(map stereotype) {
+	'&lt;&lt;'  + stereotype:Name + '&gt;&gt;<br align="center"/>'
+}
+
+string attribute(map attr) {
+	visibilityMarker(attr) if(isDerived(attr)) {'/'} attr:Name + '<br align="left"/>'
+}
+
+string operation(map op) {
+	visibilityMarker(op) + op:Name + '()' + '<br align="left"/>'
+}
+
+string generalizations() {
+	generalisations(This)
+}
+
+string generalizations(map element) {
+	foreach superClass <- element:SuperClasses {
+		/*generalization(element, superclass)*/
+	}
+}
+
+string generalization(map element, map superClass) {?>
+	  <?superClass:Name?>:bottom -> <?class:Name?>:top [
+      arrowhead=none,
+      arrowtail=onormal
+		]
+<?
+}
+
+string associations() {
+	mapFiltered(association, isNavigable, This:Associations)
+}
+
+string associations(map element) {
+	mapFiltered(association, isNavigable, element:Associations)
+}
+
+string association(map asso)?>
+	<?class:Name?>:bottom -> <?asso:Type:Name?>:top [
+	fontsize=12
+	<?
+	if(asso:Aggregation eq 'composite') {?>
+	arrowtail=diamond<?
+	} else if(asso:Aggregation eq 'aggregate') {?>
+	arrowtail=odiamond<?
+	}?>
+	arrowhead=vee
+	headlabel=<
+	<?asso:Name?>
+	>
+	];<?
+}
+
+string dependencies() {
+	mapFn(dependency, This:Dependencies)
+}
+
+string dependencies(map element) {
+	mapFn(dependency, element:Dependencies)
+}
+
+string dependency(map dependency) {?>
+	<?class:Name?>:bottom -> <?dep:Supplier:Name?>:top [
+	arrowhead=vee,
+	style=dashed
+	];<?
+}
+
+?>

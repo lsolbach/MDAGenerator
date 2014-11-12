@@ -1,0 +1,121 @@
+<?!--
+ *
+ *  Copyright (c) Ludger Solbach. All rights reserved.
+ *  The use and distribution terms for this software are covered by the
+ *  Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+ *  which can be found in the file license.txt at the root of this distribution.
+ *  By using this software in any fashion, you are agreeing to be bound by
+ *  the terms of this license.
+ *  You must not remove this notice, or any other, from this software.
+ *
+--?><?
+list packageList() {
+	packageList(This)
+}
+
+list packageList(map element) {
+	list packageList
+	foreach package <- element:Packages {
+		packageList.add(package)
+	}
+}
+
+list useCaseList() {
+	useCaseList(This)
+}
+
+list useCaseList(map element) {
+	list useCaseList
+	foreach useCase <- element:UseCases {
+		useCaseList.add(useCase)
+	}
+}
+
+list actorList() {
+	actorList(This)
+}
+
+list actorList(map element) {
+	list actorList
+	foreach actor <- element:Actors {
+		actorList.add(actor)
+	}
+}
+
+list statemachineList() {
+	statemachineList(This)
+}
+
+list statemachineList(map element) {
+	list statemachineList
+	foreach statemachine <- element:Statemachines {
+		statemachineList.add(statemachine)
+	}
+}
+
+list interfaceList() {
+	interfaceList(This)
+}
+
+list interfaceList(map element) {
+	list interfaceList
+	foreach interface <- element:Interfaces {
+		interfaceList.add(interface)
+	}
+}
+
+list dataTypeList() {
+	dataTypeList(This)
+}
+
+list dataTypeList(map element) {
+	list dataTypeList
+	foreach dataType <- element:DataTypes {
+		dataTypeList.add(dataType)
+	}
+}
+
+list classList() {
+	classList(This)
+}
+
+list classList(map element) {
+	list classList
+	foreach class <- element:Classes {
+		classList.add(class)
+	}
+}
+
+list attributeList() {
+	attributeList(This)
+}
+
+list attributeList(map element) {
+	list attributeList
+	foreach attribute <- element:Attributes {
+		attributeList.add(attribute)
+	}
+}
+
+list associationList() {
+	associationList(This)
+}
+
+list associationList(map element) {
+	list associationList
+	foreach association <- element:Associations {
+		associationList.add(association)
+	}
+}
+
+list operationList() {
+	operationList(This)
+}
+
+list operationList(map element) {
+	list operationList
+	foreach operation <- element:Operations {
+		operationList.add(operation)
+	}
+}
+?>
